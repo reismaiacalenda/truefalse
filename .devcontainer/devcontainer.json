@@ -1,0 +1,30 @@
+{
+    "name": "truefalse",
+/*    "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
+    "features": {},
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "angular.ng-template",
+          "dbaeumer.vscode-eslint",
+          "esbenp.prettier-vscode"
+        ]
+      }
+    },*/
+    "forwardPorts": [ 4200 ],
+    "postCreateCommand": "chmod +x .devcontainer/init-setup.sh && .devcontainer/init-setup.sh",
+    "features": {
+        //"docker-in-docker": "latest",
+        //"ghcr.io/devcontainers/features/azure-cli:1": { }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "eamodio.gitlens"
+                //"Shopify.ruby-lsp",
+                //"ms-azuretools.vscode-docker"
+            ]
+        }
+    }
+}
