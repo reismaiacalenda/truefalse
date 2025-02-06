@@ -1,0 +1,58 @@
+<tf-datatable-cabecalho
+	[habilitarForm]="workspaceService.autorizar('recurso_criar_grupo', 'recurso_criar_unidade')"
+	[labelFormButton]="'Nova Amenidade'"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+	(openFormModal)="openFormModal()"
+	[pesquisarPor]="'pesquise por: nome'"
+	>
+</tf-datatable-cabecalho>
+<div>
+  <ngx-datatable class="material"
+		#minhaTable
+		[rows]="datatable.rows"
+		[columnMode]="'flex'"
+		[footerHeight]="50"
+		[rowHeight]="'auto'"
+		[externalPaging]="true"
+		[count]="page.totalElements"
+		[offset]="page.pageNumber"
+		[limit]="page.size"
+		(page)="setPage($event, undefined)"  
+		[sortType]="'multi'"
+		>
+		<ngx-datatable-column
+			[width]="50"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Nome" prop="nome">
+    </ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Tem quantas instaladas?" prop="how_many_installed">
+    </ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Está em quantos lugares?" prop="in_how_many_spaces">
+    </ngx-datatable-column>
+		<ngx-datatable-column
+			[flexGrow]="1" 
+			[width]="120"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="">
+					<a href="#" title="Editar" (click)="openFormModal(row.id)"
+						class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a>
+					<a href="#" title="Remover" (click)="datatableService.remove(row.id)"
+						class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+  </ngx-datatable>
+</div>

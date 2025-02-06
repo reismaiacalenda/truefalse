@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel"> <span class="col-md-4" [inlineSVG]="'./assets/app/media/svg/icons/Clothes/Sun-glasses.svg'"></span> Por onde gostaria de reservar? </h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"> <span aria-hidden="true"> &times; </span> </button>
+</div> <br />
+<div class="modal-body">
+  <div (click)="escolherMapaQuadros('quadros')" class="row col-md-12 ml-auto mr-auto cursor-pointer"> <a class="col-md-12 card card-custom card-stretch card-shadowplus wave wave-info wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-info">
+      <div class="card-body m-animate-shine pt-0 pb-0 px-2">
+        <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+          <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0"> <span class="svg-icon svg-icon-info svg-icon-3x" [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-4-blocks.svg'"></span> </h3> <span class="h4"> Tela de Quadros </span>
+          </div>
+        </div>
+      </div>
+    </a> </div> <br />
+  <div (click)="escolherMapaQuadros('mapa')" class="row col-md-12 ml-auto mr-auto cursor-pointer"> <a class="col-md-12 card card-custom card-stretch card-shadowplus wave wave-danger wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-danger">
+      <div class="card-body m-animate-shine pt-0 pb-0 px-2">
+        <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+          <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0"> <span class="svg-icon svg-icon-danger svg-icon-3x" [inlineSVG]="'./assets/app/media/svg/icons/Map/Marker2.svg'"></span> </h3> <span class="h4 text-danger"> Mapa Interativo </span>
+          </div>
+        </div>
+      </div>
+    </a> </div> <br />
+  <div class="modal-footer"> <button type="button" class="btn btn-secondary" (click)="activeModal.close('')"> Fechar </button> </div>
+</div>

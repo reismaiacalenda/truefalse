@@ -1,0 +1,76 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  (submeter)="onSubmit()"
+  title="Campos pré-definidos"
+  id="{{formulario.get('id').value}}"
+  [habilitarExcluir]="false">
+
+  <p class="form-group m-form__group">
+    Defina quais campos pré-definidos do Calenda gostaria de exibir na tela de reserva:
+  </p>
+
+  <div class="row pt-5">
+    <div class="col-md-4">
+
+      <div class="form-group m-form__group">
+        <tf-check-box
+          formControlName="dia_todo"
+          label="O dia todo">
+        </tf-check-box>
+      </div>
+
+      <div class="form-group m-form__group">
+        <tf-check-box
+          formControlName="assunto"
+          label="Assunto">
+        </tf-check-box>
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="form-group m-form__group">
+        <tf-check-box
+          formControlName="anfitriao"
+          label="Para quem é essa reserva?">
+        </tf-check-box>
+      </div>
+
+      <div class="form-group m-form__group">
+        <tf-check-box
+          formControlName="observacao"
+          label="Observação">
+        </tf-check-box>
+      </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="form-group m-form__group">
+        <tf-check-box
+          formControlName="convidados"
+          label="Convidados">
+        </tf-check-box>
+      </div>
+
+    </div>
+  </div>
+    
+</tf-form-simples>
+
+<!-- <div class="form-group m-form__group row">
+  <tf-check-list class="tf-espacamento-linha"
+    [data]='[
+      {"label":"O dia todo", "value":"dia_todo"},
+      {"label":"Para quem é essa reserva?", "value":"anfitriao"},
+      {"label":"Convidados", "value":"convidados"},
+      {"label":"Assunto", "value":"assunto"},
+      {"label":"Observação", "value":"observacao"},
+      ]'
+    formControlName=""
+    label="Defina quais campos pré-definidos do Calenda gostaria de exibir na tela de reserva:">
+  </tf-check-list>    
+</div> -->

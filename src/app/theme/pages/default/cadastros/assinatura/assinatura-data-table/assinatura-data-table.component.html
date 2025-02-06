@@ -1,0 +1,164 @@
+<!-- TODO: componentizar esse trecho primeiro da datatable para reduzir codigo, lá na _andaime/tf-forms ou _andaime/tf-datatalbes
+    begin: Search Form -->
+<div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
+  <div class="row align-items-center">
+      <div class="col-xl-7 order-2 order-xl-1">
+          <div class="form-group m-form__group row align-items-center">
+              <div class="col-md-6">
+                  <div class="m-input-icon m-input-icon--left">
+                      <input type="text" class="form-control m-input" placeholder="Pesquisar..."
+                      (keyup)='updateFilter($event)'>
+                      <span class="m-input-icon__icon m-input-icon__icon--left">
+                          <span>
+                              <i class="la la-search"></i>
+                          </span>
+                      </span>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-xl-5 order-1 order-xl-2 m--align-right">
+          <div>
+              <a href="#" (click)="carregarTable()"
+              class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+                  <i class="la la-refresh"></i>
+              </a>
+              <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air"
+              data-toggle="modal" data-target="#m_modal_1"
+              (click)="openFormModal()"
+              >
+              <!-- *ngIf="currentUser.role_number>3" -->
+                  <span>
+                      <i class="flaticon-add"></i>
+                      <span>
+                          Nova Assinatura
+                      </span>
+                  </span>
+              </a>
+          </div>
+          <div class="m-separator m-separator--dashed d-xl-none"></div>
+      </div>
+  </div>
+</div>
+<!--end: Search Form -->
+
+<div>
+  <ngx-datatable class="material"
+      #minhaTable
+      [rows]="datatable.rows"
+      [columnMode]="'force'"
+      [footerHeight]="50"
+      [rowHeight]="'auto'"
+      [sortType]="'multi'"
+      [limit]="20"
+      >
+      <!-- [headerHeight]="50" -->
+      <!-- [columns]="columns" -->
+      <ngx-datatable-column
+          [width]="50"
+          [resizeable]="false"
+          [sortable]="false"
+          [draggable]="false"
+          [canAutoResize]="false">
+          <!-- [class.datatable-icon-right]="!expanded" -->
+          <!-- [class.datatable-icon-down]="expanded" -->
+          <ng-template ngx-datatable-header-template let-value="value">
+              <a href="#"
+                  class="datatable-icon-left fg-primary"
+                  title="Expand/Collapse All Rows"
+                  (click)="toggleExpandAllRow()">
+              </a>
+          </ng-template>
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+              <!-- <a href="#"
+                  [class.datatable-icon-right]="!expanded"
+                  [class.datatable-icon-down]="expanded"
+                  title="Expand/Collapse Row"
+                  (click)="toggleExpandRow(row, expanded)">
+              </a> -->
+              <a href="#" title="Expand/Collapse Row" (click)="toggleExpandRow(row, expanded)"
+                  class="m-datatable__toggle-subtable fg-primary">
+                  <i [class.datatable-icon-right]="!expanded"
+                  [class.datatable-icon-down]="expanded"></i>
+              </a>
+              <!-- class="btn btn-outline-accent btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" -->
+          </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Empresa"></ngx-datatable-column>
+      <ngx-datatable-column name="Início" prop="vigencia_inicio"></ngx-datatable-column>
+      <ngx-datatable-column name="Término" prop="vigencia_fim"></ngx-datatable-column>
+      <ngx-datatable-column name="Renovação automática" prop="renovacao_automatica">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.renovacao_automatica==true" class="m-badge m-badge--accent m-badge--wide">On</span>
+                <span *ngIf="row.renovacao_automatica==false" class="m-badge m-badge--danger m-badge--wide">Off</span>
+            </ng-template>
+      </ngx-datatable-column>
+      <!-- <ngx-datatable-column name="Ip"></ngx-datatable-column>
+      <ngx-datatable-column name="Instalado?">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              <span *ngIf="row.instalado==true" class="m-badge m-badge--accent m-badge--wide">On</span>
+              <span *ngIf="row.instalado==false" class="m-badge m-badge--danger m-badge--wide">Off</span>
+          </ng-template>
+      </ngx-datatable-column> -->
+      <ngx-datatable-column
+          [width]="120"
+          [resizeable]="false"
+          [sortable]="false"
+          [draggable]="false"
+          [canAutoResize]="false">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              <div class=""
+              >
+              <!-- *ngIf="currentUser.role_number>4" -->
+                  <!-- <a href="#" title="Espaco" routerLink="{{row.id}}/espaco"
+                  class="btn btn-outline-accent btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+                      <i class="la la-desktop"></i>
+                  </a> -->
+                  <!-- <a href="#" title="Editar" (click)="openFormModal(row.id)"
+                  class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air"
+                  *ngIf="false"> -->
+                  <!-- [routerLink]="[row.id]" -->
+                      <!-- data-toggle="modal" data-target="#m_modal_1" (click)="openForm(row.id)" -->
+                      <!-- <i class="la la-edit"></i>
+                  </a> -->
+                  <!-- <a href="#" title="Remover" (click)="datatableService.remove(row.id)"
+                  class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+                  *ngIf="false">
+                      <i class="la la-trash"></i>
+                  </a> -->
+              </div>
+          </ng-template>
+      </ngx-datatable-column>
+
+      <!-- Row Detail Template -->
+      <ngx-datatable-row-detail [rowHeight]="300" #myDetailRow>
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+              <div class="row" style="padding-left:15px;margin-right:0px">
+                <div class="col-5">
+                    <div>Dia do vencimento: {{row.vencimento_fatura}}</div>                 
+                    <div>Intervalo da fatura: {{row.intervalo_fatura_label}}</div>                    
+					<div>Duração da Assinatura: {{row.duracao_plano_label}}</div>
+					<div>Nome: {{row.nome_plano}}</div>
+                    <div>Descrição: {{row.descricao_plano}}</div>                                    
+                </div>
+                <div class="col-5">
+                    </div>
+				    </div>
+				<br>
+              <div class="row" style="padding-left:15px;margin-right:0px"
+                *ngFor="let saldo of row.saldos_attributes">
+                <div class="col-5">
+                    <div>Horas: {{saldo.plano_horas}}</div> 
+                </div>
+                <div class="col-5">						
+                    Espaco:
+					<ng-container *ngFor="let espaco of saldo.espacos_attributes">
+                        <ng-container ngRepeat="espaco in espacos_attributes" *ngIf="!$first"> - </ng-container>{{espaco.id}}
+					</ng-container>						
+                </div>
+				<br>
+              </div>
+          </ng-template>
+      </ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>

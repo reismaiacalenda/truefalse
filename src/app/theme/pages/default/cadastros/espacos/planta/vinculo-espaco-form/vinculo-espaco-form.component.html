@@ -1,0 +1,24 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  [autorizar_excluir]="['']"
+  [disableTitle]="true"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  [titlePersonalizado]="titulo"
+  salvar="Vincular"
+  id="{{formulario.get('id').value}}"
+  >      
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('nome')"
+    >
+    <tf-select-simple
+      [formControl]="formulario.get('id')"
+      [data]="listSelectEspacos"
+      label="Sala"
+      [placeholder]="placeholder"
+      [allowClear]="true"
+    >
+    </tf-select-simple>
+  </div>    
+</tf-form-simples>     

@@ -1,0 +1,284 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+    <tf-page-map class="col-md-11 pl-0" nomePagina="Análise das reservas"
+      [menu]="[
+        ['/acompanhamentos', 'Acompanhamentos'],
+        ['/acompanhamentos', 'Relatórios'],
+        ['/acompanhamentos/relatorios/analitico', 'Análise das reservas']
+      ]">
+    </tf-page-map>  
+		<tf-page-guia class="col-md-1 pr-0 float-right">
+		</tf-page-guia>
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+	<div class="row">
+		<div class="col-lg-12">
+			<!--begin:: Widgets/Support Cases-->
+			<div class="m-portlet  m-portlet--full-height">
+				<div class="m-portlet__head">
+					<div class="m-portlet__head-caption">
+						<div class="m-portlet__head-title">
+							<h3 class="m-portlet__head-text">
+								Reservas por duração
+								<small>
+									Quantidade de reservas organizadas pela duração do evento
+								</small>
+							</h3>
+						</div>
+					</div>
+					<div class="m-portlet__head-tools">
+						<ul class="m-portlet__nav">
+							<li class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" data-dropdown-toggle="hover" aria-expanded="true">
+								<a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl m-dropdown__toggle">
+									<i class="la la-ellipsis-h m--font-brand"></i>
+								</a>
+								<div class="m-dropdown__wrapper">
+									<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+									<div class="m-dropdown__inner">
+										<div class="m-dropdown__body">
+											<div class="m-dropdown__content">
+												<ul class="m-nav">
+													<li class="m-nav__section m-nav__section--first">
+														<span class="m-nav__section-text">
+															Quick Actions
+														</span>
+													</li>
+													<li class="m-nav__item">
+														<a href="" class="m-nav__link">
+															<i class="m-nav__link-icon flaticon-share"></i>
+															<span class="m-nav__link-text">
+																Activity
+															</span>
+														</a>
+													</li>
+													<li class="m-nav__item">
+														<a href="" class="m-nav__link">
+															<i class="m-nav__link-icon flaticon-chat-1"></i>
+															<span class="m-nav__link-text">
+																Messages
+															</span>
+														</a>
+													</li>
+													<li class="m-nav__item">
+														<a href="" class="m-nav__link">
+															<i class="m-nav__link-icon flaticon-info"></i>
+															<span class="m-nav__link-text">
+																Guia do usuário
+															</span>
+														</a>
+													</li>
+													<li class="m-nav__item">
+														<a href="" class="m-nav__link">
+															<i class="m-nav__link-icon flaticon-lifebuoy"></i>
+															<span class="m-nav__link-text">
+																Support
+															</span>
+														</a>
+													</li>
+													<li class="m-nav__separator m-nav__separator--fit"></li>
+													<li class="m-nav__item">
+														<a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
+															Cancel
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="m-portlet__body">
+					<div class="m-widget16">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="m-widget16__head">
+									<div class="m-widget16__item">
+										<span class="m-widget16__sceduled">
+											Info
+										</span>
+										<span class="m-widget16__amount m--align-right">
+											Dado
+										</span>
+									</div>
+								</div>
+								<div class="m-widget16__body">
+									<!--begin::widget item-->
+									<div class="m-widget16__item">
+										<span class="m-widget16__date">
+											Total de Reservas
+										</span>
+										<span class="m-widget16__price m--align-right m--font-brand">
+											{{totalReservas}}
+										</span>
+									</div>
+									<!--end::widget item-->	 						<!--begin::widget item-->
+									<div class="m-widget16__item">
+										<span class="m-widget16__date">
+											Canceladas
+										</span>
+										<span class="m-widget16__price m--align-right m--font-danger">
+											{{canceladas}}
+										</span>
+									</div>
+									<!--end::widget item--> 						<!--begin::widget item-->
+									<div class="m-widget16__item">
+										<span class="m-widget16__date">
+											De menor duração
+										</span>
+										<span class="m-widget16__price m--align-right m--font-accent">
+											{{maisCurta}}
+										</span>
+									</div>
+									<!--end::widget item--> 						<!--begin::widget item-->
+									<div class="m-widget16__item">
+										<span class="m-widget16__date">
+										De maior duração
+										</span>
+										<span class="m-widget16__price m--align-right m--font-info">
+											{{maisLonga}}
+										</span>
+									</div>
+									<!--end::widget item--> 						<!--begin::widget item-->
+									<div class="m-widget16__item">
+										<span class="m-widget16__date">
+											Média ponderada de duração
+										</span>
+										<span class="m-widget16__price m--align-right m--font-brand">
+											{{mediaPonderada}}
+										</span>
+									</div>
+									<!--end::widget item-->
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="m-widget16__stats">
+									<div class="m-widget16__visual">
+										<div id="reservasPorDuracaoLabel" style="height: 180px"></div>
+									</div>
+									<div class="m-widget16__legends">
+										<div class="m-widget16__legend">
+											<span class="m-widget16__legend-bullet m--bg-danger"></span>
+											<span class="m-widget16__legend-text">
+												{{percents[0]}}
+											</span>
+										</div>
+										<div class="m-widget16__legend">
+											<span class="m-widget16__legend-bullet m--bg-warning"></span>
+											<span class="m-widget16__legend-text">
+												{{percents[1]}}
+											</span>
+										</div>
+										<div class="m-widget16__legend">
+											<span class="m-widget16__legend-bullet m--bg-success"></span>
+											<span class="m-widget16__legend-text">
+												{{percents[2]}}
+											</span>
+										</div>
+										<div class="m-widget16__legend">
+											<span class="m-widget16__legend-bullet m--bg-accent"></span>
+											<span class="m-widget16__legend-text">
+												{{percents[3]}}
+											</span>
+										</div>
+										<div class="m-widget16__legend">
+											<span class="m-widget16__legend-bullet m--bg-brand"></span>
+											<span class="m-widget16__legend-text">
+												{{percents[4]}}
+											</span>
+										</div>
+										<div class="m-widget16__legend">
+											<span class="m-widget16__legend-bullet m--bg-metal"></span>
+											<span class="m-widget16__legend-text">
+												{{percents[5]}}
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--end:: Widgets/Support Stats-->
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12"> 
+			<div class="m-portlet m-portlet--tab">
+				<div class="m-portlet__head">
+					<div class="m-portlet__head-caption">
+						<div class="m-portlet__head-title">
+							<span class="m-portlet__head-icon m--hide">
+								<i class="la la-gear"></i>
+							</span>
+							<h3 class="m-portlet__head-text">
+								Reservas por mês
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div class="m-portlet__body">
+					<div class="m-widget4">
+						<div class="m-widget4__chart m-portlet-fit--sides m--margin-top-10 m--margin-top-20" style="height:260px;">
+							<canvas id="reservasPorMes"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+		<!-- <div class="m-portlet m-portlet--tab">
+			<div class="m-portlet__head">
+				<div class="m-portlet__head-caption">
+					<div class="m-portlet__head-title">
+						<span class="m-portlet__head-icon m--hide">
+							<i class="la la-gear"></i>
+						</span>
+						<h3 class="m-portlet__head-text">
+							Date Based Data
+						</h3>
+					</div>
+				</div>
+			</div>
+			<div class="m-portlet__body"> -->
+				<!-- <div id="m_amcharts_6" style="height: 500px;"></div> -->
+				<!-- <amCharts id="chartdiv" [options]="options" [style.width.%]="100" [style.height.px]="500"></amCharts> -->
+			<!-- </div>
+		</div>-->
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="m-portlet m-portlet--tab">
+				<div class="m-portlet__head">
+					<div class="m-portlet__head-caption">
+						<div class="m-portlet__head-title">
+							<span class="m-portlet__head-icon m--hide">
+								<i class="la la-gear"></i>
+							</span>
+							<h3 class="m-portlet__head-text">
+								Reservas por participantes
+								<small>
+									Quantidade de reservas por número de participantes frequentes
+								</small>
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div class="m-portlet__body">
+					<div class="m-widget4">
+						<div class="m-widget14__chart" >
+							<canvas id="reservasPorFuncionario"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+</div> 

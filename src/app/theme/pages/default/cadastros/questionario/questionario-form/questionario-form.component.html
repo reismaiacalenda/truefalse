@@ -1,0 +1,223 @@
+<tf-form-abas
+    [abas]="abas"
+    [activeModal]="activeModal"
+    [formGroup]="formulario"
+    [autorizar_excluir]="['questionario_excluir']"
+    (submeter)="onSubmit()"
+    (excluir)="removeItem()"
+  >
+
+  <div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+  
+    <div class="form-group m-form__group px-0"
+      [ngClass]="aplicaCss('titulo')"
+      >
+      <tf-text-simple
+        formControlName="titulo"
+        label="Título"
+        placeholder="Título"
+      >
+      </tf-text-simple>
+    </div>
+    
+    <div class="form-group m-form__group px-0"
+      [ngClass]="aplicaCss('instrucoes')">
+      <tf-text-area
+        formControlName="instrucoes"
+        label="Instruções"
+        placeholder="Instruções">
+      </tf-text-area>
+    </div>
+
+    <div class="form-group m-form__group px-0">
+      <tf-radio-button
+        [data]='[
+          {"label":"Customizado", "value":0, "stateColor": "info"},
+          {"label":"Burnout", "value":1},
+          {"label":"Covid-19", "value":2},
+          {"label":"Vacinação", "value":3},
+          {"label":"NPS", "value":4}
+        ]'
+        formControlName="template"
+        label="Template">
+      </tf-radio-button>	
+    </div>
+
+    <div class="form-group m-form__group px-0"
+      *ngIf="currentUser.is_master">
+      <tf-check-box
+        formControlName="interno"
+        label="Questionario interno?"
+        tooltip="Este questionário será gerenciado apenas pelo time da Calenda?">
+      </tf-check-box>
+    </div>
+
+    <div class="form-group m-form__group px-0"
+      *ngIf="formulario.get('interno').value">
+      <tf-radio-button
+        [data]='[
+          {"label":"Sala", "value":0},
+          {"label":"Mesa", "value":1},
+          {"label":"Estacionamento", "value":2},
+          {"label":"Fretado", "value":3},
+          {"label":"Todos", "value":4}
+        ]'
+        formControlName="tipo_espaco_disparo_id"
+        label="Tipo espaço para exibição do questionário?"
+        tooltip="Escolha um tipo de espaço para que ao ser reservado por alguém seja exibido este questionário.">
+      </tf-radio-button>	
+    </div>
+
+    <div class="form-group m-form__group px-0"  
+      [ngClass]="aplicaCss('quantas_reservas')"
+      *ngIf="formulario.get('interno').value">
+      <tf-integer
+        formControlName="quantas_reservas"
+        label="Quantidade de reservas"
+        tooltip="Defina com qual quantidade de reservas no tipo de espaço selecionado acima será exibido este questionário para a pessoa.">
+      </tf-integer>
+    </div>
+
+    <div class="form-group m-form__group px-0">
+      <tf-check-box
+        formControlName="ativo"
+        label="Ativo?">
+      </tf-check-box>
+    </div>  
+    
+    <div class="form-group m-form__group px-0"
+      [ngClass]="aplicaCss('feedback_headline')"
+      >
+      <tf-text-simple
+        formControlName="feedback_headline"
+        label="Título feedback"
+        placeholder="Feedback headline"
+      >
+      </tf-text-simple>
+    </div>
+    
+    <div class="form-group m-form__group px-0"
+      [ngClass]="aplicaCss('feedback_body')">
+      <tf-text-area
+        formControlName="feedback_body"
+        label="Mensagem de feedback"
+        placeholder="Feedback body">
+      </tf-text-area>
+    </div>
+    
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+    <label class="font-weight-bold pb-5">Perguntas</label>
+    <ng-container *ngFor="let itemrow of getControls(); let i = index">
+      <div class="row pb-3">
+        <div class="col-10"
+          [ngbTooltip]="itemrow?.value?.questao" container="body" placement="bottom">
+          <span *ngIf="itemrow?.value?._destroy == false">
+            {{itemrow?.value?.questao | slice:0:30}}...
+          </span>
+          <span>
+            <del class="text-dark-25" *ngIf="itemrow?.value?._destroy == true">
+              {{itemrow?.value?.questao | slice:0:30}}...
+            </del>
+          </span>
+        </div>
+        <div class="col-2">	
+          <!-- (click)="editRow(itemrow, i)" -->
+          <div class="row">
+            <div style="margin-top: auto;">
+              <a href="#" title="Editar" (click)="abrirModalFilha(itemrow)"
+              *ngIf="habilitarRow(itemrow)"                
+              class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+                <i class="la la-edit"></i>
+              </a>
+            </div>
+            <div style="margin-top: auto;">
+                <a href="#" title="Remover" (click)="deleteRow(itemrow, i)"
+                *ngIf="habilitarRow(itemrow)"                
+                class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+                <i class="la la-trash"></i>
+              </a>
+            </div>	
+            <div style="margin-top: auto;">
+              <a href="#" title="Restaurar" (click)="restoreRow(i)"
+                *ngIf="!habilitarRow(itemrow)"
+                class="btn btn-outline-success btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+                <i class="la la-mail-reply"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <a [routerLink]="" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+        (click)="abrirModalFilha()"
+          ngbTooltip="Crie uma pergunta para este questionário" container="body" placement="bottom"
+          >
+          <span>
+            <span class="svg-icon svg-icon-primary pl-0"
+              [inlineSVG]="'./assets/app/media/svg/icons/Code/Plus.svg'">
+            </span>
+            <span>
+              Adicionar pergunta
+            </span>
+          </span>
+        </a>
+      </div>
+    </div>
+    <!-- <ng-container formArrayName="perguntas_attributes">
+      <ng-container *ngFor="let itemrow of formArray.controls; let primeiro=first; let ultimo=last; let i=index" [formGroupName]="i">
+
+        <div class="row form-group">
+
+          <div class="col-md-9"
+          >
+            <tf-text-simple
+              formControlName="questao"
+              label="Questão"
+              placeholder="Questão"
+            >
+            </tf-text-simple>
+          </div>
+          <div class="col-md-3">
+            <tf-integer
+              formControlName="ordem"
+              label="Ordem"
+              placeholder="1">
+            </tf-integer>
+          </div>
+        </div>  
+        <div class="row form-group">
+          <div class="col-md-9">
+            <tf-radio-button
+              [data]='[
+                {"label":"Campo aberto", "value":2},
+                {"label":"Múltipla escolha", "value":0},
+                {"label":"Data", "value":3}
+                ]'
+                formControlName="tipo"
+                label="Tipo da pergunta"
+              >
+            </tf-radio-button>
+          </div>
+          <div class="col-md-3" *ngIf="itemrow.value.tipo == 0 || itemrow.value.tipo == 1">
+            <tf-text-simple
+              formControlName="resposta_correta"
+              label="Resposta correta"
+              placeholder="Resposta correta"
+            >
+            </tf-text-simple>
+          </div>
+          
+        </div>
+        <hr>
+
+      </ng-container>
+    </ng-container> -->
+  </div>
+    
+</tf-form-abas>
+      

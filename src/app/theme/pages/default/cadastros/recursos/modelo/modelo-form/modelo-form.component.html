@@ -1,0 +1,58 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  title="Modelo"
+  (submeter)="onSubmit()"
+>
+  
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('nome')"
+    >
+    <tf-select-simple
+      formControlName="nome"
+      label="Nome"
+      [options]="{tags: true, width: '100%'}"
+      [data]="listDadosSelect['modelos/list_modelos']"
+      placeholder="Digite ou selecione um nome"
+    >
+    </tf-select-simple>
+  </div>
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('categoria')"
+    >
+    <tf-select-simple
+      formControlName="categoria"
+      label="Categoria"
+      [options]="{tags: true, width: '100%'}"
+      [data]="listDadosSelect['modelos/list_categorias']"
+      placeholder="Digite ou selecione uma categoria"
+    >
+    </tf-select-simple>
+  </div>
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('fabricante')"
+    >
+    <tf-select-simple
+      formControlName="fabricante"
+      label="Fabricante"
+      [options]="{tags: true, width: '100%'}"
+      [data]="listDadosSelect['modelos/list_fabricantes']"
+      placeholder="Digite ou selecione um fabricante"
+    >
+    </tf-select-simple>
+  </div>
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('descricao')"
+    >
+    <tf-text-simple
+      formControlName="descricao"
+      label="Descrição"
+      placeholder="Descrição"
+    >
+    </tf-text-simple>
+  </div>
+
+</tf-form-simples>

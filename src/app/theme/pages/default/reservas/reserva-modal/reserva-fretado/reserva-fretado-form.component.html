@@ -1,0 +1,96 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	[cancelar]="true"
+	[autorizar_excluir]="['reserva_fretado_excluir_meu', 'reserva_fretado_excluir_grupo', 'reserva_fretado_excluir_unidade']"
+	[habilitarExcluir]="formulario.get('montar_tela').value.botao_excluir"
+	[disableTitle]="true"
+	(submeter)="onSubmit()"
+	(excluir)="removeItem(formulario?.value?.numero_lote!=undefined)"
+	id="{{formulario.get('id').value}}"
+	cancelar="false"
+	titleCancelar="Fechar"
+	titlePersonalizado="{{formulario.get('titulo_reserva').value}}"
+	>
+
+		<!-- #region Datas e horários -->
+		<div class="row tf-color-black col-md-12 col-sm-12"><span>Quando?</span></div>
+		<div class="row">
+			<div class="col-md-10 col-sm-6" style="padding-bottom: 10px; padding-right: 0px;">
+				<tf-date
+					formControlName="data_inicio"
+					retirarLabel="true">
+				</tf-date>
+			</div>
+			<ng-container *ngIf="formulario.get('id').value==null && workspaceService.autorizar('reserva_fretado_recorrencia')">
+				<div class="col-md-1 pt-1 px-0">
+					<a href="#" class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+						ngbTooltip="Repetir..." container="body" placement="bottom" (click)="adicionarRecorrencia()">
+						<i class="la la-redo-alt"></i>
+					</a>
+				</div>
+			</ng-container>
+		</div>
+		<!-- #endregion  -->
+
+
+		<div class="col-md-12 form-group m-form__group px-0"
+			[ngClass]="aplicaCss('espaco_id')">
+			<tf-select-simple
+				[formControl]="formulario.get('espaco_id')"
+				[data]="listFretados"
+				label="Lugar no fretado"
+				allowClear=false
+				placeholder="Selecionar lugar no fretado"
+				[allowClear]="true"
+				>
+			</tf-select-simple>
+		</div>
+
+		<div class="col-md-12 form-group m-form__group px-0"
+		[ngClass]="aplicaCss('anfitriao_email')">
+			<label>Para quem é esse lugar?</label>
+			<ng-select [items]="pessoas$ | async"
+				bindLabel="name"
+				[addTag]="true"
+				[multiple]="false"
+				[hideSelected]="true"
+				[trackByFn]="trackByFn"
+				[minTermLength]="2"
+				[loading]="pessoasLoading"
+				typeToSearchText="Por favor, utilize pelo menos 2 dígitos para adicionar"
+				formControlName="anfitriao_email"
+				(change)="validacaoAnfitriao()"
+				[typeahead]="pessoasInput$"
+				>
+				<ng-template ng-option-tmp let-item="item">
+					{{item.name}} <br/>
+					<small>{{item.nome}}</small>
+				</ng-template>
+			</ng-select>
+		</div>
+
+		<br>
+
+		<!-- <div class="row" style="padding-bottom: 5%;">
+			<div class="col-md-5 tf-dia-todo">
+				<p>O dia todo</p>
+			</div>
+			<div class="col-md-7" style="padding-left: 0;">
+				<tf-check-box
+					desabilitar="true"
+					formControlName="dia_todo"
+					retirarLabel="true">
+				</tf-check-box>
+			</div>			
+		</div> -->
+
+		<!-- <div class="row">
+			<div class="col-md-12">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal" (click)="maisOpcoes()">
+					Mais opções
+				</button>
+			</div>
+		</div> -->
+
+</tf-form-simples>

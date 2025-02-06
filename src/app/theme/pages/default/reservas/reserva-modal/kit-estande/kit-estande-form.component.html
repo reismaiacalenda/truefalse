@@ -1,0 +1,272 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	[cancelar]="true"
+	[autorizar_excluir]="['reserva_kit_estandes_excluir_meu', 'reserva_kit_estandes_excluir_grupo', 'reserva_kit_estandes_excluir_unidade']"
+	[habilitarExcluir]="formulario.get('montar_tela').value.botao_excluir"
+	(submeter)="onSubmit()"
+	(excluir)="removeItem(formulario?.value?.numero_lote!=undefined)"
+	id="{{formulario.get('id').value}}"
+	cancelar="false"
+	titleCancelar="Fechar"
+	[disableTitle]="true"
+	titlePersonalizado="Adicionar para evento(s)"
+	>
+	<!-- disableTitle="true" -->
+
+		<!-- #region Datas e horários -->
+		<div class="row tf-color-black col-md-12"><span>Datas e horários</span></div>
+		<div class="row">
+			<div class="col-md-3 col-sm-6" style="padding-bottom: 10px; padding-right: 0px;">
+				<tf-date
+					formControlName="data_inicio"
+					retirarLabel="true">
+				</tf-date>
+			</div>
+			<div class="col-md-2 col-sm-4" style="padding-bottom: 10px;">
+				<tf-time class="tf-estilizacao-time"
+					formControlName="hr_inicio_previsto"
+					retirarLabel="true">
+				</tf-time>
+			</div>
+			<ng-container *ngIf="!formulario.get('periodo_indeterminado').value">
+				<div class="col-md-1 col-sm-4 pt-3 pl-1 pr-0">
+					<span class="">
+						até
+					</span>
+				</div>
+				<div class="col-md-3" style="padding-bottom: 10px; padding-right: 0px;">
+					<tf-date
+						formControlName="data_fim"
+						retirarLabel="true"
+						[desabilitar]="formulario.get('periodo_indeterminado').value">
+					</tf-date>
+				</div>
+				<div class="col-md-2" style="padding-bottom: 10px;">
+					<tf-time 
+						formControlName="hr_fim_previsto"
+						retirarLabel="true"
+						[desabilitar]="formulario.get('periodo_indeterminado').value">
+					</tf-time>
+				</div>
+			</ng-container>
+			<div class="col-md-1 col-sm-4 pt-1 pl-1 pr-0">
+				<a href="" class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+				[ngClass]="formulario.get('periodo_indeterminado').value == true ? 'btn-primary' : 'btn-outline-primary'"
+				ngbTooltip="Pra sempre?" container="body" placement="bottom" (click)="setarPeriodoIndeterminado()">
+					<i *ngIf="!formulario.get('periodo_indeterminado').value" class="la la-hourglass-end"></i>
+					<i *ngIf="formulario.get('periodo_indeterminado').value" class="la la-hourglass-start"></i>
+				</a>
+			</div>
+		</div>
+		<!-- #endregion datas -->
+		
+		<!-- #region Anfitriao -->
+		<div class="row form-group tf-color-black"
+		[ngClass]="aplicaCss('anfitriao_email')">
+			<div class="col-md-12" *ngIf="formulario.get('montar_tela').value.anfitriao">
+				<label>Responsável</label>
+				<ng-select [items]="pessoas$ | async"
+					bindLabel="name"
+					[addTag]="true"
+					[multiple]="false"
+					[hideSelected]="true"
+					[trackByFn]="trackByFn"
+					[minTermLength]="2"
+					[loading]="pessoasLoading"
+					typeToSearchText="Por favor, utilize pelo menos 2 dígitos para adicionar"
+					formControlName="anfitriao_email"
+					(change)="validacaoAnfitriao()"
+					[typeahead]="pessoasInput$"
+					>
+					<ng-template ng-option-tmp let-item="item">
+						{{item.name}} <br/>
+						<small>{{item.nome}}</small>
+					</ng-template>
+				</ng-select>
+			</div>
+		</div>
+		<!-- #endregion anfitriao -->
+		<!-- #region Assunto  -->
+		<div class="row">
+			<div class="col-md-12" style="padding-bottom: 10px;">
+  			<tf-text-simple
+    			formControlName="assunto"
+    			label="Descrição"
+    			placeholder="Adicione uma descrição para essa adição ao(s) eventos(s)">
+				</tf-text-simple>
+			</div>				
+		</div>
+		<!-- #endregion  -->
+
+		<div class="row">
+			<div class="col-md-12" style="padding-bottom: 10px;">
+  			<tf-text-simple
+    			formControlName="local"
+    			label="Localização"
+    			placeholder="Insira o endereço">
+				</tf-text-simple>
+			</div>				
+		</div>
+
+
+		<!-- #region Observação  -->
+		<div class="row">
+			<div class="col-md-12" style="padding-bottom: 10px;">
+  			<tf-text-area
+					formControlName="observacao"
+					label="Observação"
+					placeholder="Observação">
+				</tf-text-area>
+			</div>
+		</div>        
+		<!-- #endregion Observação -->
+
+		<div class="row">
+			<div class="col-md-12">
+				<tf-select-multi
+					[data]="listDadosSelect['reservas/list_eventos']"
+					[form]="formulario.get('eventos_estandes_eventos_attributes')"
+        	label="Eventos"
+					placeholder="Selecione um ou mais">
+      	</tf-select-multi>
+			</div>
+		</div>
+
+		<!-- #region Recursos -->
+		<ng-container *ngIf="workspaceService.autorizar('reserva_evento_solicitar_recurso')
+			&& workspaceService.autorizar('reserva_evento_reservar_espaco')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+			<div style="padding-left: 0; padding-top: 0.1rem; padding-bottom: 0.7rem; border-bottom: 0.07rem; color: #000000">
+				<span>Reservar recursos</span>
+			</div>
+			<div class="">
+				<ng-container formArrayName="recursos_reservas_attributes">
+					<ng-container *ngFor="let itemrow of formArray.controls; let i=index" [formGroupName]="i">
+						<div class="row pb-1" *ngIf="!itemrow.value.vinculavel">
+							<ng-container *ngIf="itemrow.value.quantificavel">
+								<div class="col-md-6" *ngIf="habilitarRow(itemrow)">          
+										<tf-select-simple
+										formControlName="recurso_id"
+										[data]="listDadosSelect['recursos']"
+										placeholder="Selecione"
+										[allowClear]="false"
+										(valorModificado)="selecaoRecurso($event, i)">
+									</tf-select-simple>
+								</div>
+								<div class="col-md-3 px-0" *ngIf="habilitarRow(itemrow)">
+									<tf-integer
+										formControlName="quantidade"
+										[limiteInferior]="1"
+										retirarLabel="true"
+										(valorModificado)="alterarQuantidade($event, i)">
+									</tf-integer>
+								</div>
+								<div class="col-md-2 pr-0 pl-3 pt-3" >
+									<p class="mb-0" *ngIf="itemrow.value.subtotal != undefined"
+										>{{itemrow.value.subtotal | currency:'BRL':true:'1.2-2'}}
+									</p>
+								</div>
+								<div class="col-md-1" style="display: flex;">	
+									<div style="margin: auto;">
+										<a href="#" title="Remover" (click)="deleteRow(itemrow, i)"
+											*ngIf="habilitarRow(itemrow)"                
+											class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+											<i class="la la-trash"></i>
+										</a>
+									</div>	
+									<div style="margin-top: auto;">
+										<a href="#" title="Restaurar" (click)="restoreRow(i)"
+											*ngIf="!habilitarRow(itemrow)"
+											class="btn btn-outline-success btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+											<i class="la la-mail-reply"></i>
+										</a>
+									</div>
+								</div>
+							</ng-container>
+							<ng-container *ngIf="!itemrow.value.quantificavel">
+								<div class="col-md-9 pr-0" *ngIf="habilitarRow(itemrow)">          
+									<tf-select-simple
+										formControlName="recurso_id"
+										[data]="listDadosSelect['recursos']"
+										placeholder="Selecione"
+										[allowClear]="false"
+										(valorModificado)="selecaoRecurso($event, i)">
+									</tf-select-simple>
+								</div>
+								<div class="col-md-2 pr-0 pl-3 pt-3" >
+									<p class="mb-0" *ngIf="itemrow.value.subtotal != undefined"
+										>{{itemrow.value.subtotal | currency:'BRL':true:'1.2-2'}}
+									</p>
+								</div>
+								<div class="col-md-1" style="display: flex;flex-direction: column;">	
+									<div style="margin: auto;">
+										<a href="#" title="Remover" (click)="deleteRow(itemrow, i)"
+											*ngIf="habilitarRow(itemrow)"                
+											class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+											<i class="la la-trash"></i>
+										</a>
+									</div>	
+									<div style="margin-top: auto;">
+										<a href="#" title="Restaurar" (click)="restoreRow(i)"
+											*ngIf="!habilitarRow(itemrow)"
+											class="btn btn-outline-success btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+											<i class="la la-mail-reply"></i>
+										</a>
+									</div>
+								</div>
+							</ng-container>
+						</div>
+					</ng-container>      
+				</ng-container>			
+				<hr>
+			</div>
+		</ng-container>
+		<!-- #endregion  -->
+
+		<!-- #region Desconto e Total a pagar -->
+		<ng-container *ngIf="workspaceService.autorizar('reserva_evento_reservar_espaco')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+			<div>
+				<div class="row">
+					<div class="col-md-6">
+						<a href="#" id="refreshButton" (click)="addNewRow()"
+							class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+							<i class="la la-plus"></i>
+						</a>
+					</div>
+					<ng-container *ngIf="workspaceService.autorizar('reserva_desconto_grupo', 'reserva_desconto_unidade')
+						&& formulario.get('exibir_gastos').value">
+						<div class="col-md-2 pt-5">
+							<p>Desconto:</p>
+						</div>
+						<div class="col-md-4 pt-0 pr-5">
+							<tf-money
+								formControlName="desconto"
+								label="Preço - R$"
+								[retirarLabel]="true"
+								[alargarCol]="true"
+								>
+								<!-- (valorModificado)="descontar($event)" -->
+							</tf-money>
+						</div>
+					</ng-container>
+				</div>
+				<!-- <hr> -->
+				<div class="row" *ngIf="workspaceService.autorizar('reserva_gastos_meu', 'reserva_gastos_grupo', 'reserva_gastos_unidade')
+					&& formulario.get('exibir_gastos').value">
+					<div class="col-md-5 pt-1">
+						<!-- <p>Total:</p> -->
+					</div>
+					<div class="col-md-4 pt-1 pl-6">
+						<p><b>Total a pagar:</b></p>
+					</div>
+					<div class="col-md-3 pt-1 pl-3">
+						<p><b>{{formulario.get('total_a_pagar').value | currency:'BRL':true:'1.2-2'}}</b></p>
+					</div>
+				</div>			
+			</div>
+		</ng-container>
+		<!-- #endregion  -->
+
+</tf-form-simples>

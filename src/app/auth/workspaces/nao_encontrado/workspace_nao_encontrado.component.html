@@ -1,0 +1,23 @@
+<div class="m-login__signin">
+  <div class="m-login__head">
+    <h3 class="m-login__title">
+      Novo por aqui?
+    </h3>
+    <div class="m-login__desc">
+      Não encontramos o workspace desejado. Você pode criar ou acessar um caso sua organização já esteja no Calenda.
+    </div>
+  </div>
+  <form class="m-login__form m-form" action="">
+    <!-- (ngSubmit)="signInForm.form.valid && signin()" #signInForm="ngForm"  -->
+    <ng-template #alertSignin></ng-template>
+    <div class="m-login__form-action">
+      <button disabled id="forgetPasswordForm_cancel"
+        class="btn btn-outline-primary m-btn m-btn--pill m-btn--custom ">
+        Criar
+      </button>
+      <button routerLink="/login/acessar" skipLoadingChange class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air">
+        Acessar workspace
+      </button>
+    </div>
+  </form>
+</div>

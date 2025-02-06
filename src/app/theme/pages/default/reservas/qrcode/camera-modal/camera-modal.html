@@ -1,0 +1,30 @@
+<div class="modal-header">
+	<h4 class="modal-title">Por favor, selecione uma câmera:</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss(false)">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+  <div class="m-radio-list">
+    <!-- <p>Para começarmos, defina antes sua unidade:</p> -->
+    <label *ngFor="let d of videoDevices; let i = index" class="m-radio m-radio--bold m-radio--state-brand">
+      <input type="radio" name="videoDevices"
+      [value]="d"
+      (click)="setarRadioUnidadeModal(d)"
+      [checked]="d.deviceId == oldDevice?.deviceId">
+        Câmera {{i+1}} {{d.label}}
+      <!-- {{u.nome}} -->
+      <span></span>
+    </label>
+  </div>
+</div>
+<div class="modal-footer">
+  <!-- <button type="button" class="btn btn-secondary"
+    (click)="activeModal.close(false)">
+    Não
+  </button>
+  <button type="submit" class="btn btn-primary" 
+    (click)="activeModal.close(true)">
+    Sim -->
+  <!-- </button> -->
+</div> 

@@ -1,0 +1,33 @@
+  <tf-form-simples
+	[formGroup]="formulario"
+	title="Configurações"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+	[activeModal]="activeModal"
+  id="{{formulario.get('id').value}}"
+  [habilitarExcluir]="false"
+  >
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('key')"
+    >
+    <tf-text-simple
+    formControlName="key"
+    label="Descrição"
+    placeholder="Descrição"
+    >
+    </tf-text-simple>
+  </div>
+
+ <div class="form-group m-form__group"
+  [ngClass]="aplicaCss('value')"
+  >
+  <tf-text-simple
+    formControlName="value"
+    label="Valor"
+    placeholder="Valor"
+ >
+  </tf-text-simple>
+ </div>
+
+</tf-form-simples>

@@ -1,0 +1,49 @@
+<div class="m-subheader">
+	<!-- *ngIf="printable()" -->
+	<div class="d-flex align-items-center">
+    <tf-page-map class="col-md-6 pl-0" nomePagina="Listagem"
+      [menu]="[
+        ['/acompanhamentos', 'Acompanhamentos'],
+        ['/acompanhamentos/listagem', 'Listagem']
+			]">
+    </tf-page-map>
+		<div class="col-md-6 pr-0 float-right inline-block">
+			<div class=" float-right">
+				<a *ngIf="workspaceService.autorizar('filtro_visualizar')"
+				routerLink="/customizacoes/filtros" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+					>
+					<span>
+						<span class="svg-icon svg-icon-primary pl-0 svg-icon-1x5p"
+							[inlineSVG]="'./assets/app/media/svg/icons/Text/Filter.svg'">
+						</span>
+						<span>
+							Filtros
+						</span>
+					</span>
+				</a>
+				<a *ngIf="workspaceService.autorizar('recursos_alocados_menu')
+				&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"
+				routerLink="/acompanhamentos/recursos-alocados" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+					>
+					<span>
+						<span class="svg-icon svg-icon-primary pl-0 svg-icon-1x5p"
+							[inlineSVG]="'./assets/app/media/svg/icons/Devices/Hard-drive.svg'">
+						</span>
+						<span>
+							Recursos alocados
+						</span>
+					</span>
+				</a>
+				<tf-page-guia class="">
+				</tf-page-guia>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="m-content">
+	<div class="m-portlet m-portlet--mobile">
+		<div class="m-portlet__body">
+			<listagem-data-table></listagem-data-table>
+		</div>
+	</div>
+</div>

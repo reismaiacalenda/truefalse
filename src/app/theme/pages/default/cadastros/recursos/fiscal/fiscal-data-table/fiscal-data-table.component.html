@@ -1,0 +1,116 @@
+<tf-datatable-cabecalho
+	[habilitarForm]="workspaceService.autorizar('fiscal_criar')"
+	[labelFormButton]="'Fiscal'"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+	(openFormModal)="openFormModal()"
+	[pesquisarPor]="'pesquise por: fornecedor, número da nota fiscal, data da compra no formato (DD/MM/AAAA) ou hora da compra no formato (24h00) do FISCAL 
+										*** nome ou número de série do RECURSO *** nome, categoria ou fabricante do MODELO *** nome do SERVIÇO'"
+	>
+</tf-datatable-cabecalho>
+<div>
+  <ngx-datatable class="material"
+		#minhaTable
+		[rows]="datatable.rows"
+		[columnMode]="'flex'"
+		[footerHeight]="50"
+		[rowHeight]="'auto'"
+		[externalPaging]="true"
+		[count]="page.totalElements"
+		[offset]="page.pageNumber"
+		[limit]="page.size"
+		(page)="setPage($event, undefined)"  
+		[sortType]="'multi'"
+		>
+		<ngx-datatable-column
+			[width]="50"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template ngx-datatable-header-template let-value="value">
+				<a href="#"
+				 class="datatable-icon-left fg-primary"
+				 title="Expand/Collapse All Rows"
+				 (click)="toggleExpandAllRow()">
+				</a>
+			</ng-template>
+			<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+				<a href="#" title="Expand/Collapse Row"
+				 (click)="toggleExpandRow(row, expanded)"
+				 class="m-datatable__toggle-subtable fg-primary">
+				 <i [class.datatable-icon-right]="!expanded"
+				 [class.datatable-icon-down]="expanded"></i>
+				</a>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Número NF" prop="numero_nota_fiscal">
+    </ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Data da compra" prop="data_compra">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				{{row.data_compra | date }}
+			</ng-template>
+    </ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Hora da compra" prop="hora_compra">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				{{row.hora_compra | date:"HH'h'mm" }}
+			</ng-template>
+    </ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Valor da compra" prop="custo">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				{{row.custo | currency:'BRL':true:'1.2-2'}}
+			</ng-template>
+    </ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Fornecedor" prop="fornecedor">
+    </ngx-datatable-column>
+		<!-- <ngx-datatable-column [flexGrow]="2" name="COLOQUE A COLUNA AQUI">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span	*ngIf="row.role=='visitante'" class="m-badge m-badge--secondary m-badge--wide m--font-boldest">Visitante</span>
+				<span *ngIf="row.role=='membro'" class="m-badge m-badge--primary m-badge--wide m--font-boldest">Membro</span>
+				<span *ngIf="row.role=='atendente'" class="m-badge m-badge--info m-badge--wide m--font-boldest">Atendente</span>
+				<span *ngIf="row.role=='operador'" class="m-badge m-badge--success m-badge--wide m--font-boldest">Operador</span>
+				<span *ngIf="row.role=='admin'" class="m-badge m-badge--warning m-badge--wide m--font-boldest">Admin</span>
+				<span *ngIf="row.role=='master'" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Master</span>
+			</ng-template>
+	  </ngx-datatable-column> -->
+		<ngx-datatable-column
+			[flexGrow]="1" 
+			[width]="120"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="">
+					<a href="#" title="Editar" (click)="openFormModal(row.id)"
+					*ngIf="workspaceService.autorizar('fiscal_editar')"
+					class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a>
+					<a *ngIf="workspaceService.autorizar('fiscal_excluir')" href="#" title="Remover" (click)="datatableService.remove(row.id)"
+					class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		 <ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+			<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+				<div class="row" style="padding-left:15px;margin-right:0px">
+					<div class="col-5">
+            <!-- <div>Número NF: {{row.numero_nota_fiscal}}</div>
+            <div>Valor: {{row.custo}}</div>
+            <div>Data: {{row.data_compra}}</div>
+            <div>Hora: {{row.hora_compra}}</div>
+            <div>Fornecedor: {{row.fornecedor}}</div>
+            <div>Anexo NF: {{row.carousel_nota_fiscal}}</div> -->
+						<div>Recursos desta compra:</div>
+						<li *ngFor="let r of row.recurso">
+							{{r.recurso}}
+						</li>
+					</div>
+				</div>
+			</ng-template>
+		</ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>

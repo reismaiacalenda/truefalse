@@ -1,0 +1,177 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  [autorizar_excluir]="['servico_excluir']"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  title="Serviço"
+  id="{{formulario.get('id').value}}"
+  >      
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('nome')">
+      <tf-text-simple
+        formControlName="nome"
+        label="Nome"
+        placeholder="Nome"
+      >
+      </tf-text-simple>
+    </div>
+
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('grupos_attributes')">
+      <tf-select-multi
+        [data]="listDadosSelect['grupos']"
+        [form]="formulario.get('grupos_attributes')"
+        label="Informe o(s) grupo(s) que prestarão este serviço:"
+        placeholder="Selecionar um ou mais"
+        tooltip="Os grupos inseridos aqui serão responsáveis por este serviço, e também fazer check-in e check-out quando o serviço for prestado."
+      >
+        <!-- [desabilitar]="!!rowId" -->
+    </tf-select-multi>
+    </div>
+
+    <div class="form-group m-form__group">
+      <tf-check-box
+        formControlName="quantidade_recursos"
+        label="Os recursos poderão ser reservados em quantidade?"
+        tooltip="Se sim, os recursos desse serviço que forem cadastrados não serão únicos e, ao serem reservados, poderão ser solicitados em quantidade"
+        >
+      </tf-check-box>
+    </div>
+
+    <div class="form-group m-form__group"
+         *ngIf="formulario.get('quantidade_recursos').value">
+      <tf-check-box
+        formControlName="estoque_recursos"
+        label="Os recursos terão controle de estoque?"
+        tooltip="Se sim, será possível cadastrar a quantidade de cada recurso que tem em estoque desse serviço, e quando algum for selecionado para alguma reserva, caso não tenha nenhum disponível, ele não poderá ser solicitado."
+        >
+      </tf-check-box>
+    </div>
+
+    <div class="form-group m-form__group"
+         *ngIf="formulario.get('quantidade_recursos').value === false">
+      <tf-check-box
+        formControlName="condicao"
+        label="Os recursos terão condição?"
+        tooltip="Você poderá controlar e informar as condições dos recursos. São elas: 'Bom, Ruim, Quebrado, Fora de serviço, Desativado, Descartado, Perdido ou Roubado'"
+        >
+      </tf-check-box>
+    </div>
+
+    <div class="form-group m-form__group"
+         *ngIf="formulario.get('quantidade_recursos').value === false">
+      <tf-check-box
+        formControlName="modelo"
+        label="Os recursos serão agrupados por modelo?"
+        tooltip="Vários recursos poderão ser agrupados por um modelo."
+        >
+      </tf-check-box>
+    </div>
+
+    <div class="form-group m-form__group"
+         *ngIf="formulario.get('quantidade_recursos').value === false">
+      <tf-check-box
+        formControlName="nota_fiscal"
+        label="Os recursos terão cadastro de nota fiscal?"
+        tooltip="Informe aqui as informações fiscais dos seus recursos, como data e hora da compra e também faça o upload da Nota Fiscal. 💲"
+        >
+      </tf-check-box>
+    </div>
+
+    <div class="form-group m-form__group"
+         *ngIf="formulario.get('quantidade_recursos').value === false">
+      <tf-check-box
+        formControlName="numero_serie"
+        label="Os recursos terão número de série?"
+        tooltip="Você poderá cadastrar um número de série para cada recurso, e cada um deles serão únicos."
+        >
+      </tf-check-box>
+    </div>
+
+    <div class="form-group m-form__group"
+         *ngIf="formulario.get('quantidade_recursos').value === false">
+      <tf-check-box
+        formControlName="imei"
+        label="Os recursos terão IMEI?"
+        tooltip="Quer cadastrar o IMEI de seus recursos e sempre saber onde estão caso precise? Aqui é o lugar certo 👏"
+        >
+      </tf-check-box>
+    </div>
+
+    <div class="form-group m-form__group"
+         *ngIf="formulario.get('quantidade_recursos').value === false">
+      <tf-check-box
+        formControlName="custo"
+        label="Os recursos o custo cadastrado?"
+        tooltip="Informe por quanto você comprou cada recurso. Quem sabe você possa conseguir um cálculo de depreciação ein? 🤔"
+        >
+      </tf-check-box>
+    </div>
+
+    <div class="form-group m-form__group">
+      <tf-check-box
+        formControlName="preco_recursos"
+        label="Os recursos serão precificados?"
+        tooltip="Aqui você define será precificado na reserva. 💰"
+        >
+      </tf-check-box>
+    </div>
+
+    <div class="form-group m-form__group"
+         *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+          || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+      <tf-check-box
+        formControlName="vinculavel_espaco"
+        label="Os recursos terão vínculo automático com espaços?"
+        tooltip="O vínculo de espaço permite que o recurso sempre seja incluído automaticamente nos agendamentos dos espaços. 🤖"
+        >
+      </tf-check-box>
+    </div>  
+
+    <div class="form-group m-form__group">
+      <tf-check-box
+        formControlName="vinculavel_grupo"
+        label="Os recursos terão vínculo automático com grupos?"
+        tooltip="Este vínculo permite que o recurso sempre seja incluído automaticamente nos agendamentos onde o anfitrião pertença ao grupo que teve o recurso vinculado. Você pode até fazer preços especiais para cada grupo. 🧞"
+        >
+      </tf-check-box>
+    </div>
+
+
+    <!-- <div class="form-group m-form__group">
+      <tf-check-box
+        formControlName="reservavel_recursos"
+        label="Os recursos poderão ser reservados?"
+        >
+      </tf-check-box>
+    </div> -->
+
+    <!-- <div class="form-group m-form__group">
+      <tf-check-box
+        formControlName="check_list_recursos"
+        label="Será feito check-list dos recursos reservados?"
+        >
+      </tf-check-box>
+    </div>   -->
+
+    <!-- <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('funcionarios_attributes')">
+			<tf-select-multi
+				[data]="listDadosSelect['funcionarios']"
+				[form]="formulario.get('funcionarios_attributes')"
+				label="Informe os prestadores de serviço que farão o check-list dos recursos reservados"
+				placeholder="Selecionar um ou mais"
+			>
+        [desabilitar]="!!rowId"
+    </tf-select-multi>
+    </div> -->
+      <!-- <p>{{formulario.value.funcionarios_attributes | json}}</p>
+			<p>Dirty: {{formulario.get('funcionarios_attributes').dirty}}</p>
+			<p>Touched: {{formulario.get('funcionarios_attributes').touched}}</p>
+      <p>Valid: {{formulario.get('funcionarios_attributes').valid}}</p>
+      <p>Value: {{formulario.get('funcionarios_attributes').value}}</p>
+      <p>Enabled: {{formulario.get('funcionarios_attributes').enabled}}</p> -->
+
+</tf-form-simples>
+      

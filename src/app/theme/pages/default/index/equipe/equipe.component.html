@@ -1,0 +1,264 @@
+<div class="card card-custom gutter-b card-stretch card-shadowplus">
+  <!--begin::Body-->
+  <div class="card-body pt-5">
+    <div class="d-flex flex-wrap align-items-center pb-1">
+      <!--begin::Pic-->
+      <div class="symbol symbol-80 mr-0" [ngClass]="{
+          'symbol-primary-light': currentPessoa?.situacao == 'livre' ,
+          'symbol-light-danger': currentPessoa?.situacao == 'ocupado' ,
+          'symbol-light-warning': currentPessoa?.situacao == 'espera' 
+        }">
+        <span class="symbol-label bg-hover-primary">
+          <div style="position: relative;" class="h-75">
+
+            <span class="svg-avatar svg-icon-5x" style="position: absolute;"
+              [inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+workspaceService.currentUser.avatar_hair+'.svg'">
+            </span>
+
+            <span class="svg-avatar svg-icon-5x" style="position: absolute;"
+              [inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+workspaceService.currentUser.avatar_clothes+'.svg'">
+            </span>
+
+            <span class="svg-avatar svg-icon-5x" style="position: absolute;"
+              [inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+workspaceService.currentUser.avatar_extra+'.svg'">
+            </span>
+
+            <span class="svg-avatar svg-icon-5x"
+              [inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+workspaceService.currentUser.avatar_body+'.svg'">
+            </span>
+
+          </div>
+          <i class="symbol-badge symbol-badge-bottom" [ngClass]="{
+            'bg-success': currentPessoa?.situacao == 'livre' ,
+            'bg-danger': currentPessoa?.situacao == 'ocupado' ,
+            'bg-warning': currentPessoa?.situacao == 'espera' 
+          }"></i>
+        </span>
+      </div>
+      <!--end::Pic-->
+      <!--begin::Title-->
+      <div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3">
+        <a href="#" class="text-dark-75 font-weight-bolder text-hover-primary font-size-h5 pl-5">
+          {{workspaceService.currentUser.name}}
+        </a>
+
+        <!-- <span class="text-muted font-size-lg">{{workspaceService.currentUser.nome_grupos}}</span> -->
+     
+        <div class="p-0 m-0 pl-5">
+          <!-- <p class="font-size-sm p-0 m-0">🏅🏆💉</p> -->
+          <!-- <a routerLink="/reservas/recursos-alocados" class="btn btn-sm btn-light-primary font-weight-bold p-0"
+          ngbTooltip="Recursos alocados" container="body" placement="left"
+          *ngIf="workspaceService.autorizar('recursos_alocados_menu')">
+            <span class="svg-icon svg-icon-warning svg-icon-1x"
+              [inlineSVG]="'./assets/app/media/svg/icons/Weather/Sun.svg'">
+            </span>
+          </a>
+          <a routerLink="/reservas/recursos-alocados" class="btn btn-sm btn-light-primary font-weight-bold p-0"
+          ngbTooltip="Recursos alocados" container="body" placement="left"
+          *ngIf="workspaceService.autorizar('recursos_alocados_menu')">
+            <span class="svg-icon svg-icon-dark svg-icon-1x"
+              [inlineSVG]="'./assets/app/media/svg/icons/Clothes/Tie.svg'">
+            </span>
+          </a>
+          <a routerLink="/reservas/recursos-alocados" class="btn btn-sm btn-light-primary font-weight-bold p-0"
+          ngbTooltip="Recursos alocados" container="body" placement="left"
+          *ngIf="workspaceService.autorizar('recursos_alocados_menu')">
+            <span class="svg-icon svg-icon-warning svg-icon-1x"
+              [inlineSVG]="'./assets/app/media/svg/icons/Clothes/Tie.svg'">
+            </span>
+          </a> -->
+        </div>
+
+    
+        <div class="form-group m-form__group col-10 p-0 m-0">
+          <!-- [(ngModel)]="grupo_id" -->
+          <ng-select2 [formControl]="formulario.get('grupo_id')" [data]="grupos" [options]="{multiple: false,
+            tags: false,
+            width: '100%'}" [allowClear]="false" (valueChanged)="carregarPessoas($event)">
+            <!-- (click)="onTouchedCb(value))" -->
+            <!-- [allowClear]="allowClear" -->
+            <!-- (on)="teste($event)" -->
+            <!-- (blur)="onTouchedCb(value)" -->
+          </ng-select2>
+          <!-- <tf-select-simple
+            formControlName="formulario.get('grupo_id')"
+            [data]="grupos"
+            retirarLabel="true"
+            allowClear="false"
+            placeholder=""
+            (valorModificado)="alterarEquipe()">
+          </tf-select-simple> -->
+        </div>
+
+      </div>
+
+      <div class="d-flex float-right align-self-start my-lg-0 my-0" ngbDropdown>
+
+        <a id="dropdownEquipe" ngbDropdownToggle class="symbol symbol-40 symbol-primary-light ml-1 cursor-pointer"
+         >
+          <div class="symbol-label">
+            <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+              [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-down.svg'">
+            </span>
+          </div>
+        </a>
+        <div ngbDropdownMenu aria-labelledby="dropdownEquipe">
+          <button ngbDropdownItem class="pl-3"
+            routerLink="/cadastros/pessoas/avatar" >
+            <span>
+              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Clothes/Shirt.svg'">
+              </span>
+              <span class="m-nav__link-text font-size-sm">
+                Editar avatar
+              </span>
+            </span>
+          </button>
+          <button ngbDropdownItem class="pl-3" *ngIf="workspaceService.autorizar('quadro_pessoa_menu')
+            && (this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')
+            || this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience'))"
+            routerLink="/reservas/quadros/pessoas" [queryParams]="{grupo_id: formulario.get('grupo_id').value}"
+            >
+            <span>
+              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-4-blocks.svg'">
+              </span>
+              <span class="m-nav__link-text font-size-sm">
+                Quadro de pessoas
+              </span>
+            </span>
+          </button>
+        </div>
+
+        <!--
+        <a href="#" class="symbol symbol-40 symbol-primary-light ml-1 cursor-default"
+          ngbTooltip="Escala da equipe" container="body" placement="left"
+          *ngIf="workspaceService.autorizar('calendario_visualizar_pessoas')
+          && workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')">
+          <div class="symbol-label">
+            <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+            [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-right-panel-2.svg'">
+          </span>
+          </div>
+        </a>
+
+        <a 
+          class="symbol symbol-40 symbol-primary-light ml-1 cursor-default"
+          ngbTooltip="Editar grupo" container="body" placement="left"
+          *ngIf="workspaceService.autorizar('grupo_editar')">
+          <div class="symbol-label">
+            <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+              [inlineSVG]="'./assets/app/media/svg/icons/General/Shield-protected.svg'">
+            </span>
+          </div>
+        </a> -->
+
+        <!-- <a routerLink="/reservas/recursos-alocados" class="btn btn-sm btn-light-primary font-weight-bold p-0 pl-2 "
+        ngbTooltip="Recursos alocados" container="body" placement="left"
+        *ngIf="workspaceService.autorizar('recursos_alocados_menu')">
+          <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+            [inlineSVG]="'./assets/app/media/svg/icons/Clothes/Hanger.svg'">
+          </span>
+        </a>
+        <a routerLink="/reservas/recursos-alocados" class="btn btn-sm btn-light-primary font-weight-bold p-0 pl-2"
+        ngbTooltip="Recursos alocados" container="body" placement="left"
+        *ngIf="workspaceService.autorizar('recursos_alocados_menu')">
+          <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+            [inlineSVG]="'./assets/app/media/svg/icons/General/Other1.svg'">
+          </span>
+        </a> -->
+      </div>
+
+      <!-- <div class="pl-0 pr-10 pt-3 col-8">
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped bg-primary progress-bar-animated "
+          role="progressbar" style="width: 100%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+            em breve...
+          </div>
+        </div>
+      </div> -->
+      <!--end::Title-->
+      <!--begin::Team-->
+      <div class="d-flex flex-column mt-5 mb-4 col-12 p-0"
+        *ngIf="workspaceService.autorizar('pessoa_visualizar_grupo', 'pessoa_visualizar_unidade')
+        && (this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')
+        || this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience'))"
+        >
+        <span class="text-dark mr-2 font-size-lg font-weight-bolder pb-2 cursor-pointer text-hover-primary"
+          routerLink="/reservas/quadros/pessoas" [queryParams]="{grupo_id: formulario.get('grupo_id').value}">Minha
+          equipe</span>
+
+        <div class="d-flex">
+          <!--begin::Pic-->
+          <ng-container *ngFor="let pessoa of pessoas; let i = index; let last = last; let c = count;">
+            <ng-container *ngIf="i <= 6 && pessoa.id != workspaceService.currentUser.id">
+              <symbol-pessoa [pessoa]="pessoa">
+              </symbol-pessoa>
+            </ng-container>
+
+            <!-- i > 6 -->
+            <ng-container *ngIf="last && i > 6 && workspaceService.autorizar('quadro_pessoa_menu')
+              && (this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')
+              || this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience'))">
+              <a routerLink="/reservas/quadros/pessoas" [queryParams]="{grupo_id: formulario.get('grupo_id').value}"
+                class="symbol symbol-50 symbol-primary-light">
+                <span class="symbol-label">
+                  <div class="text-center text-primary font-size-h4">
+                    +
+                  </div>
+                </span>
+              </a>
+            </ng-container>
+
+          </ng-container>
+
+
+
+
+          <!-- <a href="#" class="symbol symbol-50 symbol-primary-light mr-3">
+            <div class="symbol-label">
+              <img src="assets/app/media/svg/avatars/001-boy.svg" class="h-75 align-self-end" alt="" />
+            </div>
+            <i class="symbol-badge symbol-badge-bottom bg-success"></i>
+          </a>
+          <a href="#" class="symbol symbol-50 symbol-primary-light mr-3">
+            <div class="symbol-label">
+              <img src="assets/app/media/svg/avatars/005-girl-2.svg" class="h-75 align-self-end" alt="" />
+            </div>
+            <i class="symbol-badge symbol-badge-bottom bg-success"></i>
+          </a>
+
+          <a href="#" class="symbol symbol-50 symbol-primary-light mr-3">
+            <div class="symbol-label">
+              <img src="assets/app/media/svg/avatars/029-boy-11.svg" class="h-75 align-self-end" alt="" />
+              <i class="symbol-badge symbol-badge-bottom bg-warning"></i>
+            </div>
+          </a>
+          <a href="#" class="symbol symbol-50 symbol-light-danger mr-3">
+            <div class="symbol-label">
+              <img style="filter: grayscale(75%);" src="assets/app/media/svg/avatars/002-girl.svg" class="h-75 align-self-end" alt="" />
+              <i class="symbol-badge symbol-badge-bottom bg-danger"></i>
+            </div>
+          </a>
+          <a href="#" class="symbol symbol-50 symbol-light-danger mr-3">
+            <div class="symbol-label">
+              <img style="filter: grayscale(75%);" src="assets/app/media/svg/avatars/024-boy-9.svg" class="h-75 align-self-end" alt="" />
+              <i class="symbol-badge symbol-badge-bottom bg-danger"></i>
+            </div>
+          </a>
+          <a href="#" class="symbol symbol-50 symbol-light-danger">
+            <div class="symbol-label">
+              <img style="filter: grayscale(75%);" src="assets/app/media/svg/avatars/005-girl-2.svg" class="h-75 align-self-end" alt="" />
+              <i class="symbol-badge symbol-badge-bottom bg-danger"></i>
+            </div>
+          </a> -->
+        </div>
+
+        <!-- <span class="text-muted mr-2 font-size-lg pt-4">asdasd</span> -->
+        <!-- Joaquim faz hoje 02 anos de empresa! -->
+      </div>
+      <!--end::Team-->
+    </div>
+  </div>
+  <!--end::Body-->
+</div>

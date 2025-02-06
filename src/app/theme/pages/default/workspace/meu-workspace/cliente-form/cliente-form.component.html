@@ -1,0 +1,121 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	[autorizar_excluir]="['false']"
+	(submeter)="onSubmit()"
+	title="Workspace"
+	id="{{formulario.get('id').value}}"
+	>
+
+	<!-- <div class="form-group m-form__group"
+		[ngClass]="aplicaCss('razao_social')"
+		>
+		<tf-text-simple
+			formControlName="razao_social"
+			label="Razão social"
+			placeholder="Razão social"
+		>
+		</tf-text-simple> -->
+		<!-- <br>
+    <br>
+    <p>Espaco Value: >>> {{formulario.value?.razao_social}}</p>
+    <p>Espaco Get Value: >>> {{formulario.get('razao_social').value}}</p>
+    <p>Espaco Get Valid: >>> {{formulario.get('razao_social').valid}}</p>
+    <br>
+    <p>Formulário Valid: >>> {{formulario.valid}}</p>
+    <p>Formulário Value: >>> {{formulario.get('razao_social')?.value}}</p>
+    <br>
+    <p>Dirty: >>> {{formulario.get('razao_social').dirty}}</p>
+    <p>Touched: >>> {{formulario.get('razao_social').touched}}</p>
+    <p>Valid: >>> {{formulario.get('razao_social').valid}}</p>
+    <br>
+    <br> -->
+	<!-- </div> -->
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('nome')"
+		>
+		<tf-text-simple
+		formControlName="nome"
+		label="Nome"
+		placeholder="Nome"
+		>
+		</tf-text-simple>
+		<!-- <br>
+    <br>
+    <p>Espaco Value: >>> {{formulario.value?.nome}}</p>
+    <p>Espaco Get Value: >>> {{formulario.get('nome').value}}</p>
+    <p>Espaco Get Valid: >>> {{formulario.get('nome').valid}}</p>
+    <br>
+    <p>Formulário Valid: >>> {{formulario.valid}}</p>
+    <p>Formulário Value: >>> {{formulario.get('nome')?.value}}</p>
+    <br>
+    <p>Dirty: >>> {{formulario.get('nome').dirty}}</p>
+    <p>Touched: >>> {{formulario.get('nome').touched}}</p>
+    <p>Valid: >>> {{formulario.get('nome').valid}}</p>
+    <br>
+    <br> -->
+	</div>
+
+	<!-- <div class="form-group m-form__group"
+		[ngClass]="aplicaCss('cnpj')"
+		>
+		<tf-text-simple
+		formControlName="cnpj"
+		label="CNPJ"
+		placeholder="00.000.000/0000-00"
+		mask="00.000.000/0000-00"
+		>
+		</tf-text-simple>
+	</div> -->
+
+	<!-- <div class="form-group m-form__group"
+		[ngClass]="aplicaCss('telefone')"
+		>
+		<tf-text-simple
+		formControlName="telefone"
+		label="Telefone"
+		placeholder=""
+		[desabilitar]="true"
+		> -->
+		<!-- mask="{{ phoneMask }}" -->
+		<!-- (ngModelChange)="telefone=$event; onPhoneChanged()" -->
+		<!-- (ngModelChange)="onPhoneChanged()" -->
+		<!-- </tf-text-simple>
+	</div> -->
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('subdominio')"
+		>
+		<tf-text-simple
+		formControlName="subdominio"
+		label="Subdomínio"
+		placeholder=""
+		[desabilitar]="true"
+		>
+		</tf-text-simple>
+	</div>
+
+	<div class="form-group m-form__group">
+		<tf-check-box
+		formControlName="convite_obrigatorio"
+		[desabilitar]="false"
+		label="Convite obrigatório">
+
+		</tf-check-box>
+	</div>
+
+	<div class="form-group m-form__group"
+    *ngIf="formulario.get('convite_obrigatorio').value == false"
+    [ngClass]="aplicaCss('allowed_email_domains')"
+    >
+    <tf-text-area
+        formControlName="allowed_email_domains"
+        label="Domínios de e-mails permitidos(separe-as por ponto e vírgula;)"
+        placeholder="@email.com"
+				tooltip="Qualquer pessoa que tenha o domínio de e-mails igual a algum dos inseridos neste campo poderão criar uma conta para acessar este workspace caso ele não tenha sido 
+									previamente cadastrado e a configuração de convite não seja obrigatório.">
+    </tf-text-area>
+  </div>
+
+</tf-form-simples>

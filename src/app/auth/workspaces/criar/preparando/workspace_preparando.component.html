@@ -1,0 +1,48 @@
+<div class="m-login__signin">
+  <div class="m-login__head">
+    <h3 *ngIf="redirectUrl == '/'" class="m-login__title">
+      Estamos quase lá!
+    </h3>
+    <h3 *ngIf="redirectUrl != '/'" class="m-login__title">
+      Workspace criado com sucesso! 
+    </h3>
+    <div *ngIf="output == undefined && redirectUrl == '/'" class="m-login__desc">
+      Prepare-se para revolucionar a gestão dos ativos de sua organização!
+    </div>
+    <ng-container *ngIf="redirectUrl != '/'" >
+      <div class="m-login__desc">
+        O link foi gerado e estará completamente propagado nos próximos instantes.
+        <br>
+        <a [href]="redirectUrl" target="_blank" class="m-link">
+          {{redirectUrl}}
+        </a>
+      </div>
+    </ng-container>
+    <div *ngIf="output != undefined" class="m-login__desc">
+      Ops! Ocorreu um erro na criação do workspace. Entre em contato com a equipe Calenda.
+    </div>
+    <div *ngIf="output != undefined" class="m-login__form-sub">
+      <span *ngFor="let m of (output?.error?.errors?.full_messages)" class="m-form__help m--font-danger">
+        {{m}}
+      </span>
+    </div>
+    <div *ngIf="redirectUrl == '/'" class="m-login__form m-form" style="margin-top:2rem;">
+      <div class="m-login__form-action" *ngIf="loading">
+        <a [ngClass]="{'m-loader m-loader--right m-loader--light': loading}"
+        class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air disabled"
+        >Aguarde..</a>
+      </div>
+    </div>
+    <div class="row m-login__form-sub" style="margin-top: 2rem;"
+      *ngIf="!loading && redirectUrl == '/'">
+      <div class="col m--align-left">
+      </div>
+      <div class="col m--align-right" >
+        <!-- TODO: rediciionar para o start, e passando o parametro do plano (ltavez até já esteja) -->
+        <!-- <a href="javascript:;" class="m-link" routerLink="/login/start" skipLoadingChange>
+          Reiniciar
+        </a> -->
+      </div>
+    </div>
+  </div>
+</div>

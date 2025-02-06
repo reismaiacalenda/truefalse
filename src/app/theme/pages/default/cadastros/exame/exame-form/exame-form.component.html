@@ -1,0 +1,27 @@
+<tf-form-simples
+        [formGroup]="formulario"
+        [activeModal]="activeModal"
+        title="Exames"
+      (submeter)="onSubmit()"
+      >
+      
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('pontuacao')"
+      >
+      <tf-text-simple
+        formControlName="pontuacao"
+        label="Pontuação"
+        placeholder="Pontuação"
+      >
+      </tf-text-simple>
+    </div>
+    
+    <div class="form-group m-form__group">
+      <tf-check-box
+          formControlName="anonimo"
+          label="Anônimo?">
+      </tf-check-box>
+    </div>  
+    
+      </tf-form-simples>
+      

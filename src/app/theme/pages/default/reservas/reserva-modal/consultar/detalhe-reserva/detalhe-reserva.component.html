@@ -1,0 +1,332 @@
+<!-- <div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">
+    agenda do dia
+  </h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"
+  >
+    <span aria-hidden="true">
+      &times;
+    </span>
+  </button>
+</div>
+
+<div class="modal-body py-8">
+	<div class="m-portlet__body">
+		<div class="m-form__content">
+			<div class="m-alert m-alert--icon alert alert-danger m--hide"
+				role="alert" id="m_form_2_msg">
+				<div class="m-alert__close">
+				</div>
+			</div>
+		</div>
+		{{reserva.assunto}}
+	</div>
+</div> -->
+
+<div class="modal-content">
+	<!--begin::Modal header-->
+	<div class="modal-header border-0 justify-content-end pb-0">
+		<!--begin::Edit-->
+		<div class="btn btn-icon btn-sm btn-color-gray-400 btn-active-icon-primary me-2"
+			ngbTooltip="Editar reserva" container="body" placement="bottom"
+			(click)="openFormModalEdit()">
+			<!--begin::Svg Icon | path: icons/duotune/art/art005.svg-->
+			<span class="svg-icon svg-icon-quinze"
+				[inlineSVG]="'./assets/app/media/svg/icons/General/Edit.svg'">
+			</span>
+			<!--end::Svg Icon-->
+		</div>
+		<!--end::Edit-->
+		<!--begin::Edit-->
+		<div class="btn btn-icon btn-sm btn-color-gray-400 btn-active-icon-primary me-2"
+			ngbTooltip="Cancelar reserva" container="body" placement="bottom"
+			(click)="cancelarReserva(reserva?.numero_lote != undefined)">
+			<span class="svg-icon svg-icon-quinze"
+				[inlineSVG]="'./assets/app/media/svg/icons/General/Trash.svg'">
+			</span>
+		</div>
+		<!--begin::Close-->
+		<div class="btn btn-icon btn-sm btn-color-gray-500 btn-active-icon-primary"
+			ngbTooltip="Fechar" container="body" placement="bottom"
+			(click)="activeModal.close(false)">
+			<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+			<span class="svg-icon svg-icon-quinze"
+				[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Close.svg'">
+			</span>
+			<!--end::Svg Icon-->
+		</div>
+		<!--end::Close-->
+	</div>
+	<!--end::Modal header-->
+	<!--begin::Modal body-->
+	<div class="modal-body pt-0 pb-12 px-lg-10">
+		<!--begin::Row-->
+		<div class="d-flex">
+			<!--begin::Icon-->
+			<!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
+			<span class="svg-icon svg-icon-menu mr-1"
+				[inlineSVG]="'./assets/app/media/svg/icons/_Custom/Calendario.svg'">
+			</span>
+			<!--end::Svg Icon-->
+			<!--end::Icon-->
+			<div class="mb-8">
+				<!--begin::Event name-->
+				<div class="d-flex align-items-center mb-2">
+					<span class="fs-3 font-size-h4 font-weight-bolder me-3">{{reserva.assunto}}
+						<span class="label label-light-success label-inline ml-4">{{reserva?.tipo_reserva}}</span>
+						<span class="label label-light-dark label-inline ml-4">#{{id}}</span>
+					</span>
+					<!-- <span class="badge badge-light-success" data-kt-calendar="all_day">All Day</span> -->
+				</div>
+				<!--end::Event name-->
+
+				<!--begin::Event description-->
+				<div class="fs-6" data-kt-calendar="event_description">Anfitrião: {{reserva?.participantes?.anfitriao}} ({{reserva?.participantes?.anfitriao_grupos}})</div>
+				<div class="fs-6" data-kt-calendar="event_description">Criador: {{reserva?.participantes?.criador}}</div>
+				<div *ngIf="reserva?.participantes?.convidados" class="fs-6" data-kt-calendar="event_description">{{reserva?.participantes?.qtd_convites_enviados}} convite(s) enviado(s): {{reserva?.participantes?.convidados}}</div>
+				<div *ngIf="reserva?.participantes?.qtd_convidados" class="fs-6" data-kt-calendar="event_description">Quantidade de pessoas: {{reserva?.participantes?.qtd_convidados}}</div>
+				<!--end::Event description-->
+			</div>
+		</div>
+		<!--end::Row-->
+		<!--begin::Row-->
+		<div class="d-flex align-items-center mb-2">
+			<!--begin::Icon-->
+			<!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
+			<span class="svg-icon svg-icon-quinze mr-1"
+				[inlineSVG]="'./assets/app/media/svg/icons/Design/Clock.svg'">
+			</span>
+			<!--end::Svg Icon-->
+			<!--end::Icon-->
+			<!--begin::Event start date/time-->
+			<div class="fs-6">
+				<!-- <span class="fw-bolder">Início</span> -->
+				<span *ngIf="reserva?.data_de_instalacao_prevista" data-kt-calendar="event_start_date">Início: {{reserva?.data_de_instalacao_prevista}}</span>
+				<span *ngIf="reserva?.data_de_instalacao" data-kt-calendar="event_start_date">Início: {{reserva?.data_de_instalacao}}</span>
+				<span *ngIf="reserva?.data_de_retirada_prevista" data-kt-calendar="event_start_date">Início: {{reserva?.data_de_retirada_prevista}}</span>
+				<span *ngIf="reserva?.data_de_retirada" data-kt-calendar="event_start_date">Início: {{reserva?.data_de_retirada}}</span>
+				<span *ngIf="reserva?.data_de_inicio_previsto" data-kt-calendar="event_start_date">Início: {{reserva?.data_de_inicio_previsto}}</span>
+				<span *ngIf="reserva?.data_de_inicio" data-kt-calendar="event_start_date">Início: {{reserva?.data_de_inicio}}</span>
+			</div>
+			<!--end::Event start date/time-->
+		</div>
+		<!--end::Row-->
+		<!--begin::Row-->
+		<div class="d-flex align-items-center mb-8">
+			<!--begin::Icon-->
+			<!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
+			<span class="svg-icon svg-icon-danger svg-icon-quinze mr-1"
+				>
+			</span>
+			<!--end::Svg Icon-->
+			<!--end::Icon-->
+			<!--begin::Event end date/time-->
+			<div class="fs-6 ml-6">
+				<!-- <span class="fw-bolder">Fim</span> -->
+				<span *ngIf="reserva?.data_de_desinstalacao_prevista" data-kt-calendar="event_end_date">Fim: {{reserva?.data_de_desinstalacao_prevista}}</span>
+				<span *ngIf="reserva?.data_de_desinstalacao" data-kt-calendar="event_end_date">Fim: {{reserva?.data_de_desinstalacao}}</span>
+				<span *ngIf="reserva?.data_de_devolucao_prevista" data-kt-calendar="event_end_date">Fim: {{reserva?.data_de_devolucao_prevista}}</span>
+				<span *ngIf="reserva?.data_de_devolucao" data-kt-calendar="event_end_date">Fim: {{reserva?.data_de_devolucao}}</span>
+				<span *ngIf="reserva?.data_de_fim_previsto" data-kt-calendar="event_end_date">Fim: {{reserva?.data_de_fim_previsto}}</span>
+				<span *ngIf="reserva?.data_de_fim" data-kt-calendar="event_end_date">Fim: {{reserva?.data_de_fim}}</span>
+			</div>
+			<!--end::Event end date/time-->
+		</div>
+		<!--end::Row-->
+		<!--begin::Row-->
+		<div class="d-flex align-items-center mb-2">
+			<!--begin::Icon-->
+			<!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
+			<span class="svg-icon svg-icon-quinze mr-1"
+				[inlineSVG]="'./assets/app/media/svg/icons/Design/Clock.svg'">
+			</span>
+			<!--end::Svg Icon-->
+			<!--end::Icon-->
+			<!--begin::Event create date/time-->
+			<div class="fs-6">
+				<!-- <span class="fw-bolder">Criada em</span> -->
+				<span class="fs-6" data-kt-calendar="event_create_date">Criada em: {{reserva.created_at}}</span>
+			</div>
+			<!--end::Event create date/time-->
+		</div>
+		<!--end::Row-->
+		<!--begin::Row-->
+		<div class="d-flex align-items-center mb-8">
+			<!--begin::Icon-->
+			<!--begin::Svg Icon | path: icons/duotune/abstract/abs050.svg-->
+			<span class="svg-icon svg-icon-quinze mr-1">
+			</span>
+			<!--end::Svg Icon-->
+			<!--end::Icon-->
+			<!--begin::Event update date/time-->
+			<div class="fs-6 ml-6">
+				<!-- <span class="fw-bolder">Atualizada em</span> -->
+				<span data-kt-calendar="event_update_date">Atualizada em: {{reserva?.updated_at}}</span>
+			</div>
+			<!--end::Event update date/time-->
+		</div>
+		<!--end::Row-->
+		<!--begin::Row-->
+		<div class="d-flex align-items-center mb-8 mt-8" *ngIf="reserva?.espaco">
+			<!--begin::Icon-->
+			<!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
+			<span class="svg-icon svg-icon-quinze mr-1"
+				[inlineSVG]="'./assets/app/media/svg/icons/Map/Marker1.svg'">
+			</span>
+			<!--end::Svg Icon-->
+			<!--end::Icon-->
+			<!--begin::Event location-->
+			<div class="fs-6" data-kt-calendar="event_location">{{reserva?.espaco}}</div>
+			<!--end::Event location-->
+		</div>
+		<!--end::Row-->
+		<!--begin::Row-->
+		<div class="d-flex align-items-center mb-8"
+			*ngIf="reserva?.calendario_conference_url != undefined && reserva?.calendario_provider == 'google_oauth2'">
+			<!--begin::Icon-->
+			<!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
+			<!-- <span class="svg-icon svg-icon-quinze mr-1"
+				[inlineSVG]="'./assets/app/media/svg/icons/Communication/Chat6.svg'">
+			</span> -->
+			<img src="assets/app/media/svg/logos/google-meet-icon.svg" class="align-self-center ml-1"
+				style="object-fit: cover; width: 16px" alt="" />
+			<!--end::Svg Icon-->
+			<!--end::Icon-->
+			<!--begin::Event location-->
+			<div class="fs-6" data-kt-calendar="event_location">
+				<a [attr.href]="reserva?.calendario_conference_url" target="_blank"
+				class="btn btn-outline-primary font-weight-bold ml-2 py-2 px-3">
+				Entrar no Meet
+			</a>
+			</div>
+			<!--end::Event location-->
+		</div>
+		<!--end::Row-->
+		<!--begin::Row-->
+		<div class="d-flex align-items-center mb-8"
+			*ngIf="reserva?.calendario_conference_url != undefined &&  reserva?.calendario_provider == 'microsoft_graph'">
+			<!--begin::Icon-->
+			<!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
+			<!-- <span class="svg-icon svg-icon-quinze mr-1"
+				[inlineSVG]="'./assets/app/media/svg/icons/Communication/Chat6.svg'">
+			</span> -->
+			<img src="assets/app/media/svg/logos/microsoft-teams.svg" class="align-self-center ml-1"
+				style="object-fit: cover; width: 18px" alt="" />
+			<!--end::Svg Icon-->
+			<!--end::Icon-->
+			<!--begin::Event location-->
+			<div class="fs-6" data-kt-calendar="event_location">
+				<a [attr.href]="reserva?.calendario_conference_url" target="_blank"
+				class="btn btn-outline-primary font-weight-bold ml-2 py-2 px-3">
+					Entrar no Teams
+				</a>
+			</div>
+		</div>
+		<!--begin::Row-->
+		<div class="d-flex align-items-center mb-8"
+			*ngIf="reserva?.calendario_conference_url != undefined &&  reserva?.calendario_provider == 'email'">
+
+			<span class="svg-icon svg-icon-primary svg-icon-quinze mr-1"
+				[inlineSVG]="'./assets/app/media/svg/icons/Devices/Video-camera.svg'">
+			</span>
+
+			<div class="fs-6" data-kt-calendar="event_location">
+				<a [attr.href]="reserva?.calendario_conference_url" target="_blank"
+					class="btn btn-outline-primary font-weight-bold ml-2 py-2 px-3">
+						Entrar na videoconferência
+				</a>
+			</div>
+		</div>
+		<!--end::Row-->
+
+		<!--end::Row-->
+		<!--begin::Row-->
+		<div class="d-flex align-items-center mb-8">
+			<!--begin::Icon-->
+			<!--begin::Svg Icon | path: icons/duotune/general/gen018.svg-->
+			<span class="svg-icon svg-icon-quinze mr-1"
+				[inlineSVG]="'./assets/app/media/svg/icons/Communication/Chat6.svg'">
+			</span>
+			<!--end::Svg Icon-->
+			<!--end::Icon-->
+			<!--begin::Event location-->
+			<div class="fs-6" data-kt-calendar="event_location">Observações: {{reserva?.observacao}}</div>
+			<!--end::Event location-->
+		</div>
+		<!--end::Row-->
+
+		<!--begin::Row-->
+		<ng-container *ngIf="reserva?.estandes || reserva?.eventos_estandes">
+			<ng-container *ngIf="reserva?.estandes">
+				<div class="d-flex align-items-center fs-6">
+					<span class="svg-icon svg-icon-quinze mr-1"
+						[inlineSVG]="'./assets/app/media/svg/icons/Food/Coffee1.svg'">
+					</span>
+					<b>Serviços externos (Adições para eventos):</b>
+				</div>
+			</ng-container>
+			<ng-container *ngFor="let r of reserva?.estandes">
+				<div class="d-flex align-items-center fs-6 ml-7" *ngIf="r" [innerHTML]="r">{{r}}</div>
+				<br>
+			</ng-container>
+
+			<ng-container *ngIf="reserva?.eventos_estandes">
+				<div class="d-flex align-items-center fs-6">
+					<span class="svg-icon svg-icon-quinze mr-1"
+						[inlineSVG]="'./assets/app/media/svg/icons/_Custom/Calendario.svg'">
+					</span>
+					<b>Eventos atendidos:</b>
+				</div>
+				<div class="d-flex align-items-center fs-6 ml-7">Local: {{reserva?.local}}</div>
+				<br>
+			</ng-container>
+			<ng-container *ngFor="let r of reserva?.eventos_estandes">
+				<div class="d-flex align-items-center fs-6 ml-7" *ngIf="r" [innerHTML]="r">{{r}}</div>
+				<br>
+			</ng-container>
+		</ng-container>
+		<!--end::Row-->
+
+		<!--begin::Row-->
+		<ng-container *ngIf="reserva?.campos_customizados_reservas">
+
+			<div class="d-flex align-items-center fs-6">
+				<span class="svg-icon svg-icon-quinze mr-1"
+					[inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-list.svg'">
+				</span>
+				<b>Campos Customizados:</b>
+			</div>
+
+			<ng-container *ngFor="let c of reserva?.campos_customizados_reservas">
+				<div *ngIf="c.valor != null && c.valor != undefined" class="d-flex align-items-center fs-6 ml-7">{{c.nome}}: {{c.valor}}</div>
+			</ng-container>
+		</ng-container>
+		<!--end::Row-->
+
+	  <br>
+
+		<ng-container *ngIf="reserva?.recursos_reservas.length > 0 && (workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos'))">
+
+			<div class="d-flex align-items-center fs-6">
+				<span class="svg-icon svg-icon-quinze mr-1"
+				  [inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'">
+				</span>
+				<b>Recursos reservados:</b>
+			</div>
+
+			<ng-container *ngFor="let rr of reserva?.recursos_reservas">
+				<div class="d-flex align-items-center text-dark-50 ml-4">
+					<span class="col-md-5">{{rr.item}}</span>
+				  <span class="col md-2">|&nbsp; {{rr.qtde}} &nbsp;|</span>
+				  <span *ngIf="reserva.exibir_gastos" class="col-md-4">{{ rr.subtotal}}</span>
+				</div>
+			</ng-container>
+
+			<br *ngIf="reserva.custo_total">
+
+			<div *ngIf="reserva.exibir_gastos" class="col md-12 text-dark-50 ml-4">Custo Total: {{reserva.custo_total}}</div>
+		</ng-container>
+	</div>
+
+	<!--end::Modal body-->
+</div>

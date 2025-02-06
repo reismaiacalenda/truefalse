@@ -1,0 +1,23 @@
+<div class="modal-header">
+	<h4 class="modal-title">Selecionar unidade</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss(false)">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<div class="modal-body">
+  <div class="m-radio-list py-4">
+    <label *ngFor="let u of unidades"
+      class="m-radio m-radio--bold {{desabilitarRadio(u.id)?'m-radio--state':'m-radio--state-brand'}}">
+      <input type="radio" name="{{u.text}}" [value]="u.id" (click)="setarRadio(u)"
+        [checked]="u.id==unidadeSelecionada.id" [disabled]="desabilitarRadio(u.id)">
+      {{u.text}}
+      <span></span>
+    </label>
+  </div>
+</div>
+<!-- <div class="modal-footer">
+  <button type="submit" class="btn btn-primary" 
+    (click)="activeModal.close(true)">
+    Ok
+  </button>
+</div> -->

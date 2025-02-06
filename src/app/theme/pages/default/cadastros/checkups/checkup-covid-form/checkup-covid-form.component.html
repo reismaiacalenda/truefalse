@@ -1,0 +1,30 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  [autorizar_excluir]="['espaco_excluir']"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  disableTitle="true"
+  titlePersonalizado="Checkup Covid">
+  <!-- id="{{formulario.get('id').value}}" -->
+
+  <!-- <div class="form-group m-form__group">
+    <p>Daremos início à criação de um novo espaço!</p>
+    <p>É recomendável que já esteja cadastrado sua localização (prédio e andar).</p>
+  </div>
+
+  <hr> -->
+
+  <ng-container *ngFor="let p of perguntas; let i=index; let ultimo=last;" 
+    [formGroupName]="i">
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('aaa')">
+      <tf-radio-button [data]='[
+            {"label":"Sim", "value":1},
+            {"label":"Não", "value":0}
+          ]' formControlName="aaa" [label]="p.questao">
+      </tf-radio-button>
+    </div>
+    <hr *ngIf="!ultimo">
+  </ng-container>
+
+</tf-form-simples>

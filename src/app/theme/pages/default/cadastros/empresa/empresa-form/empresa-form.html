@@ -1,0 +1,366 @@
+<form class="m-form m-form--state m-form--fit m-form--label-align-right"
+		#f="ngForm" (ngSubmit)="onSubmit(f)">
+	<div class="m-portlet m-portlet--tabs" (keydown.esc)="activeModal.dismiss('Cross click')">
+		<!-- *ngIf="isDataAvailable == true && isListAvailable == true" -->
+		<div class="m-portlet__head">
+			<div class="m-portlet__head-tools">
+				<ul class="nav nav-tabs m-tabs-line m-tabs-line--primary m-tabs-line--2x" role="tablist" #navtab>
+					<li class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link active" title="Nova Espaco" data-toggle="tab" href="#m_tabs_6_1" role="tab">
+							<i class="flaticon-add"></i>
+						</a>
+					</li>
+					<li class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link"
+						 title="Layout" data-toggle="tab" href="#m_tabs_6_2" role="tab">
+						 <i class="flaticon-map-location"></i>
+						</a>
+					</li>
+					<li class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link"
+						title="Local" data-toggle="tab" href="#m_tabs_6_3" role="tab"
+						>
+						<!-- [ngClass]="currentUser.role_number >=2 ? '' : 'disabled'" -->
+							<i class="flaticon-time"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="m-portlet__head-caption">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+					(click)="activeModal.dismiss('Cross click')">
+					<span aria-hidden="true">
+						&times;
+					</span>
+				</button>
+			</div>
+		</div>
+
+
+		<div class="m-portlet__body">
+			<div class="tab-content" #tabcontent>
+				<div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								{{modalTitle}} Empresa
+							</h5>
+						</div>
+						<div>
+							<p></p>
+						</div>
+					</div>
+
+					<!-- [ngClass]="validarCss('Nome')" -->
+					<div 
+						class="form-group m-form__group">
+						<label>
+							Nome fantasia
+						</label>
+						<input class="form-control m-input m-input--air"
+							type='text' name="nome" [(ngModel)]="empresa.nome"
+							placeholder="Reis Maia" required>
+					</div>
+					<div 
+						class="form-group m-form__group">
+						<label>
+							Razão social
+						</label>
+						<input class="form-control m-input m-input--air"
+							type='text' name="razao_social" [(ngModel)]="empresa.razao_social"
+							placeholder="Reis Maia" >
+					</div>
+					<div 
+						class="form-group m-form__group row">
+						<div class="col-md-6">
+							<label>
+								CNPJ/CPF
+							</label>
+							<input class="form-control m-input m-input--air"
+								type='text' name="cnpj" [(ngModel)]="empresa.num_cadastro_pessoa"
+								(keyup)="cnpj_cpf_dinamico($event.target.value)"
+								[mask]="maskDinamico"
+								>
+								<!-- placeholder="00.000.000/0000-00" -->
+						</div>
+						<div class="col-md-6">
+							<label>
+								Inscrição Municipal
+							</label>
+							<input class="form-control m-input m-input--air"
+								type='text' name="inscricao_municipal" [(ngModel)]="empresa.inscricao_municipal"
+								placeholder="0.000.000/000-0"
+								mask='0.000.000/000-0'
+								>
+						</div>
+					</div> 
+
+					<!-- [ngClass]="validarCss('RFID')" -->
+					<div 
+					class="form-group m-form__group row">
+					<div class="col-md-6">
+						<label>
+								Telefone
+							</label>
+							<input class="form-control m-input m-input--air"
+								type='text' name="telefone" [(ngModel)]="empresa.telefone"
+								placeholder="00000000"
+								>
+								<!-- disabled -->
+					</div>
+					<div class="col-md-6">
+						<label>
+							Inscrição Estadual
+						</label>
+						<input class="form-control m-input m-input--air"
+							type='text' name="inscricao_estadual" [(ngModel)]="empresa.inscricao_estadual"
+							placeholder="ISENTO"
+							>
+							<!-- mask='0.000.000/000-0' -->
+					</div>
+
+						
+					</div> 
+					<!-- [ngClass]="validarCss('Email')" -->
+					<div 
+						class="form-group m-form__group">
+						<label>
+							E-mail
+						</label>
+						<input class="form-control m-input m-input--air"
+							type='email' name="email" [(ngModel)]="empresa.email"
+							placeholder="user@email.com"
+							>
+							<!-- required -->
+							<!-- disabled -->
+					</div>
+					
+					
+					<div class="form-group m-form__group">
+						<label>
+							Responsável
+						</label>
+						<!-- m-select2  -->
+						<ng-select2
+							[data]="listFuncionario"
+									[options]="{
+										multiple: false,
+										tags: true,
+										width: '100%'
+										}"
+									[(ngModel)]="empresa.responsavel_id"
+									name="responsavel_id"
+									>
+									<!-- [disabled]="currentUser.role_number<2" -->
+						</ng-select2>
+						<!-- multiple -->
+					</div>
+					<div class="form-group m-form__group">
+						<label>
+							Colaboradores
+						</label>
+				
+						<!-- <ng-select2 [data]="listFuncionario"
+								*ngIf="!cobravel"
+									[options]="{
+										multiple: true,
+										tags: true,
+										width: '100%'
+										}"
+									[(ngModel)]="empresa.funcionario_ids"
+									name="funcionario_ids"
+									>
+						</ng-select2> -->
+						<!-- *ngIf="cobravel" -->
+
+						<select 
+							#funcionarios
+							[(ngModel)]="empresa.funcionario_ids"
+							class="form-control m-select2 m-input m-input--air"
+							id="m_select2_64"
+							name="funcionario_ids"
+							multiple
+							type="number"
+							placeholder="Selecione o participantes"
+							>
+									<!-- [disabled]="currentUser.role_number<2" -->
+							<!-- <option *ngFor="let f of listFuncionario"
+								[attr.v]="f.value"
+								[ngValue]="f.value"
+							>
+								{{f.name}}
+							</option> -->
+						</select>
+					</div>
+				</div>
+				<div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Endereço
+							</h5>
+						</div>
+						<div>
+							<p></p>
+						</div>
+					</div>
+					<div 
+						class="form-group m-form__group row">
+						<div class="col-md-4">
+							<label>
+								Cep
+							</label>
+							<input class="form-control m-input m-input--air"
+							type='text' name="cep" [(ngModel)]="empresa.cep"
+							placeholder="00000000"
+							(blur)="consultaCEP($event.target.value)"
+							mask="00000-000">
+						</div>
+						<div class="col-md-4">
+							<label>
+								Número
+							</label>
+							<input class="form-control m-input m-input--air"
+								type='number' name="numero" [(ngModel)]="empresa.numero"
+								placeholder="">
+						</div>
+						<div class="col-md-4">
+							<label>
+								Complemento
+							</label>
+							<input class="form-control m-input m-input--air"
+								type='text' name="complemento" [(ngModel)]="empresa.complemento"
+								placeholder="">
+						</div>
+					</div> 
+					<div 
+						class="form-group m-form__group row">
+						<div class="col-md-7">
+							<label>
+								Logradouro
+							</label>
+							<input class="form-control m-input m-input--air"
+								type='text' name="logradouro" [(ngModel)]="empresa.logradouro"
+								placeholder="Av Afonso Pena">
+						</div>
+						<div class="col-md-5">
+							<label>
+								Bairro
+							</label>
+							<input class="form-control m-input m-input--air"
+								type='text' name="bairro" [(ngModel)]="empresa.bairro"
+								placeholder="Centro">
+						</div>
+					</div> 
+					<div 
+						class="form-group m-form__group row">
+						<div class="col-md-9">
+							<label>
+								Município
+							</label>
+							<input class="form-control m-input m-input--air"
+								type='text' name="municipio" [(ngModel)]="empresa.municipio"
+								placeholder="Belo Horizonte">
+						</div>
+						<div class="col-md-3">
+							<label>
+								UF
+							</label>
+							<input class="form-control m-input m-input--air"
+								type='text' name="uf" [(ngModel)]="empresa.uf"
+								placeholder="MG">
+						</div>
+					</div> 
+				</div>
+				<div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Plano
+							</h5>
+						</div>
+						<div>
+							<p></p>
+						</div>
+					</div>
+					<div class="form-group m-form__group">
+						<label>
+							Localização
+						</label>
+						<!-- (change)="onChangeLocalizacao($event)" -->
+						<!-- <select class="form-control m-input m-input--air"
+							placeholder="Escolha uma localização"
+							name="empresa.empresas_localizacoes_attributes[0].localizacao_id"
+							>
+							<option *ngFor="let i of listLocalizacao"
+							[selected]="i.id == empresa.empresas_localizacoes_attributes[0].localizacao_id"
+							>
+								{{i.name}}
+							</option>
+						</select> -->
+						<ng-select2 [data]="listLocalizacao"
+									[options]="{
+										multiple: false,
+										tags: true,
+										width: '100%'
+										}"
+									[(ngModel)]="empresa.empresas_localizacoes_attributes[0].localizacao_id"
+									name="empresas_localizacoes_attributes[0].localizacao_id"
+									>
+						</ng-select2>
+					</div>
+					<div 
+						class="form-group m-form__group">
+						<label>
+							Crédito de horas mensal
+						</label>
+						<input class="form-control m-input m-input--air"
+							type='number' name="empresa.empresas_localizacoes_attributes[0].plano_horas" [(ngModel)]="empresa.empresas_localizacoes_attributes[0].plano_horas"
+							placeholder="10">
+					</div> 
+					<div 
+						class="form-group m-form__group">
+						<label>
+							Residente
+						</label>
+						<div>
+							<span class="m-switch m-switch--icon">
+								<label >
+										<!-- ngbButtonLabel -->
+										<!-- <label class="m-checkbox m-checkbox--bold"> -->
+											<input type="checkbox"
+											name="empresa.empresas_localizacoes_attributes[0].residente"
+											[(ngModel)]="empresa.empresas_localizacoes_attributes[0].residente"
+											(click)="checkResidente()"
+											>
+									<!-- formControlName=""" -->
+									<!-- ngbButton -->
+									<!-- [(ngModel)]="empresa.residente" -->
+									<!-- ng-true-value="ofCourse" ng-false-value="iWish" -->
+									<span></span>
+								</label>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!--begin::Form-->
+	
+	<div class="modal-footer" style="display:block">
+		<div class="row">
+			<div class="col-lg-9">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal"
+					(click)="activeModal.close('Close click')">
+					Cancelar
+				</button>
+				<button type="submit" class="btn btn-primary"
+				[disabled]="f.invalid">
+					Salvar
+				</button>
+			</div>
+		</div>
+	</div>
+</form>

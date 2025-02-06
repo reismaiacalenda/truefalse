@@ -1,0 +1,144 @@
+<!--begin::Card-->
+<!-- gutter-b card-stretch -->
+<div class="card card-custom">
+  <!--begin::Body-->
+
+  <div class="card-header align-items-center border-0 mt-4">
+    <h3 class="card-title align-items-start flex-column">
+      <span class="font-weight-bolder text-dark">Gastos com reservas</span>
+      <span class="text-muted font-weight-bold mt-1" style="font-size: 1rem;">Acumulado mensal</span>
+    </h3>
+    <div class="card-toolbar">
+      <a href="#"
+        class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+        (click)="coletarGastos()">
+        <i class="la la-refresh"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body pt-0 pb-5">
+    <!--begin::Toolbar-->
+    <!-- <div class="d-flex justify-content-end">
+      <div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions" data-placement="left">
+        <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="ki ki-bold-more-hor"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+          <ul class="navi navi-hover">
+            <li class="navi-header font-weight-bold py-4">
+              <span class="font-size-lg">Choose Label:</span>
+              <i class="flaticon2-information icon-md text-muted" data-toggle="tooltip" data-placement="right"
+                title="Click to learn more..."></i>
+            </li>
+            <li class="navi-separator mb-3 opacity-70"></li>
+            <li class="navi-item">
+              <a href="#" class="navi-link">
+                <span class="navi-text">
+                  <span class="label label-xl label-inline label-light-success">Customer</span>
+                </span>
+              </a>
+            </li>
+            <li class="navi-item">
+              <a href="#" class="navi-link">
+                <span class="navi-text">
+                  <span class="label label-xl label-inline label-light-danger">Partner</span>
+                </span>
+              </a>
+            </li>
+            <li class="navi-item">
+              <a href="#" class="navi-link">
+                <span class="navi-text">
+                  <span class="label label-xl label-inline label-light-warning">Suplier</span>
+                </span>
+              </a>
+            </li>
+            <li class="navi-item">
+              <a href="#" class="navi-link">
+                <span class="navi-text">
+                  <span class="label label-xl label-inline label-light-primary">Member</span>
+                </span>
+              </a>
+            </li>
+            <li class="navi-item">
+              <a href="#" class="navi-link">
+                <span class="navi-text">
+                  <span class="label label-xl label-inline label-light-dark">Staff</span>
+                </span>
+              </a>
+            </li>
+            <li class="navi-separator mt-3 opacity-70"></li>
+            <li class="navi-footer py-4">
+              <a class="btn btn-clean font-weight-bold btn-sm" href="#">
+                <i class="ki ki-plus icon-sm"></i>
+                Add new
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+    <!--end::Toolbar-->
+    <!--begin::User-->
+    <!--end::User-->
+    <!--begin::Desc-->
+    <!-- <p class="mb-7">
+                I distinguish three main text objectives. First, your objective <a href="#"
+                  class="text-primary pr-1">#xrs-54pq</a>
+              </p> -->
+    <!--end::Desc-->
+    <!--begin::Info-->
+    <div class="pt-0" *ngIf="workspaceService.autorizar('reserva_gastos_meu', 'reserva_gastos_grupo', 'reserva_gastos_unidade')">
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="text-dark-75 font-weight-bolder mr-2">Meus gastos:
+        </span>
+      </div>
+      <a routerLink="/reservas/listagem">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-dark-75 pl-4 mr-2">{{gastos?.meu?.mes_passado?.label}}:
+          </span>
+          <a [ngClass]="gastos?.meu?.mes_passado?.valor != 0 ? 'text-danger font-weight-bold' : 'text-muted text-hover-primary'"
+            class="text-danger font-weight-bold">{{gastos?.meu?.mes_passado?.valor | currency:'BRL':true:'1.2-2'}}</a>
+        </div>
+      </a>
+      <a routerLink="/reservas/listagem">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-dark-75 pl-4 mr-2">{{gastos?.meu?.mes_vigente?.label}}
+          </span>
+          <a [ngClass]="gastos?.meu?.mes_vigente?.valor != 0 ? 'text-danger font-weight-bold' : 'text-muted text-hover-primary'"
+            >{{gastos?.meu?.mes_vigente?.valor | currency:'BRL':true:'1.2-2'}}</a>
+        </div>
+      </a>
+    </div>
+
+    <div class="pt-2" *ngIf="workspaceService.autorizar('reserva_gastos_unidade')">
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="text-dark-75 font-weight-bolder mr-2">Minha unidade:
+        </span>
+      </div>
+      <a routerLink="/reservas/listagem">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-dark-75 pl-4 mr-2">{{gastos?.unidade?.mes_passado?.label}}:
+          </span>
+          <a [ngClass]="gastos?.unidade?.mes_passado?.valor != 0 ? 'text-danger font-weight-bold' : 'text-muted text-hover-primary'"
+            >{{gastos?.unidade?.mes_passado?.valor | currency:'BRL':true:'1.2-2'}}</a>
+        </div>
+      </a>
+      <a routerLink="/reservas/listagem">
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="text-dark-75 pl-4 mr-2">{{gastos?.unidade?.mes_vigente?.label}}
+          </span>
+          <a [ngClass]="gastos?.unidade?.mes_vigente?.valor != 0 ? 'text-danger font-weight-bold' : 'text-muted text-hover-primary'"
+          >{{gastos?.unidade?.mes_vigente?.valor | currency:'BRL':true:'1.2-2'}}</a>
+        </div>
+      </a>
+    </div>
+
+    <!--end::Info-->
+    <!-- <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">write
+      message</a> -->
+  </div>
+  <!--end::Body-->
+</div>
+<!--end:: Card-->

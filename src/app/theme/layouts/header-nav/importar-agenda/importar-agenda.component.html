@@ -1,0 +1,70 @@
+<div style="
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 7px solid #F3F6F9;
+  position: absolute;
+  top: -5px;
+  right: 12px;
+  ">
+   <!-- #F3F6F9; -->
+</div>
+<!-- <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 11px;"></span> -->
+<div class="m-dropdown__inner" (click)="importarAgenda()">
+
+  <div class="m-dropdown__body px-4 pt-3">
+
+    <div>
+      <p class="font-size-h4 font-weight-bold text-primary mb-0 text-center">Importar meu calendário</p>
+      <!-- <p class="font-size-sm text-dark-75 mb-2">
+        <span class="label label-danger label-pill label-inline ml-2">newVersionApi</span>
+        Atualize para recebê-la.
+      </p> -->
+      <p class="font-size-lg text-primary font-weight-bold mt-10 mb-2 text-center">
+        <u>Clique aqui para importar sua agenda</u>
+      </p>
+    </div>
+    <div class="m-dropdown__content" *ngIf="currentUser.provider == 'google_oauth2'">
+      <!-- <i class="m-nav__link-icon la la-plus"></i> -->
+      <p class="font-size-sm text-dark-75 mb-0 mt-10 text-center">Traga seus eventos para aqui.
+      </p>
+      <p class="font-size-sm text-dark-75 mb-0 mt-0 text-center">Temos suporte para toda stack Google! 😉
+      </p>
+      <p class="text-center pt-5">
+
+        <img src="assets/app/media/svg/logos/google-calendar-icon.svg" class="align-self-center mx-3"
+          style="object-fit: cover; width: 45px" alt="" />
+        <img src="assets/app/media/svg/logos/google-icon.svg" class="align-self-center mx-3"
+          style="object-fit: cover; width: 45px" alt="" />
+        <img src="assets/app/media/svg/logos/google-meet-icon.svg" class="align-self-center mx-3"
+          style="object-fit: cover; width: 45px" alt="" />
+        <!-- <img src="assets/app/media/svg/icons/logos/adidas-9.svg" class="h-100 w-100 align-self-center"
+          style="object-fit: cover;" alt="" /> -->
+      </p>
+
+    </div>
+    <div class="m-dropdown__content" *ngIf="currentUser.provider == 'microsoft_graph'">
+      <!-- <i class="m-nav__link-icon la la-plus"></i> -->
+      <p class="font-size-sm text-dark-75 mb-0 mt-10 text-center">Traga seus eventos para aqui. 😉
+      </p>
+      <p class="font-size-sm text-dark-75 mb-0 text-center">Temos suporte para toda stack Microsoft!
+      </p>
+      <p class="text-center pt-5">
+
+        <img src="assets/app/media/svg/logos/microsoft-outlook.svg" class="align-self-center mx-3"
+          style="object-fit: cover; width: 45px" alt="" />
+        <img src="assets/app/media/svg/logos/microsoft-5.svg" class="align-self-center mx-3"
+          style="object-fit: cover; width: 45px" alt="" />
+        <img src="assets/app/media/svg/logos/microsoft-teams.svg" class="align-self-center mx-3"
+          style="object-fit: cover; width: 45px" alt="" />
+        <!-- <img src="assets/app/media/svg/icons/logos/adidas-9.svg" class="h-100 w-100 align-self-center"
+          style="object-fit: cover;" alt="" /> -->
+      </p>
+
+    </div>
+  </div>
+  <!-- <a class="dropdown-item">Action - 1</a>
+<a class="dropdown-item">Another Action</a>
+<a class="dropdown-item">Something else is here akjsh dasjk dhask jdhak jh</a> -->
+</div>

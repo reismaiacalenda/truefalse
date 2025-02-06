@@ -1,0 +1,167 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  [autorizar_excluir]="['tipo_espaco_excluir']"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  title="Tipo"
+  id="{{formulario.get('id').value}}"
+  >      
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('nome')"
+    >
+    <tf-text-simple
+      formControlName="nome"
+      label="Nome"
+      placeholder="Nome"
+    >
+    </tf-text-simple>
+  </div>
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('categoria')"
+    *ngIf="(workspaceService.autorizar('tipo_espaco_sala_criar', 'tipo_espaco_sala_editar')
+    && workspaceService.currentUser.subdominio.modulos.includes('Smartrooms'))
+    && (workspaceService.autorizar('tipo_espaco_estacao_de_trabalho_criar', 'tipo_espaco_estacao_de_trabalho_editar',
+      'tipo_espaco_estacionamento_criar', 'tipo_espaco_estacionamento_editar',
+      'tipo_espaco_fretado_criar', 'tipo_espaco_fretado_editar')
+    && workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')); else apenasSala;">
+    <tf-radio-button
+      [data]='[
+        {"label":"Sala", "value":0},
+        {"label":"Mesa", "value":1},
+        {"label":"Estacionamento", "value":2},
+        {"label":"Fretado", "value":3}
+      ]'
+      formControlName="categoria"
+      label="Categoria"
+      >
+    </tf-radio-button>
+  </div>
+
+  <ng-template #apenasSala>
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('categoria')"
+      *ngIf="workspaceService.autorizar('tipo_espaco_sala_criar', 'tipo_espaco_sala_editar')
+      && workspaceService.currentUser.subdominio.modulos.includes('Smartrooms'); else apenasMesa;">
+      <tf-radio-button
+        [data]='[
+        {"label":"Sala", "value":0}
+        ]'
+        formControlName="categoria"
+        label="Categoria"
+        >
+      </tf-radio-button>
+    </div>
+  </ng-template>
+
+  <ng-template #apenasMesa>
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('categoria')">
+      <tf-radio-button
+        [data]='[
+        {"label":"Mesa", "value":1},
+        {"label":"Estacionamento", "value":2},
+        {"label":"Fretado", "value":3}
+        ]'
+        formControlName="categoria"
+        label="Categoria">
+      </tf-radio-button>
+    </div>
+  </ng-template>
+
+  <div class="form-group m-form__group" [ngClass]="aplicaCss('intervalo_entre_reservas')">
+    <tf-integer
+	  	formControlName="intervalo_entre_reservas"
+	  	label="Intervalo entre as reservas (em minutos)"
+      limiteInferior="0">
+	  </tf-integer>
+  </div>
+
+  <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('grupos_attributes')">
+    <tf-select-multi
+      [data]="listDadosSelect['grupos']"
+      [form]="formulario.get('grupos_attributes')"
+      label="Ignorar intervalo para os grupos"
+      placeholder="Selecionar um ou mais"
+      tooltip="As pessoas que estiverem vinculadas aos grupos adicionados neste campo, ao serem anfitriãs de alguma reserva, terão passe livre para ignorar o intervalo entre as reservas definido acima.">
+    </tf-select-multi>
+  </div>
+
+  <div class="form-group m-form__group">
+    <tf-check-box
+      formControlName="check_out"
+      label="Check-out"
+      tooltip="Se habilitado, o participante poderá encerrar a reserva antes do término previsto.">
+    </tf-check-box>
+  </div>
+
+  <div class="form-group m-form__group">
+    <tf-check-box
+      formControlName="check_in"
+      label="Check-in"
+      tooltip="Se habilitado, o participante poderá iniciar a reserva antes do término previsto.">
+    </tf-check-box>
+  </div>
+
+  <div class="form-group m-form__group"
+    *ngIf="formulario.get('check_in').value"
+    [ngClass]="aplicaCss('antecedence_check_in')">
+    <tf-integer
+      formControlName="antecedence_check_in"
+      label="Antecedência máxima do Check-in (em minutos)"
+      tooltip="Quanto tempo antes do início previsto a reserva poderá ser iniciada">
+    </tf-integer>
+  </div>
+  
+  <div class="form-group m-form__group" *ngIf="formulario.get('check_in').value">
+    <tf-check-box
+      formControlName="mandatory_check_in"
+      label="Check-in Obrigatório"
+      tooltip="Se habilitado, a reserva deverá ter a confirmação de que ela se iniciou, caso o check-in não seja realizado, a reserva será cancelada">
+    </tf-check-box>
+  </div>
+
+  <div class="form-group m-form__group"
+    *ngIf="formulario.get('mandatory_check_in').value && formulario.get('check_in').value"
+    [ngClass]="aplicaCss('tolerance_check_in')">
+    <tf-integer
+      formControlName="tolerance_check_in"
+      label="Tolerância máxima do Check-in (em minutos)"
+      tooltip="Tempo limite para iniciar a reserva para que ela não seja cancelada">
+    </tf-integer>
+  </div>
+  
+  <div class="form-group m-form__group" [ngClass]="aplicaCss('not_mandatory_groups_space_types_attributes')"
+  *ngIf="formulario.get('mandatory_check_in').value && formulario.get('check_in').value">
+  <tf-select-multi
+  [data]="listDadosSelect['grupos']"
+  [form]="formulario.get('not_mandatory_groups_space_types_attributes')"
+  label="Check-in não obrigatório para os grupos"
+  placeholder="Selecionar um ou mais"
+  tooltip="As pessoas que estiverem vinculadas aos grupos adicionados neste campo, ao serem anfitriãs de alguma reserva, não terão a obrigatoriedade de fazer check-in para iniciar a reserva. Ou seja, independente do tempo de atraso, a reserva não será cancelada após a tolerância permitida">
+</tf-select-multi>
+</div>  
+
+<div class="form-group m-form__group">
+  <tf-check-box
+    formControlName="estender_reserva"
+    label="Estender reserva? (Em breve)"
+    tooltip="Se habilitado, será possível estender o tempo da reserva."
+    [desabilitar]="true">
+  </tf-check-box>
+</div>
+
+<div class="form-group m-form__group"
+  *ngIf="formulario.get('estender_reserva').value"
+  [ngClass]="aplicaCss('time_before_end')">
+  <tf-integer
+    formControlName="time_before_end"
+    label="Tempo para estender a reserva antes do horário de fim previsto (em minutos)"
+    tooltip="Caso esteja habilitado para estender a reserva, a reserva poderá ser estendida desde que esteja dentro do tempo configurado">
+  </tf-integer>
+</div>
+
+</tf-form-simples>  

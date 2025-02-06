@@ -1,0 +1,1143 @@
+<tf-form-abas [abas]="abas"
+  [activeModal]="activeModal"
+  [formGroup]="formulario"
+  [autorizar_excluir]="['grupo_excluir']"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()">
+
+  <!-- #region primeira aba -->
+  <div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('nome')">
+      <tf-text-simple formControlName="nome" label="Nome do grupo" placeholder="Nome">
+      </tf-text-simple>
+    </div>
+
+    <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('funcionario_emails')"
+    >
+    <!-- [data]="dadosSelect" -->
+    <!-- <tf-select-email
+      label="Participantes"
+      placeholder="Digite o e-mail do participante"
+      [form]="formulario.get('funcionario_emails')"
+      >
+    </tf-select-email> -->
+    <label>Quem serão os integrantes deste grupo?</label>
+      <!-- [ngModelOptions]="{standalone: true}" -->
+      <ng-select [items]="people$ | async"
+        bindLabel="name"
+        [addTag]="true"
+        [multiple]="true"
+        [hideSelected]="true"
+        [trackByFn]="trackByFn"
+        [minTermLength]="2"
+        [loading]="peopleLoading"
+        typeToSearchText="Por favor, utilize pelo menos 2 dígitos para adicionar"
+        formControlName="funcionario_emails"
+        (change)="validacao()"
+        [typeahead]="peopleInput$"
+        >
+        <!-- clearAllText="Clear" -->
+        <ng-template ng-option-tmp let-item="item">
+          {{item.name}} <br/>
+          <small>{{item.nome}}</small>
+        </ng-template>
+      </ng-select>
+      <!-- <p>{{formulario.get('funcionario_emails').value | json}}</p>
+      <p>valid: {{formulario.get('funcionario_emails').valid}}</p> -->
+    </div>
+
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('servicos_attributes')"
+      *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+      <tf-select-multi [data]="listDadosSelect['servicos']" [form]="formulario.get('servicos_attributes')"
+        label="Este grupo prestará quais serviços? (Opcional)" placeholder="Selecione um ou mais">
+      </tf-select-multi>
+    </div>
+ 
+    <!-- <div class="form-group m-form__group" [ngClass]="aplicaCss('filtros_attributes')">
+      <tf-select-multi [data]="listDadosSelect['filtros']" [form]="formulario.get('filtros_attributes')"
+        label="Este grupo terá acesso a quais filtros?" placeholder="Selecione um ou mais">
+      </tf-select-multi>
+    </div> -->
+
+  </div>
+  <!-- #endregion fim primeir aba -->
+
+  <!-- #region cadastro de ativos -->
+  <div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+    <div class="form-group m-form__group row">
+      <h5>Cadastro de ativos</h5>
+      <p>Nesta seção estão as permissões dos menus cadastrais, sendo voltada para os responsáveis pela gestão do seu workspace.</p>
+    </div>
+
+    <!-- Área do Master -->
+    <div class="form-group m-form__group row" *ngIf="formulario.get('exibir_para_master').value">
+      <div class="col-12">
+        <h6>Visualizado apenas pelo Master</h6>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Menus e funcionalidades</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="cabecalho_debug" retirarLabel=true label="Botão de debug"></tf-check-list>
+          <tf-check-list formControlName="outro_menu" retirarLabel=true label="Menu Outros"></tf-check-list>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <!-- Workspace -->
+    <div class="form-group m-form__group row">
+      <div class="col-12">
+        <h6>Workspace</h6>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Menu</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="workspace_menu" retirarLabel=true label="Menu"></tf-check-list>
+        </div>
+        <label class="font-weight-bolder mb-1 mt-2">Workspace</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="cliente_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="cliente_criar" retirarLabel=true label="Criar" *ngIf="formulario.get('exibir_para_master').value"></tf-check-list>
+          <tf-check-list formControlName="cliente_editar" retirarLabel=true label="Editar" *ngIf="formulario.get('exibir_para_master').value"></tf-check-list>
+          <tf-check-list formControlName="cliente_excluir" retirarLabel=true label="Excluir" *ngIf="formulario.get('exibir_para_master').value"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" *ngIf="formulario.get('exibir_para_master').value">
+        <label class="font-weight-bolder mb-1 mt-2">Instituição</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="instituicao_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="instituicao_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="instituicao_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="instituicao_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Unidade</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="unidade_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="unidade_criar" retirarLabel=true label="Criar" *ngIf="formulario.get('exibir_para_master').value"></tf-check-list>
+          <tf-check-list formControlName="unidade_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="unidade_excluir" retirarLabel=true label="Excluir" *ngIf="formulario.get('exibir_para_master').value"></tf-check-list>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+    <!-- Pessoas -->
+    <div class="form-group m-form__group row">
+      <div class="col-12">
+        <h6>Pessoas</h6>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Menu</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="pessoas_menu" retirarLabel=true label="Menu"></tf-check-list>
+        </div>
+        <label class="font-weight-bolder mb-1 mt-2">Auditores</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="aprovador_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="aprovador_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="aprovador_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="aprovador_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Grupos & permissões</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="grupo_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="grupo_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="grupo_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="grupo_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Pessoas</label>
+        <div class="m-checkbox-list">
+          <tf-check-list (change)="radio('pessoa_visualizar_meu')" formControlName="pessoa_visualizar_meu"
+            retirarLabel=true label="Visualizar (apenas eu)"></tf-check-list>
+          <tf-check-list (change)="radio('pessoa_visualizar_grupo')" formControlName="pessoa_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('pessoa_visualizar_unidade')" formControlName="pessoa_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+          <tf-check-list (change)="radio('pessoa_editar_meu')" formControlName="pessoa_editar_meu"
+            retirarLabel=true label="Editar (apenas eu)"></tf-check-list>
+          <tf-check-list (change)="radio('pessoa_editar_grupo')" formControlName="pessoa_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('pessoa_editar_unidade')" formControlName="pessoa_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+          <tf-check-list formControlName="pessoa_criar" retirarLabel=true label="Criar" *ngIf="formulario.get('exibir_para_master').value"></tf-check-list>
+          <tf-check-list formControlName="pessoa_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+          <tf-check-list formControlName="pessoa_convidar" retirarLabel=true label="Convidar"></tf-check-list>
+          <tf-check-list formControlName="pessoa_ativar" retirarLabel=true label="Ativar" *ngIf="formulario.get('exibir_para_master').value"></tf-check-list>
+          <tf-check-list formControlName="pessoa_integrar" retirarLabel=true label="Integrar" *ngIf="formulario.get('exibir_para_master').value"></tf-check-list>
+        </div>
+      </div>
+
+    </div>
+
+    <hr>
+    <!-- Espaços -->
+    <div class="form-group m-form__group row" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+     || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+      <div class="col-12">
+        <h6>Espaços</h6>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Menu</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="espacos_menu" retirarLabel=true label="Menu"></tf-check-list>
+        </div>
+        <label class="font-weight-bolder mb-1 mt-2">Localização</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="localizacao_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="localizacao_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="localizacao_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="localizacao_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Tipos de espaço</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="tipo_espaco_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="tipo_espaco_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+        <div *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')">
+          <label class="font-weight-bolder mb-1 mt-2">Salas (Smartrooms)</label>
+          <div class="m-checkbox-list">
+            <tf-check-list formControlName="tipo_espaco_sala_criar" retirarLabel=true label="Criar"></tf-check-list>
+            <tf-check-list formControlName="tipo_espaco_sala_editar" retirarLabel=true label="Editar"></tf-check-list>
+          </div>
+        </div>
+        <div *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+          <label class="font-weight-bolder mb-1 mt-2">Mesas (Hotdesks)</label>
+          <div class="m-checkbox-list">
+            <tf-check-list formControlName="tipo_espaco_estacao_de_trabalho_criar" retirarLabel=true label="Criar"></tf-check-list>
+            <tf-check-list formControlName="tipo_espaco_estacao_de_trabalho_editar" retirarLabel=true label="Editar"></tf-check-list>
+          </div>
+        </div>
+        <div *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+          <label class="font-weight-bolder mb-1 mt-2">Estacionamento</label>
+          <div class="m-checkbox-list">
+            <tf-check-list formControlName="tipo_espaco_estacionamento_criar" retirarLabel=true label="Criar"></tf-check-list>
+            <tf-check-list formControlName="tipo_espaco_estacionamento_editar" retirarLabel=true label="Editar"></tf-check-list>
+        </div>
+      </div>
+      <div *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+        <label class="font-weight-bolder mb-1 mt-2">Fretado</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="tipo_espaco_fretado_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="tipo_espaco_fretado_editar" retirarLabel=true label="Editar"></tf-check-list>
+        </div>
+      </div>
+    </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Espaços</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="espaco_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="espaco_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="espaco_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="espaco_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+          <tf-check-list formControlName="espaco_bloquear" retirarLabel=true label="Bloquear"></tf-check-list>
+          <!-- <tf-check-list formControlName="espaco_abrir_fechar" retirarLabel=true label="Abrir/fechar espaço"></tf-check-list> -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')">
+        <label class="font-weight-bolder mb-1 mt-2">Integrações</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="integracao_menu" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="integracao_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="integracao_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+      </div>
+
+    </div>
+
+    <hr>
+    <!-- Recursos -->
+    <div class="form-group m-form__group row" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+      <div class="col-12">
+        <h6>Recursos</h6>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Menu</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="recursos_menu" retirarLabel=true label="Menu"></tf-check-list>
+        </div>
+        <label class="font-weight-bolder mb-1 mt-2">Serviços</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="servico_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="servico_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="servico_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="servico_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Recursos</label>
+        <div class="m-checkbox-list">
+          <tf-check-list (change)="radio('recurso_visualizar_grupo')" formControlName="recurso_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('recurso_visualizar_unidade')" formControlName="recurso_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+          <tf-check-list (change)="radio('recurso_criar_grupo')" formControlName="recurso_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('recurso_criar_unidade')" formControlName="recurso_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+          <tf-check-list (change)="radio('recurso_editar_grupo')" formControlName="recurso_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('recurso_editar_unidade')" formControlName="recurso_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+          <tf-check-list (change)="radio('recurso_excluir_grupo')" formControlName="recurso_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('recurso_excluir_unidade')" formControlName="recurso_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Modelos</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="modelo_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="modelo_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="modelo_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="modelo_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Fiscais</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="fiscal_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="fiscal_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="fiscal_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="fiscal_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- #endregion cadastr de ativos -->
+
+  <div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+    <div class="form-group m-form__group row">
+      <h5>Menu de reserva</h5>
+      <p>Nesta seção estão as permissões dos menus de reserva, aqui você concede permissões em menus e funcionalidades de reservas que cada pessoa deste grupo terá.</p>
+    </div>
+    <div class="form-group m-form__group row">
+      <div class="col-md-3 col-sm-12">
+        <h6>Reservas</h6>
+        <!-- #region mapa interativo -->
+        <div *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+          || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+          <label class="font-weight-bolder mb-1 mt-2">Mapa interativo</label>
+          <div class="m-checkbox-list">
+            <tf-check-list formControlName="mapa_interativo" retirarLabel=true label="Utilizar mapa interativo para salas"></tf-check-list>
+          </div>
+        </div>
+        <!-- #endregion -->
+
+        <label class="font-weight-bolder mb-1 mt-2">Quadro</label>
+        <div class="m-checkbox-list">
+          <!-- <tf-check-list formControlName="quadro_pessoa_menu" retirarLabel=true label="Menu de pessoas"
+            *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')
+            || this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience')"></tf-check-list> -->
+          <tf-check-list formControlName="quadro_espaco_menu" retirarLabel=true label="Utilizar quadro para salas"
+            *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+            || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')"></tf-check-list>
+          <tf-check-list formControlName="quadro_recurso_menu" retirarLabel=true label="Utilizar quadro de recursos"
+            *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos') &&
+            formulario.get('exibir_para_master').value"></tf-check-list>
+        </div>
+
+        <label class="font-weight-bolder mb-1 mt-2">Calendário</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="calendario_menu" retirarLabel=true label="Menu Calendário"></tf-check-list>
+          <tf-check-list formControlName="calendario_visualizar_pessoas" retirarLabel=true label="Calendário de pessoas"
+            *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')
+            || this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience')"></tf-check-list>
+          <tf-check-list formControlName="calendario_visualizar_espacos" retirarLabel=true label="Adicionar agenda de salas e mesas"
+            *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+            || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')"></tf-check-list>
+          <!-- <tf-check-list formControlName="calendario_visualizar_recursos" retirarLabel=true label="Calendário de recursos"
+            *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"></tf-check-list> -->
+        
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-12">
+        <h6>Acompanhamentos</h6>
+        <label class="font-weight-bolder mb-1 mt-2">Listagem</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="listagem_menu" retirarLabel=true label="Menu"></tf-check-list>
+        </div>
+
+        <div *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+          <label class="font-weight-bolder mb-1 mt-2">Recursos alocados</label>
+          <div class="m-checkbox-list">
+            <tf-check-list formControlName="recursos_alocados_menu" retirarLabel=true label="Menu"></tf-check-list>
+          </div>
+        </div>
+
+        <label class="font-weight-bolder mb-1 mt-2">Relatórios</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="relatorio_menu" retirarLabel=true label="Menu"></tf-check-list>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.addons.includes('Display porta', 'Display painel')">
+        <h6>Monitoramento</h6>
+        <label class="font-weight-bolder mb-1 mt-2">Menu</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="monitoramento_menu" retirarLabel=true label="Menu"></tf-check-list>
+        </div>
+        <div *ngIf="this.workspaceService.currentUser.subdominio.addons.includes('Display porta', 'Display painel')">
+          <label class="font-weight-bolder mb-1 mt-2">Displays porta e painel</label>
+          <div class="m-checkbox-list">
+            <tf-check-list formControlName="display_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+            <tf-check-list formControlName="display_criar" retirarLabel=true label="Criar"></tf-check-list>
+            <tf-check-list formControlName="display_editar" retirarLabel=true label="Editar"></tf-check-list>
+            <tf-check-list formControlName="display_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+          </div>
+        </div>
+        <div *ngIf="this.workspaceService.currentUser.subdominio.addons.includes('Display painel')">
+          <label class="font-weight-bolder mb-1 mt-2">Painel</label>
+            <div class="m-checkbox-list">
+              <tf-check-list formControlName="painel_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+              <tf-check-list formControlName="painel_criar" retirarLabel=true label="Criar"></tf-check-list>
+              <tf-check-list formControlName="painel_editar" retirarLabel=true label="Editar"></tf-check-list>
+              <tf-check-list formControlName="painel_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        
+      </div>
+    </div>
+
+    <hr>
+    <div class="form-group m-form__group row">
+      <div class="col-12">
+        <h6>Customizações</h6>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Menu</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="customizacoes_menu" retirarLabel=true label="Menu"></tf-check-list>
+        </div>
+        <label class="font-weight-bolder mb-1 mt-2">Campos customizados</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="campo_customizado_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="campo_customizado_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="campo_customizado_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="campo_customizado_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+        <label class="font-weight-bolder mb-1 mt-2">Pré-definidos</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="predefinido_editar" retirarLabel=true label="Editar"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Parametrizações</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="parametro_editar" retirarLabel=true label="Editar"></tf-check-list>
+        </div>
+        <label class="font-weight-bolder mb-1 mt-2">Gerar QrCode</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="gerar_qrcode" retirarLabel=true label="QrCode para espaços e recursos"></tf-check-list>
+        </div>
+        <label class="font-weight-bolder mb-1 mt-2">Regra</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="regra_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="regra_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="regra_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="regra_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <label class="font-weight-bolder mb-1 mt-2">Filtros</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="filtro_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <hr class="my-2">
+          <tf-check-list (change)="radio('filtro_criar_meu')" formControlName="filtro_criar_meu"
+            retirarLabel=true label="Criar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('filtro_criar_grupo')" formControlName="filtro_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('filtro_criar_unidade')" formControlName="filtro_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+          <tf-check-list (change)="radio('filtro_editar_meu')" formControlName="filtro_editar_meu"
+            retirarLabel=true label="Editar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('filtro_editar_grupo')" formControlName="filtro_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('filtro_editar_unidade')" formControlName="filtro_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+          <tf-check-list (change)="radio('filtro_excluir_meu')" formControlName="filtro_excluir_meu"
+            retirarLabel=true label="Excluir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('filtro_excluir_grupo')" formControlName="filtro_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('filtro_excluir_unidade')" formControlName="filtro_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.addons.includes('Display porta', 'Display painel')">
+        <h6>Layout</h6>
+        <!-- <label class="font-weight-bolder mb-1 mt-2">Menu</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="unidade_visualizar" retirarLabel=true label="Menu"></tf-check-list>
+        </div> -->
+        <div  *ngIf="formulario.get('exibir_para_master').value">
+          <label class="font-weight-bolder mb-1 mt-2">Template</label>
+          <div class="m-checkbox-list">
+            <tf-check-list formControlName="template_menu" retirarLabel=true label="Menu"></tf-check-list>
+          </div>
+        </div>
+        <label class="font-weight-bolder mb-1 mt-2">Layout dos displays</label>
+        <div class="m-checkbox-list">
+          <tf-check-list formControlName="layout_visualizar" retirarLabel=true label="Visualizar"></tf-check-list>
+          <tf-check-list formControlName="layout_criar" retirarLabel=true label="Criar"></tf-check-list>
+          <tf-check-list formControlName="layout_editar" retirarLabel=true label="Editar"></tf-check-list>
+          <tf-check-list formControlName="layout_excluir" retirarLabel=true label="Excluir"></tf-check-list>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_4" role="tabpanel">
+    <div class="form-group m-form__group row">
+      <h5>Ações de reserva</h5>
+      <p>Nesta seção estão as permissões dos tipos de reserva da Calenda, aqui você configura quais reservas e o nível de permissão nelas que cada pessoa deste grupo terá.</p>
+    </div>
+    
+    <div class="form-group m-form__group row">
+
+      <!-- #region evento -->
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+        || this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')
+        || this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience')">
+        <label class="font-weight-bolder mb-1 mt-2">Evento</label>
+        <div class="m-checkbox-list">      
+
+          <tf-check-list (change)="radio('reserva_evento_visualizar_meu')" formControlName="reserva_evento_visualizar_meu"
+            retirarLabel=true label="Visualizar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_visualizar_grupo')" formControlName="reserva_evento_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_visualizar_unidade')" formControlName="reserva_evento_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_evento_criar_meu')" formControlName="reserva_evento_criar_meu"
+            retirarLabel=true label="Criar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_criar_grupo')" formControlName="reserva_evento_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_criar_unidade')" formControlName="reserva_evento_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_evento_editar_meu')" formControlName="reserva_evento_editar_meu"
+            retirarLabel=true label="Editar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_editar_grupo')" formControlName="reserva_evento_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_editar_unidade')" formControlName="reserva_evento_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_evento_excluir_meu')" formControlName="reserva_evento_excluir_meu"
+            retirarLabel=true label="Excluir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_excluir_grupo')" formControlName="reserva_evento_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_excluir_unidade')" formControlName="reserva_evento_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_evento_iniciar_meu')" formControlName="reserva_evento_iniciar_meu"
+            retirarLabel=true label="Iniciar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_iniciar_grupo')" formControlName="reserva_evento_iniciar_grupo"
+            retirarLabel=true label="Iniciar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_iniciar_unidade')" formControlName="reserva_evento_iniciar_unidade"
+            retirarLabel=true label="Iniciar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_evento_encerrar_meu')" formControlName="reserva_evento_encerrar_meu"
+            retirarLabel=true label="Encerrar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_encerrar_grupo')" formControlName="reserva_evento_encerrar_grupo"
+            retirarLabel=true label="Encerrar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_encerrar_unidade')" formControlName="reserva_evento_encerrar_unidade"
+            retirarLabel=true label="Encerrar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list formControlName="reserva_evento_reservar_espaco"
+            retirarLabel=true label="Reservar sala"
+            *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list formControlName="reserva_evento_recorrencia"
+            retirarLabel=true label="Criar recorrência"></tf-check-list>
+
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+        && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+        <label class="font-weight-bolder mb-1 mt-2">&nbsp;</label>
+        <div class="m-checkbox-list">
+
+          <tf-check-list formControlName="reserva_evento_solicitar_recurso"
+            retirarLabel=true label="Solicitar Recurso"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_evento_alocar_meu')" formControlName="reserva_evento_alocar_meu"
+            retirarLabel=true label="Alocar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_alocar_grupo')" formControlName="reserva_evento_alocar_grupo"
+            retirarLabel=true label="Alocar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_alocar_unidade')" formControlName="reserva_evento_alocar_unidade"
+            retirarLabel=true label="Alocar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_evento_recolher_meu')" formControlName="reserva_evento_recolher_meu"
+            retirarLabel=true label="Recolher (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_recolher_grupo')" formControlName="reserva_evento_recolher_grupo"
+            retirarLabel=true label="Recolher (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_recolher_unidade')" formControlName="reserva_evento_recolher_unidade"
+            retirarLabel=true label="Recolher (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_evento_servir_meu')" formControlName="reserva_evento_servir_meu"
+            retirarLabel=true label="Servir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_servir_grupo')" formControlName="reserva_evento_servir_grupo"
+            retirarLabel=true label="Servir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_evento_servir_unidade')" formControlName="reserva_evento_servir_unidade"
+            retirarLabel=true label="Servir (unidade inteira)"></tf-check-list>
+          
+        </div>
+      </div>
+      <!-- #endregion -->
+
+      <!-- #region instalacao -->
+      <div class="col-md-3 col-sm-12" 
+        *ngIf="(this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+        || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))
+        && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+        <label class="font-weight-bolder mb-1 mt-2">Instalação</label>
+        <div class="m-checkbox-list">
+
+          <tf-check-list (change)="radio('reserva_instalacao_visualizar_meu')" formControlName="reserva_instalacao_visualizar_meu"
+            retirarLabel=true label="Visualizar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_visualizar_grupo')" formControlName="reserva_instalacao_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_visualizar_unidade')" formControlName="reserva_instalacao_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_instalacao_criar_meu')" formControlName="reserva_instalacao_criar_meu"
+            retirarLabel=true label="Criar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_criar_grupo')" formControlName="reserva_instalacao_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_criar_unidade')" formControlName="reserva_instalacao_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_instalacao_editar_meu')" formControlName="reserva_instalacao_editar_meu"
+            retirarLabel=true label="Editar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_editar_grupo')" formControlName="reserva_instalacao_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_editar_unidade')" formControlName="reserva_instalacao_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_instalacao_excluir_meu')" formControlName="reserva_instalacao_excluir_meu"
+            retirarLabel=true label="Excluir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_excluir_grupo')" formControlName="reserva_instalacao_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_excluir_unidade')" formControlName="reserva_instalacao_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_instalacao_instalar_meu')" formControlName="reserva_instalacao_instalar_meu"
+            retirarLabel=true label="Instalar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_instalar_grupo')" formControlName="reserva_instalacao_instalar_grupo"
+            retirarLabel=true label="Instalar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_instalar_unidade')" formControlName="reserva_instalacao_instalar_unidade"
+            retirarLabel=true label="Instalar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_instalacao_desinstalar_meu')" formControlName="reserva_instalacao_desinstalar_meu"
+            retirarLabel=true label="Desinstalar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_desinstalar_grupo')" formControlName="reserva_instalacao_desinstalar_grupo"
+            retirarLabel=true label="Desinstalar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_instalacao_desinstalar_unidade')" formControlName="reserva_instalacao_desinstalar_unidade"
+            retirarLabel=true label="Desinstalar (unidade inteira)"></tf-check-list>
+            
+        </div>
+      </div>
+      <!-- #endregion -->
+
+      <!-- #region home office, custos e vinculos -->
+      <div class="col-md-3 col-sm-12">
+        <!-- #region home office -->
+        <!-- <div *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')
+          || this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')">
+          <label class="font-weight-bolder mb-1 mt-2">Home office:</label>
+          <div class="m-checkbox-list">
+            <tf-check-list formControlName="pessoa_em_home_office" retirarLabel=true label="Informar home office"></tf-check-list>
+          </div>
+          <hr class="my-2">
+        </div> -->
+        <!-- #endregion -->
+
+
+        <!-- #region custos e vinculos -->
+        <div *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+          <label class="font-weight-bolder mb-1 mt-2">Custos e vinculos de recursos em reservas:</label>
+          <div class="m-checkbox-list">
+
+            <tf-check-list (change)="radio('reserva_gastos_meu')" formControlName="reserva_gastos_meu"
+              retirarLabel=true label="Gastos (apenas meus)"></tf-check-list>
+            <tf-check-list (change)="radio('reserva_gastos_grupo')" formControlName="reserva_gastos_grupo"
+              retirarLabel=true label="Gastos (meus grupos)"></tf-check-list>
+            <tf-check-list (change)="radio('reserva_gastos_unidade')" formControlName="reserva_gastos_unidade"
+              retirarLabel=true label="Gastos (unidade inteira)"></tf-check-list>
+            <hr class="my-2">
+
+            <tf-check-list (change)="radio('reserva_desconto_grupo')" formControlName="reserva_desconto_grupo"
+              retirarLabel=true label="Dar desconto (meus grupos)"></tf-check-list>
+            <tf-check-list (change)="radio('reserva_desconto_unidade')" formControlName="reserva_desconto_unidade"
+              retirarLabel=true label="Dar desconto (unidade inteira)"></tf-check-list>
+            <hr class="my-2">
+
+            <tf-check-list formControlName="reserva_vinculavel_unidade" retirarLabel=true label="Remover vinculo entre espaço e recurso"></tf-check-list>
+          </div>
+        </div>
+        <!-- #endregion -->
+      </div>
+      <!-- #endregion -->
+    </div>
+
+    <hr>
+
+    <div class="form-group m-form__group row">
+
+      <!-- #region hotdesk estacao_flexivel -->
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+        <label class="font-weight-bolder mb-1 mt-2">Hotdesk</label>
+        <div class="m-checkbox-list">
+
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_visualizar_meu')" formControlName="reserva_estacao_flexivel_visualizar_meu"
+            retirarLabel=true label="Visualizar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_visualizar_grupo')" formControlName="reserva_estacao_flexivel_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_visualizar_unidade')" formControlName="reserva_estacao_flexivel_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_criar_meu')" formControlName="reserva_estacao_flexivel_criar_meu"
+            retirarLabel=true label="Criar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_criar_grupo')" formControlName="reserva_estacao_flexivel_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_criar_unidade')" formControlName="reserva_estacao_flexivel_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_editar_meu')" formControlName="reserva_estacao_flexivel_editar_meu"
+            retirarLabel=true label="Editar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_editar_grupo')" formControlName="reserva_estacao_flexivel_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_editar_unidade')" formControlName="reserva_estacao_flexivel_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_excluir_meu')" formControlName="reserva_estacao_flexivel_excluir_meu"
+            retirarLabel=true label="Excluir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_excluir_grupo')" formControlName="reserva_estacao_flexivel_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_excluir_unidade')" formControlName="reserva_estacao_flexivel_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_iniciar_meu')" formControlName="reserva_estacao_flexivel_iniciar_meu"
+            retirarLabel=true label="Iniciar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_iniciar_grupo')" formControlName="reserva_estacao_flexivel_iniciar_grupo"
+            retirarLabel=true label="Iniciar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_iniciar_unidade')" formControlName="reserva_estacao_flexivel_iniciar_unidade"
+            retirarLabel=true label="Iniciar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_encerrar_meu')" formControlName="reserva_estacao_flexivel_encerrar_meu"
+            retirarLabel=true label="Encerrar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_encerrar_grupo')" formControlName="reserva_estacao_flexivel_encerrar_grupo"
+            retirarLabel=true label="Encerrar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacao_flexivel_encerrar_unidade')" formControlName="reserva_estacao_flexivel_encerrar_unidade"
+            retirarLabel=true label="Encerrar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list formControlName="reserva_estacao_flexivel_recorrencia"
+            retirarLabel=true label="Criar recorrência"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list formControlName="reserva_estacao_flexivel_solicitar_recurso"
+            retirarLabel=true label="Solicitar Recurso"
+            *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"></tf-check-list>
+            
+        </div>
+      </div>
+      <!-- #endregion -->
+
+      <!-- #region posto de trabalho -->
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+        <label class="font-weight-bolder mb-1 mt-2">Posto de trabalho</label>
+        <div class="m-checkbox-list">
+
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_visualizar_meu')" formControlName="reserva_posto_de_trabalho_visualizar_meu"
+            retirarLabel=true label="Visualizar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_visualizar_grupo')" formControlName="reserva_posto_de_trabalho_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_visualizar_unidade')" formControlName="reserva_posto_de_trabalho_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_criar_meu')" formControlName="reserva_posto_de_trabalho_criar_meu"
+            retirarLabel=true label="Criar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_criar_grupo')" formControlName="reserva_posto_de_trabalho_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_criar_unidade')" formControlName="reserva_posto_de_trabalho_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_editar_meu')" formControlName="reserva_posto_de_trabalho_editar_meu"
+            retirarLabel=true label="Editar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_editar_grupo')" formControlName="reserva_posto_de_trabalho_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_editar_unidade')" formControlName="reserva_posto_de_trabalho_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_excluir_meu')" formControlName="reserva_posto_de_trabalho_excluir_meu"
+            retirarLabel=true label="Excluir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_excluir_grupo')" formControlName="reserva_posto_de_trabalho_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_excluir_unidade')" formControlName="reserva_posto_de_trabalho_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_definir_meu')" formControlName="reserva_posto_de_trabalho_definir_meu"
+            retirarLabel=true label="Definir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_definir_grupo')" formControlName="reserva_posto_de_trabalho_definir_grupo"
+            retirarLabel=true label="Definir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_definir_unidade')" formControlName="reserva_posto_de_trabalho_definir_unidade"
+            retirarLabel=true label="Definir (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_desvincular_meu')" formControlName="reserva_posto_de_trabalho_desvincular_meu"
+            retirarLabel=true label="Desvincular (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_desvincular_grupo')" formControlName="reserva_posto_de_trabalho_desvincular_grupo"
+            retirarLabel=true label="Desvincular (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_posto_de_trabalho_desvincular_unidade')" formControlName="reserva_posto_de_trabalho_desvincular_unidade"
+            retirarLabel=true label="Desvincular (unidade inteira)"></tf-check-list>
+            
+        </div>
+      </div>
+      <!-- #endregion -->
+
+      <!-- #region estacionamento -->
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+        <label class="font-weight-bolder mb-1 mt-2">Estacionamento</label>
+        <div class="m-checkbox-list">
+
+          <tf-check-list (change)="radio('reserva_estacionamento_visualizar_meu')" formControlName="reserva_estacionamento_visualizar_meu"
+            retirarLabel=true label="Visualizar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_visualizar_grupo')" formControlName="reserva_estacionamento_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_visualizar_unidade')" formControlName="reserva_estacionamento_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_estacionamento_criar_meu')" formControlName="reserva_estacionamento_criar_meu"
+            retirarLabel=true label="Criar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_criar_grupo')" formControlName="reserva_estacionamento_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_criar_unidade')" formControlName="reserva_estacionamento_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_estacionamento_editar_meu')" formControlName="reserva_estacionamento_editar_meu"
+            retirarLabel=true label="Editar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_editar_grupo')" formControlName="reserva_estacionamento_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_editar_unidade')" formControlName="reserva_estacionamento_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_estacionamento_excluir_meu')" formControlName="reserva_estacionamento_excluir_meu"
+            retirarLabel=true label="Excluir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_excluir_grupo')" formControlName="reserva_estacionamento_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_excluir_unidade')" formControlName="reserva_estacionamento_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_estacionamento_iniciar_meu')" formControlName="reserva_estacionamento_iniciar_meu"
+            retirarLabel=true label="Iniciar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_iniciar_grupo')" formControlName="reserva_estacionamento_iniciar_grupo"
+            retirarLabel=true label="Iniciar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_iniciar_unidade')" formControlName="reserva_estacionamento_iniciar_unidade"
+            retirarLabel=true label="Iniciar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_estacionamento_encerrar_meu')" formControlName="reserva_estacionamento_encerrar_meu"
+            retirarLabel=true label="Encerrar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_encerrar_grupo')" formControlName="reserva_estacionamento_encerrar_grupo"
+            retirarLabel=true label="Encerrar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_estacionamento_encerrar_unidade')" formControlName="reserva_estacionamento_encerrar_unidade"
+            retirarLabel=true label="Encerrar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list formControlName="reserva_estacionamento_recorrencia"
+            retirarLabel=true label="Criar recorrência"></tf-check-list>
+            
+        </div>
+      </div>
+      <!-- #endregion -->
+
+      <!-- #region fretado -->
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+        <label class="font-weight-bolder mb-1 mt-2">Fretado</label>
+        <div class="m-checkbox-list">
+
+          <tf-check-list (change)="radio('reserva_fretado_visualizar_meu')" formControlName="reserva_fretado_visualizar_meu"
+            retirarLabel=true label="Visualizar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_visualizar_grupo')" formControlName="reserva_fretado_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_visualizar_unidade')" formControlName="reserva_fretado_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_fretado_criar_meu')" formControlName="reserva_fretado_criar_meu"
+            retirarLabel=true label="Criar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_criar_grupo')" formControlName="reserva_fretado_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_criar_unidade')" formControlName="reserva_fretado_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_fretado_editar_meu')" formControlName="reserva_fretado_editar_meu"
+            retirarLabel=true label="Editar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_editar_grupo')" formControlName="reserva_fretado_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_editar_unidade')" formControlName="reserva_fretado_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_fretado_excluir_meu')" formControlName="reserva_fretado_excluir_meu"
+            retirarLabel=true label="Excluir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_excluir_grupo')" formControlName="reserva_fretado_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_excluir_unidade')" formControlName="reserva_fretado_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_fretado_iniciar_meu')" formControlName="reserva_fretado_iniciar_meu"
+            retirarLabel=true label="Iniciar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_iniciar_grupo')" formControlName="reserva_fretado_iniciar_grupo"
+            retirarLabel=true label="Iniciar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_iniciar_unidade')" formControlName="reserva_fretado_iniciar_unidade"
+            retirarLabel=true label="Iniciar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_fretado_encerrar_meu')" formControlName="reserva_fretado_encerrar_meu"
+            retirarLabel=true label="Encerrar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_encerrar_grupo')" formControlName="reserva_fretado_encerrar_grupo"
+            retirarLabel=true label="Encerrar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_fretado_encerrar_unidade')" formControlName="reserva_fretado_encerrar_unidade"
+            retirarLabel=true label="Encerrar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list formControlName="reserva_fretado_recorrencia"
+            retirarLabel=true label="Criar recorrência"></tf-check-list>
+            
+        </div>
+      </div>
+      <!-- #endregion -->
+
+      <!-- #region emprestimo -->
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+        <label class="font-weight-bolder mb-1 mt-2">Empréstimo</label>
+        <div class="m-checkbox-list">
+
+          <tf-check-list (change)="radio('reserva_emprestimo_visualizar_meu')" formControlName="reserva_emprestimo_visualizar_meu"
+            retirarLabel=true label="Visualizar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_visualizar_grupo')" formControlName="reserva_emprestimo_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_visualizar_unidade')" formControlName="reserva_emprestimo_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_emprestimo_criar_meu')" formControlName="reserva_emprestimo_criar_meu"
+            retirarLabel=true label="Criar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_criar_grupo')" formControlName="reserva_emprestimo_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_criar_unidade')" formControlName="reserva_emprestimo_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_emprestimo_editar_meu')" formControlName="reserva_emprestimo_editar_meu"
+            retirarLabel=true label="Editar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_editar_grupo')" formControlName="reserva_emprestimo_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_editar_unidade')" formControlName="reserva_emprestimo_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_emprestimo_excluir_meu')" formControlName="reserva_emprestimo_excluir_meu"
+            retirarLabel=true label="Excluir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_excluir_grupo')" formControlName="reserva_emprestimo_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_excluir_unidade')" formControlName="reserva_emprestimo_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_emprestimo_emprestar_meu')" formControlName="reserva_emprestimo_emprestar_meu"
+            retirarLabel=true label="Emprestar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_emprestar_grupo')" formControlName="reserva_emprestimo_emprestar_grupo"
+            retirarLabel=true label="Emprestar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_emprestar_unidade')" formControlName="reserva_emprestimo_emprestar_unidade"
+            retirarLabel=true label="Emprestar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_emprestimo_devolver_meu')" formControlName="reserva_emprestimo_devolver_meu"
+            retirarLabel=true label="Devolver (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_devolver_grupo')" formControlName="reserva_emprestimo_devolver_grupo"
+            retirarLabel=true label="Devolver (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_emprestimo_devolver_unidade')" formControlName="reserva_emprestimo_devolver_unidade"
+            retirarLabel=true label="Devolver (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list formControlName="reserva_emprestimo_recorrencia"
+            retirarLabel=true label="Criar recorrência"></tf-check-list>
+            
+        </div>
+      </div>
+      <!-- #endregion -->
+
+      <!-- #region equipagem -->
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+        <label class="font-weight-bolder mb-1 mt-2">Equipagem</label>
+        <div class="m-checkbox-list">
+
+          <tf-check-list (change)="radio('reserva_equipagem_visualizar_meu')" formControlName="reserva_equipagem_visualizar_meu"
+            retirarLabel=true label="Visualizar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_visualizar_grupo')" formControlName="reserva_equipagem_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_visualizar_unidade')" formControlName="reserva_equipagem_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_equipagem_criar_meu')" formControlName="reserva_equipagem_criar_meu"
+            retirarLabel=true label="Criar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_criar_grupo')" formControlName="reserva_equipagem_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_criar_unidade')" formControlName="reserva_equipagem_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_equipagem_editar_meu')" formControlName="reserva_equipagem_editar_meu"
+            retirarLabel=true label="Editar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_editar_grupo')" formControlName="reserva_equipagem_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_editar_unidade')" formControlName="reserva_equipagem_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_equipagem_excluir_meu')" formControlName="reserva_equipagem_excluir_meu"
+            retirarLabel=true label="Excluir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_excluir_grupo')" formControlName="reserva_equipagem_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_excluir_unidade')" formControlName="reserva_equipagem_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_equipagem_equipar_meu')" formControlName="reserva_equipagem_equipar_meu"
+            retirarLabel=true label="Equipar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_equipar_grupo')" formControlName="reserva_equipagem_equipar_grupo"
+            retirarLabel=true label="Equipar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_equipar_unidade')" formControlName="reserva_equipagem_equipar_unidade"
+            retirarLabel=true label="Equipar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_equipagem_desequipar_meu')" formControlName="reserva_equipagem_desequipar_meu"
+            retirarLabel=true label="Desequipar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_desequipar_grupo')" formControlName="reserva_equipagem_desequipar_grupo"
+            retirarLabel=true label="Desequipar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_equipagem_desequipar_unidade')" formControlName="reserva_equipagem_desequipar_unidade"
+            retirarLabel=true label="Desequipar (unidade inteira)"></tf-check-list>
+
+        </div>
+      </div>
+      <!-- #endregion -->
+
+      <!-- #region kit estande -->
+      <div class="col-md-3 col-sm-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+        <label class="font-weight-bolder mb-1 mt-2">Adicionar serviços para eventos</label>
+        <div class="m-checkbox-list">
+
+          <tf-check-list (change)="radio('reserva_kit_estandes_visualizar_meu')" formControlName="reserva_kit_estandes_visualizar_meu"
+            retirarLabel=true label="Visualizar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_visualizar_grupo')" formControlName="reserva_kit_estandes_visualizar_grupo"
+            retirarLabel=true label="Visualizar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_visualizar_unidade')" formControlName="reserva_kit_estandes_visualizar_unidade"
+            retirarLabel=true label="Visualizar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_kit_estandes_criar_meu')" formControlName="reserva_kit_estandes_criar_meu"
+            retirarLabel=true label="Criar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_criar_grupo')" formControlName="reserva_kit_estandes_criar_grupo"
+            retirarLabel=true label="Criar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_criar_unidade')" formControlName="reserva_kit_estandes_criar_unidade"
+            retirarLabel=true label="Criar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_kit_estandes_editar_meu')" formControlName="reserva_kit_estandes_editar_meu"
+            retirarLabel=true label="Editar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_editar_grupo')" formControlName="reserva_kit_estandes_editar_grupo"
+            retirarLabel=true label="Editar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_editar_unidade')" formControlName="reserva_kit_estandes_editar_unidade"
+            retirarLabel=true label="Editar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_kit_estandes_excluir_meu')" formControlName="reserva_kit_estandes_excluir_meu"
+            retirarLabel=true label="Excluir (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_excluir_grupo')" formControlName="reserva_kit_estandes_excluir_grupo"
+            retirarLabel=true label="Excluir (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_excluir_unidade')" formControlName="reserva_kit_estandes_excluir_unidade"
+            retirarLabel=true label="Excluir (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_kit_estandes_montar_meu')" formControlName="reserva_kit_estandes_montar_meu"
+            retirarLabel=true label="Montar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_montar_grupo')" formControlName="reserva_kit_estandes_montar_grupo"
+            retirarLabel=true label="Montar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_montar_unidade')" formControlName="reserva_kit_estandes_montar_unidade"
+            retirarLabel=true label="Montar (unidade inteira)"></tf-check-list>
+          <hr class="my-2">
+
+          <tf-check-list (change)="radio('reserva_kit_estandes_desmontar_meu')" formControlName="reserva_kit_estandes_desmontar_meu"
+            retirarLabel=true label="Desmontar (apenas meus)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_desmontar_grupo')" formControlName="reserva_kit_estandes_desmontar_grupo"
+            retirarLabel=true label="Desmontar (meus grupos)"></tf-check-list>
+          <tf-check-list (change)="radio('reserva_kit_estandes_desmontar_unidade')" formControlName="reserva_kit_estandes_desmontar_unidade"
+            retirarLabel=true label="Desmontar (unidade inteira)"></tf-check-list>
+
+        </div>
+      </div>
+      <!-- #endregion -->
+
+    </div>
+
+
+  </div>
+
+</tf-form-abas>

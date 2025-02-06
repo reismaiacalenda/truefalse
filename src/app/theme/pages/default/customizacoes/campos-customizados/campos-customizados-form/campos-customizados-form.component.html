@@ -1,0 +1,79 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  [autorizar_excluir]="['campo_customizado_excluir']"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  title="Campo"
+  id="{{formulario.get('id').value}}"
+  >
+      
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('nome')">
+      <tf-text-simple
+        formControlName="nome"
+        label="Nome do campo"
+        placeholder="Nome do campo">
+      </tf-text-simple>
+    </div>
+    
+    <div class="form-group m-form__group">
+      <tf-select-simple
+        [formControl]="formulario.get('tipo_campo_id')"
+        [data]="listSelectTipoCampo"
+        label="Tipo do campo"
+        placeholder="selecione um tipo do campo"
+        [allowClear]="true"
+        >
+      </tf-select-simple>
+    </div>
+    
+    <div class="form-group m-form__group" *ngIf="habilitarCampoValoresEscolher(formulario.get('tipo_campo_id').value)"
+      [ngClass]="aplicaCss('opcoes')">
+      <tf-text-simple
+        formControlName="opcoes"
+        label="Valores a escolher (separados por vírgula)"
+        placeholder="Valores a escolher (separados por vírgula)">
+      </tf-text-simple>
+    </div>
+
+    <div class="form-group m-form__group" *ngIf="habilitarCampoDefault(formulario.get('tipo_campo_id').value)"
+      [ngClass]="aplicaCss('opcoes')">
+      <tf-text-simple
+        formControlName="default"
+        label="Valor padrão (default)"
+        placeholder="Valor padrão (default)">
+      </tf-text-simple>
+    </div>
+    
+    <div class="form-group m-form__group">
+      <tf-check-box
+          formControlName="obrigatorio"
+          label="Preenchimento obrigatório?">
+      </tf-check-box>
+    </div>  
+    
+    <div class="form-group m-form__group tf-color-black-bold" *ngIf="habilitarCamposQuantidades(formulario.get('tipo_campo_id').value)"
+      [ngClass]="aplicaCss('min_caracteres')">
+      <span>Quantidade mínima de caracteres</span>
+      <div class="col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px;">
+          <tf-integer
+          formControlName="min_caracteres"
+          retirarLabel="true">
+        </tf-integer>
+      </div>
+    </div>
+    
+    <div class="form-group m-form__group tf-color-black-bold" *ngIf="habilitarCamposQuantidades(formulario.get('tipo_campo_id').value)"
+      [ngClass]="aplicaCss('max_caracteres')">
+      <span>Quantidade máxima de caracteres</span>
+      <div class="col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px;">
+          <tf-integer
+          formControlName="max_caracteres"
+          retirarLabel="true">
+        </tf-integer>
+      </div>
+    </div>
+    
+      </tf-form-simples>
+      

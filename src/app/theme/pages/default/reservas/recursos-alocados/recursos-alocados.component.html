@@ -1,0 +1,52 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+		<div class="d-flex align-items-center">
+			<tf-page-map class="col-md-8 pl-0" nomePagina="Recursos alocados"
+				[menu]="[
+					['/acompanhamentos', 'Acompanhamentos'],
+					['/acompanhamentos/recursos-alocados', 'Recursos alocados']
+				]">
+			</tf-page-map>
+			<div class="col-md-4 pr-0 float-right inline-block">
+				<div class="float-right">
+					<a *ngIf="workspaceService.autorizar('listagem_menu')"
+					routerLink="/acompanhamentos/listagem" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+						>
+						<span>
+							<span class="svg-icon svg-icon-primary pl-0 svg-icon-1x5p"
+								[inlineSVG]="'./assets/app/media/svg/icons/Devices/Server.svg'">
+							</span>
+							<span>
+								Listagem
+							</span>
+						</span>
+					</a>
+					<a *ngIf="workspaceService.autorizar('recurso_visualizar_grupo', 'recurso_visualizar_unidade')
+          && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"
+					routerLink="/cadastros/recursos/recursos" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+						>
+						<span>
+							<span class="svg-icon svg-icon-primary pl-0 svg-icon-1x5p"
+								[inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'">
+							</span>
+							<span>
+								Recursos
+							</span>
+						</span>
+					</a>
+					<tf-page-guia class="">
+					</tf-page-guia>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- END: Subheader -->
+	<div class="m-content">
+		<div class="m-portlet m-portlet--mobile">
+			<div class="m-portlet__body">
+			<!--begin: Datatable -->
+			<recursos-alocados-data-table></recursos-alocados-data-table>
+			<!--end: Datatable -->
+		</div>
+	</div>
+</div>

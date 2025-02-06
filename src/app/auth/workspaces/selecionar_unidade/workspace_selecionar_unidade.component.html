@@ -1,0 +1,47 @@
+<div class="m-login__forget-password2">
+  <div class="m-login__head">
+    <h3 class="m-login__title">
+      Seleção de unidades
+    </h3>
+    <div class="m-login__desc">
+      Selecione a(s) unidade(s) em que você atua.
+    </div>
+  </div>
+  <form class="m-login__form m-form"
+  >
+  <!-- (ngSubmit)="f.form.valid" #f="ngForm"  action="" -->
+    <!-- <ng-template #alertForgetPass></ng-template> -->
+    <div class="form-group m-form__group">
+      <!-- <input class="form-control m-input"
+      type="email"
+      placeholder="Email"
+      name="email"
+      id="m_email"
+      autocomplete="off"> -->
+      <tf-select-multi class="form-control m-input"
+        [data]="listUnidades"
+        [form]="formulario.get('unidades_attributes')"
+        placeholder="selecionar minha(s) unidade(s)"
+        >
+        <!-- label="Teste oi:" -->
+        <!-- [(ngModel)]="model.unidade_ids" -->
+      </tf-select-multi>
+      <!-- #email="ngModel" -->
+    </div>
+    <div class="m-login__form-action">
+      <!-- [ngClass]="{'m-loader m-loader--right m-loader--light': loading}" -->
+      <button 
+        [disabled]="loading"
+        (click)="onSubmit()"
+        class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air">
+        Entrar
+      </button>
+      <!-- [disabled]="loading" -->
+      <!-- <button 
+        class="btn btn-outline-primary m-btn m-btn--pill m-btn--custom "
+        routerLink="/login/publico_signin" skipLoadingChange>
+        Cancelar
+      </button> -->
+    </div>
+  </form>
+</div>

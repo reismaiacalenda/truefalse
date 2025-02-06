@@ -1,0 +1,66 @@
+<div class="card card-custom card-shadowplus d-flex align-items-between pt-0 px-0 pb-0 m-animate-shine" [ngClass]="cssClasses"
+>
+  <div class="h-100 px-3"
+  style="background: url(./assets/app/media/img/misc/escritorio_curvo_cinza_claro.png);
+  background-size: contain;
+  background-position: 220% 110%;
+  background-repeat: no-repeat;
+  background-size: 75% auto;">
+
+    <div class="pt-5 pb-0 px-2">
+      <span class="font-weight text-dark-75">Minhas reuniões</span>
+    </div>
+
+    <div class="pt-10 pt-lg-3 pb-3 pb-lg-0 px-2"
+      *ngIf="jornal?.dias[diaSelecionado]?.reunioes == undefined || jornal?.dias[diaSelecionado]?.reunioes.length == 0">
+      <span class="font-weight-bold text-dark-50 font-size-xs mt-1">Nenhuma reserva para este dia</span>
+    </div>
+
+    <ng-container *ngFor="let reserva of jornal?.dias[diaSelecionado]?.reunioes; let i = index">
+      
+      <div *ngIf="i<3" class="card-shadowplus rounded my-3 py-2 px-3 bg-white bg-hover-light
+        d-flex align-items-center justify-content-between flex-wrap"
+        (click)="openModalDetalhe(reserva.id)"
+        [ngClass]="{
+        'mx-2' : workspaceService.formacaoColunas('3-5-4'),
+        'mx-0' : workspaceService.formacaoColunas('3-3-3-3')}">
+        <div class="d-flex flex-column flex-grow-1">
+          <div>
+            <span class="font-weight font-size-sm text-dark-75">{{reserva.assunto}}</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <span class="svg-icon svg-icon-1x mr-1"
+              [inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'">
+            </span>
+            <span class="font-weight font-size-xs pt-1 text-dark-75">{{reserva.hora}}</span>
+          </div>
+          <div class="d-flex align-items-center"
+            *ngIf="reserva.tipo_reserva != 'eventos_pessoa'">
+            <span class="svg-icon svg-icon-1x mr-1"
+              [inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+            </span>
+            <span class="font-weight font-size-xs pt-1 text-dark-75">{{reserva.espaco}}</span>
+          </div>
+        </div>
+        <div class="d-flex flex-right pr-0">
+					<span class="svg-icon svg-icon-primary svg-icon-treze"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-right.svg'">
+					</span>
+				</div>
+      </div>
+    </ng-container>
+    
+    <div class="d-flex justify-content-center pt-0"
+      *ngIf="jornal?.dias[diaSelecionado]?.reunioes != undefined && jornal?.dias[diaSelecionado]?.reunioes.length > 0"
+      (click)="openModalAgendaDoDia()">
+      <span class="text-dark-50 font-size-xs text-center text-hover-primary m-link m-link--primary cursor-pointer rounded
+        mt-0 mt-lg-1 pt-2 pt-lg-3 px-5 pb-5 pb-lg-0">
+        Ver agenda do dia
+        <span class="svg-icon svg-icon-hover-primary svg-icon-1x"
+          [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-right.svg'">
+        </span>
+      </span>
+    </div>
+    
+  </div>
+</div>

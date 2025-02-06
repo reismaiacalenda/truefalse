@@ -1,0 +1,225 @@
+<!-- <tf-form-simples
+	[activeModal]="activeModal"
+	[formGroup]="formulario"
+	title="{{modalTitle}} Didático"
+	(submeter)="onSubmit()"
+> -->
+
+<tf-form-abas
+	[abas]="abas"
+	[activeModal]="activeModal"
+	[formGroup]="formulario"
+	[listDadosSelect]="listDadosSelect"
+	(submeter)="onSubmit()"
+	(excluir)="removeItem()"
+	id="{{formulario.get('id').value}}"
+	>
+	<!-- [habilitarExcluir]="currentUser.role_number>3" -->
+
+	<div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+
+		<div class="form-group m-form__group">
+			<tf-upload-image
+				formControlName="imagem"
+				label="Carregar imagem"
+				[extensions]="['jpeg','png']"
+			>
+			</tf-upload-image>
+		</div>
+
+		<div class="form-group m-form__group"
+			[ngClass]="aplicaCss('mestre_id')">
+			<!-- formControlName="mestre_id" -->
+			<tf-select-simple
+				[data]="listDadosSelect['mestres']"
+				[formControl]="formulario.get('mestre_id')"
+				label="Mestre"
+				placeholder="Selecionar um mestre"
+				[allowClear]="true"
+			>
+			</tf-select-simple>
+			<p>Mestre id (value): {{formulario.value?.mestre_id}}</p>
+			<p>Mestre id (get): {{formulario.get('mestre_id').value}}</p>
+			<p>Dirty: {{formulario.get('mestre_id').dirty}}</p>
+			<p>Touched: {{formulario.get('mestre_id').touched}}</p>
+			<p>Valid: {{formulario.get('mestre_id').valid}}</p>
+		</div>
+
+		<div class="form-group m-form__group"
+			[ngClass]="aplicaCss('detalhes')">
+			<tf-select-multi
+				[data]="listDadosSelect['detalhes']"
+				[desabilitar]="!!rowId"
+				[form]="formulario.get('detalhes_attributes')"
+				label="Detalhes"
+				placeholder="selecionar um ou mais detalhes"
+			>
+				<!-- desabilitar="true" -->
+			</tf-select-multi>
+			<p>{{formulario.value.detalhes_attributes | json}}</p>
+			<!-- <p>Dirty: {{formulario.get('detalhes_attributes').dirty}}</p>
+			<p>Touched: {{formulario.get('detalhes_attributes').touched}}</p>
+			<p>Valid: {{formulario.get('detalhes_attributes').valid}}</p> -->
+		</div>
+
+	</div>
+
+	<div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+
+		<!-- <div class="form-group m-form__group" formArrayName="nprans_attributes">
+			<tf-select-multi
+				[data]="listDadosSelect['nprans']"
+				[form]="formulario.get('nprans_attributes').controls"
+				label="nprans"
+				placeholder="selecionar um ou mais nprans"
+			>
+			</tf-select-multi>
+		</div>  -->
+
+		<div class="form-group m-form__group"
+			[ngClass]="aplicaCss('codigo')">
+			<tf-text-simple
+				formControlName="codigo"
+				label="Código"
+				mask="00000-000"
+				placeholder="00000-000"
+			>
+			</tf-text-simple>
+		</div>
+
+		<div class="form-group m-form__group"
+			[ngClass]="aplicaCss('quantidade')">
+			<div class="col-lg-5 col-md-9 col-sm-12"
+				style="padding-left: 0px;">
+				<tf-integer
+					formControlName="quantidade"
+					label="Quantidade"
+				>
+				</tf-integer>
+			</div>
+		</div>
+
+		<div class="form-group m-form__group">
+			<tf-check-box
+				formControlName="flag"
+				label="Flag"
+			>
+			</tf-check-box>
+		</div>
+
+		<div class="form-group m-form__group">
+			<tf-radio-button
+				[data]='[
+					{"label":"Opção A", "value": 0},
+					{"label":"Opção B", "value": 1, "stateColor": "danger"},
+					{"label":"Opção C", "value": 2}
+				]'
+				formControlName="enumeracao"
+				label="Enumeração"
+			>
+			</tf-radio-button>
+			<p>{{formulario.value.enumeracao}}</p>
+		</div>
+
+		<div class="form-group m-form__group"
+			[ngClass]="aplicaCss('dinheiro')">
+			<tf-money
+				formControlName="dinheiro"
+				label="Dinheiro"
+			>
+			</tf-money>
+			<p>dirty: {{formulario.get('dinheiro').dirty}}</p>
+			<p>touched: {{formulario.get('dinheiro').touched}}</p>
+			<p>valid: {{formulario.get('dinheiro').valid}}</p>
+		</div>
+
+		<div class="form-group m-form__group">
+			<tf-date
+				formControlName="dia"
+				label="Dia"
+			>
+			</tf-date>
+		</div>
+
+		<!-- <p>{{formulario.value.dia}}</p>
+		<p>valid?{{formulario.controls['codigo'].valid}}</p>
+		<p>touched?{{formulario.controls['codigo'].touched}}</p>
+		<p>dirty?{{formulario.controls['codigo'].dirty}}</p>
+		<p>?{{formulario.valid}}</p>
+		<p>{{formulario.value.dinheiro}}</p>
+		<p>{{formulario.value.quantidade}}</p>
+		<div *ngFor="let c of formulario.controls">
+			<p>value: {{c.value}} status: {{c.status}}</p>
+		</div> -->
+	</div>
+
+	<div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+
+		<div class="form-group m-form__group"
+			[ngClass]="aplicaCss('nome')">
+			<!-- <input class="form-control m-input m-input--air"
+			formControlName="nome"> -->
+			<tf-text-simple
+				formControlName="nome"
+				label="Nome"
+				placeholder="Nome"
+			>
+			</tf-text-simple>
+			<p>dirty: {{formulario.get('nome').dirty}}</p>
+			<p>touched: {{formulario.get('nome').touched}}</p>
+			<p>valid: {{formulario.get('nome').valid}}</p>
+				<!-- [(ngModel)]="value" -->
+				<!-- [type]="type" -->
+				<!-- [placeholder]="placeholder" -->
+				<!-- [id]="id" -->
+				<!-- [readonly]="!!isReadOnly" -->
+		</div>
+
+		<div class="form-group m-form__group">
+			<tf-float
+				formControlName="porcentagem"
+				label="porcentagem"
+				placeholder="99,99%"
+				mask="dot_separator.2"
+				suffix="%"
+				separatorLimit = "10"
+			>
+			</tf-float>
+		</div>
+
+		<!-- <div class="form-group m-form__group">
+			<tf-upload-image
+				formControlName="imagem"
+				label="Upload de imagem"
+			>
+			</tf-upload-image>
+		</div> -->
+
+	</div>
+<!-- </tf-form-simples> -->
+</tf-form-abas>
+
+<!-- <tf-form-simples
+	[activeModal]="activeModal"
+	[formGroup]="formulario"
+	title="{{modalTitle}} Didático"
+	(submeter)="onSubmit()">
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('codigo')">
+		<tf-text-simple
+			formControlName="codigo"
+			label="Código"
+			mask="00000-000"
+			placeholder="00000-000"
+		>
+		</tf-text-simple>
+	</div>
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('quantidade')">
+		<tf-integer
+			formControlName="quantidade"
+			label="Quantidade"
+		>
+		</tf-integer>
+	</div>
+</tf-form-simples> -->

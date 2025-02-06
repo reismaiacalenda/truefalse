@@ -1,0 +1,102 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	disableTitle="true"
+	titlePersonalizado="{{formulario.get('titulo_reserva').value}}"
+	(submeter)="onSubmit()"
+	id="{{formulario.get('id').value}}"
+	cancelar="false"
+	>
+	<!-- style="text-align: center; margin-left: auto;	margin-right: auto;" -->
+	<!-- class="tf-estilizacao-date-tamanho-input" -->
+		<div class="row">
+			<div class="col-md-1" style="padding-top: 3%; padding-right: 0%;">
+				<i class="m-menu__link-icon fa flaticon-calendar"></i>
+			</div>
+			<div class="col-md-11">
+				<tf-date
+				formControlName="data_inicio"
+				retirarLabel="true"
+				>
+				<!-- (ngModelChange)="chamarNew('data', $event)" -->
+				<!-- (click)="chamarNew()" -->
+				<!-- <ng-container *ngIf="formulario.get('data').dirty" class="chamarNew()"></ng-container> -->
+				</tf-date>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-1" style="padding-top: 3%; padding-right: 0%;">
+				<i class="la la-clock-o"></i>
+			</div>
+			<div class="col-md-5" style="padding-right: 0%; max-width: 39%">
+				<tf-time
+					formControlName="hr_inicio_previsto"
+					retirarLabel="true">
+				</tf-time>
+			</div>
+			<div class="col-md-1 tf-ate">
+				<p>até</p>
+			</div>
+			<div class="col-md-5" style="padding-right: 0%; max-width: 39%">
+				<tf-time 
+					formControlName="hr_fim_previsto"
+					retirarLabel="true">
+				</tf-time>
+			</div>
+		</div>
+		<br>
+		<!-- <div class="row" style="padding-bottom: 5%;">
+			<div class="col-md-5 tf-dia-todo">
+				<p>O dia todo</p>
+			</div>
+			<div class="col-md-7" style="padding-left: 0;">
+				<tf-check-box
+					desabilitar="true"
+					formControlName="dia_todo"
+					retirarLabel="true">
+				</tf-check-box>
+			</div>			
+		</div> -->
+		<div class="row">
+			<div class="col-md-12">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal" (click)="maisOpcoes()">
+					Mais opções
+				</button>
+			</div>
+		</div>
+
+	<!-- <ng-container body>
+		<div class="col-md-12"
+		>
+			<tf-date
+			formControlName="data"
+			label="Data"
+		>
+		</tf-date>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-6">
+				<tf-time
+					formControlName="hr_inicio_previsto"
+					label="Início">
+				</tf-time>
+			</div>
+			<div class="col-md-6">
+				<tf-time
+					formControlName="hr_fim_previsto"
+					label="Término">
+				</tf-time>
+			</div>
+		</div>
+		<br>
+
+	</ng-container>
+
+	<ng-container footer>
+		<p>mais opções</p>
+	</ng-container> -->
+
+</tf-form-simples>

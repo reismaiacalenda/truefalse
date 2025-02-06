@@ -1,0 +1,50 @@
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+		<tf-page-map class="col-md-6 pl-0" nomePagina="Recursos"
+      [menu]="[
+        ['/cadastros', 'Cadastro de ativos'],
+        ['/cadastros', 'Recursos'],
+        ['/cadastros/recursos/recursos', 'Recursos']
+      ]">
+		</tf-page-map>
+		<div class="col-md-6 pr-0 float-right inline-block">
+			<div class="float-right">
+				<a *ngIf="workspaceService.autorizar('recursos_alocados_menu')
+					&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"
+					routerLink="/acompanhamentos/recursos-alocados" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+						>
+						<span>
+							<span class="svg-icon svg-icon-primary pl-0 svg-icon-1x5p"
+								[inlineSVG]="'./assets/app/media/svg/icons/Devices/Hard-drive.svg'">
+							</span>
+							<span>
+								Recursos alocados
+							</span>
+						</span>
+					</a>
+				<a *ngIf="workspaceService.autorizar('servico_visualizar')
+				&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"
+				routerLink="/cadastros/recursos/servicos" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+					>
+					<span>
+						<span class="svg-icon svg-icon-primary pl-0 svg-icon-1x5p"
+							[inlineSVG]="'./assets/app/media/svg/icons/Food/Coffee1.svg'">
+						</span>
+						<span>
+							Serviços
+						</span>
+					</span>
+				</a>
+				<tf-page-guia class="">
+				</tf-page-guia>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="m-content">
+	<div class="m-portlet m-portlet--mobile">
+		<div class="m-portlet__body">
+			<recurso-data-table></recurso-data-table>
+		</div>
+	</div>
+</div>

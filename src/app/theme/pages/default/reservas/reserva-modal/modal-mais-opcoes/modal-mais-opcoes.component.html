@@ -1,0 +1,119 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	[cancelar]="true"
+	[disableTitle]="true"
+	(submeter)="onSubmit()"
+	cancelar="false"
+	titleCancelar="Fechar"
+	titlePersonalizado="Mais opções"
+	salvar="Aplicar"
+	>
+
+	<!-- #region Assunto  -->
+  <div class="row" *ngIf="tipo_espaco == 'sala' || tipo_espaco == 'estacionamento'">
+    <div class="col-md-12" style="padding-bottom: 10px;">
+      <tf-text-simple
+        formControlName="assunto"
+        label="{{tipo_espaco == 'estacionamento' ? 'Adicionar placa' : 'Adicionar um título'}}"
+        placeholder="{{tipo_espaco == 'estacionamento' ? 'Placa' : 'Assunto'}}">
+      </tf-text-simple>
+    </div>				
+  </div>
+  <!-- #endregion  -->
+
+	<!-- #region Anfitriao -->
+	<div class="row tf-color-black mb-2">
+		<div class="col-md-12"
+		[ngClass]="aplicaCss('anfitriao_email')">
+			<label>{{textoParaQuemSera}}</label>
+			<ng-select [items]="convidados$ | async"
+				bindLabel="name"
+				[addTag]="true"
+				[multiple]="false"
+				[hideSelected]="true"
+				[trackByFn]="trackByFn"
+				[minTermLength]="2"
+				[loading]="convidadosLoading"
+				typeToSearchText="Por favor, utilize pelo menos 2 dígitos para adicionar"
+				formControlName="anfitriao_email"
+				(change)="validacaoAnfitriao()"
+				[typeahead]="convidadosInput$"
+				>
+				<ng-template ng-option-tmp let-item="item">
+					{{item.name}} <br/>
+					<small>{{item.nome}}</small>
+				</ng-template>
+			</ng-select>
+		</div>
+	</div>
+	<!-- #endregion anfitriao -->
+	
+  <!-- #region Convidados -->
+		<!-- form-group -->
+	<div class="row tf-color-black mb-2"
+		*ngIf="tipo_espaco == 'sala' || tipo_espaco == 'estacionamento'">
+		<div class="col-md-12" 
+			[ngClass]="aplicaCss('convidados_emails')">
+			<label *ngIf="tipo_espaco == 'sala'">Convidar participantes</label>
+			<label *ngIf="tipo_espaco == 'estacionamento'">Convidar para carona</label>
+			<ng-select [items]="convidados$ | async"
+				bindLabel="name"
+				[addTag]="true"
+				[multiple]="true"
+				[hideSelected]="true"
+				[trackByFn]="trackByFn"
+				[minTermLength]="2"
+				[loading]="convidadosLoading"
+				typeToSearchText="Por favor, utilize pelo menos 2 dígitos para adicionar"
+				formControlName="convidados_emails"
+				(change)="validacao()"
+				[typeahead]="convidadosInput$"
+				>
+				<ng-template ng-option-tmp let-item="item">
+					{{item.name}} <br/>
+					<small>{{item.nome}}</small>
+				</ng-template>
+			</ng-select>
+		</div>
+	</div>
+		<!-- tyle="padding-left:0px; padding-right:0px -->
+	<!-- #endregion  -->
+
+	<!-- #region Recorrência  -->
+	<div *ngIf="workspaceService.autorizar('reserva_evento_recorrencia')" class="row py-0 px-3 mt-6 mb-0" (click)="abrirModalRecorrencia()">
+		<div class="w-100 bg-white py-3 px-3 card-shadowmore gutter-b bg-hover-light rounded">
+			<span>
+				<span *ngIf="reservaModalService?.formulario?.get('recorrencia')?.get('repeticao')?.value == undefined"
+					class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Design/Repeat.svg'">
+				</span>
+				<span *ngIf="reservaModalService?.formulario?.get('recorrencia')?.get('repeticao')?.value != undefined"
+					class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Media/Repeat-one.svg'">
+				</span>
+				<span class="ml-3 text-primary">
+					{{textRepeat}}
+				</span>
+			</span>
+		</div>
+	</div>
+	<!-- #endregion Recorrência -->
+
+	<br>
+
+	<!-- #region Observação  -->
+	<div class="row" *ngIf="tipo_espaco == 'sala'">
+		<div class="col-md-12" style="padding-bottom: 10px;">
+			<tf-text-area
+				formControlName="observacao"
+				label="Adicionar descrição"
+				placeholder="Adicionar descrição">
+			</tf-text-area>
+		</div>
+	</div>        
+	<!-- #endregion Observação -->
+	
+	<!-- Futuramente inserir os campos customizados que deverão aparecer aqui -->
+
+</tf-form-simples>

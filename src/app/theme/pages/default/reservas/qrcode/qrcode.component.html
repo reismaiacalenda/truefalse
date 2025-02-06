@@ -1,0 +1,205 @@
+<div class="m-subheader">
+  <div class="d-flex align-items-center">
+    <tf-page-map class="col-md-11 pl-0" nomePagina="QrCalenda" [menu]="[
+        ['/workspace', 'Workspace'],
+				['/workspace/qrcalenda', 'QrCalenda']
+      ]">
+    </tf-page-map>
+    <tf-page-guia class="col-md-1 pr-0 float-right">
+    </tf-page-guia>
+  </div>
+</div>
+<!-- END: Subheader -->
+
+<!--begin::Section-->
+
+<div class="m-content">
+  <div class="row">
+    <div class="col-lg-12">
+      <!--begin::Portlet-->
+      <div class="m-portlet" id="m_portlet">
+        <div class="m-portlet__head">
+          <div class="m-portlet__head-caption">
+            <div class="m-portlet__head-title">
+              <span class="m-portlet__head-icon">
+                <i class="fa fa-qrcode"></i>
+              </span>
+              <!-- Calendário de reservas -->
+              <p class="m-portlet__head-text">Como usar o QrCalenda?</p>
+            </div>
+          </div>
+          <div class="m-portlet__head-tools">
+            <ul class="m-portlet__nav">
+              <li class="m-portlet__nav-item">
+                
+                <!-- <a href="#" id="refreshButton" (click)="reiniciarScanner()"
+                class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+                  <i class="la la-refresh"></i>
+                </a>-->
+                <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air"
+                  (click)="escolherCelular()"
+                  style="padding-right: 0.9rem;padding-left: 0.9rem;">
+                  <span>
+                    <!-- <i class="flaticon-responsive"></i> -->
+                    <span>
+                      Outro mobile
+                    </span>
+                  </span>
+                </a> 
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform); -->
+        <!-- de Aparecerá uma mensagem de confirmação da interação com o Porta Calenda -->
+        <div class="row">
+          <div class="col-6">
+            <style>b {font-weight: 900;}</style>
+            <div *ngIf="OS=='Android9+'" class="m-portlet__body" >
+              <li>Com seu Android em mãos, acesse a <b>câmera</b> traseira;</li>
+              <li>Aponte o celular para <b>escanear o QrCode</b> do monitor;</li>
+              <li>Após a leitura, <b>clique no link</b> fornecido;</li>
+              <li>Você será redirecionado para o Calenda. Faça o <b>login</b>;</li>
+              <li>Siga as <b>instruções</b> exibidas para finalizar a interação!</li>
+              <br>
+              <p><b>Prontinho, tudo certo!</b> Aproveite o Calenda ao máximo!</p>
+            </div>
+            <div *ngIf="OS=='Android6+'" class="m-portlet__body" >
+              <li>Com seu Android em mãos, acesse o <b>Google Lens</b> ou outro app leitor de QrCode;</li>
+              <li>Aponte o celular para <b>escanear o QrCode</b> do monitor;</li>
+              <li>Após a leitura, <b>clique no link</b> fornecido;</li>
+              <li>Você será redirecionado para o Calenda. Faça o <b>login</b>;</li>
+              <li>Siga as <b>instruções</b> exibidas para finalizar a interação!</li>
+              <br>
+              <p><b>Prontinho, tudo certo!</b> Aproveite o Calenda ao máximo!</p>
+            </div>
+            <div *ngIf="OS=='Android5-'" class="m-portlet__body" >
+              <li>Com seu Android em mãos, <b><a href="https://qrcodescan.in">acesse um app leitor</a></b> de Qrcode de sua preferêcia;</li>
+              <li>Aponte o celular para <b>escanear o QrCode</b> do monitor;</li>
+              <li>Após a leitura, <b>clique no link</b> fornecido;</li>
+              <li>Você será redirecionado para o Calenda. Faça o <b>login</b>;</li>
+              <li>Siga as <b>instruções</b> exibidas para finalizar a interação!</li>
+              <br>
+              <p><b>Prontinho, tudo certo!</b> Aproveite o Calenda ao máximo!</p>
+            </div>
+            <div *ngIf="OS=='iOS11+'" class="m-portlet__body" >
+              <li>Com seu iPhone em mãos, acesse a <b>câmera traseira</b>;</li>
+              <li>Aponte o celular para <b>escanear o QrCode</b> do monitor;</li>
+              <li>Após a leitura, clique na <b>notificação</b> surgida;</li>
+              <li>Você será redirecionado para o Calenda. Faça o <b>login</b>;</li>
+              <li>Siga as <b>instruções</b> exibidas para finalizar a interação!</li>
+              <br>
+              <p><b>Prontinho, tudo certo!</b> Aproveite o Calenda ao máximo!</p>
+            </div>
+            <div *ngIf="OS=='iOS10-'" class="m-portlet__body" >
+              <li>Com seu iPhone em mãos, <b>instale um app leitor</b> de QrCode de sua preferência;</li>
+              <li>Abra o app e aponte o celular para <b>escanear o QrCode</b> do monitor;</li>
+              <li>Após a leitura, clique no <b>link</b> para ser redirecionado ao Calenda;</li>
+              <li>Aberto o navegador no TF, faça o <b>login</b>;</li>
+              <li>Siga as <b>instruções</b> exibidas para finalizar a interação!</li>
+              <br>
+              <p><b>Prontinho, tudo certo!</b> Aproveite o Calenda ao máximo!</p>
+            </div>
+          </div >
+          <div class="col-6">
+            <span class="svg-icon svg-icon-7x pl-20 mt-10" [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Barcode-read.svg'">
+            </span>
+          </div>
+        </div>
+
+          <!-- <style>canvas{display:none;}
+          .laser {
+            width: 100%;
+            background-color: tomato;
+            height: 1px;
+            z-index: 2;
+            box-shadow: 0 0 4px red;
+            animation: scanning 2s infinite;
+          }
+          @keyframes beam {
+            50% {
+              opacity: 0;
+            }
+          }
+
+          @keyframes scanning {
+            50% {
+              transform: translateY(25vh);
+            }
+
+          }
+          
+          </style>
+          <div class="laser">
+          </div>
+          <qr-scanner 
+            [debug]="true"
+            [canvasWidth]="640" 
+            [canvasHeight]="480" 
+            [stopAfterScan]="false"
+            [updateTime]="17"> 
+          </qr-scanner> -->
+      </div>
+      <!--end::Portlet-->
+    </div>
+    
+    <!-- <div class="col-lg-4">
+      <div class="m-portlet m-portlet--bordered-semi m-portlet--full-height"
+        style="background: url(./assets/app/media/img/misc/qrcalenda_roxov3.png); background-size: cover;"
+        routerLink="/agendamento/qrcode/">
+        <div class="m-portlet__head m-portlet__head--fit">
+          <div class="m-portlet__head-caption">
+            <div class="m-portlet__head-action">
+              <button type="button" class="btn btn-sm m-btn--pill  btn-brand">
+                Um novo modo de interagir digitalmente!
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="m-portlet__body">
+          <div class="m-widget19">
+            <h3 class="m-widget19__title m--font-light" style="padding-top:100px">
+              Calendário! 
+            </h3>
+            <div class="m-widget19__shadow"></div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+<!-- END: Header -->
+
+<div class="container pb-5">
+  <!--begin::hero-->
+  <div class="text-center pt-2">
+    <!-- <h1 class="font-weight-bolder text-dark mb-6">
+      Frequently Asked Questions
+    </h1> -->
+    <!-- <div class="h4 text-dark-50 mb-0">
+    Deixe o Calenda com a cara de sua organização!
+  </div> -->
+    <div class="row">
+      <div class="col-sm-3">
+        <span class="svg-icon svg-icon-8x" [inlineSVG]="'./assets/app/media/svg/icons/Devices/iPhone-X.svg'">
+        </span>
+      </div>
+      <div class=" col-sm-3">
+        <span class="svg-icon svg-icon-8x" [inlineSVG]="'./assets/app/media/svg/icons/Devices/iPhone-x-back.svg'">
+        </span>
+      </div>
+      <div class=" col-md-3">
+        <span class="svg-icon svg-icon-8x" [inlineSVG]="'./assets/app/media/svg/icons/Devices/Android.svg'">
+        </span>
+      </div>
+      <div class=" col-md-3">
+        <span class="svg-icon svg-icon-8x" [inlineSVG]="'./assets/app/media/svg/icons/Devices/iPhone-back.svg'">
+        </span>
+      </div>
+    </div>
+  </div>
+  <!--end::hero-->
+
+
+  <!--end:: content-->
+</div>

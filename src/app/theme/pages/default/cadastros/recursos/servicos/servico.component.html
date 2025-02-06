@@ -1,0 +1,37 @@
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+    <tf-page-map class="col-md-6 pl-0" nomePagina="Serviços"
+      [menu]="[
+        ['/cadastros', 'Cadastro de ativos'],
+        ['/cadastros', 'Recursos'],
+        ['/cadastros/recursos/servicos', 'Serviços']
+      ]">
+		</tf-page-map>
+		<div class="col-md-6 pr-0 float-right inline-block">
+			<div class="float-right">
+				<a *ngIf="workspaceService.autorizar('recurso_visualizar_grupo', 'recurso_visualizar_unidade')
+				&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"
+				routerLink="/cadastros/recursos/recursos" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+					>
+					<span>
+						<span class="svg-icon svg-icon-primary pl-0 svg-icon-1x5p"
+							[inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'">
+						</span>
+						<span>
+							Recursos
+						</span>
+					</span>
+				</a>
+				<tf-page-guia class="">
+				</tf-page-guia>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="m-content">
+	<div class="m-portlet m-portlet--mobile">
+		<div class="m-portlet__body">
+			<servico-data-table></servico-data-table>
+		</div>
+	</div>
+</div>

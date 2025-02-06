@@ -1,0 +1,134 @@
+<tf-form-abas
+  [abas]="abas"
+  [activeModal]="activeModal"
+  [formGroup]="formulario"
+  [habilitarExcluir]="false"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  >
+  
+  <div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+  
+    <p class="form-group">
+      Parametrize o Calenda à realidade da sua organização! Vamos definir as condições de agendamento
+    </p>
+
+    <div class="form-group row">
+      <div class="form-group m-form__group">
+        <tf-check-box formControlName="varias_salas_anfitriao_mesmo_horario" 
+        label="O anfitrião poderá ter reservado em seu nome VÁRIAS SALAS no mesmo dia e horário?">
+        </tf-check-box>
+      </div>
+      
+      <div class="form-group m-form__group">
+        <tf-check-box formControlName="varias_mesas_anfitriao_mesmo_horario" 
+        label="O anfitrião poderá ter reservado em seu nome VÁRIAS MESAS no mesmo dia?">
+        </tf-check-box>
+      </div>
+
+      <div class="form-group m-form__group">
+        <tf-check-box formControlName="varias_vagas_estacionamentos_anfitriao_mesmo_horario" 
+        label="O anfitrião poderá ter reservado em seu nome VÁRIAS VAGAS NO ESTACIONAMENTO no mesmo dia?">
+        </tf-check-box>
+      </div>
+
+      <div class="form-group m-form__group">
+        <tf-check-box formControlName="varios_lugares_fretados_anfitriao_mesmo_horario" 
+        label="O anfitrião poderá ter reservado em seu nome VÁRIOS LUGARES NO FRETADO no mesmo dia?">
+        </tf-check-box>
+      </div>
+    </div>
+
+  </div>
+  
+  <div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+    <!-- TODO: atualizar o termo pra lembrete! -->
+    <div class="form-group">
+      <tf-check-box
+          formControlName="confirmacao_antecipada"
+          label="Confirmação antecipada">
+      </tf-check-box>
+      <span class="form-group">
+        Se habilitado, o anfitrião da reserva é obrigado a confirmar o agendamento antecipadamente.
+        Caso não confirme, o agendamento é cancelado.
+      </span>
+    </div>
+
+    <br>
+    <!-- <div class="form-group m-form__group"  
+      [ngClass]="aplicaCss('hr_inicio_janela_confirmacao')">
+      <div class="col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px;">
+          <tf-integer
+          formControlName="hr_inicio_janela_confirmacao"
+          label="Início da janela de confirmação">
+        </tf-integer>
+      </div>
+    </div>
+    
+    <div class="form-group m-form__group" >
+      <tf-select-simple
+          [formControl]="formulario.get('medida_de_tempo_inicio_janela_confirmacao')"
+          [data]="listDadosSelect['undefined']"
+          label="Início da janela de confirmação"
+          placeholder="selecione um início da janela de confirmação">
+      </tf-select-simple>
+    </div>  -->
+
+    <div class="form-group row"
+      [ngClass]="aplicaCss('hr_inicio_janela_confirmacao')">
+      <span class="form-group m-form__group col-lg-12" style="font-weight: 400; padding-left: 15px;">
+        Início da janela de confirmação
+      </span>
+      <tf-integer class="col-md-3"
+        formControlName="hr_inicio_janela_confirmacao"
+        retirarLabel="true"
+        [botoes]="false"
+        limiteInferior="1"
+        mask="900">
+      </tf-integer>
+      <tf-select-simple class="col-md-9"
+        [formControl]="formulario.get('medida_de_tempo_inicio_janela_confirmacao')"
+        [data]="listSelectPeriodos"
+        retirarLabel="true"
+        placeholder="selecione"
+        [allowClear]="true"
+        >
+      </tf-select-simple>
+      <p class="form-group m-form__group" style="padding-left: 15px;">
+        <!-- {{}} {{}} -->
+        O anfitrião será notificado <b>{{formulario.value.hr_inicio_janela_confirmacao}}</b> {{montarTextSelectPerido('inicio')}} antes do evento se iniciar para confirmar seu agendamento.
+      </p>
+    </div>
+
+    <br>
+
+    <div class="form-group row"
+      [ngClass]="aplicaCss('hr_fim_janela_confirmacao')">
+      <span class="form-group m-form__group col-lg-12" style="font-weight: 400; padding-left: 15px;">
+        Fim da janela de confirmação
+      </span>
+      <tf-integer class="col-md-3"
+        formControlName="hr_fim_janela_confirmacao"
+        retirarLabel="true"
+        [botoes]="false"
+        limiteInferior="1"
+        mask="900">
+      </tf-integer>
+      <tf-select-simple class="col-md-9"
+        [formControl]="formulario.get('medida_de_tempo_fim_janela_confirmacao')"
+        [data]="listSelectPeriodos"
+        retirarLabel="true"
+        placeholder="selecione"
+        [allowClear]="true"
+        >
+      </tf-select-simple>
+      <p class="form-group m-form__group" style="padding-left: 15px;">
+        <!-- {{hr_fim_janela_confirmacao}} -->
+        O anfitrião terá até <b>{{formulario.value.hr_fim_janela_confirmacao}}</b> {{montarTextSelectPerido('fim')}} antes do início do evento para confirmar seu agendamento.
+      </p>
+    </div>
+
+  </div>
+      
+</tf-form-abas>
+      

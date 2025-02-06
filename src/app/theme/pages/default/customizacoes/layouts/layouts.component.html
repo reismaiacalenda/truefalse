@@ -1,0 +1,233 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+  <div class="d-flex align-items-center">
+    <tf-page-map class="col-md-11 pl-0" nomePagina="Layouts"
+      [menu]="[
+        ['/customizacoes', 'Customizações'],
+        ['/customizacoes/layouts', 'Layouts']
+      ]">
+    </tf-page-map>
+    <tf-page-guia class="col-md-1 pr-0 float-right">
+    </tf-page-guia>
+  </div>
+</div>
+<!-- END: Subheader -->
+
+<!-- <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper"> -->
+
+<!--begin::Section-->
+
+
+  <div class="m-content">
+    <div class="row pb-6">
+      <div class="col-lg-4" *ngIf="workspaceService.autorizar('template_menu')">
+        <!--begin::Card-->
+        <a style="text-decoration:none" routerLink="/customizacoes/layouts/templates"
+          class="card card-custom wave wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+          <!--begin::Card Body-->
+          <div class="card-body m-animate-shine">
+            <div class="d-flex align-items-center py-2">
+              <!--begin::Icon-->
+              <div class="mr-6">
+                <span class="svg-icon svg-icon-primary svg-icon-4x"
+                  [inlineSVG]="'./assets/app/media/svg/icons/Text/Text-width.svg'">
+                </span>
+              </div>
+              <!--end::Icon-->
+
+              <!--begin::Content-->
+              <div class="d-flex flex-column">
+                <h3 class="text-dark h5 mb-3">
+                  Templates
+                </h3>
+                <div class="text-dark-50">
+                  Defina as estruturas
+                </div>
+              </div>
+              <!--end::Content-->
+            </div>
+          </div>
+          <!--end::Card Body-->
+        </a>
+        <!--end::Card-->
+      </div>
+      <!-- </div>
+  <div class="row pb-5"> -->
+
+      <div class="col-lg-4" *ngIf="workspaceService.autorizar('painel_visualizar')
+        && workspaceService.currentUser.subdominio.addons.includes('Display painel')">
+        <!--begin::Card-->
+        <a style="text-decoration:none" routerLink="/customizacoes/layouts/painel"
+          class="card card-custom wave wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+          <!--begin::Card Body-->
+          <div class="card-body m-animate-shine">
+            <div class="d-flex align-items-center py-2">
+              <!--begin::Icon-->
+              <div class="mr-6">
+                <span class="svg-icon svg-icon-primary svg-icon-4x"
+                  [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-top-panel-6.svg'">
+                </span>
+              </div>
+              <!--end::Icon-->
+
+              <!--begin::Content-->
+              <div class="d-flex flex-column">
+                <h3 class="text-dark h5 mb-3">
+                  Painel
+                </h3>
+                <div class="text-dark-50">
+                  Cores, imagens e exibições
+                </div>
+              </div>
+              <!--end::Content-->
+            </div>
+          </div>
+          <!--end::Card Body-->
+        </a>
+        <!--end::Card-->
+      </div>
+      <div class="col-lg-4" *ngIf="workspaceService.autorizar('layout_visualizar')
+        && workspaceService.currentUser.subdominio.addons.includes('Display porta')">
+        <!--begin::Card-->
+        <a style="text-decoration:none" routerLink="/customizacoes/layouts/porta"
+          class="card card-custom wave wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+          <!--begin::Card Body-->
+          <div class="card-body m-animate-shine">
+            <div class="d-flex align-items-center py-2">
+              <!--begin::Icon-->
+              <div class="mr-6">
+                <span class="svg-icon svg-icon-primary svg-icon-4x"
+                  [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-right-panel-1.svg'">
+                </span>
+              </div>
+              <!--end::Icon-->
+
+              <!--begin::Content-->
+              <div class="d-flex flex-column">
+                <h3 class="text-dark h5 mb-3">
+                  Porta
+                </h3>
+                <div class="text-dark-50">
+                  Cores, imagens e exibições
+                </div>
+              </div>
+              <!--end::Content-->
+            </div>
+          </div>
+          <!--end::Card Body-->
+        </a>
+        <!--end::Card-->
+      </div>
+    </div>
+
+
+    <!--begin::hero-->
+    <div class="text-center pt-2">
+      <!-- <h1 class="font-weight-bolder text-dark mb-6">
+        Frequently Asked Questions
+      </h1> -->
+      <!-- <div class="h4 text-dark-50 mb-0">
+      Deixe o Calenda com a cara de sua organização!
+    </div> -->
+      <div class="row">
+        <div class="offset-md-3 col-md-6">
+          <span class="svg-icon svg-icon-10x" [inlineSVG]="'./assets/app/media/svg/icons/Tools/Brush.svg'">
+          </span>
+        </div>
+      </div>
+    </div>
+    <!--end::hero-->
+
+
+    <!--end:: content-->
+  </div>
+<!-- </div> -->
+
+
+
+<!--end::Section-->
+
+<!-- <div class="m-content">
+  <div class="m-portlet m-portlet--mobile">
+    <div class="m-portlet__body">
+      <div class="row">
+        <div class="col-xl-6"> -->
+
+
+<!-- <div class="m-widget17__items m-widget17__items-col1">
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-truck m--font-brand"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Delivered
+              </span>
+              <span class="m-widget17__desc">
+                15 New Paskages
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-paper-plane m--font-info"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Reporeted
+              </span>
+              <span class="m-widget17__desc">
+                72 Support Cases
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-paper-plane m--font-info"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Reporeted
+              </span>
+              <span class="m-widget17__desc">
+                72 Support Cases
+              </span>
+            </div>
+          </div>
+          <div class="m-widget17__items m-widget17__items-col2">
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-pie-chart m--font-success"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Ordered
+              </span>
+              <span class="m-widget17__desc">
+                72 New Items
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-time m--font-danger"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Arrived
+              </span>
+              <span class="m-widget17__desc">
+                34 Upgraded Boxes
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-paper-plane m--font-info"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Reporeted
+              </span>
+              <span class="m-widget17__desc">
+                72 Support Cases
+              </span>
+            </div>
+          </div> -->
+
+<!-- </div>
+    
+      </div>
+    </div>
+  </div>
+</div> -->

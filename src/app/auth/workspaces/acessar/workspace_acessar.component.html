@@ -1,0 +1,65 @@
+<div class="m-login__signin">
+  <div class="m-login__head">
+    <h3 class="m-login__title">
+      Acessar meu workspace
+    </h3>
+    <div class="m-login__desc">
+      Complete a <b>url</b> do workspace de sua organização (exemplo: reismaia).
+    </div>
+  </div>
+  <!-- (ngSubmit)="signInForm.form.valid && signin()"  -->
+  <form #signInForm="ngForm" class="m-login__form m-form" action=""
+    style="margin-top:2rem;">
+    <ng-template #alertSignin></ng-template>
+    <div class="form-group m-form__group row">
+      <div class="col-md-5" style="padding-left: 5px;padding-right: 1px">
+        <input class="form-control m-input workspace m--font-primary"
+          placeholder="organização"
+          name="workspace"
+          autocomplete="off"
+          autofocus
+          required
+          pattern="^[a-zA-Z0-9]*$"
+          style="font-family: poppins; font-size: 1.25rem; padding-bottom: 0.7rem"
+          [(ngModel)]="subdominio"
+          #workspace_input
+          >
+      </div>
+      <div class="col-md-7" style="padding-top: 16px;padding-left: 0px">
+        <h5 class="m--font-primary">.calenda.com.br</h5>
+      </div>
+    </div>
+    <div class="row m-login__form-sub" style="margin-top: 1rem;">
+      <div class="col m--align-left">
+        <!-- <label class="m-checkbox m-checkbox-s">
+          <input type="checkbox" name="remember" [(ngModel)]="model.remember" #remember="ngModel">
+          Remember me
+          <span></span>
+        </label>  -->
+         <!-- id="forgetPasswordForm" -->
+        <a href="javascript:;" class="m-link" routerLink="/login/descobrir" skipLocationChange>
+          Esqueci meu workspace
+        </a>
+      </div>
+      <div class="col m--align-right">
+        <!-- routerLink="/login/..." -->
+        <!-- skipLoadingChange -->
+        <!-- target="_blank" -->
+        <a href="https://calenda.com.br" class="m-link"  >
+          Ir para o site
+        </a>
+      </div>
+    </div>
+    <div *ngIf="output != undefined" class="m-login__form-sub">
+      <span class="m-form__help m--font-danger">
+        {{output}}
+      </span>
+    </div>
+    <div class="m-login__form-action">
+      <button [disabled]="loading" (click)="redirecionar_rota()"
+      class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air">
+      Acessar
+    </button>
+    </div>
+  </form>
+</div>

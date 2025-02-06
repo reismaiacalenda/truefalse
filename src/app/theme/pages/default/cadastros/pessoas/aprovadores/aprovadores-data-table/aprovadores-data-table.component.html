@@ -1,0 +1,107 @@
+<tf-datatable-cabecalho
+	[habilitarForm]="workspaceService.autorizar('aprovador_criar')"
+	[labelFormButton]="'Novo auditor'"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+	(openFormModal)="openFormModal(null, 'xl')"
+	[pesquisarPor]="'pesquise por: nome ou email da PESSOA *** nome do GRUPO'"
+	>
+</tf-datatable-cabecalho>
+<div *ngIf="workspaceService.autorizar('aprovador_visualizar')">
+  <ngx-datatable class="material"
+		#minhaTable
+		[rows]="datatable.rows"
+		[columnMode]="'flex'"
+		[footerHeight]="50"
+		[rowHeight]="'auto'"
+		[externalPaging]="true"
+		[count]="page.totalElements"
+		[offset]="page.pageNumber"
+		[limit]="page.size"
+		(page)="setPage($event)"  
+		[sortType]="'multi'"
+		>
+		<ngx-datatable-column
+			[width]="50"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template ngx-datatable-header-template let-value="value">
+				<a href="#"
+				 class="datatable-icon-left fg-primary"
+				 title="Expand/Collapse All Rows"
+				 (click)="toggleExpandAllRow()">
+				</a>
+			</ng-template>
+			<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+				<a href="#" title="Expand/Collapse Row"
+				 (click)="toggleExpandRow(row, expanded)"
+				 class="m-datatable__toggle-subtable fg-primary">
+				 <i [class.datatable-icon-right]="!expanded"
+				 [class.datatable-icon-down]="expanded"></i>
+				</a>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Auditores" prop="auditores">
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Grupos" prop="grupos">
+		</ngx-datatable-column>
+
+		<!-- <ngx-datatable-column [flexGrow]="1" name="Compartilhado?" prop="compartilhado">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.compartilhado" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.compartilhado" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+		</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Espaços?" prop="espacos">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.espacos" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.espacos" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+		</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Recursos?" prop="recursos">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.recursos" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.recursos" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+		</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Pessoas?" prop="pessoas">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.pessoas" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.pessoas" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+		</ng-template>
+		</ngx-datatable-column> -->
+		<ngx-datatable-column
+			[flexGrow]="1" 
+			[width]="120"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="">
+					<a *ngIf="workspaceService.autorizar('aprovador_editar')" href="#" title="Editar" (click)="openFormModal(row.id, 'xl')"
+						class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a>
+					<a *ngIf="workspaceService.autorizar('aprovador_excluir')" href="#" title="Remover" (click)="datatableService.remove(row.id)"
+						class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		 <ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+			<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+				<div class="row" style="padding-left:15px;margin-right:0px">
+					<div class="col-5">
+						<div>Auditores: {{row.auditores}}</div>
+						<div>Grupos: {{row.grupos}}</div>
+						<div>Tipos de espaços: {{row.tipo_espacos}}</div>
+					</div>
+				</div>
+			</ng-template>
+		</ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>

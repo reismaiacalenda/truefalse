@@ -1,0 +1,182 @@
+<!-- <tf-form-simples
+[formGroup]="formulario"
+[activeModal]="activeModal"
+title="{{modalTitle}} Fatura"
+(submeter)="onSubmit()"> -->
+
+<tf-form-abas
+[formGroup]="formulario"
+[activeModal]="activeModal"
+[listDadosSelect]="listDadosSelect"
+[abas]="abas"
+(submeter)="onSubmit()"
+id="{{formulario.get('id').value}}"
+>
+<div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+			<!-- [ngClass]="aplicaCss('codigo')" -->
+		 <div class="form-group m-form__group" >
+			 <!-- formControlName="mestre_id" -->
+			 <tf-select-simple
+			 [formControl]="formulario.get('mestre_id')"
+
+				[data]="listDadosSelect['mestres']"
+				label="Mestre"
+				placeholder="selecionar um mestre"
+				[allowClear]="true"
+				>
+			</tf-select-simple>
+			<p>mestre id: {{formulario.value?.mestre_id}}</p>
+			<p>mestre id: {{formulario.get('mestre_id').value}}</p>
+		</div>
+
+		<div class="form-group m-form__group" >
+			<tf-select-multi
+				[data]="listDadosSelect['detalhes']"
+				[form]="formulario.get('detalhes_attributes')"
+				label="Detalhes"
+				placeholder="selecionar um ou mais detalhes"
+				>
+			</tf-select-multi>
+			<p>{{formulario.value.detalhes_attributes | json}}</p>
+		</div>
+	</div>
+		<div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+		<!-- <div class="form-group m-form__group" formArrayName="nprans_attributes">
+			<tf-select-multi
+				[form]="formulario.get('nprans_attributes').controls"
+				[data]="listDadosSelect['nprans']"
+				label="nprans"
+				placeholder="selecionar um ou mais nprans"
+				>
+			</tf-select-multi>
+		</div>  -->
+		<div [ngClass]="aplicaCss('codigo')"
+			class="form-group m-form__group"
+			>
+			<tf-text-simple
+				formControlName="codigo"
+				label="Código"
+				placeholder="00000-000"
+				mask="00000-000">
+			</tf-text-simple>
+		</div>
+		<div [ngClass]="aplicaCss('quantidade')"
+			class="form-group m-form__group">
+						<div class="
+			col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px;">
+			<tf-integer
+				formControlName="quantidade"
+				label="Quantidade">
+			</tf-integer>
+		</div>
+		</div>
+	<!-- </div> -->
+	<!-- <div class="tab-pane" id="m_tabs_6_2" role="tabpanel"> -->
+		<div class="form-group m-form__group">
+			<!-- <tf-text-area
+			>
+			</tf-text-area> -->
+		</div>
+		<div class="form-group m-form__group">
+			<tf-check-box
+				formControlName="flag"
+				label="Flag">
+			</tf-check-box>
+		</div>
+		<div class="form-group m-form__group">
+			<tf-radio-button
+				[data]='[
+					{"label":"Opção A", "value":"Opção_A"},
+					{"label":"Opção B", "value":"Opção_B", "stateColor": "danger"},
+					{"label":"Opção C", "value":"Opção_C"}
+				]'
+				formControlName="enumeracao"
+				label="Enumeração">
+			</tf-radio-button>
+		</div>
+		<p>{{formulario.value.enumeracao}}</p>
+		<div class="form-group m-form__group">
+			<tf-money
+			label="Dinheiro"
+			formControlName="dinheiro"
+			></tf-money>
+		</div>
+		<div class="form-group m-form__group">
+			<tf-date
+				formControlName="dia"
+				label="Dia">
+			</tf-date>
+		</div>
+		<!-- <p>{{formulario.value.dia}}</p> -->
+		<!-- <p>valid?{{formulario.controls['codigo'].valid}}</p>
+		<p>touched?{{formulario.controls['codigo'].touched}}</p>
+		<p>dirty?{{formulario.controls['codigo'].dirty}}</p>
+		 <p>?{{formulario.valid}}</p>
+		<p>{{formulario.value.dinheiro}}</p> -->
+		<!-- <p>{{formulario.value.quantidade}}</p> -->
+		<!-- <div *ngFor="let c of formulario.controls">
+			<p>value: {{c.value}} status: {{c.status}}</p>
+		</div> -->
+	</div>
+	<div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+		<div [ngClass]="aplicaCss('nome')"
+		class="form-group m-form__group"
+		>
+
+			<!-- <input
+			class="form-control m-input m-input--air"
+			formControlName="nome" -->
+			<tf-text-simple
+				formControlName="nome"
+				label="Nome"
+				placeholder="Nome">
+			</tf-text-simple>
+			<!-- [(ngModel)]="value"
+			[type]="type"
+			[placeholder]="placeholder"
+			[id]="id"
+			[readonly]="!!isReadOnly" -->
+			<!-- <tf-text-simple
+			label="Nome"
+			placeholder="Nome">
+		</tf-text-simple> -->
+	</div>
+	<div 	class="form-group m-form__group"
+	>
+		<tf-float
+			formControlName="porcentagem"
+			label="porcentagem"
+			placeholder="99,99%"
+			mask="dot_separator.2"
+			suffix="%"
+			separatorLimit = "10">
+		</tf-float>
+	</div>
+	</div>
+<!-- </tf-form-simples> -->
+</tf-form-abas>
+
+<!-- <tf-form-simples
+[formGroup]="formulario"
+[activeModal]="activeModal"
+title="{{modalTitle}} Fatura"
+(submeter)="onSubmit()">
+	<div [ngClass]="aplicaCss('codigo')"
+		class="form-group m-form__group"
+		>
+		<tf-text-simple
+			formControlName="codigo"
+			label="Código"
+			placeholder="00000-000"
+			mask="00000-000">
+		</tf-text-simple>
+	</div>
+	<div [ngClass]="aplicaCss('quantidade')"
+		class="form-group m-form__group">
+		<tf-integer
+			formControlName="quantidade"
+			label="Quantidade">
+		</tf-integer>
+	</div>
+</tf-form-simples> -->
+

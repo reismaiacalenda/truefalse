@@ -1,0 +1,30 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  [rowId]="rowId"
+  [autorizar_excluir]="['espaco_excluir']"
+  title="Amenidade"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()">
+
+  <div class="form-group m-form__group" >
+    <tf-select-simple
+        [formControl]="formulario.get('recurso_id')"
+        [data]="listSelectAmenities"
+        label="Recurso"
+        placeholder="selecione um recurso">
+    </tf-select-simple>
+  </div>
+    
+  <div class="form-group m-form__group"  
+    [ngClass]="aplicaCss('quantity')">
+    <div class="col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px;">
+        <tf-integer
+        formControlName="quantity"
+        label="Quantidade">
+      </tf-integer>
+    </div>
+  </div>
+    
+</tf-form-simples>
+      

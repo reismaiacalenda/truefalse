@@ -1,0 +1,19 @@
+<div class="modal-header">
+	<h4 class="modal-title">Deseja realmente excluir?</h4>
+	<button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss(false)">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+<!-- <div class="modal-body">
+	<p>Tem certeza que deseja excluir o registro?</p>
+</div> -->
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary"
+    (click)="activeModal.close(false)">
+    Cancelar
+  </button>
+  <button type="submit" class="btn btn-danger" 
+    (click)="activeModal.close(true)">
+    Confirmar
+  </button>
+</div>

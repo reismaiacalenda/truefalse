@@ -1,0 +1,662 @@
+<form class="m-form m-form--state m-form--fit m-form--label-align-right"
+	[formGroup]="formulario" (ngSubmit)="onSubmit()">
+	<div class="m-portlet m-portlet--tabs" (keydown.esc)="activeModal.dismiss('Cross click')">
+		<div class="m-portlet__head">
+			<div class="m-portlet__head-tools">
+				<ul class="nav nav-tabs m-tabs-line m-tabs-line--primary m-tabs-line--2x" role="tablist" #navtab>
+					<li class="nav-item m-tabs__item" *ngIf="rowId == null">
+						<a class="nav-link m-tabs__link active" title="Nova Espaco" data-toggle="tab" href="#m_tabs_6_1" role="tab">
+							<i class="flaticon-browser"></i>
+						</a>
+					</li>
+					<li class="nav-item m-tabs__item">
+						<a #tab_6_2 class="nav-link m-tabs__link" title="Layout Painel"
+						data-toggle="tab" href="#m_tabs_6_2" role="tab"
+						[ngClass]="formulario.value.template_id != null ? '' : 'disabled'"
+						>
+							<i class="flaticon-interface-2"></i>
+						</a>
+					</li>	
+					<li class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link" title="Cores"
+						data-toggle="tab" href="#m_tabs_6_3" role="tab"
+						[ngClass]="formulario.value.template_id != null ? '' : 'disabled'">
+							<i class="la la-eyedropper"></i>
+						</a>
+					</li>	
+					<li *ngIf="formulario.value.template_id == 2" class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link" title="Prévia"
+							data-toggle="tab" href="#m_tabs_6_4" role="tab"
+							[ngClass]="formulario.value.template_id != null ? '' : 'disabled'">
+							<i class="la la-eye"></i>
+						</a>
+					</li>	
+				</ul>
+			</div>
+			<div class="m-portlet__head-caption">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+					(click)="activeModal.dismiss('Cross click')">
+					<span aria-hidden="true">
+						&times;
+					</span>
+				</button>
+			</div>
+		</div>
+		<div class="m-portlet__body" style="padding-right: 30px;padding-left: 30px;">
+			<div class="tab-content" #tabcontent>
+				<div [ngClass]="rowId == null ? 'tab-pane active' : 'tab-pane'" id="m_tabs_6_1" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Modelo
+							</h5>
+						</div>
+						<div>
+							<p></p>
+							<p>Primeiro vamos escolher um <b>modelo</b> a ser seguido para seu layout!<p></p>
+						</div>
+					</div>
+					<!-- <div class="form-group m-form__group">
+						<select class="form-control m-input m-input--air"
+							name="param"
+							data-placeholder="Escolha um layout"
+							name="layout_id"
+							(change)="onChangeLayout($event)"
+						>
+							<option *ngFor="let l of listLayout"
+								[selected]="l.value == formulario.value.layout_id"
+								>
+								{{l.name}}
+							</option>
+						</select>
+					</div>				 -->
+					<div 
+						class="form-group m-form__group">
+						<div class="row">
+							<div class="col-lg-4">
+								<label class="m-option m-option m-option--plain">
+									<span class="m-option__control">
+										<span class="m-radio m-radio--brand m-radio--check-bold">
+											<input type="radio" name="m_option_1" value="3"
+												(click)="setarTemplate(3)"
+												[checked]="formulario.value.template_id == 3">
+												<!-- data-toggle="tab" href="#m_tabs_6_2" role="tab"> -->
+											<span></span>
+										</span>
+									</span>
+									<span class="m-option__label">
+										<span class="m-option__head">												 
+											<span class="m-option__title">
+												Modern Calenda
+											</span>												 											 
+										</span>
+										<span class="m-option__body">
+											<div class="">
+												<!-- <img src="./assets/demo/default/media/img/template/anima.png"
+													class="layout-templates" alt=""/> -->
+											</div>
+										</span>
+									</span>		
+								</label> 
+							</div>
+							<div class="col-lg-4">
+								<label class="m-option m-option m-option--plain">
+									<span class="m-option__control">
+										<span class="m-radio m-radio--brand m-radio--check-bold">
+											<input type="radio" name="m_option_2" value="4"
+												(click)="setarTemplate(4)"
+												[checked]="formulario.value.template_id == 4">
+												<!-- data-toggle="tab" href="#m_tabs_6_2" role="tab"> -->
+											<span></span>
+										</span>
+									</span>
+									<span class="m-option__label">
+										<span class="m-option__head">												 
+											<span class="m-option__title">
+												Digital Signage
+											</span>												 											 
+										</span>
+										<span class="m-option__body">
+											<!-- 30 days free trial and lifetime free updates 												  -->
+											<div class="">
+												<!-- <img src="./assets/demo/default/media/img/template/modern.png"
+													class="layout-templates" alt=""/> -->
+											</div>
+										</span>
+									</span>		
+								</label> 
+							</div>
+							<div class="col-lg-4">
+								<label class="m-option m-option m-option--plain">
+									<span class="m-option__control">
+										<span class="m-radio m-radio--brand m-radio--check-bold">
+											<input type="radio" name="m_option_3" value="5"
+												(click)="setarTemplate(5)"
+												[checked]="formulario.value.template_id == 5">
+												<!-- data-toggle="tab" href="#m_tabs_6_2" role="tab"> -->
+											<span></span>
+										</span>
+									</span>
+									<span class="m-option__label">
+										<span class="m-option__head">												 
+											<span class="m-option__title">
+												Accinet
+											</span>												 											 
+										</span>
+										<span class="m-option__body">
+											<!-- 30 days free trial and lifetime free updates 												  -->
+											<div class="">
+												<!-- <img src="./assets/demo/default/media/img/template/modern.png"
+													class="layout-templates" alt=""/> -->
+											</div>
+										</span>
+									</span>		
+								</label> 
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div [ngClass]="rowId != null ? 'tab-pane active' : 'tab-pane'" id="m_tabs_6_2" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Layout
+							</h5>
+						</div>
+					</div>
+					<div class="m-form__content">
+						<div class="m-alert m-alert--icon alert alert-danger m--hide"
+							role="alert" id="m_form_2_msg">
+							<!-- [class.m--hide]="formulario.valid || formulario.untouched"> -->
+							<div class="m-alert__icon">
+								<i class="la la-warning"></i>
+							</div>
+							<div class="m-alert__text">
+								Oh snap! Change a few things up and try submitting again.
+							</div>
+							<div class="m-alert__close">
+								<button type="button" class="close" data-close="alert" aria-label="Close"></button>
+							</div>
+						</div>
+					</div>
+					<div [ngClass]="validarCss('nome')"
+						class="form-group m-form__group">
+						<label>
+							Nome
+						</label>
+						<input class="form-control m-input m-input--air"
+						type='text' formControlName="nome">	
+					</div>
+					<!-- [ngClass]="validarCss('orientacao')" -->
+					<div 
+						class="form-group m-form__group">
+						<label>
+							Orientação
+						</label>
+						<div class="m-radio-inline">
+							<label *ngIf="template.orientacao != 'vertical'"
+								class="m-radio m-radio--bold m-radio--state-brand">
+								<input type="radio" value="horizontal"
+								(click)="setarRadio('orientacao','horizontal')"
+								[checked]="formulario.value.orientacao == 'horizontal'" >
+									Horizontal
+								<span></span>
+							</label>
+							<label *ngIf="template.orientacao != 'horizontal'"
+								class="m-radio m-radio--bold m-radio--state-brand">
+								<input type="radio" value="vertical"
+								(click)="setarRadio('orientacao','vertical')"
+								[checked]="formulario.value.orientacao == 'vertical'">
+									Vertical
+								<span></span>
+							</label>
+						</div>
+					</div>
+					<div *ngIf="template.interacao"
+						class="form-group m-form__group">
+						<label>
+							Interação
+						</label>
+						<!-- <div class="m-radio-inline">
+							<label class="m-radio m-radio--bold m-radio--state-brand">
+								<input type="radio" value="cracha"
+								(click)="setarRadio('interacao','cracha')"
+								[checked]="formulario.value.interacao == 'cracha'" >
+									Crachá
+								<span></span>
+							</label>
+							<label class="m-radio m-radio--bold m-radio--state-brand">
+								<input type="radio" value="qrcalenda"
+								(click)="setarRadio('interacao','qrcalenda')"
+								[checked]="formulario.value.interacao == 'qrcalenda'">
+									QrCalenda
+								<span></span>
+							</label>
+							<label class="m-radio m-radio--bold m-radio--state-brand">
+								<input type="radio" value="touch"
+								(click)="setarRadio('interacao','touch')"
+								[checked]="formulario.value.interacao == 'touch'">
+									Touch
+								<span></span>
+							</label>
+							<label class="m-radio m-radio--bold m-radio--state-secondary">
+								<input type="radio" value="horizontal"
+								(click)="setarRadio('interacao','nenhuma')"
+								[checked]="formulario.value.interacao == 'nenhuma'" >
+									Nenhuma
+								<span></span>
+							</label>
+						</div> -->
+						<div class="m-checkbox-inline">
+							<label class="m-checkbox m-checkbox--bold m-checkbox--state-brand">
+								<input type="checkbox" formControlName="ar_condicionado"
+								(click)="setarInteracao(1)"
+								[checked]="formulario.value.interacaoEnum == 1 || formulario.value.interacaoEnum == 3" >
+									QrCalenda
+								<span></span>
+							</label>
+							<label class="m-checkbox m-checkbox--bold m-checkbox--state-brand">
+								<input type="checkbox" formControlName="caixa_som"
+								(click)="setarInteracao(2)"
+								[checked]="formulario.value.interacaoEnum == 2 || formulario.value.interacaoEnum == 3">
+									Touch
+								<span></span>
+							</label>
+						</div>
+							<!-- <p><b>Nickname: </b>{{formulario.value.nickname}}</p> -->
+							<!-- <p><b>Param Id: </b>{{formulario.value.param_url}}</p> -->
+					</div>
+					<!-- [ngClass]="validarCss('carousel')" -->
+					<div *ngIf="template.carousel_fundo"
+						class="form-group m-form__group">
+						<label>
+							Slideshow de fundo
+						</label>
+						<span class="m-form__help m--font-danger">(resolução: {{resolucaoFundo()}} pixels)</span>
+						<image-upload #imageUploadFundo
+							(change)="atualizarFileListFundo($event)" 
+							[buttonCaption]="'Upload'"
+							[clearButtonCaption]="'X'"
+							[dropBoxMessage]="'arraste aqui as imagens!'"
+							[extensions]="['jpeg','png']"
+							[class]="'imageUpload'"
+							[uploadedFiles]="formulario.value.carousel_fundo"
+							[max]="1"
+							(removed)="onRemovedFundo($event)"					
+							>
+						</image-upload>
+					</div>
+					<div 
+						class="form-group m-form__group">
+						<label>
+							SlideShow publicitário
+						</label>
+						<span class="m-form__help m--font-danger">(resolução: {{resolucaoPublicidade()}} pixels)</span>
+						<image-upload #imageUploadPublicidade
+							(change)="atualizarFileListPublicidade($event)" 
+							[buttonCaption]="'Upload'"
+							[clearButtonCaption]="'X'"
+							[dropBoxMessage]="'arraste aqui as imagens!'"
+							[extensions]="['jpeg','png']"
+							[class]="'imageUpload'"
+							[uploadedFiles]="formulario.value.carousel_publicidade"
+							(removed)="onRemovedPublicidade($event)"					
+							>
+						</image-upload>
+					</div>
+				</div>
+				<div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Cores
+							</h5>
+						</div>
+					</div>
+					<div class="m-form__content">
+						<div class="m-alert m-alert--icon alert alert-danger m--hide"
+							role="alert" id="m_form_2_msg">
+							<!-- [class.m--hide]="formulario.valid || formulario.untouched"> -->
+							<div class="m-alert__icon">
+								<i class="la la-warning"></i>
+							</div>
+							<div class="m-alert__text">
+								Oh snap! Change a few things up and try submitting again.
+							</div>
+							<div class="m-alert__close">
+								<button type="button" class="close" data-close="alert" aria-label="Close"></button>
+							</div>
+						</div>
+					</div>
+					<!-- *ngIf="template.bg_color" -->
+					<div class="form-group m-form__group row">
+						<div class="col-md-3">
+							<label>
+								Livre
+							</label>							
+							<div class='input-group' >
+								<span class="input-group-addon">
+									<span class="m-badge m-badge--accent m-badge--wide"
+									[style.background]="formulario.value.cor_livre">
+								</span> 
+							</span>
+							<!-- (colorPickerChange)="onOvo($event)" -->
+							<span class="input-group-addon">
+								<a href="#"
+									(colorPickerChange)="formulario.controls.cor_livre.setValue($event); setarCarouselSituacao('cor_livre')"
+									[(colorPicker)]="formulario.value.cor_livre"
+									[cpAlphaChannel]="'always'"
+									[cpOutputFormat]="'rgba'"
+									[cpCancelButton]="true"
+									[cpCancelButtonClass]="'btn btn-danger m-btn--air'"
+									[cpPresetColors]="['rgba(79,129,13,0.88)','rgba(212,101,17,0.88)','rgba(201,30,30,0.88)','rgba(40,40,40,0.92)','rgba(32,32,32,0.96)', 'rgba(70,70,70,0.85)', 'rgba(255,255,255,1)']"
+									[cpOKButton]="true"
+									[cpOKButtonClass]="'btn btn-brand m-btn--air'"
+									[cpSaveClickOutside]="true"
+									class="btn btn-outline-brand m-btn m-btn--icon m-btn--icon-only m-btn--air">
+											<i class="la la-eyedropper"></i>
+									</a>
+								</span>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<label>
+								Espera
+							</label>							
+							<div class='input-group'>
+								<span class="input-group-addon">
+									<span class="m-badge m-badge--accent m-badge--wide"
+										[style.background]="formulario.value.cor_espera">
+									</span> 
+								</span>
+								<span class="input-group-addon">
+									<a href="#" 
+										(colorPickerChange)="formulario.controls.cor_espera.setValue($event); setarCarouselSituacao('cor_espera')"
+										[(colorPicker)]="formulario.value.cor_espera"
+										[cpAlphaChannel]="'always'"
+										[cpOutputFormat]="'rgba'"
+										[cpCancelButton]="true"
+										[cpCancelButtonClass]="'btn btn-danger m-btn--air'"
+										[cpPresetColors]="['rgba(79,129,13,0.88)','rgba(212,101,17,0.88)','rgba(201,30,30,0.88)','rgba(40,40,40,0.92)','rgba(32,32,32,0.96)', 'rgba(70,70,70,0.85)', 'rgba(255,255,255,1)']"
+										[cpOKButton]="true"
+										[cpOKButtonClass]="'btn btn-brand m-btn--air'"
+										[cpSaveClickOutside]="true"
+									class="btn btn-outline-brand m-btn m-btn--icon m-btn--icon-only m-btn--air">
+											<i class="la la-eyedropper"></i>
+									</a>
+								</span>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<label>
+								Ocupado
+							</label>							
+							<div class='input-group'>
+								<span class="input-group-addon">
+									<span class="m-badge m-badge--accent m-badge--wide"
+										[style.background]="formulario.value.cor_ocupado">
+									</span> 
+								</span>
+								<span class="input-group-addon">
+									<a href="#"
+										(colorPickerChange)="formulario.controls.cor_ocupado.setValue($event); setarCarouselSituacao('cor_ocupado')"
+										[(colorPicker)]="formulario.value.cor_ocupado"
+										[cpAlphaChannel]="'always'"
+										[cpOutputFormat]="'rgba'"
+										[cpCancelButton]="true"
+										[cpCancelButtonClass]="'btn btn-danger m-btn--air'"
+										[cpPresetColors]="['rgba(79,129,13,0.88)','rgba(212,101,17,0.88)','rgba(201,30,30,0.88)','rgba(40,40,40,0.92)','rgba(32,32,32,0.96)', 'rgba(70,70,70,0.85)', 'rgba(255,255,255,1)']"
+										[cpOKButton]="true"
+										[cpOKButtonClass]="'btn btn-brand m-btn--air'"
+										[cpSaveClickOutside]="true"
+									class="btn btn-outline-brand m-btn m-btn--icon m-btn--icon-only m-btn--air">
+											<i class="la la-eyedropper"></i>
+									</a>
+								</span>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<label>
+								Fechado
+							</label>							
+							<div class='input-group'>
+								<span class="input-group-addon">
+									<span class="m-badge m-badge--accent m-badge--wide"
+										[style.background]="formulario.value.cor_fechado">
+									</span> 
+								</span>
+								<!-- (colorPickerChange)="formulario.controls.cor_fechado.setValue($event)" -->
+								<span class="input-group-addon">
+									<a href="#"
+									(colorPickerChange)="formulario.controls.cor_fechado.setValue($event); setarCarouselSituacao('cor_fechado')"
+									[(colorPicker)]="formulario.value.cor_fechado"
+									[cpAlphaChannel]="'always'"
+									[cpOutputFormat]="'rgba'"
+									[cpCancelButton]="true"
+									[cpCancelButtonClass]="'btn btn-danger m-btn--air'"
+									[cpPresetColors]="['rgba(79,129,13,0.88)','rgba(212,101,17,0.88)','rgba(201,30,30,0.88)','rgba(40,40,40,0.92)','rgba(32,32,32,0.96)', 'rgba(70,70,70,0.85)', 'rgba(255,255,255,1)']"
+									[cpOKButton]="true"
+									[cpOKButtonClass]="'btn btn-brand m-btn--air'"
+									[cpSaveClickOutside]="true"
+									class="btn btn-outline-brand m-btn m-btn--icon m-btn--icon-only m-btn--air">
+											<i class="la la-eyedropper"></i>
+									</a>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<div class="col-md-3">
+							<label>
+								Complementar A
+							</label>							
+							<div class='input-group'>
+								<span class="input-group-addon">
+									<span class="m-badge m-badge--accent m-badge--wide"
+										[style.background]="formulario.value.cor_complementar_a">
+									</span> 
+								</span>
+								<span class="input-group-addon">
+									<a href="#" 
+										(colorPickerChange)="formulario.controls.cor_complementar_a.setValue($event)"
+										[(colorPicker)]="formulario.value.cor_complementar_a"
+										[cpAlphaChannel]="'always'"
+										[cpOutputFormat]="'rgba'"
+										[cpCancelButton]="true"
+										[cpCancelButtonClass]="'btn btn-danger m-btn--air'"
+										[cpPresetColors]="['rgba(79,129,13,0.88)','rgba(212,101,17,0.88)','rgba(201,30,30,0.88)','rgba(40,40,40,0.92)','rgba(32,32,32,0.96)', 'rgba(70,70,70,0.85)', 'rgba(255,255,255,1)']"
+										[cpOKButton]="true"
+										[cpOKButtonClass]="'btn btn-brand m-btn--air'"
+										[cpSaveClickOutside]="true"
+										class="btn btn-outline-brand m-btn m-btn--icon m-btn--icon-only m-btn--air">
+											<i class="la la-eyedropper"></i>
+									</a>
+								</span>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<label>
+								Complementar B
+							</label>							
+							<div class='input-group'>
+								<span class="input-group-addon">
+									<span class="m-badge m-badge--accent m-badge--wide"
+										[style.background]="formulario.value.cor_complementar_b">
+									</span> 
+								</span>
+								<span class="input-group-addon">
+									<a href="#" 
+										(colorPickerChange)="formulario.controls.cor_complementar_b.setValue($event)"
+										[(colorPicker)]="formulario.value.cor_complementar_b"
+										[cpAlphaChannel]="'always'"
+										[cpOutputFormat]="'rgba'"
+										[cpCancelButton]="true"
+										[cpCancelButtonClass]="'btn btn-danger m-btn--air'"
+										[cpPresetColors]="['rgba(79,129,13,0.88)','rgba(212,101,17,0.88)','rgba(201,30,30,0.88)','rgba(40,40,40,0.92)','rgba(32,32,32,0.96)', 'rgba(70,70,70,0.85)', 'rgba(255,255,255,1)']"
+										[cpOKButton]="true"
+										[cpOKButtonClass]="'btn btn-brand m-btn--air'"
+										[cpSaveClickOutside]="true"
+									class="btn btn-outline-brand m-btn m-btn--icon m-btn--icon-only m-btn--air">
+											<i class="la la-eyedropper"></i>
+									</a>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<div class="col-md-3">
+							<label>
+								Fonte
+							</label>							
+							<div class='input-group'>
+								<span class="input-group-addon">
+									<span class="m-badge m-badge--accent m-badge--wide"
+										[style.background]="formulario.value.cor_fonte">
+									</span> 
+								</span>
+								<span class="input-group-addon">
+									<a href="#" 
+										(colorPickerChange)="formulario.controls.cor_fonte.setValue($event)"
+										[(colorPicker)]="formulario.value.cor_fonte"
+										[cpAlphaChannel]="'always'"
+										[cpOutputFormat]="'rgba'"
+										[cpCancelButton]="true"
+										[cpCancelButtonClass]="'btn btn-danger m-btn--air'"
+										[cpPresetColors]="['rgba(79,129,13,0.88)','rgba(212,101,17,0.88)','rgba(201,30,30,0.88)','rgba(40,40,40,0.92)','rgba(32,32,32,0.96)', 'rgba(70,70,70,0.85)', 'rgba(255,255,255,1)']"
+										[cpOKButton]="true"
+										[cpOKButtonClass]="'btn btn-brand m-btn--air'"
+										[cpSaveClickOutside]="true"
+										class="btn btn-outline-brand m-btn m-btn--icon m-btn--icon-only m-btn--air">
+											<i class="la la-eyedropper"></i>
+									</a>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="m_tabs_6_4" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Prévia
+							</h5>
+						</div>
+					</div>
+					<div class="m-form__content">
+						<div class="m-alert m-alert--icon alert alert-danger m--hide"
+							role="alert" id="m_form_2_msg">
+							<!-- [class.m--hide]="formulario.valid || formulario.untouched"> -->
+							<div class="m-alert__icon">
+								<i class="la la-warning"></i>
+							</div>
+							<div class="m-alert__text">
+								Oh snap! Change a few things up and try submitting again.
+							</div>
+							<div class="m-alert__close">
+								<button type="button" class="close" data-close="alert" aria-label="Close"></button>
+							</div>
+						</div>
+					</div>
+					<div style="padding-left: 45px; padding-right: 45px; padding-top: 10px;">
+						<div class="form-group m-form__group row" 
+							[ngStyle]="{
+								'border-left-width': '35px',
+								'background-image': 'url(' + carouselFundo + ')',
+								'background-size': 'cover',
+								'padding-left': '0px',
+								'padding-right': '0px'
+							}">
+							<!-- 'border': '1px solid #585858', -->
+							<!-- formulario.value.cor_livre -->
+							<div class="col-sm-7" [ngStyle]="{
+								'background': carouselSituacao ,
+								'padding': '0',
+								'width': '65%',
+								'height': '371px'
+								}">
+								<div [ngStyle]="{
+									'padding-left':'50px',
+									'padding-top':'75px',
+									'color': formulario.value.cor_fonte,
+									'font-size':'30px'
+								}">
+									{{formulario.value.nome}}
+								</div>
+							</div>
+							<div class="col-sm-5" [ngStyle]="{
+									'padding': '0',
+									'background': 'linear-gradient(45deg,' + formulario.value.cor_complementar_a + ',' + formulario.value.cor_complementar_b + '75%)'
+								}">
+								<div [ngStyle]="{ 
+									'height' : '72%'}">
+									<div [ngStyle]="{
+										'padding-left':'35px',
+										'padding-top':'75px',
+										'color': formulario.value.cor_fonte,
+										'font-size':'30px'
+									}">
+										{{formulario.value.nome}}
+									</div>
+								</div>
+								<!-- , ; height: 75%; -->
+								<div [ngStyle]="{
+									'width': '100%',
+									'height' : '23%',
+									'background-image': 'url(' + carouselPublicidade + ')',
+									'background-size': 'cover'
+									}"> 
+								</div>
+								<!-- imageUploadPublicidade?.files[0]?.src -->
+							</div>
+						</div>
+					</div>
+					<div class="form-group m-form__group" style="
+						margin: auto;
+						width: 27%;
+						padding: 10px;">
+						<!-- <label>
+							Experimente as situações:
+						</label> -->
+						<div class="m-radio-inline">
+							<label class="m-radio m-radio--solid m-radio--state-success">
+								<input type="radio" name="carouselSituacao"
+									[checked]="formulario.value.cor_livre==carouselSituacao"
+									(click)="setarCarouselSituacao('cor_livre')">
+								<span [style.background]="formulario.value.cor_livre"></span>
+							</label>
+							<label class="m-radio m-radio--solid m-radio--state-success">
+								<input type="radio" name="carouselSituacao"
+								[checked]="formulario.value.cor_espera==carouselSituacao"
+								(click)="setarCarouselSituacao('cor_espera')">
+								<span [style.background]="formulario.value.cor_espera"></span>
+							</label>
+							<label class="m-radio m-radio--solid m-radio--state-success">
+								<input type="radio" name="carouselSituacao"
+								[checked]="formulario.value.cor_ocupado==carouselSituacao"
+								(click)="setarCarouselSituacao('cor_ocupado')">
+								<span [style.background]="formulario.value.cor_ocupado"></span>
+							</label>
+							<label class="m-radio m-radio--solid m-radio--state-success">
+								<input type="radio" name="carouselSituacao"
+								[checked]="formulario.value.cor_fechado==carouselSituacao"
+								(click)="setarCarouselSituacao('cor_fechado')">
+								<span [style.background]="formulario.value.cor_fechado"></span>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" style="display:block">
+		<button type="button"  class="btn btn-secondary" data-dismiss="modal"
+			(click)="activeModal.close('Close click')">
+			Cancelar
+		</button>
+		<button type="submit" class="btn btn-primary"
+			[disabled]="formulario.invalid">
+			Salvar
+		</button>
+	</div>
+</form>

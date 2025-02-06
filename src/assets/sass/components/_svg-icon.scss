@@ -1,0 +1,138 @@
+//
+// SVG Icon
+//
+
+.svg-avatar{
+    @include svg-icon-size(get($svg-icon-sizes, md));
+    @each $breakpoint in map-keys($grid-breakpoints) {
+        @include media-breakpoint-up($breakpoint) {
+            $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+            // Sizes
+            @each $name, $value in $svg-icon-sizes  {
+                &.svg-icon#{$infix}-#{$name} {
+                    @include svg-icon-size($value, true);
+                }
+            }
+        }
+    }
+}
+
+.m-menu__item--active{
+    .svg-icon {
+        @include svg-icon-color(var(--primary), true);
+    }
+    .m-menu__submenu{
+        .svg-icon {
+            @include svg-icon-color($gray-500, true);
+        }
+    }
+}
+
+// .m-menu__item--submenu .m-menu__item--active{
+//     .svg-icon {
+//         @include svg-icon-color($primary, true);
+//     }
+// }
+
+
+.btn-outline-primary{
+    .svg-icon {
+        @include svg-icon-color(var(--primary), true);
+    }
+}
+
+.btn-outline-primary:hover{
+    .svg-icon {
+        @include svg-icon-color($primary-light, true);
+    }
+}
+
+// a:hover{
+    // .svg-icon:hover {
+        // @include svg-icon-color($color, true);
+        // background-color: yellow;
+    // }
+// }
+
+.svg-button {
+    padding-top: 3px;
+    padding-left: 3px;
+}
+
+
+.svg-icon {
+    @include svg-icon-size(get($svg-icon-sizes, md));
+    @include svg-icon-color($text-muted);
+
+    // Theme colors
+    @each $name, $color in $theme-text-colors  {
+        &.svg-icon-#{$name} {
+            @include svg-icon-color(theme-root-color($name), true);
+        }
+    }
+
+    // .m-header-menu.m-header-menu--skin-light .m-menu__nav > .m-menu__item.m-menu__item--active > .m-menu__link .m-menu__link-icon {
+    //     color: #716aca; }
+
+    // Responsive icon sizes
+    @each $breakpoint in map-keys($grid-breakpoints) {
+        @include media-breakpoint-up($breakpoint) {
+            $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+            // Sizes
+            @each $name, $value in $svg-icon-sizes  {
+                &.svg-icon#{$infix}-#{$name} {
+                    @include svg-icon-size($value, true);
+                }
+            }
+        }
+    }
+
+ 
+}
+
+.svg-icon-menu svg{
+    height: 1.8rem !important;
+    width: 1.8rem !important;
+}
+
+.svg-icon-customizacoes svg{
+    height: 13rem !important;
+    width: 20rem !important;
+}
+
+.svg-icon-workspace svg{
+    height: 14rem !important;
+    width: 28rem !important;
+}
+
+.svg-icon-vintecinco svg{
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+}
+
+.svg-icon-quinze svg{
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+}
+
+.svg-icon-treze svg{
+    height: 1.3rem !important;
+    width: 1.3rem !important;
+}
+
+.svg-icon-dezesseis svg{
+    height: 1.6rem !important;
+    width: 1.6rem !important;
+}
+
+.svg-icon-match svg{
+    width: 12rem !important;
+    height: 12rem !important;
+}
+
+.svg-icon-room svg{
+    width: 13rem !important;
+    height: 13rem !important;
+}

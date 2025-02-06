@@ -1,0 +1,150 @@
+<tf-datatable-cabecalho
+	[habilitarForm]="workspaceService.autorizar('espaco_criar')"
+	[labelFormButton]="'Novo Espaço'"
+	[habilitarButtonAdicional]="true"
+	[labelButtonAdicional]="'Criar vários'"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+	(openFormModal)="openFormModal()"
+	(openModalAdicional)="openModalAdicional()"
+	[pesquisarPor]="'pesquise por: nome, bloqueado ou desbloqueado do ESPAÇO *** nome/andar da LOCALIZAÇÃO *** nome ou categoria do TIPO DE ESPAÇO'"
+	>
+</tf-datatable-cabecalho>
+<div *ngIf="workspaceService.autorizar('espaco_visualizar')
+	&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+	|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+  <ngx-datatable class="material"
+		#minhaTable
+		[rows]="datatable.rows"
+		[columnMode]="'flex'"
+		[footerHeight]="50"
+		[rowHeight]="'auto'"
+		[externalPaging]="true"
+		[count]="page.totalElements"
+		[offset]="page.pageNumber"
+		[limit]="page.size"
+		(page)="setPage($event, undefined)"  
+		[sortType]="'multi'"
+		>
+		<ngx-datatable-column
+			[width]="50"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template ngx-datatable-header-template let-value="value">
+				<a href="#"
+				 class="datatable-icon-left fg-primary"
+				 title="Expand/Collapse All Rows"
+				 (click)="toggleExpandAllRow()">
+				</a>
+			</ng-template>
+			<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+				<a href="#" title="Expand/Collapse Row"
+				 (click)="toggleExpandRow(row, expanded)"
+				 class="m-datatable__toggle-subtable fg-primary">
+				 <i [class.datatable-icon-right]="!expanded"
+				 	[class.datatable-icon-down]="expanded"></i>
+				</a>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="3" name="Prédio - Andar" prop="localizacao">
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Nome" prop="nome">
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="3" name="Tipo" prop="tipo_espaco.nome">
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Capacidade" prop="capacidade_pessoas">
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Categoria" prop="tipo_espaco.categoria.capitalize">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.categoria=='Sala'" class="m-badge m-badge--accent m-badge--wide m--font-boldest">Sala</span>
+				<span *ngIf="row.categoria=='Mesa'" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Mesa</span>
+				<span *ngIf="row.categoria=='Estacionamento'" class="m-badge m-badge--success m-badge--wide m--font-boldest">Estacionamento</span>
+				<span *ngIf="row.categoria=='Fretado'" class="m-badge m-badge--warning m-badge--wide m--font-boldest">Fretado</span>
+		</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Bloqueado?" prop="espaco_bloquear">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.bloqueado==false" class="m-badge m-badge--accent m-badge--wide m--font-boldest">Não</span>
+				<span *ngIf="row.bloqueado==true" class="m-badge m-badge--secondary m-badge--wide m--font-boldest">Sim</span>
+		</ng-template>
+		</ngx-datatable-column>
+
+		<!-- [width]="120" -->
+		<ngx-datatable-column
+			[flexGrow]="2" 
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="">
+					<a href="#" title="Editar" (click)="openFormModal(row.id)"
+						*ngIf="workspaceService.autorizar('espaco_editar')"
+						class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a>
+					<a href="#" title="Remover" (click)="removeItem(row.id, row.numero_lote!=undefined)"
+						*ngIf="workspaceService.autorizar('espaco_excluir')"
+						class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+					<!-- <a href="#" title="Abrir/Fechar Espaço" (click)="abrirFecharEspaco(row.id)"
+						*ngIf="workspaceService.autorizar('espaco_abrir_fechar')"
+						class="btn btn-outline-dark btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-key"></i>
+					</a> -->
+					<a href="#" title="QR Code" (click)="abrirQrCode(row.id, row.nome)"
+						*ngIf="workspaceService.autorizar('gerar_qrcode')"
+						class="btn btn-outline-info btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+					<i class="la la-qrcode"></i>
+				</a>
+				<a href="#" *ngIf="row.bloqueado && workspaceService.autorizar('espaco_bloquear')" 
+					title="Desbloquear" (click)="bloquearDesbloquear(row.id)"
+					class="btn btn-outline-success btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-unlock "></i>
+				</a>
+				<a href="#" *ngIf="!row.bloqueado && workspaceService.autorizar('espaco_bloquear')"
+					title="Bloquear" (click)="bloquearDesbloquear(row.id)"
+					class="btn btn-outline-dark btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-lock "></i>
+				</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		 <ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+			<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+				<div class="row" style="padding-left:15px;margin-right:0px">
+					<div class="col-6">
+						<div><b>Amenidades</b></div>
+						<ng-container *ngFor="let i of row.amenities">
+							<div *ngIf="i.name">&emsp;{{i?.quantity}} - {{i?.name}}</div>
+						</ng-container>
+					</div>
+				<div class="col-6">
+					<div><b>Espaço conjugado pai:</b></div>
+					<div>{{row.conjugado_pai}}</div>
+					<div><b>Espaço conjugado filhos:</b></div> 
+					<div>{{row.conjugado_filhos}}</div> 
+				</div>
+					<div class="col-6">
+						<div><b>Calendário</b></div>
+            <div>nome: {{row.calendario.nome}}</div>
+            <div>email: {{row.calendario.email}}</div>    
+					</div>
+				</div>
+			</ng-template>
+		</ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>
+
+						<!-- <div><b>&ensp;Serviço: Audiovisual</b></div>
+						<div>&emsp;nome: {{row.instalacoes.audiovisual.nome}}</div>
+            <div>&emsp;quantidade: {{row.instalacoes.audiovisual.quantidade}}</div>  
+						<div><b>&ensp;Serviço: Infra TI</b></div>
+						<div>&emsp;nome: {{row.instalacoes.infrati.nome}}</div>
+            <div>&emsp;quantidade: {{row.instalacoes.infrati.quantidade}}</div>  
+						<div><b>&ensp;Serviço: Infraestrutura</b></div>
+						<div>&emsp;nome: {{row.instalacoes.infraestrutura.nome}}</div>
+            <div>&emsp;quantidade: {{row.instalacoes.infraestrutura.quantidade}}</div>   -->

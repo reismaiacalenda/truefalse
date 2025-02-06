@@ -1,0 +1,118 @@
+<tf-datatable-cabecalho
+[habilitarForm]="workspaceService.autorizar('pessoa_criar')"
+[habilitarButton]="false"
+(refreshTable)="refreshTable()"
+(updateFilter)="updateFilter($event)"
+(openFormModal)="openFormModal()"
+(convidarPessoas)="convidarPessoas()"
+(reenviarConviteEmMassa)="reenviarConviteEmMassa()"
+[habilitarconvidarPessoas]="workspaceService.autorizar('pessoa_convidar')"
+[habilitarconvidarPessoasEmMassa]="workspaceService.autorizar('pessoa_visualizar_unidade') && workspaceService.autorizar('pessoa_convidar')"
+habilitarButton="false"
+[pesquisarPor]="'pesquise por: nome ou email da PESSOA *** nome do GRUPO'"
+>
+<!-- [labelFormButton]="'Nova Pessoa'" -->
+</tf-datatable-cabecalho>
+<div *ngIf="workspaceService.autorizar('pessoa_visualizar_meu', 'pessoa_visualizar_grupo', 'pessoa_visualizar_unidade')">
+	<ngx-datatable class="material"
+	#minhaTable
+	[rows]="datatable.rows"
+	[columnMode]="'flex'"
+	[footerHeight]="50"
+	[rowHeight]="'auto'"
+	[externalPaging]="true"
+	[count]="page.totalElements"
+	[offset]="page.pageNumber"
+	[limit]="page.size"
+	(page)="setPage($event, undefined)"  
+	[sortType]="'multi'"
+	>
+	<ngx-datatable-column
+	[width]="50"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template ngx-datatable-header-template let-value="value">
+				<a href="#"
+						class="datatable-icon-left fg-primary"
+						title="Expand/Collapse All Rows"
+						(click)="toggleExpandAllRow()">
+				</a>
+			</ng-template>
+			<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+				<a href="#" title="Expand/Collapse Row"
+					(click)="toggleExpandRow(row, expanded)"
+						class="m-datatable__toggle-subtable fg-primary">
+						<i [class.datatable-icon-right]="!expanded"
+						[class.datatable-icon-down]="expanded"></i>
+				</a>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="3" name="Nome" prop="name">
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="3" name="E-mail" prop="email">
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="3" name="Login como" prop="provider">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.provider=== 'Convidado'" class="m-badge m-badge--secondary m-badge--wide m--font-boldest">Nenhum</span>
+				<span *ngIf="row.provider=== 'Calenda'" class="m-badge m-badge--primary m-badge--wide m--font-boldest">Calenda</span>
+				<span *ngIf="row.provider=== 'Google'" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Google</span>
+				<span *ngIf="row.provider=== 'Microsoft'" class="m-badge m-badge--accent m-badge--wide m--font-boldest">Microsoft</span>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="3" name="Ativo?" prop="ativo">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.ativo=== true" class="m-badge m-badge--accent m-badge--wide m--font-boldest">Sim</span>
+				<span *ngIf="row.ativo=== false" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Não</span>
+			</ng-template>
+		</ngx-datatable-column>
+		<!-- [width]="130" -->
+		<ngx-datatable-column
+			[flexGrow]="1" 
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="d-flex flex-nowrap">
+					<a href="#" title="Editar" (click)="openFormModal(row.id)"
+						*ngIf="workspaceService.autorizar('pessoa_editar_meu', 'pessoa_editar_grupo', 'pessoa_editar_unidade')"
+						class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a>
+					<a href="#" title="Remover" (click)="datatableService.remove(row.id)"
+						*ngIf="workspaceService.autorizar('pessoa_excluir')"
+						class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+					<a href="#" title="Reenvio de Convite" (click)="reenviarConvite(row.id)"
+					  *ngIf="row.ativo === false && workspaceService.autorizar('pessoa_convidar')"
+						class="btn btn-outline-success m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-user-plus"></i>
+					</a>
+					<a href="#" title="Ativar Usuário" (click)="ativarUsuario(row.id)"
+					  *ngIf="!row.ativo && row.provider == 'Convidado' && workspaceService.autorizar('pessoa_ativar')"
+						class="btn btn-outline-success m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-check"></i>
+					</a>
+					<a href="#" title="Desativar Usuário" (click)="desativarUsuario(row.id)"
+					  *ngIf="row.ativo && row.provider != 'Convidado' && workspaceService.autorizar('pessoa_ativar')"
+					  class="btn btn-outline-warning m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-ban"></i>
+					</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		 <ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+			<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+				<div class="row" style="padding-left:15px;margin-right:0px">
+					<div class="col-12">
+						<div>Número do crachá: {{row.rfid}}</div>
+						<div>Grupos: {{row.grupos_attributes.nome}}</div>
+					</div>
+				</div>
+			</ng-template>
+		</ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>

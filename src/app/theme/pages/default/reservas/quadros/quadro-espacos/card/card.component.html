@@ -1,0 +1,662 @@
+<div *ngIf="card.conjugado_filhos_flag == true">
+  <div class="row">
+    <div class="col-12 cursor-default">
+      <a style="text-decoration:none" class="card card-custom card-shadowmore mb-lg-0 bg-hover-light cursor-default">
+        <!--begin::Card Body-->
+        <div class="card-body m-animate-shine p-0">
+          <div class="d-flex float-left pt-2 pl-2" style="width:80%">
+            <!-- <div class="d-flex flex-column align-items-center"> -->
+            <div class="text-dark font-size-sm cursor-pointer">
+              <span class="p-0" (click)="openNewOrEdit()">
+                {{card.nome}}&nbsp;&nbsp;|&nbsp;&nbsp;<b>{{card.atual}}</b>
+                {{card.anfitriao_atual}}&nbsp;&nbsp;|&nbsp;&nbsp;
+              </span>
+              <span *ngIf="card.situacao != 'bloqueado'" class="p-0 text-hover-primary" (click)="openModalAgendaDoDia()"><u>Ver agenda do dia</u></span>
+            </div>
+          </div>
+          <div class="d-flex float-right py-0">
+            <div class="d-flex flex-column">
+              <div class="card-toolbar">
+                <!-- <div ngbTooltip="Agenda do dia" container="body" placement="bottom"
+                  class="d-inline-block" >
+                  <a class="font-weight-bold p-1
+                btn btn-sm btn-light-danger" >
+                    <span class="svg-icon svg-icon-menu" [ngClass]="{
+                      'svg-icon-success': card.situacao == 'livre' ,
+                      'svg-icon-danger': card.situacao == 'ocupado' ,
+                      'svg-icon-warning': card.situacao == 'espera' 
+                    }" [inlineSVG]="'./assets/app/media/svg/icons/Home/Book.svg'">
+                    </span>
+                  </a>
+                </div> -->
+                <div ngbDropdown placement="bottom-right" #dropdownRecursos="ngbDropdown" container="body"
+                  class="d-inline-block" (mouseenter)="abrirDropdownRecursos(dropdownRecursos);" *ngIf="card.situacao != 'bloqueado'">
+                  <!-- (mouseleave)="$event.stopPropagation(); dropdownRecursos.close();" -->
+                  <a class="font-weight-bold p-1 m-dropdown__toggle
+                btn btn-sm btn-light-danger" ngbDropdownToggle id="dropdownBasic2"
+                    (mouseleave)="fecharDropdownRecursos(dropdownRecursos)">
+                    <!-- btn btn-sm btn-outline-success -->
+                    <!-- Toggle dropup -->
+                    <!--  -->
+                    <span class="svg-icon svg-icon-menu" [ngClass]="{
+                      'svg-icon-success': card.situacao == 'livre' ,
+                      'svg-icon-danger': card.situacao == 'ocupado' ,
+                      'svg-icon-warning': card.situacao == 'espera' 
+                    }" [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Amenities.svg'">
+                    </span>
+                  </a>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic2" (mouseenter)="segurarDropdownRecursos(dropdownRecursos)"
+                    (mouseleave)="fecharDropdownRecursos(dropdownRecursos)" class="m-dropdown__wrapper">
+                    <div style="
+                      width: 0;
+                      height: 0;
+                      border-left: 15px solid transparent;
+                      border-right: 15px solid transparent;
+                      border-bottom: 7px solid #fff;
+                      position: absolute;
+                      top: -5px;
+                      right: 5px;
+                      "></div>
+                    <!-- <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 11px;"></span> -->
+                    <div class="m-dropdown__inner">
+                      <div class="m-dropdown__body px-4 pt-3">
+                        <div>
+                          <p class="font-size-md font-weight-bold">Amenidades</p>
+                        </div>
+                        <div class="m-dropdown__content">
+                          <!-- <i class="m-nav__link-icon la la-plus"></i> -->
+                          <div *ngFor="let s of card.amenities; let i = index;">
+                            <p *ngIf="card" class="font-size-sm">{{s?.quantity}} - {{s?.name}}</p>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <!-- <a class="dropdown-item">Action - 1</a>
+                    <a class="dropdown-item">Another Action</a>
+                    <a class="dropdown-item">Something else is here akjsh dasjk dhask jdhak jh</a> -->
+                    </div>
+                  </div>
+                </div>
+                <div ngbDropdown placement="bottom-right" #dropdownAcoes="ngbDropdown" container="body"
+                  class="d-inline-block" (mouseenter)="abrirDropdownAcoes(dropdownAcoes);"
+                  *ngIf="card.situacao != 'bloqueado'">
+                  <!-- (mouseleave)="$event.stopPropagation(); dropdownAcoes.close();" -->
+                  <a class="font-weight-bold p-1 m-dropdown__toggle
+                  btn btn-sm btn-light-danger" ngbDropdownToggle id="dropdownBasic2"
+                    (mouseleave)="fecharDropdownAcoes(dropdownAcoes)">
+                    <!-- btn btn-sm btn-outline-success -->
+                    <!-- Toggle dropup -->
+                    <!--  -->
+                    <span class="svg-icon svg-icon-menu" [ngClass]="{
+                        'svg-icon-success': card.situacao == 'livre' ,
+                        'svg-icon-danger': card.situacao == 'ocupado' ,
+                        'svg-icon-warning': card.situacao == 'espera'
+                      }" [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-down.svg'">
+                    </span>
+                  </a>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic2" (mouseenter)="segurarDropdownAcoes(dropdownAcoes)"
+                    (mouseleave)="fecharDropdownAcoes(dropdownAcoes)" class="m-dropdown__wrapper">
+                    <div style="
+                      width: 0;
+                      height: 0;
+                      border-left: 15px solid transparent;
+                      border-right: 15px solid transparent;
+                      border-bottom: 7px solid #fff;
+                      position: absolute;
+                      top: -5px;
+                      right: 5px;
+                      "></div>
+                    <!-- <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 11px;"></span> -->
+                    <div class="m-dropdown__inner">
+                      <div class="m-dropdown__body">
+                        <div>
+                          <p class="font-size-md font-weight-bold pt-3 pl-5 pr-3">Ações</p>
+                        </div>
+                        <ul class="m-nav">
+                          
+                          <li class="m-nav__item">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalAgendaDoDia()">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Ver agenda do dia
+                              </span>
+                            </a>
+                          </li>
+                          <li class="m-nav__item" *ngIf="card.tipo_espaco && card.tipo_espaco=='sala'
+                            && workspaceService.autorizar('reserva_evento_criar_meu', 'reserva_evento_criar_grupo', 'reserva_evento_criar_unidade')
+                            && workspaceService.autorizar('reserva_evento_reservar_espaco')
+                            && workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalNew()">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Agendar evento
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item" *ngIf="card.tipo_espaco && card.tipo_espaco=='mesa'
+                            && workspaceService.autorizar('reserva_estacao_flexivel_criar_meu', 'reserva_estacao_flexivel_criar_grupo', 'reserva_estacao_flexivel_criar_unidade')
+                            && workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalHotdesk()">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Hotdesk
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item" *ngIf="card.tipo_espaco && card.tipo_espaco=='mesa'
+                          && workspaceService.autorizar('reserva_posto_de_trabalho_criar_meu', 'reserva_posto_de_trabalho_criar_grupo', 'reserva_posto_de_trabalho_criar_unidade')
+                          && workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalPostoTrabalho()">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Definir posto de trabalho
+                              </span>
+                            </a>
+                          </li>
+
+                          <!-- <li class="m-nav__item" 
+                            *ngIf="workspaceService.autorizar('reserva_instalacao_criar_meu', 'reserva_instalacao_criar_grupo', 'reserva_instalacao_criar_unidade')
+                            && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+                            || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))
+                            && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"> -->
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <!-- <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalInstalacao()">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Instalar recursos
+                              </span>
+                            </a>
+                          </li> -->
+
+                          <li class="m-nav__item"
+                            *ngIf="workspaceService.autorizar('recursos_alocados_menu')
+                            && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" routerLink="/acompanhamentoss/recursos-alocados/"
+                              [queryParams]="{espaco_id: [card.id]}">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Gerenciar recursos alocados
+                              </span>
+                            </a>
+                          </li>
+                          
+                          <li class="m-nav__item"
+                            *ngIf="workspaceService.autorizar('gerar_qrcode')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="abrirQrCode(card.id, card.nome)">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Gerar QRCode
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item" *ngIf="card.atual_reserva_id && card.situacao=='espera'">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openCheckModal(card.id)">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Check-in
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item" *ngIf="card.atual_reserva_id && card.situacao=='ocupado'">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openCheckModal(card.id)">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Check-out
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item" *ngIf="card.atual_reserva_id">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="cancelarReserva(card.atual_reserva_id)">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Cancelar reserva
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item"
+                            *ngIf="workspaceService.autorizar('espaco_editar')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalEditarEspaco(card.id)">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Editar espaço
+                              </span>
+                            </a>
+                          </li>
+
+                        </ul>
+                      </div>
+
+
+                      <!-- <a class="dropdown-item">Action - 1</a>
+                      <a class="dropdown-item">Another Action</a>
+                      <a class="dropdown-item">Something else is here akjsh dasjk dhask jdhak jh</a> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end::Card Body-->
+        <!-- </a>
+      <a style="text-decoration:none; background-color: #F3F6F9;
+      " routerLink="/reservas/quadros/pessoas"
+        class="card card-custom card-shadowless "> -->
+        <!-- wave wave-top-success wave-animate-slow wave-success -->
+        <!-- mb-8 mb-lg-0 -->
+        <!--begin::Card Body-->
+
+
+        <!--end::Card Body-->
+      </a>
+    </div>
+    <div class="col-12 pb-4">
+
+      <a style="text-decoration:none;" class="card card-custom card-shadowmore " [ngClass]="{
+          'bg-success-o-10': card.situacao == 'livre' ,
+          'bg-danger-o-10': card.situacao == 'ocupado' ,
+          'bg-warning-o-10': card.situacao == 'espera' 
+        }">
+        <div class="card-body m-animate-shine pt-5 pb-0 px-2 mb-4">
+          <div class="row col-12">
+            <ng-container *ngFor="let c of card.conjugado_filhos">
+              <card [card]="c" [data]="data" [horaInicio]="horaInicio" [horaFim]="horaFim" (refreshQuadro)="propagarRefreshQuadro()" class="px-0 col-lg-3 pl-2 pr-2 pb-4">
+              </card>
+            </ng-container>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="card.conjugado_filhos_flag == false" class="px-3">
+  <div class="row">
+    <div class="col-12 px-0 cursor-default">
+      <a style="text-decoration:none" class="card card-custom card-shadowmore mb-lg-0
+      ">
+        <!--begin::Card Body-->
+        <div class="card-body p-0">
+          <div class="d-flex float-left pt-2 pl-2" style="width:80%">
+            <!-- <div class="d-flex flex-column align-items-center"> -->
+            <div class="text-dark font-size-sm">
+              {{card.nome}}
+            </div>
+          </div>
+          <div class="d-flex float-right py-0">
+            <div class="d-flex flex-column">
+              <div class="card-toolbar">
+                <!-- <div ngbTooltip="Agenda do dia" container="body" placement="bottom" (click)="openModalAgendaDoDia()"
+                  class="d-inline-block" >
+                  <a class="font-weight-bold p-0
+                btn btn-sm btn-light-danger" >
+                    <span class="svg-icon svg-icon-menu" [ngClass]="{
+                      'svg-icon-success': card.situacao == 'livre' ,
+                      'svg-icon-danger': card.situacao == 'ocupado' ,
+                      'svg-icon-warning': card.situacao == 'espera' 
+                    }" [inlineSVG]="'./assets/app/media/svg/icons/Home/Book.svg'">
+                    </span>
+                  </a>
+                </div> -->
+                <div ngbDropdown placement="bottom-right" #dropdownRecursos="ngbDropdown" container="body"
+                  class="d-inline-block" (mouseenter)="abrirDropdownRecursos(dropdownRecursos);"
+                  *ngIf="card.situacao != 'bloqueado'">
+                  <!-- (mouseleave)="$event.stopPropagation(); dropdownRecursos.close();" -->
+                  <a class="font-weight-bold p-0 m-dropdown__toggle
+                  btn btn-sm btn-light-danger" ngbDropdownToggle id="dropdownBasic2"
+                    (mouseleave)="fecharDropdownRecursos(dropdownRecursos)">
+                    <!-- btn btn-sm btn-outline-success -->
+                    <!-- Toggle dropup -->
+                    <!--  -->
+                    <span class="svg-icon svg-icon-menu" [ngClass]="{
+                      'svg-icon-success': card.situacao == 'livre' ,
+                      'svg-icon-danger': card.situacao == 'ocupado' ,
+                      'svg-icon-warning': card.situacao == 'espera' 
+                    }" [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Amenities.svg'">
+                    </span>
+                  </a>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic2" (mouseenter)="segurarDropdownRecursos(dropdownRecursos)"
+                    (mouseleave)="fecharDropdownRecursos(dropdownRecursos)" class="m-dropdown__wrapper">
+                    <div style="
+                      width: 0;
+                      height: 0;
+                      border-left: 15px solid transparent;
+                      border-right: 15px solid transparent;
+                      border-bottom: 7px solid #fff;
+                      position: absolute;
+                      top: -5px;
+                      right: 5px;
+                      "></div>
+                    <!-- <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 11px;"></span> -->
+                    <div class="m-dropdown__inner">
+                      <div class="m-dropdown__body px-4 pt-3">
+                        <div>
+                          <p class="font-size-md font-weight-bold">Amenidades</p>
+                        </div>
+                        <div class="m-dropdown__content">
+                          <!-- <i class="m-nav__link-icon la la-plus"></i> -->
+                          <div *ngFor="let s of card.amenities; let i = index;">
+                            <p *ngIf="card" class="font-size-sm">{{s?.quantity}} - {{s?.name}}</p>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <!-- <a class="dropdown-item">Action - 1</a>
+                    <a class="dropdown-item">Another Action</a>
+                    <a class="dropdown-item">Something else is here akjsh dasjk dhask jdhak jh</a> -->
+                    </div>
+                  </div>
+                </div>
+                <div ngbDropdown placement="bottom-right" #dropdownAcoes="ngbDropdown" container="body"
+                  class="d-inline-block" (mouseenter)="abrirDropdownAcoes(dropdownAcoes);"
+                  *ngIf="card.situacao != 'bloqueado'">
+                  <!-- (mouseleave)="$event.stopPropagation(); dropdownAcoes.close();" -->
+                  <a class="font-weight-bold py-1 px-0 m-dropdown__toggle
+                  btn btn-sm btn-light-danger" ngbDropdownToggle id="dropdownBasic2"
+                    (mouseleave)="fecharDropdownAcoes(dropdownAcoes)">
+                    <!-- btn btn-sm btn-outline-success -->
+                    <!-- Toggle dropup -->
+                    <!--  -->
+                    <span class="svg-icon svg-icon-menu" [ngClass]="{
+                        'svg-icon-success': card.situacao == 'livre' ,
+                        'svg-icon-danger': card.situacao == 'ocupado' ,
+                        'svg-icon-warning': card.situacao == 'espera' 
+                      }" [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-down.svg'">
+                    </span>
+                  </a>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic2" (mouseenter)="segurarDropdownAcoes(dropdownAcoes)"
+                    (mouseleave)="fecharDropdownAcoes(dropdownAcoes)" class="m-dropdown__wrapper">
+                    <div style="
+                      width: 0;
+                      height: 0;
+                      border-left: 15px solid transparent;
+                      border-right: 15px solid transparent;
+                      border-bottom: 7px solid #fff;
+                      position: absolute;
+                      top: -5px;
+                      right: 5px;
+                      "></div>
+                    <!-- <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 11px;"></span> -->
+                    <div class="m-dropdown__inner">
+                      <div class="m-dropdown__body">
+                        <div>
+                          <p class="font-size-md font-weight-bold pt-3 pl-5 pr-3">Ações</p>
+                        </div>
+                        <ul class="m-nav">
+                          <li class="m-nav__item">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalAgendaDoDia()">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Ver agenda do dia
+                              </span>
+                            </a>
+                          </li>
+                          <li class="m-nav__item" *ngIf="card.tipo_espaco && card.tipo_espaco=='sala'
+                            && workspaceService.autorizar('reserva_evento_criar_meu', 'reserva_evento_criar_grupo', 'reserva_evento_criar_unidade')
+                            && workspaceService.autorizar('reserva_evento_reservar_espaco')
+                            && workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalNew()">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Agendar evento
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item" *ngIf="card.tipo_espaco && card.tipo_espaco=='mesa'
+                            && workspaceService.autorizar('reserva_estacao_flexivel_criar_meu', 'reserva_estacao_flexivel_criar_grupo', 'reserva_estacao_flexivel_criar_unidade')
+                            && workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalHotdesk()">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Hotdesk
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item" *ngIf="card.tipo_espaco && card.tipo_espaco=='mesa'
+                            && workspaceService.autorizar('reserva_posto_de_trabalho_criar_meu', 'reserva_posto_de_trabalho_criar_grupo', 'reserva_posto_de_trabalho_criar_unidade')
+                            && workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalPostoTrabalho()">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Definir posto de trabalho fixo
+                              </span>
+                            </a>
+                          </li>
+
+                          <!-- <li class="m-nav__item"
+                            *ngIf="workspaceService.autorizar('reserva_instalacao_criar_meu', 'reserva_instalacao_criar_grupo', 'reserva_instalacao_criar_unidade')
+                            && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+                            || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))
+                            && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"> -->
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <!-- <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalInstalacao()">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Instalar recursos
+                              </span>
+                            </a>
+                          </li> -->
+
+                          <li class="m-nav__item d-none d-lg-block"
+                            *ngIf="workspaceService.autorizar('recursos_alocados_menu')
+                            && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" routerLink="/acompanhamentos/recursos-alocados/"
+                              [queryParams]="{espaco_id: [card.id]}">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Gerenciar recursos alocados
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item" *ngIf="card.atual_reserva_id && card.situacao=='espera'">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='espera'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openCheckModal(card.id)">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Check-in
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item" *ngIf="card.atual_reserva_id && card.situacao=='ocupado'">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openCheckModal(card.id)">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Check-out
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item" *ngIf="card.atual_reserva_id">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="cancelarReserva(card.atual_reserva_id)">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Cancelar reserva
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item d-none d-lg-block"
+                            *ngIf="workspaceService.autorizar('gerar_qrcode')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="abrirQrCode(card.id, card.nome)">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Gerar QRCode
+                              </span>
+                            </a>
+                          </li>
+
+                          <li class="m-nav__item d-none d-lg-block"
+                            *ngIf="workspaceService.autorizar('espaco_editar')">
+                            <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalEditarEspaco(card.id)">
+                              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                              </span>
+                              <span class="m-nav__link-text font-size-sm">
+                                Editar espaço
+                              </span>
+                            </a>
+                          </li>
+                          
+                        </ul>
+                      </div>
+
+
+                      <!-- <a class="dropdown-item">Action - 1</a>
+                      <a class="dropdown-item">Another Action</a>
+                      <a class="dropdown-item">Something else is here akjsh dasjk dhask jdhak jh</a> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--end::Card Body-->
+        <!-- </a>
+      <a style="text-decoration:none; background-color: #F3F6F9;
+      " routerLink="/reservas/quadros/pessoas"
+        class="card card-custom card-shadowless "> -->
+        <!-- wave wave-top-success wave-animate-slow wave-success -->
+        <!-- mb-8 mb-lg-0 -->
+        <!--begin::Card Body-->
+
+
+        <!--end::Card Body-->
+      </a>
+    </div>
+    <div class="col-12 px-0">
+      <a style="text-decoration:none;"  class="card card-custom card-shadowmore bg-hover-light
+        wave wave-animate-slow wave-bottom-b cursor-pointer" [ngClass]="{
+          'wave-success wave-bg-success-50': card.situacao == 'livre' ,
+          'wave-danger wave-bg-danger-50': card.situacao == 'ocupado' ,
+          'wave-warning wave-bg-warning-50': card.situacao == 'espera' 
+        }">
+        <!-- wave wave-bottom wave-bg-success-50 wave-animate-slow wave-success -->
+        <!-- mb-8 mb-lg-0 -->
+        <!--begin::Card Body-->
+
+        <div class="card-body m-animate-shine pt-6 pb-2 px-2"
+          (click)="openNewOrEdit()">
+          <!--begin::Icon-->
+          <!-- <div class="mr-6">
+            <span class="svg-icon svg-icon-success svg-icon-4x"
+              [inlineSVG]="'./assets/app/media/svg/icons/Communication/Group.svg'">
+            </span>
+          </div> -->
+          <!--end::Icon-->
+
+          <!--begin::Content-->
+          <h3 class="text-dark text-center h6 py-1 m-0" *ngIf="card.situacao != 'bloqueado'; else bloquadoText;">
+            {{card.atual}}
+          </h3>
+
+          <ng-template #bloquadoText>
+            <h3 class="text-dark-50 text-center h6 py-1 m-0">
+              {{card.atual}}
+            </h3>
+          </ng-template>
+
+          <p class="text-dark-75 text-center font-size-xs m-0 p-0" style="display: list-item">
+            {{card.anfitriao_atual}}
+          </p>
+          <!--end::Content-->
+        </div>
+        <div class="separator separator-dashed separator-border-1 separator-white"></div>
+        <div class="card-body m-animate-shine py-1 px-0 "
+          (click)="openModalAgendaDoDia()">
+
+          <!--begin::Icon-->
+          <!-- <div class="mr-6">
+              <span class="svg-icon svg-icon-success svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Communication/Group.svg'">
+              </span>
+            </div> -->
+          <!--end::Icon-->
+
+          <!--begin::Content-->
+
+          <div class="text-dark text-center font-size-xs text-hover-primary" style="display: list-item"
+            >
+            <!-- {{card.proxima}} -->
+            <u *ngIf="card.situacao != 'bloqueado'">Ver agenda do dia</u>
+          </div>
+
+        </div>
+        <!--end::Card Body-->
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">
+    {{nomeAtivo}} - agenda do dia {{data}}
+  </h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"
+  >
+    <span aria-hidden="true">
+      &times;
+    </span>
+  </button>
+</div>
+
+<div class="modal-body py-8">
+	<div class="m-portlet__body">
+		<div class="m-form__content">
+			<div class="m-alert m-alert--icon alert alert-danger m--hide"
+				role="alert" id="m_form_2_msg">
+				<div class="m-alert__close">
+				</div>
+			</div>
+		</div>
+		<div *ngFor="let r of reservas"
+			(click)="abrirDetalheReserva(r.id)"
+			[ngClass]="{
+				'bg-light-secondary  bg-hover-light': r.estado == 'encerrada' ,
+				'bg-hover-danger': r.estado == 'em_andamento' ,
+				'bg-grey-100  bg-hover-light-danger': r.estado == 'por_iniciar' 
+			}"
+		 class="card card-custom card-shadowplus gutter-b  cursor-default mb-5"
+		>
+		<!-- (click)="activeModal.close('pessoa')" -->
+			<div class="card-body d-flex align-items-center justify-content-between flex-wrap py-1 px-2 cursor-pointer">
+				<div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3 pt-1">
+					<div class="text-dark-75 font-size-md">
+						<span *ngIf="r.estado == 'encerrada'" class="svg-icon svg-icon-metallic svg-icon-quinze mr-1"
+							[inlineSVG]="'./assets/app/media/svg/icons/Code/Done-circle.svg'">
+						</span>
+						<span *ngIf="r.estado == 'em_andamento'" class="svg-icon svg-icon-danger svg-icon-quinze mr-1"
+							[inlineSVG]="'./assets/app/media/svg/icons/Design/Circle.svg'">
+						</span>
+						<span *ngIf="r.estado == 'por_iniciar'" class="svg-icon svg-icon-danger svg-icon-quinze mr-1"
+							[inlineSVG]="'./assets/app/media/svg/icons/Code/Left-circle.svg'">
+						</span>
+						<b>{{r.inicio}} às {{r.fim}}</b> {{r.assunto}} <span class="label label-light-dark label-inline ml-4">#r{{r?.id}}</span>
+					</div>
+				</div>
+				<div class="d-flex flex-right">
+					<span class="svg-icon svg-icon-metallic svg-icon-quinze"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-right.svg'">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="card card-custom card-shadowplus gutter-b bg-grey-100 cursor-default bg-hover-light mb-5"
+			*ngIf="reservas.length == 0"
+		>
+			<div class="card-body d-flex align-items-center justify-content-between flex-wrap py-1 px-2">
+				<div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3 pt-1">
+					<div class="text-dark-75 font-size-md">
+						<span class="svg-icon svg-icon-success svg-icon-quinze mr-1"
+							[inlineSVG]="'./assets/app/media/svg/icons/Design/Circle.svg'">
+						</span>
+						<b>00h00 às 23h59</b> Livre o dia todo
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

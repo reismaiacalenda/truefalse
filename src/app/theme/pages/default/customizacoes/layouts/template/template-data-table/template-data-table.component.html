@@ -1,0 +1,94 @@
+<tf-datatable-cabecalho
+	[habilitarForm]="true"
+	[labelFormButton]="'Novo Template'"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+	(openFormModal)="openFormModal()"
+	[pesquisarPor]="'pesquise por: nome, quantidade de próximos horários, tipo ou horientação do TEMPLATE'"
+	>
+</tf-datatable-cabecalho>
+<div>
+  <ngx-datatable class="material"
+		#minhaTable
+		[rows]="datatable.rows"
+		[columnMode]="'flex'"
+		[footerHeight]="50"
+		[rowHeight]="'auto'"
+		[externalPaging]="true"
+		[count]="page.totalElements"
+		[offset]="page.pageNumber"
+		[limit]="page.size"
+		(page)="setPage($event, undefined)"  
+		[sortType]="'multi'"
+		>
+		<ngx-datatable-column
+			[width]="50"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template ngx-datatable-header-template let-value="value">
+				<a href="#"
+						class="datatable-icon-left fg-primary"
+						title="Expand/Collapse All Rows"
+						(click)="toggleExpandAllRow()">
+				</a>
+			</ng-template>
+			<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+				<!-- <a href="#" title="Expand/Collapse Row"
+				(click)="toggleExpandRow(row, expanded)"
+						class="m-datatable__toggle-subtable fg-primary">
+						<i [class.datatable-icon-right]="!expanded"
+						[class.datatable-icon-down]="expanded"></i>
+				</a> -->
+				</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Nome" prop="nome"></ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Tipo" prop="tipo"></ngx-datatable-column>
+        <ngx-datatable-column [flexGrow]="2" name="Tem interação?">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.interacao" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+                <span *ngIf="!row.interacao" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [flexGrow]="2" name="Publicidade fundo?">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.carousel_fundo" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+                <span *ngIf="!row.carousel_fundo" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [flexGrow]="2" name="Orientação" prop="orientacao"></ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Qtd Prox Horários" prop="prox_horarios"></ngx-datatable-column>
+		<ngx-datatable-column
+			[flexGrow]="1" 
+			[width]="120"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="">
+					<a href="#" title="Editar" (click)="openFormModal(row.id)"
+					class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a>
+					<a href="#" title="Remover" (click)="datatableService.remove(row.id)"
+					class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+			<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+				<div class="row" style="padding-left:15px;margin-right:0px">
+					<div class="col-5">
+						<div>Código na base do cliente: {{row.codigo_base_cliente}}</div>
+						<div>Institruição: {{row.nome}}</div>
+					  <div>Cliente API: {{row.client_api}}</div>	
+					</div>
+				</div>
+			</ng-template>
+		</ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>

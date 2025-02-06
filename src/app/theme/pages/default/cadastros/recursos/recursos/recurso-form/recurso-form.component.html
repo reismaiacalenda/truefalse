@@ -1,0 +1,273 @@
+<tf-form-abas
+  [abas]="abas"
+  [activeModal]="activeModal"
+  [formGroup]="formulario"
+  [autorizar_excluir]="['recurso_excluir_grupo', 'recurso_excluir_unidade']"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem(formulario?.value?.numero_lote!=undefined)"
+  >
+  
+  <div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">        
+    
+    <!-- <div class="form-group m-form__group"> -->
+      <!-- <h6>Recurso</h6><br/> -->
+      <!-- <p>Escolha um serviço no qual este recurso será adicionado ao seu portfólio.</p> -->
+    
+      <!-- <qrcode [level]="1" [qrvalue]="'QR Code String'"></qrcode>  -->
+    
+    <!-- </div> -->
+
+    <!-- (click)="limparCampos()" -->
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('servicos')">
+      <tf-select-simple
+        [formControl]="formulario.get('servico_id')"
+        [data]="listDadosSelect['servicos']"
+        label="Serviço"
+        tooltip="Escolha um serviço no qual este recurso será adicionado ao seu portfólio."
+        placeholder="Selecione um serviço"
+        allowClear="false"
+        [desabilitar]="rowId!=null"
+        [allowClear]="true"
+        >
+      </tf-select-simple>
+    </div>
+
+    <div class="form-group m-form__group"
+      *ngIf="rowId == null"
+      [ngClass]="aplicaCss('em_lote')">
+      <tf-check-box
+        formControlName="em_lote"
+        label="Criar recursos em lote?"
+        tooltip="Você pode criar vários recursos de uma vez só."
+        >
+      </tf-check-box>
+    </div> 
+    
+    <div class="form-group m-form__group"
+      *ngIf="rowId == null && formulario.get('em_lote').value == true"  
+      [ngClass]="aplicaCss('quantidade_lote')">
+      <div class="col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px;">
+        <tf-integer
+          formControlName="quantidade_lote"
+          label="Serão quantos?"
+          limiteInferior="2"
+          limiteSuperior="9999"
+          [botoes]="incrementarDecrementar"
+          >
+          <!-- recursos gostaria? -->
+          <!-- [desabilitar]="!quantidadeFlag" -->
+        </tf-integer>
+      </div>
+    </div>
+
+  </div>
+  
+  <div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('nome')"
+      >
+      <tf-text-simple
+        formControlName="nome"
+        label="Nome"
+        placeholder="Nome"
+      >
+      </tf-text-simple>
+    </div>
+
+    <div class="form-group m-form__group"
+      *ngIf="montarTelaPropriedade?.estoque_recursos == true"  
+      [ngClass]="aplicaCss('quantidade')">
+        <tf-integer
+          formControlName="quantidade"
+          label="Quantidade em estoque"
+          tooltip="Quantidade disponível para ser solicitado nas reservas. Se no ato da reserva, esse recurso estiver sem nenhum disponível, ele não poderá ser solicitado."
+          >
+        </tf-integer>
+    </div>
+
+
+    <div class="form-group m-form__group"
+      *ngIf="montarTelaPropriedade?.condicao == true"
+      [ngClass]="aplicaCss('condicao')">
+      <tf-radio-button
+        [data]='[
+          {"label":"Bom", "value":0, "stateColor": "success"},
+          {"label":"Ruim", "value":1, "stateColor": "warning"},
+          {"label":"Quebrado", "value":2, "stateColor": "danger"},
+          {"label":"Fora de serviço", "value":3, "stateColor": "info"},
+          {"label":"Desativado", "value":4, "stateColor": "primary"},
+          {"label":"Descartado", "value":5, "stateColor": "secondary"},
+          {"label":"Perdido", "value":6, "stateColor": "secondary"},
+          {"label":"Roubado", "value":7, "stateColor": "black"}
+        ]'
+        formControlName="condicao"
+        label="Condição"
+        >
+      </tf-radio-button>
+    </div> 
+
+    <div class="form-group m-form__group"
+      *ngIf="montarTelaPropriedade?.modelo == true"
+      [ngClass]="aplicaCss('modelo_id')">
+      <tf-select-simple
+          [formControl]="formulario.get('modelo_id')"
+          [data]="listDadosSelect['modelos']"
+          label="Modelo"
+          tooltip="Os modelos ajudam você a criar recursos de equipamentos parecidos, de mesmo fabricante por exemplo."
+          placeholder="Selecione um modelo"
+          allowClear="false"
+          [allowClear]="true"
+          >
+      </tf-select-simple>
+    </div>
+
+    <div class="form-group m-form__group"
+      *ngIf="montarTelaPropriedade?.nota_fiscal == true"
+      [ngClass]="aplicaCss('fiscal_id')">
+      <tf-select-simple
+          [formControl]="formulario.get('fiscal_id')"
+          [data]="listDadosSelect['fiscais']"
+          label="Fiscal"
+          tooltip="Indique a qual nota fiscal esse recurso pertence. Recomendamos que cadastre a NF antes do recurso, ok?"
+          placeholder="Selecione uma nota fiscal"
+          allowClear="false"
+          [allowClear]="true"
+          >
+      </tf-select-simple>
+    </div>
+
+    <div class="form-group m-form__group"
+      *ngIf="montarTelaPropriedade?.custo == true"
+      [ngClass]="aplicaCss('custo')">
+      <tf-money
+        formControlName="custo"
+        label="Custo"
+        tooltip="Custo do recurso em reais."
+        >
+        <!-- [desabilitar]="!precoFlag" -->
+      </tf-money>
+    </div>
+
+    <div class="form-group m-form__group"
+      *ngIf="(rowId == null && formulario.get('em_lote').value == false
+      && montarTelaPropriedade?.numero_serie == true)
+      || (rowId != null && montarTelaPropriedade?.numero_serie == true)"
+      [ngClass]="aplicaCss('numero_serie')"
+      >
+      <tf-text-simple
+        formControlName="numero_serie"
+        label="Número de série"
+        placeholder="número de série"
+      >
+      </tf-text-simple>
+    </div>
+
+    <div class="form-group m-form__group"
+      *ngIf="(rowId == null && formulario.get('em_lote').value == false
+      && montarTelaPropriedade?.imei == true)
+      || (rowId != null && montarTelaPropriedade?.imei == true)"
+      [ngClass]="aplicaCss('imei')"
+      >
+      <tf-text-simple
+        formControlName="imei"
+        label="IMEI"
+        mask="000000-00-000000-0"
+        placeholder="000000-00-000000-0"
+      >
+      </tf-text-simple>
+    </div>
+
+    <div class="form-group m-form__group"
+      *ngIf="(rowId == null && formulario.get('em_lote').value == false
+      && montarTelaPropriedade?.imei == true)
+      || (rowId != null && montarTelaPropriedade?.imei == true)"
+      [ngClass]="aplicaCss('imei2')"
+      >
+      <tf-text-simple
+        formControlName="imei2"
+        label="IMEI2"
+        mask="000000-00-000000-0"
+        placeholder="000000-00-000000-0"
+      >
+      </tf-text-simple>
+    </div>
+
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('reservavel')">
+      <tf-check-box
+        formControlName="reservavel"
+        label="Este recurso poderá ser reservado?"
+        tooltip="Se habilitado, este recurso terá um calendário próprio, e será um ativo disponível nas telas de agendamento. 😉"
+        >
+      </tf-check-box>
+    </div> 
+
+    <!-- *ngIf="formulario.get('reservavel').value == true" -->
+    <div class="form-group m-form__group"
+      *ngIf="montarTelaPropriedade?.preco == true"
+      [ngClass]="aplicaCss('modelo_precificacao')">
+      <tf-radio-button
+        [data]='[
+          {"label":"Por reserva", "value":0},
+          {"label":"Por hora", "value":1},
+          {"label":"Por pessoa", "value":2}
+        ]'
+        formControlName="modelo_precificacao"
+        label="Modelo precificação"
+        tooltip="Como você quer cobrar este recurso? Defina como será calculada a cobrança dele ao ser reservado."
+        [desabilitar]="!precoFlag"
+        >
+      </tf-radio-button>
+    </div> 
+
+            
+    <div class="form-group m-form__group"
+      *ngIf="montarTelaPropriedade?.preco == true"
+      [ngClass]="aplicaCss('preco')">
+      <tf-money
+        formControlName="preco"
+        tooltip="Aqui você define o preço unitário a ser multiplicado pela quantidade de reservas, horas ou pessoas. 💰"
+        label="Preço"
+        [desabilitar]="!precoFlag">
+      </tf-money>
+    </div> 
+
+    <hr>
+
+    <div class="form-group m-form__group"
+      *ngIf="montarTelaPropriedade?.vinculavel_espaco == true
+      && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))"
+      [ngClass]="aplicaCss('espacos_attributes')">
+      <tf-select-multi [data]="listDadosSelect['espacos']"
+        [form]="formulario.get('espacos_attributes')"
+        label="Este recurso será vinculado a quais espaços?"
+        tooltip="O vínculo de espaço permite que o recurso sempre seja incluído automaticamente nos agendamentos dos espaços. 🤖"
+        placeholder="Selecione um ou mais"
+        [desabilitar]="!vinculavelFlag"
+        >
+      </tf-select-multi>
+    </div>
+
+    <div class="form-group m-form__group"
+      *ngIf="montarTelaPropriedade?.vinculavel_grupo == true"
+      [ngClass]="aplicaCss('grupos_attributes')">
+      <tf-select-multi [data]="listDadosSelect['grupos']"
+        [form]="formulario.get('grupos_attributes')"
+        label="Este recurso será vinculado a quais grupos?"
+        tooltip="Este vínculo permite que o recurso sempre seja incluído automaticamente nos agendamentos onde o anfitrião pertença ao grupo que teve o recurso vinculado. Você pode até fazer preços especiais para cada grupo. 🧞"
+        placeholder="Selecione um ou mais"
+        [desabilitar]="!vinculavelFlag"
+        >
+      </tf-select-multi>
+    </div>
+
+  </div>
+
+</tf-form-abas>      

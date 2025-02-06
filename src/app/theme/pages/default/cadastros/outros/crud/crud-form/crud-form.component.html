@@ -1,0 +1,192 @@
+<!-- <tf-form-simples
+	[activeModal]="activeModal"
+	[formGroup]="formulario"
+	title="Crud"
+	(submeter)="onSubmit()"
+>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('razao_social')">
+		<tf-text-simple
+			formControlName="razao_social"
+			label="Razão social"
+			placeholder="Razão social"
+		>
+		</tf-text-simple>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('nome')">
+		<tf-text-simple
+			formControlName="nome"
+			label="Nome fantasia"
+			placeholder="Nome fantasia"
+		>
+		</tf-text-simple>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('cnpj')">
+		<tf-text-simple
+			formControlName="cnpj"
+			label="CNPJ"
+			mask="00.000.000/0000-00"
+			placeholder="00.000.000/0000-00"
+		>
+		</tf-text-simple>
+	</div>
+
+</tf-form-simples> -->
+
+
+<tf-form-simples
+	[activeModal]="activeModal"
+	[formGroup]="formulario"
+	(submeter)="onSubmit()"
+	(excluir)="removeItem()"	
+	title="Crud"
+	id="{{formulario.get('id').value}}"
+>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('nome')">
+		<tf-text-simple
+			formControlName="nome"
+			label="Nome"
+			placeholder="Nome"
+		>
+		</tf-text-simple>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('cpf')">
+		<tf-text-simple
+			formControlName="cpf"
+			id="cpf"
+			label="CPF"
+			mask='000.000.000-00'
+			placeholder="000.000.000-00"
+		>
+		</tf-text-simple>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('valor_radio')">
+		<tf-radio-button
+			[data]='[
+				{"label":"Pessoa Física", "value":"0"},
+				{"label":"Pessoa Jurídica", "value":"1"}
+			]'
+			formControlName="valor_radio"
+			label="Radio Button"
+		>
+		</tf-radio-button>	
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('opcao_checkBox')">
+		<tf-check-box
+			formControlName="opcao_checkBox"
+			id="opcao_checkBox"
+			label="Check Box"
+			>
+			<!-- (click)="setarCheckBox()" -->
+		</tf-check-box>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('valor_checkList')">
+		<tf-check-list
+			[data]='[
+				{"label":"Pessoa Física", "value":"pf"},
+				{"label":"Pessoa Jurídica", "value":"pj"}
+			]'
+			formControlName="valor_checkList"
+			label="Check List"
+		>
+		</tf-check-list>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('valor_float')">
+		<tf-float
+			formControlName="valor_float"
+			id="valor_float"
+			label="Preço - R$"	
+			mask="dot_separator.2"
+			placeholder="0.000,00"
+			separatorLimit = "10"
+		>
+			<!-- [desabilitar]="false" -->
+			<!-- isReadOnly="true" -->
+		</tf-float>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('valor_float_2')">
+		<tf-float
+			desabilitar="true"
+			formControlName="valor_float_2"
+			id="valor_float_2"
+			label="Preço - R$"	
+			mask="dot_separator.2"
+			placeholder="0.000,00"
+			separatorLimit = "10"
+		>
+		</tf-float>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('valor_integer')">
+		<tf-integer
+			[botoes]="false" 
+			formControlName="valor_integer"
+			label="Valor Inteiro (0 a 99)"
+			mask="90"
+		>
+		</tf-integer>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('valor_data')">
+		<tf-date
+			formControlName="valor_data"
+			id="valor_data"
+			label="Data"
+		>
+		</tf-date>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('valor_time')">
+		<tf-time
+			formControlName="valor_time"
+			id="valor_time"
+			label="Horário inicial"
+		>
+		</tf-time>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('valor_time')">
+		<tf-time
+			formControlName="valor_time"
+			id="valor_time"
+			label="Horário final"
+		>
+		</tf-time>	
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('observacao')">
+		<tf-text-area
+			formControlName="observacao"
+			id="observacao"
+			label="Observação"
+			mask=""
+			placeholder=""
+		>
+		</tf-text-area>		
+	</div>
+
+</tf-form-simples>

@@ -1,0 +1,287 @@
+<!-- BEGIN: Subheader -->
+<div *ngIf="printable()" class="m-subheader">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<h3 class="m-subheader__title m-subheader__title--separator">
+				Calendário por dia
+			</h3>
+			<ul *ngIf="!isMobile" class="m-subheader__breadcrumbs m-nav m-nav--inline">
+				<li class="m-nav__item m-nav__item--home">
+					<a href="#" class="m-nav__link m-nav__link--icon">
+						<i class="m-nav__link-icon la la-home"></i>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a href="" class="m-nav__link">
+						<span class="m-nav__link-text">
+							Agendamento
+						</span>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a href="" class="m-nav__link">
+						<span class="m-nav__link-text">
+							Calendário
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
+				data-dropdown-toggle="hover" aria-expanded="true">
+				<a href="#"
+					class="m-portlet__nav-link btn btn-lg btn-secondary  m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill  m-dropdown__toggle">
+					<i class="la la-plus m--hide"></i>
+					<i class="la la-ellipsis-h"></i>
+				</a>
+				<div class="m-dropdown__wrapper">
+					<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+					<div class="m-dropdown__inner">
+						<div class="m-dropdown__body">
+							<div class="m-dropdown__content">
+								<ul class="m-nav">
+									<li class="m-nav__section m-nav__section--first m--hide">
+										<span class="m-nav__section-text">
+											Quick Actions
+										</span>
+									</li>
+									<li class="m-nav__item">
+										<a href="" class="m-nav__link">
+											<i class="m-nav__link-icon flaticon-share"></i>
+											<span class="m-nav__link-text">
+												Activity
+											</span>
+										</a>
+									</li>
+									<li class="m-nav__item">
+										<a href="" class="m-nav__link">
+											<i class="m-nav__link-icon flaticon-chat-1"></i>
+											<span class="m-nav__link-text">
+												Messages
+											</span>
+										</a>
+									</li>
+									<li class="m-nav__item">
+										<a href="" class="m-nav__link">
+											<i class="m-nav__link-icon flaticon-info"></i>
+											<span class="m-nav__link-text">
+												Guia do usuário
+											</span>
+										</a>
+									</li>
+									<li class="m-nav__item">
+										<a href="" class="m-nav__link">
+											<i class="m-nav__link-icon flaticon-lifebuoy"></i>
+											<span class="m-nav__link-text">
+												Support
+											</span>
+										</a>
+									</li>
+									<li class="m-nav__separator m-nav__separator--fit"></li>
+									<li class="m-nav__item">
+										<a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm">
+											Submit
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+	<div class="row">
+		<div class="col-lg-12">
+
+			<div class="m-portlet" id="m_portlet">
+				<div *ngIf="printable()" class="m-portlet__head">
+					<div class="m-portlet__head-caption">
+						<div class="m-portlet__head-title">
+							<span class="m-portlet__head-icon"><i class="flaticon-calendar"></i></span><span
+								class="m-portlet__head-icon">
+								<div class="">
+								</div>
+							</span></div>
+					</div>
+					<div class="m-portlet__head-tools">
+						<ul class="m-portlet__nav">
+							<li class="m-portlet__nav-item">
+								<a class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" href="#"
+									(click)="print()">
+									<i class="la la-print"></i>
+								</a>
+							</li>
+							<li class="m-portlet__nav-item">
+								<a class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" href="#"
+									id="refreshButton" (click)="getDadosCalendario()">
+									<i class="la la-refresh"></i>
+								</a>
+							</li>
+							<!-- <li class="m-portlet__nav-item"><a
+									class="btn btn-brand m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air" data-target="#m_modal_1"
+									data-toggle="modal" href="#">
+									<span><i class="la la-plus"></i><span> Agendar reserva</span></span></a>
+							</li> -->
+						</ul>
+					</div>
+				</div>
+				<div class="m-portlet__body">
+					<div id="calendar">
+
+						<div class="fc fc-unthemed fc-ltr">
+							<div class="fc-toolbar fc-header-toolbar">
+								<div *ngIf="printable()" class="fc-left">
+									<div class="fc-button-group">
+										<button type="button" class="fc-prevYear-button fc-button fc-state-default fc-corner-left"
+											(click)="lastWeek()">
+											&lt;&lt;
+										</button>
+										<button type="button" class="fc-prev-button fc-button fc-state-default" (click)="lastDay()">
+											&lt;
+										</button>
+										<button type="button" class="fc-next-button fc-button fc-state-default" (click)="nextDay()">
+											&gt;
+										</button>
+										<button type="button" class="fc-nextYear-button fc-button fc-state-default fc-corner-right"
+											(click)="nextWeek()">
+											&gt;&gt;
+										</button>
+									</div>
+									<button type="button"
+										class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right"
+										(click)="today()">hoje</button>
+									<!-- [disabled]="isToday()"  -->
+								</div>
+								<div class="fc-right">
+								</div>
+								<div class="fc-center">
+									<h2 *ngIf="printable()">
+										{{ dataExibicao  }}
+									</h2>
+									<h2 *ngIf="!printable()">
+										Agenda do dia: {{ dataExibicao  }}
+									</h2>
+								</div>
+								<div class="fc-clear"></div>
+							</div>
+							<div class="fc-view-container" style="">
+								<div class="fc-view fc-listWeek-view fc-list-view fc-widget-content" style="">
+									<div class="fc-scroller" style="overflow: hidden auto; height: 710px;">
+										<table class="fc-list-table ">
+											<tbody>
+												<ng-container *ngFor="let s of espacos">
+													<tr class="fc-list-heading" data-date="2019-09-09">
+														<td class="fc-widget-header" colspan="3" [ngStyle]="{'padding':padPrint}">
+															<span class="fc-list-heading-main">{{s.nickname}}</span>
+															<span class="fc-list-heading-alt">{{s.localizacao}}</span>
+														</td>
+													</tr>
+													<ng-container *ngFor="let r of s.reservas">
+														<tr class="fc-list-item m-fc-event--danger " data-content="" data-toggle="m-popover"
+															[title]="r.responsavel">
+															<td class=" fc-list-item-time fc-widget-content" [ngStyle]="{'padding':padPrint}">
+																{{r.horario}}
+															</td>
+															<td class="fc-list-item-marker fc-widget-content" [ngStyle]="{'padding':padPrint}">
+																<span class="fc-event-dot"></span>
+															</td>
+															<td class="fc-list-item-title fc-widget-content" [ngStyle]="{'padding':padPrint}">
+																<a>#{{r.id}}: <b>{{r.responsavel}}</b> - {{r.assunto}} - {{r?.observacao}}</a>
+															</td>
+														</tr>
+													</ng-container>
+												</ng-container>
+												<!--
+											<tr class="fc-list-item m-fc-event--danger " data-content="" data-toggle="m-popover"
+												title="14:00 - 16:00 > [approved] Espaco de Reunião Led Zeppelin (R#1361)" "=""><td class="
+												fc-list-item-time fc-widget-content">14:00 - 16:00</td>
+												<td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot"></span></td>
+												<td class="fc-list-item-title fc-widget-content"><a>[approved] Espaco de Reunião Led Zeppelin
+														(R#1361)</a></td>
+											</tr> -->
+												<!-- <tr class="fc-list-item m-fc-event--danger " data-content="" data-toggle="m-popover"
+												title="16:00 - 18:00 > [approved] Espaco de Reunião Led Zeppelin (R#1358)" "=""><td class="
+												fc-list-item-time fc-widget-content">16:00 - 18:00</td>
+												<td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot"></span></td>
+												<td class="fc-list-item-title fc-widget-content"><a>[approved] Espaco de Reunião Led Zeppelin
+														(R#1358)</a></td>
+											</tr>
+											<tr class="fc-list-heading" data-date="2019-09-10">
+												<td class="fc-widget-header" colspan="3"><span
+														class="fc-list-heading-main">Terça-feira</span><span class="fc-list-heading-alt">10 de
+														Setembro de 2019</span></td>
+											</tr>
+											<tr class="fc-list-item m-fc-event--danger " data-content="" data-toggle="m-popover"
+												title="16:00 - 17:00 > [approved] Espaco de Reunião Led Zeppelin (R#1383)" "=""><td class="
+												fc-list-item-time fc-widget-content">16:00 - 17:00</td>
+												<td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot"></span></td>
+												<td class="fc-list-item-title fc-widget-content"><a>[approved] Espaco de Reunião Led Zeppelin
+														(R#1383)</a></td>
+											</tr>
+											<tr class="fc-list-heading" data-date="2019-09-11">
+												<td class="fc-widget-header" colspan="3"><span
+														class="fc-list-heading-main">Quarta-feira</span><span class="fc-list-heading-alt">11 de
+														Setembro de 2019</span></td>
+											</tr>
+											<tr class="fc-list-item m-fc-event--danger " data-content="" data-toggle="m-popover"
+												title="07:00 - 08:00 > [approved] Espaco de Reunião Led Zeppelin (R#1214)" "=""><td class="
+												fc-list-item-time fc-widget-content">07:00 - 08:00</td>
+												<td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot"></span></td>
+												<td class="fc-list-item-title fc-widget-content"><a>[approved] Espaco de Reunião Led Zeppelin
+														(R#1214)</a></td>
+											</tr>
+											<tr class="fc-list-item m-fc-event--danger " data-content="" data-toggle="m-popover"
+												title="15:00 - 16:00 > [approved] Espaco de Reunião Led Zeppelin (R#1401)" "=""><td class="
+												fc-list-item-time fc-widget-content">15:00 - 16:00</td>
+												<td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot"></span></td>
+												<td class="fc-list-item-title fc-widget-content"><a>[approved] Espaco de Reunião Led Zeppelin
+														(R#1401)</a></td>
+											</tr>
+											<tr class="fc-list-item m-fc-event--danger " data-content="" data-toggle="m-popover"
+												title="16:00 - 18:00 > [approved] Espaco de Reunião Led Zeppelin (R#1397)" "=""><td class="
+												fc-list-item-time fc-widget-content">16:00 - 18:00</td>
+												<td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot"></span></td>
+												<td class="fc-list-item-title fc-widget-content"><a>[approved] Espaco de Reunião Led Zeppelin
+														(R#1397)</a></td>
+											</tr>
+											<tr class="fc-list-item m-fc-event--danger " data-content="" data-toggle="m-popover"
+												title="23:30 - 00:00 > Teste reserva 5" "=""><td class=" fc-list-item-time fc-widget-content">
+												23:30</td>
+												<td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot"></span></td>
+												<td class="fc-list-item-title fc-widget-content"><a>Teste reserva 5</a></td>
+											</tr>
+											<tr class="fc-list-heading" data-date="2019-09-12">
+												<td class="fc-widget-header" colspan="3"><span
+														class="fc-list-heading-main">Quinta-feira</span><span class="fc-list-heading-alt">12 de
+														Setembro de 2019</span></td>
+											</tr>
+											<tr class="fc-list-item m-fc-event--danger " data-content="" data-toggle="m-popover"
+												title="16:00 - 18:00 > [approved] Espaco de Reunião Led Zeppelin (R#1398)" "=""><td class="
+												fc-list-item-time fc-widget-content">16:00 - 18:00</td>
+												<td class="fc-list-item-marker fc-widget-content"><span class="fc-event-dot"></span></td>
+												<td class="fc-list-item-title fc-widget-content"><a>[approved] Espaco de Reunião Led Zeppelin
+														(R#1398)</a></td>
+											</tr> -->
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

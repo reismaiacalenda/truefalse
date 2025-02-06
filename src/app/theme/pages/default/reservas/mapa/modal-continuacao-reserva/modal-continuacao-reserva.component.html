@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-end pt-2 px-4">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()">
+    <span aria-hidden="true">
+      &times;
+    </span>
+  </button>
+</div>
+<div class="d-flex justify-content-center mt-2 mb-6">
+  <span class="text-success m-menu__link-icon svg-icon svg-icon-primary svg-icon-5x"
+    [inlineSVG]="'./assets/app/media/svg/icons/Home/Alarm-clock.svg'">
+  </span>
+</div>
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <span class="text-center font-weight-bold w-100">Se liga nessas infos:</span>
+  <br>
+  <span class="text-dark-75 font-size-sm pt-0 pb-5 px-7">
+    Sua reserva já está em seu <a [routerLink]="" (click)="activeModal.close(true)"
+    class="m-link m-link--primary font-size-sm font-weight-bold"><span class="font-size-md">calendário na tela inicial</span></a>. Por lá você consegue acompanhá-la ou modificá-la, beleza?
+    <hr>
+    Tenha atenção ao horário e local da reserva. 😉
+    <hr>
+    Se ficou alguma dúvida, <a [routerLink]="" (click)="onAbrirChat()" class="m-link m-link--primary font-size-sm font-weight-bold">nos chame por aqui.</a>
+    <hr>
+    No mais, tenha uma boa ida ao escritório. <span class="svg-icon svg-icon-primary svg-icon-1x5p"
+      [inlineSVG]="'./assets/app/media/svg/icons/General/Heart.svg'">
+    </span>
+  </span>
+</div>
+<br>
+<div class="d-flex justify-content-center mb-10">
+  <div class="d-flex justify-content-center px-5">
+    <button type="button" class="btn btn-outline-primary" (click)="activeModal.close(true)">
+        Tela inicial
+    </button>
+  </div>
+  <div class="d-flex justify-content-center px-5">
+    <button type="button" class="btn btn-primary" (click)="activeModal.close()">
+        Continuar no mapa
+    </button>
+  </div>
+</div>

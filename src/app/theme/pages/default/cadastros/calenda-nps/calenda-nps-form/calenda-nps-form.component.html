@@ -1,0 +1,49 @@
+<tf-form-abas
+  [formGroup]="formulario"
+  [abas]="abas"
+  [activeModal]="activeModal"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  disableTitle="true">
+
+  <div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+    <p>{{questionario?.titulo}}</p>
+    <p>{{questionario?.instrucoes}}</p>
+    <hr>
+    <tf-check-list
+      formControlName="anonimo"
+      retirarLabel=true
+      label="Desejo manter meus dados em anonimato.">
+    </tf-check-list>
+  </div>
+  <div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+    <ng-container formArrayName="respostas_attributes">
+      <ng-container *ngFor="let itemrow of formArray.controls;
+        let primeiro=first; let ultimo=last; let i=index"
+        [formGroupName]="i">
+        <div class="form-group m-form__group" >
+          <ng-container *ngIf="questionario.perguntas_attributes[i].tipo_enum == 'multipla_escolha'">
+            <tf-radio-button [data]='questionario.perguntas_attributes[i].opcoes_data'
+            formControlName="valor" [label]="questionario.perguntas_attributes[i].questao">
+            </tf-radio-button>
+          </ng-container>
+          <ng-container *ngIf="questionario.perguntas_attributes[i].tipo_enum == 'campo_aberto'">
+            <tf-text-area
+              formControlName="valor"
+              [label]="questionario.perguntas_attributes[i].questao">
+            </tf-text-area>
+          </ng-container>
+          <ng-container *ngIf="questionario.perguntas_attributes[i].tipo_enum == 'data'">
+            <tf-date
+              formControlName="valor"
+              [datasAntigas]="true"
+              [label]="questionario.perguntas_attributes[i].questao">
+            </tf-date>
+          </ng-container>
+        </div>
+        <hr *ngIf="!ultimo">
+      </ng-container>
+    </ng-container>
+  </div>
+
+</tf-form-abas>

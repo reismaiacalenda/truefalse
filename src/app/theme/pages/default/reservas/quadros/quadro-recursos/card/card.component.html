@@ -1,0 +1,412 @@
+<div class="px-3 row">
+  <div class="col-12 px-0 cursor-default">
+    <a style="text-decoration:none" class="card card-custom card-shadowmore mb-lg-0
+    ">
+      <!--begin::Card Body-->
+      <div class="card-body m-animate-shine p-0">
+        <div class="d-flex float-left pt-2 pl-2">
+          <!-- <div class="d-flex flex-column align-items-center"> -->
+          <div class="text-dark font-size-sm">
+            {{recurso.nome}}
+          </div>
+        </div>
+        <div class="d-flex float-right py-0">
+          <div class="d-flex flex-column">
+            <div class="card-toolbar">
+              <div ngbDropdown placement="bottom-right" #dropdown="ngbDropdown" container="body"
+                class="d-inline-block" (mouseenter)="abrirDropdown(dropdown);">
+                <a class="font-weight-bold p-1 m-dropdown__toggle
+                btn btn-sm btn-light-danger" ngbDropdownToggle id="dropdownBasic2"
+                  (mouseleave)="fecharDropdown(dropdown)">
+                  <span class="svg-icon svg-icon-menu" [ngClass]="{
+                      'svg-icon-success': recurso.situacao == 'livre' ,
+                      'svg-icon-danger': recurso.situacao == 'ocupado' ,
+                      'svg-icon-warning': recurso.situacao == 'espera' 
+                    }" [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-down.svg'">
+                  </span>
+                </a>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic2" (mouseenter)="segurarDropdown()"
+                  (mouseleave)="fecharDropdown(dropdown)" class="m-dropdown__wrapper">
+                  <div style="
+                    width: 0;
+                    height: 0;
+                    border-left: 15px solid transparent;
+                    border-right: 15px solid transparent;
+                    border-bottom: 7px solid #fff;
+                    position: absolute;
+                    top: -5px;
+                    right: 5px;
+                    "></div>
+                  <!-- <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 11px;"></span> -->
+                  <div class="m-dropdown__inner">
+                    <div class="m-dropdown__body">
+                      <div>
+                        <p class="font-size-md font-weight-bold pt-3 pl-5 pr-3">Ações</p>
+                      </div>
+                      <ul class="m-nav">
+                        <li class="m-nav__item">
+                          <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                          <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalAgendaDoDia()">
+                            <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                              [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                            </span>
+                            <span class="m-nav__link-text font-size-sm">
+                              Ver agenda do dia
+                            </span>
+                          </a>
+                        </li>
+
+                        <li class="m-nav__item" *ngIf="!(recurso.status=='x' || recurso.status=='ocupado')
+                          && workspaceService.autorizar('reserva_evento_criar_meu', 'reserva_evento_criar_grupo', 'reserva_evento_criar_unidade')
+                          && workspaceService.autorizar('reserva_evento_reservar_espaco')
+                          && workspaceService.autorizar('reserva_evento_solicitar_recurso')
+                          && workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+                          && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+                          <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                          <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalNew()">
+                            <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                              [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                            </span>
+                            <span class="m-nav__link-text font-size-sm">
+                              Solicitar para um evento
+                            </span>
+                          </a>
+                        </li>
+
+                        <li class="m-nav__item" *ngIf="workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')
+                          && workspaceService.autorizar('reserva_kit_estandes_criar_meu', 'reserva_kit_estandes_criar_grupo', 'reserva_kit_estandes_criar_unidade')">
+                          <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                          <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openKitEstande()">
+                            <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                              [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                            </span>
+                            <span class="m-nav__link-text font-size-sm">
+                              Adicionar para evento(s)
+                            </span>
+                          </a>
+                        </li>
+
+                        <li class="m-nav__item" *ngIf="!(recurso.status=='x' || recurso.status=='ocupado')
+                          && workspaceService.autorizar('reserva_instalacao_criar_meu', 'reserva_instalacao_criar_grupo', 'reserva_instalacao_criar_unidade')
+                          && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+                          || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))
+                          && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+                          <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                          <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalInstalacao()">
+                            <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                              [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                            </span>
+                            <span class="m-nav__link-text font-size-sm">
+                              Instalar num espaço
+                            </span>
+                          </a>
+                        </li>
+
+                        <li class="m-nav__item" *ngIf="recurso.status!='x'
+                          && workspaceService.autorizar('reserva_equipagem_criar_meu', 'reserva_equipagem_criar_grupo', 'reserva_equipagem_criar_unidade')
+                          && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+                          <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                          <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalEquipagem(recurso.id)">
+                            <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                              [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                            </span>
+                            <span class="m-nav__link-text font-size-sm">
+                              Equipar colaborador
+                            </span>
+                          </a>
+                        </li>
+                      
+                        <li class="m-nav__item" *ngIf="recurso.status!='x'
+                          && workspaceService.autorizar('reserva_emprestimo_criar_meu', 'reserva_emprestimo_criar_grupo', 'reserva_emprestimo_criar_unidade')
+                          && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+                          <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                          <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalEmprestimo(recurso.id)">
+                            <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                              [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                            </span>
+                            <span class="m-nav__link-text font-size-sm">
+                              Emprestar a colaborador
+                            </span>
+                          </a>
+                        </li>
+                      
+                        <li class="m-nav__item d-none d-lg-block" *ngIf="!(recurso.status=='x' || recurso.status=='ocupado')
+                          && workspaceService.autorizar('recursos_alocados_menu')
+                          && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+                          <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                          <a href="" class="dropdown-item pt-1 pb-2 pl-2" routerLink="/acompanhamentos/recursos-alocados/"
+                            [queryParams]="{recurso_ids: [recurso.id]}">
+                            <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                              [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                            </span>
+                            <span class="m-nav__link-text font-size-sm">
+                              Gerenciar recursos alocados
+                            </span>
+                          </a>
+                        </li>
+
+                        <li class="m-nav__item d-none d-lg-block" *ngIf="!(recurso.status=='x' || recurso.status=='ocupado')
+                          && workspaceService.autorizar('gerar_qrcode')">
+                          <!-- [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}" -->
+                          <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="abrirQrCode(recurso.id, recurso.nome)">
+                            <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                              [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                            </span>
+                            <span class="m-nav__link-text font-size-sm">
+                              Gerar QR Code
+                            </span>
+                          </a>
+                        </li>
+                      
+                        <li class="m-nav__item d-none d-lg-block" *ngIf="!(recurso.status=='x' || recurso.status=='ocupado')
+                          && workspaceService.autorizar('recurso_editar_grupo', 'recurso_editar_unidade')">
+                          <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalEditarRecurso(recurso.id)">
+                            <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                              [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                            </span>
+                            <span class="m-nav__link-text font-size-sm">
+                              Editar recurso
+                            </span>
+                          </a>
+                        </li>
+                      
+                      </ul>
+                    </div>
+
+
+                    <!-- <a class="dropdown-item">Action - 1</a>
+                    <a class="dropdown-item">Another Action</a>
+                    <a class="dropdown-item">Something else is here akjsh dasjk dhask jdhak jh</a> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end::Card Body-->
+      <!-- </a>
+    <a style="text-decoration:none; background-color: #F3F6F9;
+    " routerLink="/reservas/quadros/pessoas"
+      class="card card-custom card-shadowless "> -->
+      <!-- wave wave-top-success wave-animate-slow wave-success -->
+      <!-- mb-8 mb-lg-0 -->
+      <!--begin::Card Body-->
+
+
+      <!--end::Card Body-->
+    </a>
+  </div>
+  <div class="col-12 px-0">
+    <a style="text-decoration:none;" (click)="openModalNew()" class="card card-custom card-shadowmore bg-hover-light
+      wave wave-animate-slow wave-bottom-b cursor-pointer" [ngClass]="{
+        'wave-success wave-bg-success-50': recurso.situacao == 'livre' ,
+        'wave-danger wave-bg-danger-50': recurso.situacao == 'ocupado' ,
+        'wave-warning wave-bg-warning-50': recurso.situacao == 'espera'
+      }">
+      <!-- wave wave-bottom wave-bg-success-50 wave-animate-slow wave-success -->
+      <!-- mb-8 mb-lg-0 -->
+      <!--begin::Card Body-->
+
+      <div class="card-body m-animate-shine pt-2 pb-2 pr-2 pl-3">
+        <!--begin::Icon-->
+        <!-- <div class="mr-6">
+          <span class="svg-icon svg-icon-success svg-icon-4x"
+            [inlineSVG]="'./assets/app/media/svg/icons/Communication/Group.svg'">
+          </span>
+        </div> -->
+        <!--end::Icon-->
+
+        <!--begin::Content-->
+        <!-- <h3 class="text-dark text-center h6 py-1 m-0">
+          {{recurso.atual}}
+        </h3> -->
+        <!-- text-center  -->
+        <p *ngIf="recurso.em_uso != null" class="text-dark-75 font-size-sm m-0 p-0" style="display: list-item">
+          <b>{{recurso.em_uso}}</b> em uso
+        </p>
+
+        <p *ngIf="recurso.em_estoque != null" class="text-dark-75 font-size-sm m-0 p-0" style="display: list-item">
+          <b>{{recurso.em_estoque}}</b> em estoque
+        </p>
+
+        <p *ngIf="recurso.ao_todo != null" class="text-dark-75 font-size-sm m-0 p-0" style="display: list-item">
+          <b>{{recurso.ao_todo}}</b> ao todo
+        </p>
+
+        <p *ngIf="recurso.servidos != null" class="text-dark-75 font-size-sm m-0 p-0" style="display: list-item">
+          <b>{{recurso.servidos}}</b> servidos
+        </p>
+
+        <p *ngIf="recurso.preco != null" class="text-dark-75 font-size-sm m-0 p-0" style="display: list-item">
+          Preço: <b>{{recurso.preco}}</b>
+        </p>
+
+        <p *ngIf="recurso.fornecedor != null" class="text-dark-75 font-size-sm m-0 p-0" style="display: list-item">
+          Fornecedor: <b>{{recurso.fornecedor}}</b>
+        </p>
+
+        <!-- <div *ngIf="recurso.em_uso != null" class="tf-card-recurso-corpo">{{recurso.em_uso}} em uso</div>
+        <div *ngIf="recurso.em_estoque != null" class="tf-card-recurso-corpo">{{recurso.em_estoque}} em estoque</div>
+        <div *ngIf="recurso.ao_todo != null" class="tf-card-recurso-corpo">{{recurso.ao_todo}} ao todo</div>
+        <div *ngIf="recurso.servidos != null" class="tf-card-recurso-corpo">{{recurso.servidos}} servidos</div>
+        <div *ngIf="recurso.preco != null" class="tf-card-recurso-corpo">Preço: {{recurso.preco}}</div>
+        <div *ngIf="recurso.fornecedor != null" class="tf-card-recurso-corpo">Fornecedor: {{recurso.fornecedor}}</div> -->
+        <!--end::Content-->
+      </div>
+      <!-- <div class="separator separator-dashed separator-border-1 separator-white"></div> -->
+      <!-- <div class="card-body m-animate-shine py-1 px-0"> -->
+
+        <!--begin::Icon-->
+        <!-- <div class="mr-6">
+            <span class="svg-icon svg-icon-success svg-icon-4x"
+              [inlineSVG]="'./assets/app/media/svg/icons/Communication/Group.svg'">
+            </span>
+          </div> -->
+        <!--end::Icon-->
+
+        <!--begin::Content-->
+
+        <!-- <div class="text-dark text-center font-size-xs" style="display: list-item">
+          {{recurso.proxima}}
+        </div> -->
+
+      <!-- </div> -->
+      <!--end::Card Body-->
+    </a>
+  </div>
+</div>
+
+
+<!-- <div class="m-portlet m-portlet--mobile m-portlet--sortable tf-card_borda_arredondada">
+  <div class="m-portlet__body_transparent tf-card_monitoramento tf-card_borda_arredondada" style="padding-right:0.5rem; padding-left:0.5rem"
+  [ngClass]="{'tf-background_livre':recurso.situacao=='livre',
+              'tf-background_espera':recurso.situacao=='espera',
+              'tf-background_ocupado':recurso.situacao=='ocupado'}">
+
+    <div class="m-widget4__item tf-titulo-card"
+      style="padding-left: 0; padding-top: 0.1rem; padding-bottom: 0.1rem; border-bottom: 0.07rem solid #ebedf2">
+      &nbsp;{{recurso.nome}}
+      <ng-template #acoes>
+        <div class="m-dropdown__wrapper px-2 pt-0 corner" (mouseleave)="fecharDropdown(t)" (mouseenter)="segurarDropdown()">
+          <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>            
+          <div class="m-dropdown__inner">
+            <div class="m-dropdown__body">
+              <div style="padding-left: 0; padding-top: 0.1rem; padding-bottom: 0.7rem; border-bottom: 0.07rem; color: #000000"><b>Ações</b></div>
+              <div class="m-dropdown__content m--align-left">
+                <ul class="m-nav">
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':recurso.status=='x' || recurso.status=='ocupado'}">
+                    <a href="" class="m-nav__link" 
+                      (click)="openModalNew()">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Agendar evento
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':recurso.status=='x' || recurso.status=='ocupado'}">
+                    <a href="" class="m-nav__link" 
+                      (click)="openModalInstalacao()">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Instalar num espaço
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':recurso.status=='x' || recurso.status=='ocupado'}">
+                    <a href="" class="m-nav__link" 
+                      (click)="abrirQrCode(recurso.id, recurso.nome)">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Gerar QR Code
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':recurso.status=='x'}">
+                    <a href="" class="m-nav__link"
+                      (click)="openModalEquipagem(recurso.id)">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Equipar colaborador
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':recurso.status=='x'}">
+                    <a href="" class="m-nav__link"
+                      (click)="openModalEmprestimo(recurso.id)">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Emprestar a colaborador
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':recurso.status=='x' || recurso.status=='ocupado'}">
+                    <a href="" class="m-nav__link" routerLink="/reservas/recursos-alocados/"
+                      [queryParams]="{recurso_ids: [recurso.id]}">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Gerenciar recursos alocados
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':recurso.status=='x' || recurso.status=='ocupado'}">
+                    <a href="" class="m-nav__link"
+                      (click)="openModalEditarRecurso(recurso.id)">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Editar recurso
+                      </span>
+                    </a>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <li class="m-portlet__nav-item m-dropdown m-dropdown--down m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
+      [ngbTooltip]="acoes" container="body" placement="top"  #t="ngbTooltip" triggers="click" style="float:right; padding-right:8px">
+        <a (mouseenter)="abrirDropdown(t)" class="m-portlet__nav-link m-portlet__nav-link--icon m-dropdown__toggle
+          tf-link_icone_branco tf-espacamento_icone_reserva tf-float-right">
+          <i class="m-nav__link-icon flaticon-list tf-card_monitoramento__icone" style="font-size:1em"></i>
+        </a>
+
+      </li>
+    
+    </div>
+
+    <div class="m-widget4" (click)="openModalNew()" style="cursor: pointer;">
+      <div class="m-widget4__item" style="display: block; padding-top: 0; padding-bottom: 0.1rem">
+
+        <div class="m-widget4__info" style="display: block; padding-top: 1rem; padding-bottom: 1rem">
+          <span>
+            <div *ngIf="recurso.em_uso != null" class="tf-card-recurso-corpo">{{recurso.em_uso}} em uso</div>
+            <div *ngIf="recurso.em_estoque != null" class="tf-card-recurso-corpo">{{recurso.em_estoque}} em estoque</div>
+            <div *ngIf="recurso.ao_todo != null" class="tf-card-recurso-corpo">{{recurso.ao_todo}} ao todo</div>
+            <div *ngIf="recurso.servidos != null" class="tf-card-recurso-corpo">{{recurso.servidos}} servidos</div>
+            <div *ngIf="recurso.preco != null" class="tf-card-recurso-corpo">Preço: {{recurso.preco}}</div>
+            <div *ngIf="recurso.fornecedor != null" class="tf-card-recurso-corpo">Fornecedor: {{recurso.fornecedor}}</div>
+          </span>
+        </div>
+
+      </div>
+    </div>
+    
+	</div>
+</div> -->

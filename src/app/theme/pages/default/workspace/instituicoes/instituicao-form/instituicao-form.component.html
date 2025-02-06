@@ -1,0 +1,62 @@
+<tf-form-simples
+	[formGroup]="formulario"
+  [activeModal]="activeModal"
+  [autorizar_excluir]="['instituicao_excluir']"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+	title="Instituição"
+  id="{{formulario.get('id').value}}"
+  >
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('nome')"
+    >
+    <tf-text-simple
+    formControlName="nome"
+    label="Nome"
+    placeholder="Nome"
+    >
+    </tf-text-simple>
+  </div>
+
+ <div class="form-group m-form__group"
+  [ngClass]="aplicaCss('codigo_base_cliente')"
+  >
+  <tf-text-simple
+    formControlName="codigo_base_cliente"
+    label="Código na base do cliente"
+    placeholder="0"
+ >
+  </tf-text-simple>
+ </div>
+
+ <!-- <div class="form-group m-form__group"
+  [ngClass]="aplicaCss('cliente_id')"
+  >
+    <tf-select-simple
+    [formControl]="formulario.get('cliente_id')"
+    [data]="listDadosSelect['clientes']"
+    label="Cliente:"
+    placeholder="Selecione"
+    >
+  </tf-select-simple> -->
+  <!-- <p>Dirty: {{formulario.get('cliente_id').dirty}}</p>
+  <p>Touched: {{formulario.get('cliente_id').touched}}</p>
+  <p>Valid: {{formulario.get('cliente_id').valid}}</p>
+  <p>Null: {{formulario.get('cliente_id').value}}</p> -->
+<!-- <br>
+<br>
+<p>Cliente Value: >>> {{formulario.value?.cliente_id}}</p>
+<p>Cliente Get Value: >>> {{formulario.get('cliente_id').value}}</p>
+<p>Cliente Get Valid: >>> {{formulario.get('cliente_id').valid}}</p>
+<br>
+<p>Formulário Valid: >>> {{formulario.valid}}</p>
+<p>Formulário Value: >>> {{formulario.get('cliente_id')?.value}}</p>
+<br>
+<p>Dirty: >>> {{formulario.get('cliente_id').dirty}}</p>
+<p>Touched: >>> {{formulario.get('cliente_id').touched}}</p>
+<p>Valid: >>> {{formulario.get('cliente_id').valid}}</p>
+<br>
+<br> -->
+ <!-- </div> -->
+</tf-form-simples>

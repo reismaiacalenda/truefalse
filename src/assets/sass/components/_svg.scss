@@ -1,0 +1,66 @@
+//
+// SVG
+//
+
+
+// Base
+.svg {
+    @each $name, $color in $theme-text-colors  {
+        &.svg-fill-#{$name} {
+            fill: $color !important;
+        }
+
+        &.svg-fill-light-#{$name} {
+            fill: theme-light-color($name) !important;
+        }
+    }
+}
+
+
+.m-animate-shine {
+    transition: .7s;
+    overflow: hidden;
+    &:focus{
+      outline: 0;
+    }
+    &:before{
+      content: '';
+      display: block;
+      position: absolute;
+      background: rgba(255,255,255,0.5);
+      width: 60px;
+      height: 100%;
+      left: 0;
+      top: 0;
+      opacity: .5;
+      filter: blur(30px);
+      transform: translateX(-100px)  skewX(-15deg);
+    }
+    &:after{
+      content: '';
+      display: block;
+      position: absolute;
+      background: rgba(255,255,255,0.2);
+      width: 30px;
+      height: 100%;
+      left: 430px;
+      top: 0;
+      opacity: 0;
+      filter: blur(5px);
+      transform: translateX(-100px) skewX(-15deg);
+    }
+    &:hover{
+      background: rgba(255, 255, 255, 0.7);;
+      // cursor: pointer;
+      &:before{
+        transform: translateX(600px)  skewX(-15deg);  
+        opacity: 0.6;
+        transition: .7s;
+      }
+      &:after{
+        transform: translateX(600px) skewX(-15deg);  
+        opacity: 1;
+        transition: .7s;
+      }
+    }
+  }

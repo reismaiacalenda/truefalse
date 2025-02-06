@@ -1,0 +1,140 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">
+    Vamos reservar uma estação?
+  </h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"
+  >
+    <span aria-hidden="true">
+      &times;
+    </span>
+  </button>
+</div>
+
+<div class="row mt-3 mb-3 mb-lg-5 mx-2 mx-lg-0">
+	
+	<div class="col-12 py-0 px-2 my-2" (click)="abrirModalSelecaoData()">
+		<div class="bg-white py-3 px-3 card-shadowmore gutter-b bg-hover-light rounded">
+			<span>
+				<span class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+					[inlineSVG]="'./assets/app/media/svg/icons/_Custom/Calendario.svg'">
+				</span>
+				<span class="text-primary">
+					{{textData}}
+				</span>
+				<span class="m-menu__link-icon svg-icon svg-icon-light svg-icon-1x5p"
+					[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+				</span>
+			</span>
+		</div>
+	</div>
+
+	<div class="col-12 py-0 px-2 my-2 d-flex justify-content-between" *ngIf="categoria != 'fretado'">
+		<div class="col p-0 pr-2 m-0" (click)="abrirModalSelecaoHora(true)">
+			<div class="d-flex justify-content-start bg-white py-3 px-3 card-shadowmore gutter-b bg-hover-light rounded">
+				<span>
+					<span class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+						[inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'">
+					</span>
+					<span class="text-primary">
+						{{textHourStart}}
+					</span>
+					<span class="m-menu__link-icon svg-icon svg-icon-light svg-icon-1x5p"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+					</span>
+				</span>
+			</div>
+		</div>
+	
+		<div class="col p-0 pl-2 m-0" (click)="abrirModalSelecaoHora(false)">
+			<div class="d-flex justify-content-start bg-white py-3 px-3 card-shadowmore gutter-b bg-hover-light rounded">
+				<span>
+					<span class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+						[inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'">
+					</span>
+					<span class="text-primary">
+						{{textHourEnd}}
+					</span>
+					<span class="m-menu__link-icon svg-icon svg-icon-light svg-icon-1x5p"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+					</span>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div class="col-12 py-0 px-2 my-2" (click)="abrirModalRecorrencia()">
+		<div class="d-flex justify-content-start bg-white py-3 px-3 card-shadowmore gutter-b bg-hover-light rounded">
+			<span>
+				<span *ngIf="reservaModalService?.formulario?.get('recorrencia')?.get('repeticao')?.value == undefined"
+					class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Design/Repeat.svg'">
+				</span>
+				<span *ngIf="reservaModalService?.formulario?.get('recorrencia')?.get('repeticao')?.value != undefined"
+					class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Media/Repeat-one.svg'">
+				</span>
+				<span class="text-primary">
+					{{textRepeat}}
+				</span>
+			</span>
+		</div>
+	</div> -->
+	
+	<div class="col-12 py-0 px-2 my-2" (click)="abrirModalSelecaoLocalizacao()">
+		<div class="bg-white py-3 px-3 card-shadowmore gutter-b bg-hover-light rounded">
+			<span>
+				<span class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+				</span>
+				<span class="text-primary">
+					{{textLocalizacao}}
+				<!-- </span>
+				<span class="text-dark-75"> -->
+					<!-- 1º Andar -->
+				</span>
+				<span class="m-menu__link-icon svg-icon svg-icon-light svg-icon-1x5p"
+					[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+				</span>
+			</span>
+		</div>
+	</div>
+
+	<div class="col-12 py-0 px-2 my-2" (click)="openModalAmenities()">
+		<div class="bg-white py-3 px-3 card-shadowmore gutter-b bg-hover-light rounded">
+			<span>
+				<span class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+					[inlineSVG]="'./assets/app/media/svg/icons/_Custom/Amenities.svg'">
+				</span>
+				<span class="text-primary">
+					Amenidades
+				</span>
+				<span class="m-menu__link-icon svg-icon svg-icon-light svg-icon-1x5p"
+					[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+				</span>
+			</span>
+		</div>
+	</div>
+</div>
+
+<div class="modal-footer">
+	<!-- <div class="col m--align-left pl-0">
+		<button type="button" 
+			class="btn btn-secondary">
+			<span class="svg-icon svg-icon-primary svg-icon-quinze"
+				[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-left.svg'">
+			</span>
+		</button>
+	</div> -->
+
+	<button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+		Fechar
+	</button>
+
+	<button type="button" class="btn btn-primary"
+		(click)="localizacaoId != undefined && aplicarFiltros()"
+		[ngClass]="{'cursor-default' : localizacaoId == undefined}"
+		[disabled]="localizacaoId == undefined">
+		Aplicar
+	</button>
+
+</div>

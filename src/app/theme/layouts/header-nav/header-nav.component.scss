@@ -1,0 +1,14 @@
+.border-primary{
+	border-color: var(--primary) !important;
+}
+
+.m-dropdown__header-subtitle.text-hover-white{
+	&:focus {
+		color: var(--white) !important;
+	}
+
+	&:hover {
+		text-decoration: underline !important;
+		color: var(--white) !important;
+	}
+}

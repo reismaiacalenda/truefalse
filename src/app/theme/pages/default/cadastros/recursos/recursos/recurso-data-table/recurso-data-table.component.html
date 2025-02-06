@@ -1,0 +1,178 @@
+<tf-datatable-cabecalho
+	[habilitarForm]="workspaceService.autorizar('recurso_criar_grupo', 'recurso_criar_unidade')"
+	[labelFormButton]="'Novo Recurso'"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+	(openFormModal)="openFormModal()"
+	[pesquisarPor]="'pesquise por: nome, número de série, modelo de precificação, condição, imei/imei2 ou numero do lote do RECURSO 
+										*** nome, categoria ou fabricante do MODELO *** nome do SERVIÇO
+										*** fornecedor ou número da nota fiscal do FISCAL'"
+	>
+</tf-datatable-cabecalho>
+<div *ngIf="workspaceService.autorizar('recurso_visualizar_grupo', 'recurso_visualizar_unidade')
+	&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+  <ngx-datatable class="material"
+		#minhaTable
+		[rows]="datatable.rows"
+		[columnMode]="'flex'"
+		[footerHeight]="50"
+		[rowHeight]="'auto'"
+		[externalPaging]="true"
+		[count]="page.totalElements"
+		[offset]="page.pageNumber"
+		[limit]="page.size"
+		(page)="setPage($event, undefined)"  
+		[sortType]="'multi'"
+		>
+		<ngx-datatable-column
+			[width]="50"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template ngx-datatable-header-template let-value="value">
+				<a href="#"
+				 class="datatable-icon-left fg-primary"
+				 title="Expand/Collapse All Rows"
+				 (click)="toggleExpandAllRow()">
+				</a>
+			</ng-template>
+			<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+				<a href="#" title="Expand/Collapse Row"
+				 (click)="toggleExpandRow(row, expanded)"
+				 class="m-datatable__toggle-subtable fg-primary">
+				 <i [class.datatable-icon-right]="!expanded"
+				 [class.datatable-icon-down]="expanded"></i>
+				</a>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="3" name="Nome" prop="nome">
+				<ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+					<!-- <span
+						title="Double click to edit"
+						(dblclick)="editing[rowIndex + '-name'] = true"
+						*ngIf=""
+					>
+						{{ value }}
+					</span>
+					<input
+						autofocus
+						(blur)="updateValue($event, 'name', rowIndex)"
+						*ngIf=""
+						type="text"
+						[value]="value"
+					/> -->
+					<!-- && editingFlag.property != 'nome' -->
+					<span
+					(dblclick)="inlineEdit(rowIndex, 'nome')"
+					*ngIf="rowIndex != editingFlag.index || editingFlag.property != 'nome'">
+						{{row.nome}}
+					</span>
+					<input id="input_row_nome"
+					#saveEnter
+					autofocus
+					type="text"
+					*ngIf="rowIndex == editingFlag.index && editingFlag.property == 'nome'"
+					[value]="value"
+					(blur)="inlineUpdate($event, row.id)"
+					(keydown.enter)="saveEnter.blur($event.target.value)"
+					/>
+				</ng-template>			
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Número de série" prop="numero_serie">
+			<ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+				<div class="" (dblclick)="inlineEdit(rowIndex, 'numero_serie')">
+			<!-- && editingFlag.property != 'numero_serie' -->
+			<!-- && editingFlag.property == 'numero_serie' -->
+					<span
+						
+						*ngIf="rowIndex != editingFlag.index || editingFlag.property != 'numero_serie'">
+						{{row.numero_serie}} &nbsp;
+					</span>
+					<input id="input_row_numero_serie"
+					#saveEnter
+					autofocus
+					type="text"
+					*ngIf="rowIndex == editingFlag.index && editingFlag.property == 'numero_serie'"
+					[value]="value"
+					(blur)="inlineUpdate($event, row.id)"
+					(keydown.enter)="saveEnter.blur($event.target.value)"
+					/>
+				</div>
+			</ng-template>			
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Quantidade" prop="quantidade">			
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Condição" prop="condicao">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.condicao=='bom'" class="m-badge m-badge--success m-badge--wide m--font-boldest">Bom</span>
+				<span *ngIf="row.condicao=='ruim'" class="m-badge m-badge--warning m-badge--wide m--font-boldest">Ruim</span>
+				<span *ngIf="row.condicao=='quebrado'" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Quebrado</span>
+				<span *ngIf="row.condicao=='fora_de_servico'" class="m-badge m-badge--info m-badge--wide m--font-boldest">Fora de serviço</span>
+				<span *ngIf="row.condicao=='desativado'" class="m-badge m-badge--primary m-badge--wide m--font-boldest">Desativado</span>
+				<span *ngIf="row.condicao=='descartado'" class="m-badge m-badge--secondary m-badge--wide m--font-boldest">Descartado</span>
+				<span *ngIf="row.condicao=='perdido'" class="m-badge m-badge--light m-badge--wide m--font-boldest">Perdido</span>
+				<span *ngIf="row.condicao=='roubado'" class="m-badge m-badge--dark m-badge--wide m--font-boldest">Roubado</span>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Serviço" prop="servico">			
+		</ngx-datatable-column>
+
+		<!-- <ngx-datatable-column [flexGrow]="2" name="Preço">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div *ngIf="row.preco"  > {{row.preco | currency:'BRL':true:'1.2-2'}}</div>
+				<div *ngIf="!row.preco" >--</div>
+			</ng-template>
+		</ngx-datatable-column> -->
+		<!-- <ngx-datatable-column [flexGrow]="2" name="Serviço" prop="servico">	
+		</ngx-datatable-column>
+		
+		<ngx-datatable-column [flexGrow]="2" name="Fornecedor" prop="fornecedor">			
+		</ngx-datatable-column> -->
+		<ngx-datatable-column
+			[flexGrow]="1" 
+			[width]="120"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="">
+					<a href="#" title="Editar" (click)="openFormModal(row.id)"
+						*ngIf="workspaceService.autorizar('recurso_editar_grupo', 'recurso_editar_unidade')"
+						class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a>
+					<a href="#" title="Remover" (click)="removeItem(row.id, row.numero_lote!=undefined)"
+						*ngIf="workspaceService.autorizar('recurso_excluir_grupo', 'recurso_excluir_unidade')"
+						class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+					<a href="#" title="QR Code" (click)="abrirQrCode(row.id, row.nome)"
+						*ngIf="workspaceService.autorizar('gerar_qrcode')"
+						class="btn btn-outline-dark btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-qrcode"></i>
+					</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		 <ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+			<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+				<div class="row" style="padding-left:15px;margin-right:0px">
+					<div class="col-5">
+            <div>Poderá ser reservado: {{row?.reservavel}}</div>
+            <div>Preço de reserva: {{row?.preco | currency:'BRL':true:'1.2-2'}} /{{row?.modelo_precificacao}}</div>
+            <div>Custo (valor da compra): {{row?.custo | currency:'BRL':true:'1.2-2'}}</div>
+            <div>IMEI: {{row?.imei}}</div>
+						<div>IMEI2: {{row?.imei2}}</div>
+						<div *ngIf="(this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+						|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+							Espaços vinculados: {{row?.espacos}}
+						</div>
+						<div>Grupos vinculados: {{row?.grupos}}</div>
+					</div>
+				</div>
+			</ng-template>
+		</ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>

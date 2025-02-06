@@ -1,0 +1,189 @@
+<tf-datatable-cabecalho
+	[habilitarForm]="workspaceService.autorizar('filtro_criar_meu', 'filtro_criar_grupo', 'filtro_criar_unidade')"
+	[labelFormButton]="'Novo Filtro'"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+	(openFormModal)="openFormModal(null,'xxl')"
+	[pesquisarPor]="'pesquise por: nome ou pela descrição da condição'"
+>
+
+</tf-datatable-cabecalho>
+<div *ngIf="workspaceService.autorizar('filtro_visualizar')">
+  <ngx-datatable class="material"
+		#minhaTable
+		[rows]="datatable.rows"
+		[columnMode]="'flex'"
+		[footerHeight]="50"
+		[rowHeight]="'auto'"
+		[externalPaging]="true"
+		[count]="page.totalElements"
+		[offset]="page.pageNumber"
+		[limit]="page.size"
+		(page)="setPage($event, undefined)"  
+		[sortType]="'multi'"
+		>
+		<ngx-datatable-column
+			[width]="50"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template ngx-datatable-header-template let-value="value">
+				<a href="#"
+				 class="datatable-icon-left fg-primary"
+				 title="Expand/Collapse All Rows"
+				 (click)="toggleExpandAllRow()">
+				</a>
+			</ng-template>
+			<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+				<a href="#" title="Expand/Collapse Row"
+				 (click)="toggleExpandRow(row, expanded)"
+				 class="m-datatable__toggle-subtable fg-primary">
+				 <i [class.datatable-icon-right]="!expanded"
+				 [class.datatable-icon-down]="expanded"></i>
+				</a>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Nome" prop="nome">
+			<ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+				<div class="" (dblclick)="inlineEdit(rowIndex, 'nome')">
+					<!-- && editingFlag.property != 'numero_serie' -->
+					<!-- && editingFlag.property == 'numero_serie' -->
+					<span
+					
+					*ngIf="rowIndex != editingFlag.index || editingFlag.property != 'nome'">
+					{{row.nome}} &nbsp;
+				</span>
+				<input id="input_row_nome"
+				#saveEnter
+				autofocus
+				type="text"
+				*ngIf="rowIndex == editingFlag.index && editingFlag.property == 'nome'"
+				[value]="value"
+				(blur)="inlineUpdate($event, row.id)"
+				(keydown.enter)="saveEnter.blur($event.target.value)"
+				/>
+			</div>
+		</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Eventos?" prop="eventos"
+			*ngIf="workspaceService.autorizar('reserva_evento_visualizar_meu', 'reserva_evento_visualizar_grupo', 'reserva_evento_visualizar_unidade')
+			&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+			|| this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.eventos" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.eventos" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Hotdesks?" prop="estacoes_flexiveis"
+			*ngIf="workspaceService.autorizar('reserva_estacao_flexivel_visualizar_meu', 'reserva_estacao_flexivel_visualizar_grupo', 'reserva_estacao_flexivel_visualizar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.estacoes_flexiveis" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.estacoes_flexiveis" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+			</ng-template>
+    </ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Postos de trabalho?" prop="postos_de_trabalho"
+			*ngIf="workspaceService.autorizar('reserva_posto_de_trabalho_visualizar_meu', 'reserva_posto_de_trabalho_visualizar_grupo', 'reserva_posto_de_trabalho_visualizar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.postos_de_trabalho" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.postos_de_trabalho" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+			</ng-template>
+    </ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Empréstimos?" prop="emprestimos"
+			*ngIf="workspaceService.autorizar('reserva_emprestimo_visualizar_meu', 'reserva_emprestimo_visualizar_grupo', 'reserva_emprestimo_visualizar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.emprestimos" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.emprestimos" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Equipagens?" prop="equipagens"
+			*ngIf="workspaceService.autorizar('reserva_equipagem_visualizar_meu', 'reserva_equipagem_visualizar_grupo', 'reserva_equipagem_visualizar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.equipagens" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.equipagens" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Instalações?" prop="instalacoes"
+			*ngIf="workspaceService.autorizar('reserva_instalacao_visualizar_meu', 'reserva_instalacao_visualizar_grupo', 'reserva_instalacao_visualizar_unidade')
+			&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+			|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.instalacoes" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.instalacoes" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Adições para eventos?" prop="kit_estandes"
+			*ngIf="workspaceService.autorizar('reserva_kit_estandes_visualizar_meu', 'reserva_kit_estandes_visualizar_grupo', 'reserva_kit_estandes_visualizar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.kit_estandes" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.kit_estandes" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Estacionamentos?" prop="estacionamentos"
+			*ngIf="workspaceService.autorizar('reserva_estacionamento_visualizar_meu', 'reserva_estacionamento_visualizar_grupo', 'reserva_estacionamento_visualizar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.estacionamentos" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.estacionamentos" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+			</ng-template>
+    </ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Fretados?" prop="fretadoss"
+			*ngIf="workspaceService.autorizar('reserva_fretado_visualizar_meu', 'reserva_fretado_visualizar_grupo', 'reserva_fretado_visualizar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.fretados" class="m-badge m-badge--accent m-badge--wide m--font-boldest">On</span>
+				<span *ngIf="!row.fretados" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Off</span>
+			</ng-template>
+    </ngx-datatable-column>
+		<ngx-datatable-column
+			[flexGrow]="1"
+			[width]="120"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="">
+					<!-- <a href="#" title="Editar" (click)="openFormModal(row.id,'xxl')"
+						*ngIf="row.meu_filtro == true ||
+										(workspaceService.autorizar('filtro_editar_grupo') && row.meu_grupo_filtro == true) ||
+										(workspaceService.autorizar('filtro_editar_unidade') && row.minha_unidade_filtro == true)"
+						class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a> -->
+					<a href="#" title="Remover" (click)="datatableService.remove(row.id)"
+						*ngIf="row.meu_filtro ||
+										(workspaceService.autorizar('filtro_excluir_grupo') && row.meu_grupo_filtro == true) ||
+										(workspaceService.autorizar('filtro_excluir_unidade') && row.minha_unidade_filtro == true)"
+						class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		 <ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+			<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+				<div class="row" style="padding-left:15px;margin-right:0px">
+					<div class="col-5">
+						<div><b>Visualizar reservas que estão</b>: {{row.estagio}}</div>
+						<div><b>Compartilhado com</b>: {{row.compartilhado_com}}</div>
+						<div><b>Condições</b>: </div>
+						<div class="pl-5" *ngFor="let condicao of row.condicoes">- {{condicao}}</div>
+            <!-- <div>Nome do filtro: {{row.nome}}</div>
+            <div>Pessoas: {{row.pessoas}}</div>
+            <div>Espaços: {{row.espacos}}</div>
+            <div>Recursos: {{row.recursos}}</div>
+            <div>Agrupar por:: {{row.agrupar_id}}</div>
+            <div>Nome do filtro: {{row.nome}}</div> -->
+					</div>
+				</div>
+			</ng-template>
+		</ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>

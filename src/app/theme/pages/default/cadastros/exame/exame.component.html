@@ -1,0 +1,37 @@
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+		<tf-page-map class="col-md-6 pl-0"
+			nomePagina="Exame"
+      [menu]="[
+        ['/acompanhamentos', 'Acompanhamentos'],
+				['/acompanhamentos', 'Checkups'],
+				['/acompanhamentos/checkups/exames', 'Exame']
+      ]">
+		</tf-page-map>
+		<div class="col-md-6 pr-0 float-right inline-block">
+			<div class=" float-right">
+				<a *ngIf="workspaceService.autorizar('questionario_visualizar')"
+				routerLink="/customizacoes/checkups/questionarios" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+					>
+					<span>
+						<span class="svg-icon svg-icon-primary pl-0 svg-icon-1x5p"
+							[inlineSVG]="'./assets/app/media/svg/icons/General/Half-heart.svg'">
+						</span>
+						<span>
+							Questionários
+						</span>
+					</span>
+				</a>
+				<tf-page-guia class="">
+				</tf-page-guia>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="m-content">
+	<div class="m-portlet m-portlet--mobile">
+		<div class="m-portlet__body">
+			<exame-data-table></exame-data-table>
+		</div>
+	</div>
+</div>

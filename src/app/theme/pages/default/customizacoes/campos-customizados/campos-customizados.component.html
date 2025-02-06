@@ -1,0 +1,19 @@
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+    <tf-page-map class="col-md-11 pl-0" nomePagina="Campos Customizados"
+      [menu]="[
+        ['/customizacoes', 'Customizações'],
+        ['/customizacoes/campos-customizados', 'Campos Customizados']
+			]">
+    </tf-page-map>
+		<tf-page-guia class="col-md-1 pr-0 float-right">
+		</tf-page-guia>
+	</div>
+</div>
+<div class="m-content">
+	<div class="m-portlet m-portlet--mobile">
+		<div class="m-portlet__body">
+			<campos-customizados-data-table></campos-customizados-data-table>
+		</div>
+	</div>
+</div>

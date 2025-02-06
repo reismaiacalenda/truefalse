@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-end pt-2 px-4">
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()">
+    <span aria-hidden="true">
+      &times;
+    </span>
+  </button>
+</div>
+<div class="d-flex justify-content-center mt-2 mb-6">
+  <span class="text-success m-menu__link-icon svg-icon svg-icon-primary svg-icon-5x"
+    [inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-check.svg'">
+  </span>
+</div>
+<div class="d-flex flex-column justify-content-center align-items-center">
+  <span class="text-center font-weight-bold w-100">Termo de confirmação de reserva</span>
+  <br>
+  <div class="example-highlight w-100 px-10">
+    <pre class="language-html" style="white-space: normal; text-align: justify;">
+    <!--   <code class=" language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>svg-icon svg-icon-sm<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span> -->
+      <span>Eu, {{workspaceService.currentUser.name}}, aceito os termos de reserva e regras definidas pela minha organização no que se refere às responsabilidades que me são devidas ao reservar este ativo.</span>
+      <br>
+      <br>
+      <span>Declaro-me ciente de que em casos de dúvidas sobre as regras e os termos de reserva, consultarei meu time interno responsável.</span>
+
+    <!-- </code>-->
+    </pre> 
+  </div>
+</div>
+
+<!-- <div class="d-flex justify-content-center mb-10">
+  <div class="d-flex justify-content-center px-5">
+    <button type="button" class="btn btn-outline-primary" (click)="activeModal.close(true)">
+        Tela inicial
+    </button>
+  </div>
+  <div class="d-flex justify-content-center px-5">
+    <button type="button" class="btn btn-primary" (click)="activeModal.close()">
+        Continuar no mapa
+    </button>
+  </div>
+</div> -->
+
+  <!-- <div>
+    <h4>{{workspaceService.currentUser.name}}, você está aceitando os <br>termos de reserva e regras<br> definidas pela sua organização.</h4>
+  </div>
+<br>
+  <div>
+    <h4>Qualquer dúvida sobre as regras<br> e os termos de reserva, consulte<br> seu time interno responsável.</h4>
+  </div>
+<br> -->
+<div class="col-12 pb-4 pt-10 d-flex justify-content-end">
+  <button type="button" class="btn btn-primary" (click)="activeModal.close()">
+      Fechar
+  </button>
+</div>

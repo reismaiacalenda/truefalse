@@ -1,0 +1,24 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  title="Calendários"
+>      
+<!-- [autorizar_excluir]="['tipo_espaco_excluir']" -->
+  <!-- id="{{formulario.get('id').value}}" -->
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('agendas_attributes')"
+    >
+    <tf-select-multi
+    [form]="formulario.get('agendas_attributes')"
+    [data]="listDadosSelect['funcionarios']"
+    label="Adicionar pessoas"
+    allowClear="false"
+    placeholder="Selecione">
+    <!-- (valorModificado)="atualizarCondicional(i)" -->
+  </tf-select-multi>
+  </div>    
+
+</tf-form-simples>     

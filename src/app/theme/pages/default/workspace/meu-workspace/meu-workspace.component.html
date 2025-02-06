@@ -1,0 +1,65 @@
+<!--begin::Card-->
+<!-- gutter-b card-stretch -->
+<div class="card card-custom" *ngIf="workspaceService.autorizar('cliente_visualizar')">
+<!-- style="background:radial-gradient(94.09% 94.09% at 50% 50%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 100%), #1BC5BD;" -->
+  <!--begin::Body-->
+
+  <div class="card-header align-items-center border-0 mt-0">
+    <h3 class="card-title align-items-start flex-column">
+      <span class="font-weight-bolder text-dark">Meu workspace</span>
+      <span class="text-muted font-weight-bold mt-1" style="font-size: 1rem;">Dados básicos</span>
+    </h3>
+    <div class="card-toolbar">
+      <a href="#"
+        class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+        [class.disabled]="!workspaceService.autorizar('cliente_editar')"
+        (click)="workspaceService.autorizar('cliente_editar') && openFormEdit()">
+        <i class="la la-edit"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body pt-0 pb-5">
+    <!--begin::Info-->
+    <div class="pt-0">
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="text-dark-75 font-weight-bolder pl-0 mr-0">Nome:
+        </span>
+        <span class="text-dark-75">
+          {{workspaceService.workspace?.nome}}
+        </span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="text-dark-75 font-weight-bolder pl-0 mr-0">Subdomínio:
+        </span>
+        <a href="/">
+          <span class="text-dark-75">
+            {{workspaceService.workspace?.subdominio}}
+          </span>
+        </a>
+      </div>
+      <!-- <div class="d-flex justify-content-between align-items-center">
+        <span class="text-dark-75 font-weight-bolder pl-0 mr-0">Contato:
+        </span>
+        <span class="text-dark-75">
+          {{workspaceService.workspace?.telefone}}
+        </span>
+      </div> -->
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="text-dark-75 font-weight-bolder pl-0 mr-0">Convite obrigatório:
+        </span>
+        <div [innerHtml]="badgeOnOff('sim', 'não', workspaceService.workspace?.convite_obrigatorio)"></div>
+        <!-- <span class="text-dark-75">
+          {{}}
+        </span> -->
+      </div>
+      <!-- </a> -->
+    </div>
+
+    <!--end::Info-->
+    <!-- <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">write
+      message</a> -->
+  </div>
+  <!--end::Body-->
+</div>
+<!--end:: Card-->

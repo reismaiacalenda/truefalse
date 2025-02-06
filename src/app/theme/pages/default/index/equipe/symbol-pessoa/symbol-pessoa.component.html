@@ -1,0 +1,133 @@
+<div ngbDropdown placement="bottom-right" #dropdown="ngbDropdown" container="body" class="d-inline-block"
+  (mouseenter)="abrirDropdown(dropdown);">
+  <a class="symbol symbol-50 mr-3" [ngClass]="{
+      'symbol-primary-light': pessoa.situacao == 'livre' ,
+      'symbol-light-danger': pessoa.situacao == 'ocupado' ,
+      'symbol-light-warning': pessoa.situacao == 'espera' 
+    }"
+    ngbDropdownToggle id="dropdownBasic2"
+    (mouseleave)="fecharDropdown(dropdown)"
+    >
+    <!-- <div class="symbol-label">
+  <img src="assets/app/media/svg/avatars/040-boy-17.svg" class="h-75 align-self-end" alt="" />
+</div>
+<i class="symbol-badge symbol-badge-bottom bg-success"></i> -->
+
+
+    <span class="symbol-label">
+      <div style="position: relative;" class="h-75 ">
+
+        <span class="svg-avatar svg-icon-3x" style="position: absolute;"
+          [inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+pessoa.avatar_hair+'.svg'">
+        </span>
+
+        <span class="svg-avatar svg-icon-3x" style="position: absolute;"
+          [inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+pessoa.avatar_clothes+'.svg'">
+        </span>
+
+        <span class="svg-avatar svg-icon-3x" style="position: absolute;"
+          [inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+pessoa.avatar_extra+'.svg'">
+        </span>
+
+        <span class="svg-avatar svg-icon-3x"
+          [inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+pessoa.avatar_body+'.svg'">
+        </span>
+
+      </div>
+      <i class="symbol-badge symbol-badge-bottom" [ngClass]="{
+        'bg-success': pessoa.situacao == 'livre' ,
+        'bg-danger': pessoa.situacao == 'ocupado' ,
+        'bg-warning': pessoa.situacao == 'espera' 
+      }"></i>
+    </span>
+  </a>
+
+  <div ngbDropdownMenu aria-labelledby="dropdownBasic2" (mouseenter)="segurarDropdown()"
+    (mouseleave)="fecharDropdown(dropdown)" class="m-dropdown__wrapper mt-2">
+      <div style="
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 7px solid #fff;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    "></div>
+    <div class="m-dropdown__inner">
+      <div class="m-dropdown__body">
+        <div>
+          <p class="font-size-md text-center font-weight-bold p-0 m-0">{{pessoa.nome}}</p>
+        </div>
+        <!-- <ul class="m-nav">
+          <li class="m-nav__item" *ngIf="!(pessoa.status=='x' || pessoa.status=='ocupado')">
+            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalNew()">
+              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+              </span>
+              <span class="m-nav__link-text font-size-sm">
+                Agendar evento
+              </span>
+            </a>
+          </li>
+
+          <li class="m-nav__item" *ngIf="!(pessoa.status=='x' || pessoa.status=='ocupado')">
+            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalPostoTrabalho()">
+              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+              </span>
+              <span class="m-nav__link-text font-size-sm">
+                Definir posto de trabalho
+              </span>
+            </a>
+          </li>
+
+          <li class="m-nav__item" *ngIf="!(pessoa.status=='x' || pessoa.status=='ocupado')">
+            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalEquipagem()">
+              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+              </span>
+              <span class="m-nav__link-text font-size-sm">
+                Equipar colaborador
+              </span>
+            </a>
+          </li>
+
+          <li class="m-nav__item" *ngIf="pessoa.status!='x'">
+            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalEmprestimo()">
+              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+              </span>
+              <span class="m-nav__link-text font-size-sm">
+                Emprestar a colaborador
+              </span>
+            </a>
+          </li>
+
+          <li class="m-nav__item" *ngIf="!(pessoa.status=='x' || pessoa.status=='ocupado')">
+            <a href="" class="dropdown-item pt-1 pb-2 pl-2" routerLink="/reservas/recursos-alocados/"
+              [queryParams]="{funcionario_id: [pessoa.id]}">
+              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+              </span>
+              <span class="m-nav__link-text font-size-sm">
+                Gerenciar recursos alocados
+              </span>
+            </a>
+          </li>
+
+          <li class="m-nav__item" *ngIf="!(pessoa.status=='x' || pessoa.status=='ocupado')">
+            <a href="" class="dropdown-item pt-1 pb-2 pl-2" (click)="openModalEditarPessoa(pessoa.id)">
+              <span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+              </span>
+              <span class="m-nav__link-text font-size-sm">
+                Editar pessoa
+              </span>
+            </a>
+          </li>
+        </ul> -->
+      </div>
+    </div>
+  </div>
+</div>

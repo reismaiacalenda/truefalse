@@ -1,0 +1,53 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  [autorizar_excluir]="['espaco_excluir']"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  disableTitle="true"
+  titlePersonalizado="Fui vacinado!">
+  <!-- id="{{formulario.get('id').value}}" -->
+
+  <!-- <div class="form-group m-form__group">
+    <p>Daremos início à criação de um novo espaço!</p>
+    <p>É recomendável que já esteja cadastrado sua localização (prédio e andar).</p>
+  </div>
+
+  <hr> -->
+
+  <div class="form-group m-form__group" [ngClass]="aplicaCss('aaa')">
+    <tf-radio-button [data]='[
+          {"label":"CoronaVac - Sinovac/Butantan", "value":0},
+          {"label":"Astrazeneca - Oxford/Fiocruz", "value":1},
+          {"label":"Cominarty - Pfizer/BioNTech", "value":2},
+          {"label":"Sputnik V - Gamaleya", "value":3},
+          {"label":"Ad26.COV2-S - Janssen", "value":4},
+          {"label":"Covaxin - Bharat BioTech", "value":5}
+        ]' formControlName="aaa" label="Qual vacina lhe foi administrada?">
+    </tf-radio-button>
+  </div>
+
+  <hr>
+
+  <div class="form-group m-form__group" [ngClass]="aplicaCss('bbb')">
+    <tf-radio-button [data]='[
+          {"label":"1ª dose", "value":0},
+          {"label":"2ª dose", "value":1},
+          {"label":"3ª dose", "value":2}
+        ]' formControlName="bbb"
+      label="Qual dose lhe foi aplicada?">
+    </tf-radio-button>
+  </div>
+
+  <hr>
+
+  <div class="form-group m-form__group" [ngClass]="aplicaCss('bbb')">
+    <tf-date
+      formControlName="data"
+      label="Quando você foi vacinado?"
+      [datasAntigas]="false"
+      >
+    </tf-date>
+  </div>
+
+</tf-form-simples>
