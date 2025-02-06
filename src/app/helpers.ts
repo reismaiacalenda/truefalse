@@ -1,6 +1,8 @@
 import $ from "jquery";
 import { User } from "./auth/_models";
 
+/* Insert safe window reference */
+const _window = typeof window !== 'undefined' ? window : null;
 
 export class Helpers {
   static loadStyles(tag: any, src: string | string[]) {
@@ -72,10 +74,11 @@ export class Helpers {
       case "Operador": return 3;
       case "Admin": return 4;
       case "Master": return 5;
+      default: return -1; // Default return value
     }
   }
 
-  static mobile = /Android|iPhone/i.test(window.navigator.userAgent);
+  static mobile = _window ? /Android|iPhone/i.test(_window.navigator.userAgent) : false;
   static isMobile(){
     return this.mobile;
   }
@@ -87,9 +90,9 @@ export class Helpers {
   static OS: string;
   static getOS(){
     var ver;
-    if (/iP(hone|od|ad)/.test(navigator.platform)) {
+    if (_window && /iP(hone|od|ad)/.test(_window.navigator.platform)) {
       // supports iOS 2.0 and later: <http://bit.ly/TJjs1V>
-      var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
+      var v = (_window.navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
       if (v) {
         ver = [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || "0", 10)];
       }
@@ -98,8 +101,8 @@ export class Helpers {
       }else{
         this.OS = "iOS10-";
       }
-    }else if(/Android/i.test(navigator.userAgent)){
-      var ua: string = (navigator.userAgent).toLowerCase(); 
+    }else if(_window && /Android/i.test(_window.navigator.userAgent)){
+      var ua: string = (_window.navigator.userAgent).toLowerCase(); 
       var match = ua.match(/android\s([0-9\.]*)/);
       ver = match ? parseInt(match[1], 10) || 0 : 0;
       if (ver >= 6) {

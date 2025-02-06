@@ -1,9 +1,12 @@
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Injectable } from '@angular/core';
+import { Observable, BehaviorSubject } from 'rxjs';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class LoadingService {
     public pendingRequestNumber: number;
-    public pendingRequests:Observable<number>;
+    public pendingRequests: Observable<number>;
     private prSubject: BehaviorSubject<number>;
 
     constructor() {
@@ -13,10 +16,10 @@ export class LoadingService {
     }
 
     addRequest() {
-        this.prSubject.next(++this.pendingRequestNumber)
+        this.prSubject.next(++this.pendingRequestNumber);
     }
     removeRequest() {
-        this.prSubject.next(--this.pendingRequestNumber)
+        this.prSubject.next(--this.pendingRequestNumber);
     }
 
     isPending(){

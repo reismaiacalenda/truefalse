@@ -1,0 +1,17 @@
+import { Validators, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { TfFormBaseComponent } from '../../../../../../_andaime/tf-forms/tf-form-base.component';
+
+@Component({
+  selector: '<%= dasherize(name) %>-form',
+  templateUrl:'<%= dasherize(name) %>-form.component.html'
+})
+export class <%= classify(name) %>FormComponent extends TfFormBaseComponent  {
+  entidade= "<%= dasherize(entidade_plural) %>"
+  listDadosSelect = {
+    <%=gerarListEntidades(campos_input)%>
+  }
+
+  formulario= this.formBuilder.group({
+    id: [null]<%=alimentarFormulario(campos_input,tipo_form)%>
+}

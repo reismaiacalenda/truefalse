@@ -41,6 +41,9 @@
             },
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/@swimlane/ngx-datatable/index.css",
+              "node_modules/@swimlane/ngx-datatable/themes/material.css",
+              "node_modules/@swimlane/ngx-datatable/assets/icons.css",
               "src/styles.scss"
             ],
             "scripts": [],
