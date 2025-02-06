@@ -5,7 +5,6 @@
     "customizations": {
       "vscode": {
         "extensions": [
-          "angular.ng-template",
           "dbaeumer.vscode-eslint",
           "esbenp.prettier-vscode"
         ]
@@ -21,7 +20,8 @@
         "vscode": {
             "extensions": [
                 "GitHub.copilot",
-                "eamodio.gitlens"
+                "eamodio.gitlens",
+                "angular.ng-template"
                 //"Shopify.ruby-lsp",
                 //"ms-azuretools.vscode-docker"
             ]
