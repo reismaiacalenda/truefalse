@@ -21,7 +21,9 @@
             "extensions": [
                 "GitHub.copilot",
                 "eamodio.gitlens",
-                "angular.ng-template"
+                "angular.ng-template",
+                "github.vscode-github-actions"
+
                 //"Shopify.ruby-lsp",
                 //"ms-azuretools.vscode-docker"
             ]
