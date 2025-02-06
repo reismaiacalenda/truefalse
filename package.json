@@ -22,6 +22,7 @@
     "@angular/router": "^19.1.0",
     "@angular/ssr": "^19.1.0",
     "@types/jquery": "^3.5.32",
+    "bootstrap": "^5.3.3",
     "express": "^4.18.2",
     "jquery": "^3.7.1",
     "lru-cache": "^7.14.0",
@@ -44,6 +45,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "rimraf": "^4.0.0",
+    "sass": "^1.84.0",
     "typescript": "~5.7.2"
   }
 }
