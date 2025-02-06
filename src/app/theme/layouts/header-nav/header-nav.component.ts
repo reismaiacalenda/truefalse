@@ -34,9 +34,9 @@ declare let mLayout: any;
 	encapsulation: ViewEncapsulation.None
 })
 export class HeaderNavComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
-	private currentUser = this.workspaceService.currentUser;
-	private unidades = this.workspaceService.unidades;
-	private unidadeSelecionada = this.workspaceService.unidadeSelecionada;
+	private currentUser: any;
+	private unidades: any;
+	private unidadeSelecionada: any;
 	_version = version;
 	subscriptions:Subscription = new Subscription();
 	newVersionApi = "";
@@ -77,6 +77,9 @@ export class HeaderNavComponent implements OnInit, AfterViewInit, AfterViewCheck
 		public loadingService: LoadingService
 		// private updateService: UpdateService
 		) {
+			this.currentUser = this.workspaceService.currentUser;
+			this.unidades = this.workspaceService.unidades;
+			this.unidadeSelecionada = this.workspaceService.unidadeSelecionada;
 			consoleLog("header-nav.component");
 			consoleLog("preencher currentUser");
 			consoleLog(this.currentUser);

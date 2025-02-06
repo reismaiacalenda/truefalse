@@ -21,7 +21,7 @@ export class FooterComponent implements OnInit {
   }
 
   printable(){
-		if (globals == undefined && globals.printable == undefined){
+    if (globals == undefined || globals.printable == undefined){
 			return false;
 		}else{
 			return !globals.printable;

@@ -1,7 +1,7 @@
 import { Validators, FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
 import { TfFormBaseComponent } from '../../../../../../../_andaime/tf-forms/tf-form-base.component';
-import { ValidateEmailSelectMulti, isValidEmail } from '../../../../../../../_andaime/tf-validators/email.validators';
+import { ValidateEmailSelectMulti, isValidEmail } from '../../../../../../../_andaime/tf-validators/email-validators';
 import { Select2OptionData } from 'ng-select2';
 import { Observable, Subject, concat, of } from 'rxjs';
 import { distinctUntilChanged, debounceTime, tap, switchMap, catchError, map, delay } from 'rxjs/operators';

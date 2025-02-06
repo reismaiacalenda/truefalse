@@ -1,6 +1,6 @@
 import { User } from './../auth/_models/user';
 import { AfterViewInit, Component, Injector, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd, RouterOutlet } from '@angular/router';
 import { Helpers } from '../helpers';
 import { ScriptLoaderService } from '../_services/script-loader.service';
 import { WebsocketService } from '../_services/websocket.service';
@@ -10,6 +10,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { consoleLog, globals } from '../globals';
 import { ModalService } from './pages/default/modal/modal.service';
 import { version } from '../../../package.json';
+import { FooterComponent } from './layouts/footer/footer.component';
+import { HeaderNavComponent } from './layouts/header-nav/header-nav.component';
 
 declare function construirChatOculto(currentUser: User, versao: string): any;
 declare function construirChatExposto(currentUser: User, versao: string): any;
@@ -23,6 +25,7 @@ declare let mLayout: any;
   selector: ".m-grid.m-grid--hor.m-grid--root.m-page",
   templateUrl: "./theme.component.html",
   encapsulation: ViewEncapsulation.None,
+  imports: [RouterOutlet, HeaderNavComponent, FooterComponent]
 })
 export class ThemeComponent implements OnInit, AfterViewInit {
   currentUser: User;
@@ -84,10 +87,7 @@ export class ThemeComponent implements OnInit, AfterViewInit {
         consoleLog(globals.asideOpen);
 
         if (!Helpers.isMobile() && globals.asideOpen == true && document.getElementById('m_aside_left_minimize_toggle') != undefined && $('#m_aside_left').length > 0){
-          const toggleElement = document.getElementById('m_aside_left_minimize_toggle');
-          if (toggleElement) {
-            toggleElement.click();
-          }
+          document.getElementById('m_aside_left_minimize_toggle').click();
         }
         Helpers.setLoading(true);
       }
