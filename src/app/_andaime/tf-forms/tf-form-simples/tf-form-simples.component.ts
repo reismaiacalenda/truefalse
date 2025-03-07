@@ -10,7 +10,7 @@ import { LoadingService } from '../../../_services/loading.service';
 @Component({
   selector: 'tf-form-simples',
   templateUrl: './tf-form-simples.component.html',
-  imports: [ReactiveFormsModule]
+  standalone: false
 })
 
 export class TfFormSimplesComponent {

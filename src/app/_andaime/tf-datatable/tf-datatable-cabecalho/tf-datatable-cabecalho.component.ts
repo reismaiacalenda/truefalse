@@ -9,7 +9,8 @@ import { ScriptLoaderService } from '.././../../_services/script-loader.service'
 
 @Component({
   selector: 'tf-datatable-cabecalho',
-  templateUrl: './tf-datatable-cabecalho.component.html'
+  templateUrl: './tf-datatable-cabecalho.component.html',
+  standalone: false
 })
 
 export class TfDatatableCabecalhoComponent implements OnInit {

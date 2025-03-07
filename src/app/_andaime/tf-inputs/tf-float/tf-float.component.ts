@@ -1,18 +1,20 @@
 import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { globals } from '../../../globals';
+import { CommonModule } from '@angular/common';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 const TF_FLOAT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => TfFloatComponent),
   multi: true
 };
-
 @Component({
   selector: 'tf-float',
   templateUrl: './tf-float.component.html',
   //styleUrls: ['./input-field.component.css'],
-  providers: [TF_FLOAT_VALUE_ACCESSOR]
+  providers: [TF_FLOAT_VALUE_ACCESSOR, provideNgxMask()],
+  standalone: false
 })
 
 export class TfFloatComponent implements ControlValueAccessor {

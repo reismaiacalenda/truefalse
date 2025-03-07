@@ -12,7 +12,7 @@ const TF_CHECK_BOX_VALUE_ACCESSOR: any = {
   selector: 'tf-check-box',
   templateUrl: './tf-check-box.component.html',
   providers: [TF_CHECK_BOX_VALUE_ACCESSOR],
-  imports: [FormsModule]
+  standalone: false
 })
 
 export class TfCheckBoxComponent implements ControlValueAccessor {

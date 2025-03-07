@@ -13,7 +13,8 @@ const TF_MONEY_VALUE_ACCESSOR: any = {
   selector: 'tf-money',
   templateUrl: './tf-money.component.html',
   //styleUrls: ['./input-field.component.css'],
-  providers: [TF_MONEY_VALUE_ACCESSOR]
+  providers: [TF_MONEY_VALUE_ACCESSOR],
+  standalone: false
 })
 
 export class TfMoneyComponent implements ControlValueAccessor {

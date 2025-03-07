@@ -3,6 +3,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { consoleLog, globals } from '../../../globals';
 import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 const TF_TIME_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -14,11 +15,11 @@ const TF_TIME_VALUE_ACCESSOR: any = {
   selector: 'tf-time',
   templateUrl: './tf-time.component.html',
   //styleUrls: ['./input-field.component.css'],
-  providers: [TF_TIME_VALUE_ACCESSOR]
+  providers: [TF_TIME_VALUE_ACCESSOR],
+  standalone: false
 })
 
 export class TfTimeComponent implements ControlValueAccessor {
-
   @Input() mask: string;
   @Input() classeCss;
   @Input() id: string;
@@ -39,7 +40,7 @@ export class TfTimeComponent implements ControlValueAccessor {
   // timepickerVisible = false;
   // mytime: Date;
 
-  constructor(){
+    this.customInput.pipe(debounceTime(600), distinctUntilChanged()).subscribe(value =>{
     this.customInput.debounceTime(600).distinctUntilChanged().subscribe(value =>{
       this.valorModificado.emit(value);
    });  }

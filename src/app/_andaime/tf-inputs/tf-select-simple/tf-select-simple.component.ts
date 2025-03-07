@@ -12,6 +12,7 @@ const TF_SELECT_SIMPLE_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'tf-select-simple',
   templateUrl: './tf-select-simple.component.html',
+  standalone: false,
   //styleUrls: ['./input-field.component.css'],
   providers: [TF_SELECT_SIMPLE_VALUE_ACCESSOR]
 })
@@ -22,7 +23,7 @@ export class TfSelectSimpleComponent implements ControlValueAccessor, OnInit, Af
   @Input() label: string = "";
   @Input() placeholder: string = "";
   @Input() isReadOnly = false;
-  @Input() formControl:FormControl = this.formBuilder.control({});
+  @Input() formControl:FormControl;
   @Input() optgroup:boolean = false;
   @Input() allowClear = false;
   @Input() options:any = {
@@ -51,7 +52,7 @@ export class TfSelectSimpleComponent implements ControlValueAccessor, OnInit, Af
   }
 
   constructor(public formBuilder: FormBuilder){
-
+    this.formControl = this.formBuilder.control({})
   }
 
   ngOnInit(){

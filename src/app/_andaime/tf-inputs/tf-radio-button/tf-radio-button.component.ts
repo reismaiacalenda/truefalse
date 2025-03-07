@@ -12,7 +12,8 @@ const TF_RADIO_BUTTON_VALUE_ACCESSOR: any = {
   selector: 'tf-radio-button',
   templateUrl: './tf-radio-button.component.html',
   //styleUrls: ['./input-field.component.css'],
-  providers: [TF_RADIO_BUTTON_VALUE_ACCESSOR]
+  providers: [TF_RADIO_BUTTON_VALUE_ACCESSOR],
+  standalone: false
 })
 
 export class TfRadioButtonComponent implements ControlValueAccessor {

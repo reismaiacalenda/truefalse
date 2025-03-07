@@ -17,7 +17,7 @@ const TF_DATE_VALUE_ACCESSOR: any = {
   templateUrl: './tf-date.component.html',
   //styleUrls: ['./input-field.component.css'],
   providers: [TF_DATE_VALUE_ACCESSOR],
-  imports: [CommonModule, FormsModule, NgbModule]
+  standalone: false
 })
 
 export class TfDateComponent implements ControlValueAccessor{
@@ -38,12 +38,14 @@ export class TfDateComponent implements ControlValueAccessor{
   // @Input() isReadOnly = false; 
   
   public model: any;
-  public today = this.calendar.getToday();
+  public today;
   public _value: string;
   private isValueChangeFromFormService:boolean = true;
 
   constructor(private calendar: NgbCalendar,
-    private ngbParser: NgbDateMomentParserFormatter){}
+    private ngbParser: NgbDateMomentParserFormatter){
+    this.today = this.calendar.getToday();
+  }
 
   get value() {
     return this._value;

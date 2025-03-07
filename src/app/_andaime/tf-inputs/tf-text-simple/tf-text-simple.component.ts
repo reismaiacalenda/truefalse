@@ -13,7 +13,8 @@ const TF_TEXT_SIMPLE_VALUE_ACCESSOR: any = {
   selector: 'tf-text-simple',
   templateUrl: './tf-text-simple.component.html',
   //styleUrls: ['./input-field.component.css'],
-  providers: [TF_TEXT_SIMPLE_VALUE_ACCESSOR]
+  providers: [TF_TEXT_SIMPLE_VALUE_ACCESSOR],
+  standalone: false
 })
 
 export class TfTextSimpleComponent implements ControlValueAccessor {

@@ -12,7 +12,8 @@ const TF_UPLOAD_IMAGE_VALUE_ACCESSOR: any = {
   selector: 'tf-upload-image',
   templateUrl: './tf-upload-image.component.html',
   //styleUrls: ['./input-field.component.css'],
-  providers: [TF_UPLOAD_IMAGE_VALUE_ACCESSOR]
+  providers: [TF_UPLOAD_IMAGE_VALUE_ACCESSOR],
+  standalone: false
 })
 
 export class TfUploadImageComponent implements ControlValueAccessor {

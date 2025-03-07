@@ -1,14 +1,13 @@
 import { Component, Input, forwardRef, OnInit, AfterViewInit, OnChanges, SimpleChanges, SimpleChange, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Subscription } from 'rxjs';
 import { consoleLog, globals } from '../../../globals';
-import { Select2OptionData } from 'ng-select2';
+// import { Select2OptionData } from 'ng-select2';
 import { map } from 'rxjs/operators';
 import { WebService } from '../../../_services/web.service';
 import { concat, Observable, of, Subject } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, switchMap, tap, delay } from 'rxjs/operators';
-import { NgSelectConfig } from '@ng-select/ng-select';
+// import { NgSelectConfig } from '@ng-select/ng-select';
 
 // const TF_SELECT_EMAIL_VALUE_ACCESSOR: any = {
 //   provide: NG_VALUE_ACCESSOR,
@@ -28,7 +27,8 @@ export interface Person {
 }
 @Component({
   selector: 'tf-select-email',
-  templateUrl: './tf-select-email.component.html'
+  templateUrl: './tf-select-email.component.html',
+  standalone: false
   //styleUrls: ['./input-field.component.css'],
   // providers: [TF_SELECT_MULTI_VALUE_ACCESSOR]
 })
@@ -46,7 +46,7 @@ export class TfSelectEmailComponent implements OnInit, OnDestroy {
     width: '100%',
     language: 'pt-BR'
   }
-  @Input() form:FormArray = this.formBuilder.array([]);
+  @Input() form:FormArray;
   @Input() data = [];
   @Input() tooltip: string;
   public model;
@@ -56,7 +56,7 @@ export class TfSelectEmailComponent implements OnInit, OnDestroy {
 
   constructor(public formBuilder: FormBuilder,
     public webService:WebService){
-
+    this.form = this.formBuilder.array([])
     // },private config: NgSelectConfig) {
     //     this.config.notFoundText = 'asdasdasd not found';
     //     this.config.appendTo = 'body';
@@ -131,7 +131,7 @@ export class TfSelectEmailComponent implements OnInit, OnDestroy {
     
     if (this.form == null || this.form.value == null){
       // consoleLog("//Form veio vazio.");
-      if (!stringArray && stringArray == []){
+      if (!stringArray || stringArray.length === 0){
         // consoleLog("// Usuario brincou de selecionar e desisitiu, ou simplesmente nao encostou.");
         // consoleLog("// nao faz nada, mantem o form nullinho da silva");
       }else{

@@ -12,7 +12,8 @@ const TF_TEXT_AREA_VALUE_ACCESSOR: any = {
   selector: 'tf-text-area',
   templateUrl: './tf-text-area.component.html',
   //styleUrls: ['./input-field.component.css'],
-  providers: [TF_TEXT_AREA_VALUE_ACCESSOR]
+  providers: [TF_TEXT_AREA_VALUE_ACCESSOR],
+  standalone: false
 })
 
 export class TfTextAreaComponent implements ControlValueAccessor {

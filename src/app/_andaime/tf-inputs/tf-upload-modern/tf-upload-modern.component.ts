@@ -25,7 +25,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     .upload-preview img {
       max-width: 200px;
     }
-  `]
+  `],
+  standalone: false
 })
 export class TfUploadModernComponent {
   @Input() accept = 'image/*';

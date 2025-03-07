@@ -1,6 +1,8 @@
 import { Component, Input, forwardRef, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { globals } from '../../../globals';
+import { CommonModule } from '@angular/common';
+import { NgxMaskDirective } from 'ngx-mask';
 
 const TF_INTEGER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -12,7 +14,8 @@ const TF_INTEGER_VALUE_ACCESSOR: any = {
   selector: 'tf-integer',
   templateUrl: './tf-integer.component.html',
   styleUrls: ['./tf-integer.component.css'],
-  providers: [TF_INTEGER_VALUE_ACCESSOR]
+  providers: [TF_INTEGER_VALUE_ACCESSOR],
+  standalone: false
 })
 
 export class TfIntegerComponent implements ControlValueAccessor{

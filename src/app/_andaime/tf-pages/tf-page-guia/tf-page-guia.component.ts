@@ -14,7 +14,8 @@ const TF_PAGE_FAQ_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'tf-page-guia',
   templateUrl: './tf-page-guia.component.html',
-  providers: [TF_PAGE_FAQ_VALUE_ACCESSOR]
+  providers: [TF_PAGE_FAQ_VALUE_ACCESSOR],
+  standalone: false
 })
 
 export class TfPageFaqComponent implements ControlValueAccessor {

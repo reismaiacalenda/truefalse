@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'tf-page-map',
-  templateUrl: './tf-page-map.component.html'
+  templateUrl: './tf-page-map.component.html',
+  standalone: false
 })
 
 export class TfPageMapComponent {

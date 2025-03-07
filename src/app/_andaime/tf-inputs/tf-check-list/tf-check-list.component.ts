@@ -13,7 +13,7 @@ const TF_CHECK_LIST_VALUE_ACCESSOR: any = {
   selector: 'tf-check-list',
   templateUrl: './tf-check-list.component.html',
   providers: [TF_CHECK_LIST_VALUE_ACCESSOR],
-  imports: [CommonModule, FormsModule]
+  standalone: false
 })
 
 export class TfCheckListComponent implements ControlValueAccessor {

@@ -1,6 +1,5 @@
 import { Component, Input, forwardRef, OnInit, OnChanges, SimpleChanges, SimpleChange, OnDestroy, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormArray, FormBuilder, FormControl } from '@angular/forms';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Subscription, Subject } from 'rxjs';
 import { consoleLog, globals } from '../../../globals';
 
@@ -12,7 +11,8 @@ const TF_SELECT_MULTI_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'tf-select-multi',
-  templateUrl: './tf-select-multi.component.html'
+  templateUrl: './tf-select-multi.component.html',
+  standalone: false
   //styleUrls: ['./input-field.component.css'],
   // providers: [TF_SELECT_MULTI_VALUE_ACCESSOR]
 })
@@ -32,7 +32,7 @@ export class TfSelectMultiComponent implements OnInit, OnDestroy, AfterViewInit 
     width: '100%',
     language: 'pt-BR'
   }
-  @Input() form:FormArray = this.formBuilder.array([]);
+  @Input() form:FormArray;
   @Input() data = [];
   @Input() notificarDataEspacoSelect:Subject<any>
   @Input() tooltip: string;
@@ -43,7 +43,7 @@ export class TfSelectMultiComponent implements OnInit, OnDestroy, AfterViewInit 
   private isValueChangeFromFormService:boolean = true;
 
   constructor(public formBuilder: FormBuilder){
-
+    this.form = this.formBuilder.array([]);
   }
 
   ngOnInit(){
@@ -129,7 +129,8 @@ export class TfSelectMultiComponent implements OnInit, OnDestroy, AfterViewInit 
 
     if (this.form == null || this.form.value == null){
       consoleLog("//Form veio vazio.");
-      if (!stringArray && stringArray == []){
+      // if (!stringArray && stringArray == []){
+      if (!stringArray || stringArray.length === 0){
         consoleLog("// Usuario brincou de selecionar e desisitiu, ou simplesmente nao encostou.");
         consoleLog("// nao faz nada, mantem o form nullinho da silva");
       }else{

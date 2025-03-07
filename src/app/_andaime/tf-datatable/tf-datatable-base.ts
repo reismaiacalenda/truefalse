@@ -14,6 +14,10 @@ import { GerarQrCodeModalService } from '../../theme/pages/default/gerar-qrcode/
 import { Subscription } from 'rxjs';
 import { LoadingService } from '../../_services/loading.service';
 
+@Component({
+  template: '',
+  standalone: false
+})
 export abstract class TfDatatableBase implements OnInit, OnDestroy {
   @ViewChild(DatatableComponent, {static: false}) minhaTable: DatatableComponent;
   currentUser: User;
@@ -66,9 +70,10 @@ export abstract class TfDatatableBase implements OnInit, OnDestroy {
   carregarTable() {
     var params = "";
     var snapshotParams = this.route.snapshot.queryParams
-    if (snapshotParams != undefined && snapshotParams != {}){
-      Object.keys(snapshotParams).forEach(key=>{
-        params += `&${key}=${snapshotParams[key]}`
+    // snapshotParams != undefined && snapshotParams != {}
+    if (snapshotParams !== undefined && Object.keys(snapshotParams).length > 0) {
+      Object.keys(snapshotParams).forEach(key => {
+      params += `&${key}=${snapshotParams[key]}`
       })
     }
     this.datatableService.index(params);
