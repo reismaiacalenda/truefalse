@@ -1,0 +1,110 @@
+//
+//  Tooltip
+//
+
+
+// Base
+.bs-tooltip-top {
+    .tooltip-inner{
+        transform: translate(-40%, 110%);
+    }
+}
+
+.tooltip {
+    .tooltip-inner {
+        box-shadow: $tooltip-box-shadow;
+
+    }
+
+    &.bs-tooltip-left .arrow,
+    &.bs-tooltip-auto[x-placement^="left"] .arrow {
+    	// rtl:raw:
+        left: auto;
+        right: 0;
+        
+
+        &:before {
+        // rtl:raw:
+        border-width: 0.4rem 0 0.4rem 0.4rem;
+        border-left-color: #fff !important;
+        
+        }
+    }
+
+    &.bs-tooltip-right .arrow,
+    &.bs-tooltip-auto[x-placement^="right"] .arrow {
+        // rtl:raw:
+        right: auto;
+        left: 0;
+        
+
+    	&:before {
+        // rtl:raw:
+        border-width: 0.4rem 0.4rem 0.4rem 0;
+        border-right-color: #fff !important;
+        
+    	}
+    }
+
+    &.bs-tooltip-bottom .arrow,
+    &.bs-tooltip-auto[y-placement^="bottom"] .arrow {
+        // rtl:raw:
+        // right: auto;
+        // left: 0;
+        
+
+    	&:before {
+        // rtl:raw:
+        border-width: 0 0.4rem 0.4rem 0.4rem;
+        border-bottom-color: #fff !important;
+        
+    	}
+    }
+
+    &.bs-tooltip-diagonal .arrow,
+    &.bs-tooltip-auto[y-placement^="diagonal"] .arrow {
+        // rtl:raw:
+        // right: auto;
+        // left: 0;
+        
+
+    	&:before {
+        // rtl:raw:
+        border-width: 0 0.4rem 0.4rem 0.4rem;
+        border-bottom-color: #fff !important;
+        
+    	}
+    }
+
+
+    &.bs-tooltip-top .arrow,
+    &.bs-tooltip-auto[y-placement^="top"] .arrow {
+        // rtl:raw:
+        // right: auto;
+        // left: 0;
+        
+
+        bottom: -26px;
+        // background-color: #fff;
+    	&:before {
+            // rtl:raw:
+        border-width: 0.4rem 0.4rem 0 0.4rem;
+        transform: rotateX(180deg);
+        // border-width: 0 0.4rem 0.4rem 0.4rem;
+        border-top-color: #fff !important;
+        
+    	}
+    }
+
+    &.tooltop-auto-width {
+       	.tooltip-inner {
+       		white-space:nowrap;
+  			max-width:none;
+        }
+    }
+
+    // Dark Theme
+    &.tooltip-dark {
+        @include tooltip-theme($white, $dark);
+    }
+}

@@ -1,0 +1,90 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	[habilitarExcluir]="false"
+	[habilitarSalvar]="formulario.get('nome_botao')?.value!=null"
+	(submeter)="onSubmit()"
+	disableTitle="true"
+	titlePersonalizado="{{formulario.get('titulo')?.value}}"
+	salvar="{{formulario.get('nome_botao')?.value}}"
+	titleCancelar="Fechar"
+	>
+	<!-- disableTitle="true" -->
+	<!-- id="{{formulario.get('id').value}}" -->
+
+	<div class="row col-md-12">
+		<span>{{formulario.get('corpo')?.value}}</span>
+	</div>
+
+	<br>
+
+	<div class="row col-md-12" *ngIf="formulario.get('assunto')?.value">
+		<span><b>Assunto: </b>{{formulario.get('assunto')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('espaco')?.value">
+		<span><b>Espaço: </b>{{formulario.get('espaco')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('horario')?.value">
+		<span><b>Horário: </b>{{formulario.get('horario')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('anfitriao')?.value">
+		<span><b>Anfitrião: </b>{{formulario.get('anfitriao')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('recurso')?.value">
+		<span><b>Recurso: </b>{{formulario.get('recurso')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('quantidade')?.value">
+		<span><b>Quantidade: </b>{{formulario.get('quantidade')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_retirada')?.value">
+		<span><b>Data de retirada: </b>{{formulario.get('data_retirada')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_retirada_prevista')?.value">
+		<span><b>Data de retirada prevista: </b>{{formulario.get('data_retirada_prevista')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_ocupacao')?.value">
+		<span><b>Data de ocupação: </b>{{formulario.get('data_ocupacao')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_ocupacao_prevista')?.value">
+		<span><b>Data de ocupação prevista: </b>{{formulario.get('data_ocupacao_prevista')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_devolucao_prevista')?.value">
+		<span><b>Data de devolução prevista: </b>{{formulario.get('data_devolucao_prevista')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_instalacao')?.value">
+		<span><b>Data de instalação: </b>{{formulario.get('data_instalacao')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_instalacao_prevista')?.value">
+		<span><b>Data de instalação prevista: </b>{{formulario.get('data_instalacao_prevista')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_servico')?.value">
+		<span><b>Data de serviço: </b>{{formulario.get('data_servico')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_alocacao_prevista')?.value">
+		<span><b>Data de alocação prevista: </b>{{formulario.get('data_alocacao_prevista')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_alocacao')?.value">
+		<span><b>Data de alocação: </b>{{formulario.get('data_alocacao')?.value}}</span>
+	</div>
+
+	<div class="row col-md-12" *ngIf="formulario.get('data_recolhimento_previsto')?.value">
+		<span><b>Data de recolhimento prevista: </b>{{formulario.get('data_recolhimento_previsto')?.value}}</span>
+	</div>
+
+
+</tf-form-simples>

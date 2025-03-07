@@ -1,0 +1,22 @@
+<div class="card card-custom card-shadowplus px-3 pb-0 pt-0 h-100">
+  <div class="mini-calendar">
+    <div class="mini-calendar__month pb-1">
+      <div class="mini-cal-month__previous ml-4 pl-0" (click)="removeMonth()"><</div>
+      <div class="mini-cal-month__current">{{monthString}}</div>
+      <div class="mini-cal-month__next" (click)="addMonth()">></div>
+    </div>
+    <div class="mini-calendar__head">
+      <div *ngFor="let w of weekDays" class="mini-cal-head__day">{{w}}</div>
+    </div>
+    <div class="mini-calendar__body">
+      <div *ngFor="let w of weeksArray; let i = index"
+        class="mini-cal-body__week">
+        <div *ngFor="let d of w; let i = index"
+          class="mini-cal-body__day" [ngClass]="d.classe"
+          (click)="selectDate(d)">
+          {{d.day}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

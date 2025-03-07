@@ -1,0 +1,20 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  [rowId]="rowId"
+	[autorizar_excluir]="['espaco_excluir']"
+  title="Amenidade"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+	id="{{formulario.get('id').value}}">
+  
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('nome')">
+    <tf-text-simple
+      formControlName="nome"
+      label="Nome"
+      placeholder="Nome">
+    </tf-text-simple>
+  </div>
+</tf-form-simples>
+      

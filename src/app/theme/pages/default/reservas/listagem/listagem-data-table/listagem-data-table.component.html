@@ -1,0 +1,325 @@
+<!-- todo: permissao de habilitarForm via workspaceService.autorizar(permissoes de reserva) -->
+<tf-datatable-cabecalho
+	[habilitarForm]="false"
+	[labelFormButton]="'Nova Reserva'"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+	(print)="print()"
+	[pesquisarPor]="'pesquise por: RESERVA - Título,
+		[data de criação, horário de início e horário de fim nos formatos
+			(DD/MM/YYYY ou DD/MM/YY ou HH24hMI ou DD/MM/YYYY - HH24hMI ou DD/MM/YY - HH24hMI)
+		] *** ESPAÇO - nome *** ANFITRIÃO - nome ou e-mail *** CONVIDADO - nome ou e-mail 
+		*** GRUPO DO ANFITRIÃO - nome *** GRUPO DO CONVIDADO - nome *** RECURSO - nome 
+	  *** SERVIÇO - nome *** CAMPO CUSTOMIZADO - nome'
+	"
+	>
+	<!-- (openFormModal)="()" -->
+	<!-- (configuracao)="parametrizacoes()" -->
+	<!-- habilitarConfiguracao="true" -->
+</tf-datatable-cabecalho>
+
+<div class="row" *ngIf="workspaceService.autorizar('filtro_visualizar')">
+	<div class="col-md-12">
+		<tf-select-simple
+			allowClear=false
+			[data]="listFiltros"
+			placeholder="Selecione um filtro"
+			(valorModificado)="alterarFiltro($event)"
+			[allowClear]="true"
+			>
+		</tf-select-simple>
+	</div>
+	<!-- <div class="col-md-2 d-flex flex-row-reverse">
+		<agendar-dropdown
+			[body]="montarBodyAgendar()"
+			(refresh)="refreshTable()">
+		</agendar-dropdown>	
+	</div> -->
+</div>
+
+	<br>
+	<br>
+
+<div>
+	
+	<ng-container *ngFor="let dt of datatables; let i = index; let first = first; let last = last">
+		<!-- #minhaTable -->
+
+		<!-- <article> -->
+		<a href="" (click)="alteracaoCollapse($event)" [collapse]="content" class="tf-link_icone_preto">
+			<div class="collapse-title tf-collapse" style="margin: 10px 0px 0px; border-bottom:none">
+				<ng-container *ngIf="dt.sumario.exibir_custo_total == true; else sumario_sem_custo_total">
+					<span class="collapse-title-expand-indicator text-primary" style="font-size: 13px; font-weight: 500 !important;">
+						<ng-container *ngIf="dt"><i class="la la-angle-down tf-angle"></i></ng-container>
+						{{dt?.sumario?.agrupamento}}&emsp;|&emsp;{{dt?.page?.totalElements}} reserva(s)&emsp;|&emsp;Total de horas: {{dt?.sumario?.total_horas}}&emsp;|&emsp;Custo total: {{dt?.sumario?.custos_totais | currency:'BRL':true:'1.2-2'}}
+					</span>
+				</ng-container>
+				<ng-template #sumario_sem_custo_total>
+					<span class="collapse-title-expand-indicator text-primary" style="font-size: 13px; font-weight: 500 !important;">
+						<ng-container *ngIf="dt"><i class="la la-angle-down tf-angle"></i></ng-container>
+						{{dt?.sumario?.agrupamento}}&emsp;|&emsp;{{dt?.page?.totalElements}} reserva(s)&emsp;|&emsp;Total de horas: {{dt?.sumario?.total_horas}}
+					</span>
+				</ng-template>
+			</div>
+		</a>
+		<!-- [ngClass]="first ? 'collapse show' : '' " -->
+		<!-- <div collapseContent #content="collapseContent" [ngClass]= "first ? 'collapse show' : ''" > -->
+		<div collapseContent #content="collapseContent" [ngClass]= "dt ? 'collapse show' : ''" >
+			<!-- </article> -->
+
+			<!-- <p>Agrupamento por: </p> -->
+			<!-- <p>Custos totais: {{}}</p> -->
+			<ngx-datatable class="material" [rows]="dt.rows" [columnMode]="'flex'" [footerHeight]="50" [rowHeight]="'auto'"
+				[externalPaging]="true" [count]="dt.page.totalElements" [offset]="dt.page.pageNumber" [limit]="dt.page.size"
+				(page)="setPage($event, i)" [sortType]="'multi'" #tableLoop>
+				<ngx-datatable-column [width]="0" [resizeable]="false" [sortable]="false" [draggable]="false"
+					[canAutoResize]="false">
+					<ng-template ngx-datatable-header-template let-value="value">
+						<a href="#" class="datatable-icon-left fg-primary" title="Expand/Collapse All Rows" (click)="toggleExpandAllRow()"
+						*ngIf="workspaceService.autorizar('listagem_show')">
+						</a>
+					</ng-template>
+					<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+						<a href="#" title="Expand/Collapse Row" (click)="toggleExpandRow(row, expanded, tableLoop)" class="m-datatable__toggle-subtable fg-primary"
+							*ngIf="workspaceService.autorizar('listagem_show') && row.exibir_show == true">
+							<i [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded"></i>
+						</a>
+					</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-column [flexGrow]="1" name="Id" prop="id">
+					<ng-template let-row="row" ngx-datatable-cell-template>
+						<span *ngIf="row.situacao=='Iniciada'" class="text-danger"><b>{{row.id}}</b></span>
+						<span *ngIf="row.situacao=='Encerrada'" class="text-secondary"><b>{{row.id}}</b></span>
+						<span *ngIf="row.situacao=='Aguardando aprovação'" class="text-info"><b>{{row.id}}</b></span>
+						<span *ngIf="row.situacao=='Aguardando horário'" class="text-success"><b>{{row.id}}</b></span>
+						<span *ngIf="row.situacao=='Esperando anfitrião'" class="text-warning"><b>{{row.id}}</b></span>
+					</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-column [flexGrow]="3" name="Anfitrião" prop="anfitriao">
+				</ngx-datatable-column>
+				<ngx-datatable-column [flexGrow]="2" name="Título" prop="assunto" *ngIf="!isMobile">
+				</ngx-datatable-column>
+				<ngx-datatable-column [flexGrow]="2" name="Espaço" prop="espaco" *ngIf="!isMobile">
+				</ngx-datatable-column>
+				<ngx-datatable-column [flexGrow]="2" name="Início" prop="inicio" *ngIf="!isMobile">
+				</ngx-datatable-column>
+				<ngx-datatable-column [flexGrow]="2" name="Fim" prop="fim" *ngIf="!isMobile">
+				</ngx-datatable-column>
+				<ngx-datatable-column name="Serviços" [flexGrow]="2" [resizeable]="false" [sortable]="false" [draggable]="false"
+				[canAutoResize]="false">
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					<ng-container *ngFor="let servico of row.servicos">
+						<a href="#" [title]="servico.nome"
+						routerLink="/acompanhamentos/recursos-alocados"
+						[queryParams]="{servico_id: servico.id, reserva_id: row.id}"
+						class="btn btn-outline-info m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+							{{servico.letra_inicial}}
+						</a>
+					</ng-container>
+				</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-column [flexGrow]="2" [resizeable]="false" [sortable]="false" [draggable]="false" 
+				name="Checks">
+				<ng-template let-row="row" ngx-datatable-cell-template>
+					<ng-container *ngIf="row.checkin_enabled!=null">
+						<a href="#" title="Check-in" (click)="row.checkin_enabled==true && openCheckModal(row.espaco_id)"
+							class="btn btn-outline-success m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air"
+							[class.disabled]="row.checkin_enabled!=true">
+							<i class="la la-chevron-right"></i>
+						</a>
+					</ng-container>
+					<ng-container *ngIf="row.checkout_enabled!=null">
+						<a href="#" title="Check-out" (click)="row.checkout_enabled==true && openCheckModal(row.espaco_id)"
+							class="btn btn-outline-warning m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air"
+							[class.disabled]="row.checkout_enabled!=true">
+							<i class="la la-chevron-left"></i>
+						</a>
+					</ng-container>
+					<ng-container *ngIf="row.acoes_analise==true">
+						<!-- <a href="#" title="Aprovar" (click)="aprovar_solicitacao(row.id)"
+							class="btn btn-outline-success m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+							<i class="la la-check"></i>
+						</a>
+						<a href="#" title="Reprovar" (click)="reprovar_solicitacao(row.id)"
+							class="btn btn-outline-danger m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+							<i class="la la-remove"></i>
+						</a> -->
+						<a href="#" (click)="aprovar_solicitacao(row.id)"
+							class="btn btn-outline-success m-btn btn-sm m-btn--pill m-btn--air m-1 p-1">
+							Aprovar
+						</a>
+						<a href="#" (click)="reprovar_solicitacao(row.id)"
+							class="btn btn-outline-danger m-btn btn-sm m-btn--pill m-btn--air m-1 p-1">
+							Reprovar
+						</a>
+					</ng-container>
+				</ng-template>	
+				</ngx-datatable-column>
+				<ngx-datatable-column [flexGrow]="2" [resizeable]="false" [sortable]="false" [draggable]="false" name="Ações"
+					>
+					<ng-template let-row="row" ngx-datatable-cell-template>
+						<ng-container>
+							<a *ngIf="row.botao_editar == true" href="#" title="Editar" (click)="openFormModalEdit(row.id)"
+								class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+								<i class="la la-edit"></i>
+							</a>
+							<!-- (click)="datatableService.remove(row.id)" -->
+							<a *ngIf="row.botao_excluir == true" href="#" title="Cancelar" (click)="cancelarReserva(row.id, row.numero_lote!=undefined)"
+								class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+								<i class="la la-trash"></i>
+							</a>
+							<!-- <a href="#" title="Abrir/Fechar Espaço" (click)="abrirFecharEspaco(row.id)"
+								class="btn btn-outline-dark btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+								<i class="la la-key"></i> -->
+							<!-- </a> -->
+						</ng-container>
+					</ng-template>
+				</ngx-datatable-column>
+				<ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+					<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+						<div class="row" style="padding-left:15px;margin-right:0px">
+
+							<div class="col-12">
+								<div *ngIf="row.tipo_reserva"><b>Tipo da reserva: </b>{{row.tipo_reserva}}</div>
+								
+								<hr>
+								
+								<div *ngIf="row.assunto && row.tipo_reserva != 'Estacionamentos'"><b>Assunto: </b>{{row.assunto}}</div>
+								<div *ngIf="row.assunto && row.tipo_reserva == 'Estacionamentos'"><b>Vaga e placa: </b>{{row.assunto}}</div>
+								<div *ngIf="row.espaco"><b>Espaco: </b>{{row.espaco}}</div>
+								<div *ngIf="row.situacao"><b>Situação: </b>
+									<span *ngIf="row.situacao=='Iniciada'" class="m-badge m-badge--danger m-badge--wide m--font-boldest">{{row.situacao}}</span>
+									<span *ngIf="row.situacao=='Encerrada'" class="m-badge m-badge--secondary m-badge--wide m--font-boldest">{{row.situacao}}</span>
+									<span *ngIf="row.situacao=='Aguardando aprovação'" class="m-badge m-badge--info m-badge--wide m--font-boldest">{{row.situacao}}</span>
+									<span *ngIf="row.situacao=='Aguardando horário'" class="m-badge m-badge--success m-badge--wide m--font-boldest">{{row.situacao}}</span>
+									<span *ngIf="row.situacao=='Esperando anfitrião'" class="m-badge m-badge--warning m-badge--wide m--font-boldest">{{row.situacao}}</span>
+								</div>
+								
+								<hr>
+
+								<div *ngIf="row.data_de_instalacao_prevista"><b>Data de instalação prevista: </b>{{row.data_de_instalacao_prevista}}</div>
+								<div *ngIf="row.data_de_instalacao"><b>Data de instalação: </b>{{row.data_de_instalacao}}</div>
+								<div *ngIf="row.data_de_desinstalacao_prevista"><b>Data de desinstalação prevista: </b>{{row.data_de_desinstalacao_prevista}}</div>
+								<div *ngIf="row.data_de_desinstalacao"><b>Data de desinstalação: </b>{{row.data_de_desinstalacao}}</div>
+								<div *ngIf="row.data_de_retirada_prevista"><b>Data de retirada prevista: </b>{{row.data_de_retirada_prevista}}</div>
+								<div *ngIf="row.data_de_retirada"><b>Data de retirada: </b>{{row.data_de_retirada}}</div>
+								<div *ngIf="row.data_de_devolucao_prevista"><b>Data de devolução prevista: </b>{{row.data_de_devolucao_prevista}}</div>
+								<div *ngIf="row.data_de_devolucao"><b>Data de devolução: </b>{{row.data_de_devolucao}}</div>
+								<div *ngIf="row.data_de_inicio_previsto"><b>Data de início previsto: </b>{{row.data_de_inicio_previsto}}</div>
+								<div *ngIf="row.data_de_inicio"><b>Data de início: </b>{{row.data_de_inicio}}</div>
+								<div *ngIf="row.data_de_fim_previsto"><b>Data de encerramento previsto: </b>{{row.data_de_fim_previsto}}</div>
+								<div *ngIf="row.data_de_fim"><b>Data de encerramento: </b>{{row.data_de_fim}}</div>
+
+								<br>
+
+								<div *ngIf="row.created_at"><b>Criada em: </b>{{row.created_at}}</div>
+								<div *ngIf="row.updated_at"><b>Atualizada em: </b>{{row.updated_at}}</div>
+								
+								<hr>			
+
+								<div *ngIf="row.participantes"><b>Participantes:</b>
+									<div *ngIf="row.participantes.criador"><b>&emsp;Criador: </b>{{row.participantes.criador}}</div>
+									<div *ngIf="row.participantes.anfitriao"><b>&emsp;Anfitrião: </b>{{row.participantes.anfitriao}}</div>
+									<div *ngIf="row.participantes.convidados"><b>&emsp;{{row.participantes.qtd_convites_enviados}} convite(s) enviado(s): </b>{{row.participantes.convidados}}</div>
+									<div *ngIf="row.participantes.qtd_convidados"><b>&emsp;Quantidade de pessoas: </b>{{row.participantes.qtd_convidados}}</div>
+								</div>
+								
+								<hr>
+
+								<div *ngIf="row.observacao"><b>Observação: </b>{{row.observacao}} <hr></div>
+
+								<div *ngIf="row.campos_customizados_reservas">
+									<ng-container *ngFor="let c of row.campos_customizados_reservas">
+										<div><b>{{c.nome}}: </b>{{c.valor}}</div>
+									</ng-container>
+									<hr>
+								</div>
+
+								<div *ngIf="workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+									<div *ngIf="row.recursos_reservas"><b>Recursos:</b></div>
+									<div class="row">
+										<div class="col-3"><b>&emsp;Item</b></div>
+										<div class="col-1"><b>Qtde</b></div>
+										<div class="col-3"><b>Serviço</b></div>
+										<div class="col-1"><b>Check</b></div>
+										<!-- <div class="col-1"><b>Checkout</b></div> -->
+										<!-- <div class="col-2"><b>Fornecedor</b></div> -->
+										<div *ngIf="row.exibir_gastos" class="col-2"><b>Preço</b></div>
+										<div *ngIf="row.exibir_gastos" class="col-2"><b>Subtotal</b></div>
+									</div>
+									<ng-container *ngFor="let r of row.recursos_reservas">
+										<div class="row">
+											<div *ngIf="r.item" class="col-3">&emsp;{{r.item}}</div>
+											<div *ngIf="r.qtde" class="col-1">{{r.qtde}}</div>
+											<div *ngIf="r.servico" class="col-3">{{r.servico}}</div>
+											<div *ngIf="r.check_in_out" class="col-1">{{r.check_in_out}}</div>
+											<!-- <div *ngIf="r.check_out" class="col-1">{{r.check_out}}</div> -->
+											<!-- <div *ngIf="r.fornecedor" class="col-2">{{r.fornecedor}}</div> -->
+											<div *ngIf="r.preco && row.exibir_gastos" class="col-2">{{r.preco}}</div>
+											<div *ngIf="r.subtotal && row.exibir_gastos" class="col-2">{{r.subtotal}}</div>
+										</div>
+									</ng-container>
+
+									<br>
+
+									<div *ngIf="row.subtotal && row.exibir_gastos" class="col-11" style="text-align: right;">&emsp;<b>Subtotal: </b>{{row.subtotal}}</div>
+									<div *ngIf="row.desconto && row.exibir_gastos" class="col-11" style="text-align: right;">&emsp;<b>Desconto: </b>{{row.desconto}}</div>
+									<div *ngIf="row.custo_total && row.exibir_gastos" class="col-11" style="text-align: right;">&emsp;<b>Custo total: </b>{{row.custo_total}}</div>
+
+									<ng-container *ngIf="row.estandes">
+										<hr>
+										<b>Serviços externos (Adicões para eventos):</b>
+										<ng-container *ngFor="let r of row.estandes">
+											<div class="ml-3" *ngIf="r" [innerHTML]="r">{{r}}</div>
+											<br>
+										</ng-container>
+									</ng-container>
+
+									<ng-container *ngIf="row.eventos_estandes">
+										<hr>
+										<b>Eventos atendidos:</b>
+										<ng-container *ngFor="let r of row.eventos_estandes">
+											<div class="ml-3" *ngIf="r" [innerHTML]="r">{{r}}</div>
+											<br>
+										</ng-container>
+									</ng-container>
+								</div>
+
+							</div>
+							<!-- <div class="col-6">
+								<div><b>Recursos instalados</b></div>
+								<ng-container *ngFor="let i of row.instalacoes">
+									<div *ngIf="i.servico"><b>&ensp;Serviço: {{i.servico}}</b>
+										<ng-container *ngFor="let r of i.recursos">
+											<div *ngIf="r.nome">&emsp;Nome: {{r.nome}}</div>
+											<div *ngIf="r.quantidade">&emsp;Quantidade: {{r.quantidade}}</div><br>
+										</ng-container>
+									</div>
+								</ng-container>
+							</div>
+							<div class="col-6">
+								<div><b>Calendário</b></div>
+								<div>nome: {{row.calendario.nome}}</div>
+								<div>email: {{row.calendario.email}}</div>    
+							</div> -->
+						</div>
+					</ng-template>
+				</ngx-datatable-row-detail>
+			</ngx-datatable>
+			<br>
+		</div>
+	</ng-container>
+	<!-- <p>{{datatable}}</p> -->
+	<!-- <p>{{datatable</p> -->
+
+</div>
+
+<!-- <div><b>&ensp;Serviço: Audiovisual</b></div>
+						<div>&emsp;nome: {{row.instalacoes.audiovisual.nome}}</div>
+            <div>&emsp;quantidade: {{row.instalacoes.audiovisual.quantidade}}</div>  
+						<div><b>&ensp;Serviço: Infra TI</b></div>
+						<div>&emsp;nome: {{row.instalacoes.infrati.nome}}</div>
+            <div>&emsp;quantidade: {{row.instalacoes.infrati.quantidade}}</div>  
+						<div><b>&ensp;Serviço: Infraestrutura</b></div>
+						<div>&emsp;nome: {{row.instalacoes.infraestrutura.nome}}</div>
+            <div>&emsp;quantidade: {{row.instalacoes.infraestrutura.quantidade}}</div>   -->

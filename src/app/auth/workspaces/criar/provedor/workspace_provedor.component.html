@@ -1,0 +1,66 @@
+<div class="m-login__signin">
+  <div class="m-login__head">
+    <h3 class="m-login__title">
+      Provedor de login
+    </h3>
+    <div class="m-login__desc">
+      Defina como os colaboradores acessarão o Calenda.
+    </div>
+  </div>
+  <!-- (ngSubmit)="signInForm.form.valid && signin()"  -->
+  <form #signInForm="ngForm" class="m-login__form m-form" action=""
+    style="margin-top:2rem;">
+    <ng-template #alertSignin></ng-template>
+    <div *ngIf="output != undefined" class="m-login__form-sub">
+      <span class="m-form__help m--font-danger">
+        {{output}}
+      </span>
+    </div>
+    <div class="m-login__form-action">
+      <a [routerLink]="" (click)="setarProvedor('microsoft_graph')" class="btn btn-dark m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air">
+        <span>
+            <i class="la la-windows"></i>
+            <span>
+                Microsoft
+            </span>
+        </span>
+      </a>
+      <a [routerLink]="" (click)="setarProvedor('google_oauth2')"
+       [ngClass]="{'m-loader m-loader--right m-loader--light': loading}"
+        class="btn btn-danger m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air">
+        <span>
+            <i class="fa fa-google"></i>
+            <span>
+                Google
+            </span>
+        </span>
+      </a>
+    </div>
+    <div class="m-login__form-action">
+      <a [routerLink]="" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air"
+        (click)="setarProvedor('calenda')">
+        <span>
+          Calenda
+        </span>
+      </a>
+    </div>
+    <div class="row m-login__form-sub" style="margin-top: 1rem;">
+      <div class="col m--align-left">
+        <!-- <label class="m-checkbox m-checkbox-s">
+          <input type="checkbox" name="remember" [(ngModel)]="model.remember" #remember="ngModel">
+          Remember me
+          <span></span>
+        </label> -->
+        <!-- id="forgetPasswordForm" -->
+        <!-- <a href="javascript:;" class="m-link" routerLink="/login/descobrir" skipLoadingChange>
+          Esqueci meu workspace
+        </a> -->
+      </div>
+      <div class="col m--align-right">
+        <a href="javascript:;" class="m-link" routerLink="/login/criar" skipLoadingChange>
+          Voltar
+        </a>
+      </div>
+    </div>
+  </form>
+</div>

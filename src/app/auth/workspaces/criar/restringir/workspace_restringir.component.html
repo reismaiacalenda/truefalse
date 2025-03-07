@@ -1,0 +1,53 @@
+<div class="m-login__signin">
+  <div class="m-login__head">
+    <h3 class="m-login__title">
+      Políticas de acesso
+    </h3>
+    <div class="m-login__desc">
+      Seja bem-vindo às nossas políticas de acesso.
+      <br>
+      Temos algumas configurações para serem feitas para seus usuários.
+      <!-- Temos algumas configurações que alteram a forma como os seus usuários acessarão a Calenda e também as integrações que podemos fazer. -->
+      <br>
+      Para começarmos logo, vamos direto para as configurações de convite, beleza?
+      <!-- Para começarmos logo, faremos aqui apenas as de convite, beleza? -->
+      <!-- Gostaria de restringir o acesso <b>apenas</b> para os <b>colaboradores de sua organização</b>? -->
+    </div>
+  </div>
+  <form [formGroup]="formulario" class="m-login__form m-form"
+    style="margin-top:2rem;">
+    <ng-template #alertSignin></ng-template>
+    <!-- <div class="row m-login__form-sub" style="margin-top: 2.5rem;">
+      <div class="col m--align-left">
+        <a href="javascript:;" class="m-link" (click)="setarProvedor('microsoft_graph')" skipLoadingChange>
+          Sim, somente logins <b>Microsoft</b> vinculados a minha organização terão permissão.
+        </a>
+      </div>
+    </div> -->
+    <!-- <div class="row m-login__form-sub" style="margin-top: 2.5rem;">
+      <div class="col m--align-left">
+        <a href="javascript:;" class="m-link" (click)="setarProvedor('google_oauth2')" skipLoadingChange>
+          Sim, somente logins <b>Google</b> vinculados a minha organização terão permissão.
+        </a>
+      </div>
+    </div> -->
+    <div class="row m-login__form-sub" style="margin-top: 4rem;">
+      <div class="col m--align-left">
+        <a href="javascript:;" class="m-link" (click)="setarProvedor('calenda')" skipLoadingChange>
+          Ir para configurações de convite.
+        </a>
+      </div>
+    </div>
+    <div *ngIf="output != undefined" class="m-login__form-sub">
+      <span class="m-form__help m--font-danger">
+        {{output}}
+      </span>
+
+           <!-- <div class="col m--align-right">
+        <a href="javascript:;" class="m-link" routerLink="/login/..." skipLoadingChange>
+          Voltar
+        </a>
+      </div> -->
+    </div>
+  </form>
+</div>

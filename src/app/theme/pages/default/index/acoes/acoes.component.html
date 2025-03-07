@@ -1,0 +1,360 @@
+<div class="row px-1">
+
+  <ng-container *ngIf="workspaceService.autorizar('reserva_evento_criar_meu', 'reserva_evento_criar_grupo', 'reserva_evento_criar_unidade')
+    && workspaceService.autorizar('reserva_evento_reservar_espaco')
+    && (workspaceService.autorizar('quadro_espaco_menu') && !workspaceService.autorizar('mapa_interativo'))
+    && workspaceService.contemModulo('smr')">
+    <div [ngClass]="{
+      'col-4' : workspaceService.quantidadeAcoesModulo(5),
+      'col-6' : workspaceService.quantidadeAcoesModulo(4),
+      'col' : workspaceService.quantidadeAcoesModulo(3)}"
+      class="col-lg px-2 pb-3 pb-lg-0">
+      <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-primary"
+        routerLink="/reservas/quadros/espacos"
+        ngbTooltip="Encontrar uma sala disponível" container="body" placement="bottom">
+        <div class="card-body m-animate-shine pt-0 pb-0 px-2 ">
+          <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+            <div class="d-flex flex-column flex-center">
+              <h3 class="text-gray-500 h5 mb-0">
+                <span class="svg-icon svg-icon-primary svg-icon-4x"
+                  [inlineSVG]="'./assets/app/media/svg/icons/Home/Door-open.svg'">
+                </span>
+              </h3>
+              <div class="card-toolbar text-center text-primary font-size-sm">
+                Reservar sala
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="workspaceService.autorizar('reserva_evento_criar_meu', 'reserva_evento_criar_grupo', 'reserva_evento_criar_unidade')
+    && workspaceService.autorizar('reserva_evento_reservar_espaco')
+    && (!workspaceService.autorizar('quadro_espaco_menu') && workspaceService.autorizar('mapa_interativo'))
+    && workspaceService.contemModulo('smr')">
+    <div [ngClass]="{
+      'col-4' : workspaceService.quantidadeAcoesModulo(5),
+      'col-6' : workspaceService.quantidadeAcoesModulo(4),
+      'col' : workspaceService.quantidadeAcoesModulo(3)}"
+      class="col-lg px-2 pb-3 pb-lg-0"
+      (click)="abrirMapa('sala')">
+      <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-primary"
+        ngbTooltip="Encontrar uma sala disponível" container="body" placement="bottom">
+        <div class="card-body m-animate-shine pt-0 pb-0 px-2 ">
+          <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+            <div class="d-flex flex-column flex-center">
+              <h3 class="text-gray-500 h5 mb-0">
+                <span class="svg-icon svg-icon-primary svg-icon-4x"
+                  [inlineSVG]="'./assets/app/media/svg/icons/Home/Door-open.svg'">
+                </span>
+              </h3>
+              <div class="card-toolbar text-center text-primary font-size-sm">
+                Reservar sala
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="workspaceService.autorizar('reserva_evento_criar_meu', 'reserva_evento_criar_grupo', 'reserva_evento_criar_unidade')
+    && workspaceService.autorizar('reserva_evento_reservar_espaco')
+    && (workspaceService.autorizar('quadro_espaco_menu') && workspaceService.autorizar('mapa_interativo'))
+    && workspaceService.contemModulo('smr')">
+    <div [ngClass]="{
+      'col-4' : workspaceService.quantidadeAcoesModulo(5),
+      'col-6' : workspaceService.quantidadeAcoesModulo(4),
+      'col' : workspaceService.quantidadeAcoesModulo(3)}"
+      class="col-lg px-2 pb-3 pb-lg-0 cursor-pointer"
+      (click)="selecionarMapaQuadros()">
+      <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-primary"
+        ngbToo ltip="Encontrar uma sala disponível" container="body" placement="bottom">
+        <div class="card-body m-animate-shine pt-0 pb-0 px-2 ">
+          <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+            <div class="d-flex flex-column flex-center">
+              <h3 class="text-gray-500 h5 mb-0">
+                <span class="svg-icon svg-icon-primary svg-icon-4x"
+                  [inlineSVG]="'./assets/app/media/svg/icons/Home/Door-open.svg'">
+                </span>
+              </h3>
+              <div class="card-toolbar text-center text-primary font-size-sm">
+                Reservar sala
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </ng-container>
+  
+  <div [ngClass]="{
+    'col-4' : workspaceService.quantidadeAcoesModulo(5),
+    'col-6' : workspaceService.quantidadeAcoesModulo(4),
+    'col' : workspaceService.quantidadeAcoesModulo(3)}"
+    class="col-lg px-2 pb-3 pb-lg-0"
+    (click)="abrirMapa('mesa')"
+    *ngIf="workspaceService.autorizar('reserva_posto_de_trabalho_criar_meu', 'reserva_posto_de_trabalho_criar_grupo', 'reserva_posto_de_trabalho_criar_unidade',
+      'reserva_estacao_flexivel_criar_meu', 'reserva_estacao_flexivel_criar_grupo', 'reserva_estacao_flexivel_criar_unidade')
+      && workspaceService.contemModulo('hd')">
+      <!-- workspaceService.currentUser.subdominio.modulos.includes('Hotdesks') -->
+    <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-pointer"
+    ngbTooltip="Trabalhar no escritório" container="body" placement="bottom"
+    
+    >
+    <!-- routerLink="/reservas/mapa-interativo" -->
+      <div class="card-body m-animate-shine pt-0 pb-0 px-2">
+        <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+          <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0">
+              <!-- <span class="label label-dot label-warning"></span> -->
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+              [inlineSVG]="'./assets/app/media/svg/icons/Home/Building.svg'"
+              >
+              <!-- [inlineSVG]="'./assets/app/media/svg/icons/Home/Armchair.svg'" -->
+              </span>
+            </h3>
+            <div class="card-toolbar text-center text-primary font-size-sm">
+              Reservar mesa
+              <!-- Reservar mesa -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div [ngClass]="{
+    'col-4' : workspaceService.quantidadeAcoesModulo(5),
+    'col-6' : workspaceService.quantidadeAcoesModulo(4),
+    'col' : workspaceService.quantidadeAcoesModulo(3)}"
+    class="col-lg px-2 pb-3 pb-lg-0"
+    (click)="abrirMapa('estacionamento')"
+    *ngIf="workspaceService.autorizar('reserva_estacionamento_criar_meu', 'reserva_estacionamento_criar_grupo', 'reserva_estacionamento_criar_unidade')
+      && workspaceService.contemModulo('hd')">
+      <!-- workspaceService.currentUser.subdominio.modulos.includes('Hotdesks') -->
+    <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-pointer"
+    ngbTooltip="Reservar uma vaga no estacionamento" container="body" placement="bottom"
+    
+    >
+    <!-- routerLink="/reservas/mapa-interativo" -->
+      <div class="card-body m-animate-shine pt-0 pb-0 px-2">
+        <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+          <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0">
+              <!-- <span class="label label-dot label-warning"></span> -->
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Car.svg'">
+              </span>
+            </h3>
+            <div class="card-toolbar text-center text-primary font-size-sm">
+              Estacionamento
+              <!-- Reservar mesa -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div [ngClass]="{
+    'col-4' : workspaceService.quantidadeAcoesModulo(5),
+    'col-6' : workspaceService.quantidadeAcoesModulo(4),
+    'col' : workspaceService.quantidadeAcoesModulo(3)}"
+    class="col-lg px-2 pb-3 pb-lg-0"
+    (click)="abrirMapa('fretado')"
+    *ngIf="workspaceService.autorizar('reserva_fretado_criar_meu', 'reserva_fretado_criar_grupo', 'reserva_fretado_criar_unidade')
+      && workspaceService.contemModulo('hd')">
+      <!-- workspaceService.currentUser.subdominio.modulos.includes('Hotdesks') -->
+    <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-pointer"
+    ngbTooltip="Reservar uma vaga no ônibus/van" container="body" placement="bottom"
+    
+    >
+    <!-- routerLink="/reservas/mapa-interativo" -->
+      <div class="card-body m-animate-shine pt-0 pb-0 px-2">
+        <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+          <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0">
+              <!-- <span class="label label-dot label-warning"></span> -->
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Bus1.svg'">
+              </span>
+            </h3>
+            <div class="card-toolbar text-center text-primary font-size-sm">
+              Fretado
+              <!-- Reservar mesa -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- <div [ngClass]="{
+    'col-4' : workspaceService.quantidadeAcoesModulo(5),
+    'col-6' : workspaceService.quantidadeAcoesModulo(4),
+    'col' : workspaceService.quantidadeAcoesModulo(3)}"
+    class="col-lg px-2 pb-3 pb-lg-0"
+    *ngIf="workspaceService.autorizar('reserva_evento_criar_meu', 'reserva_evento_criar_grupo', 'reserva_evento_criar_unidade')
+    && workspaceService.contemModulo('smr', 'eh')">
+    <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-primary"
+      routerLink="/reservas/calendario"
+      ngbTooltip="Meu calendário" container="body" placement="bottom">
+      <div class="card-body m-animate-shine pt-0 pb-0 px-2 ">
+        <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+          <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0">
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Calendario.svg'">
+              </span>
+            </h3>
+            <div class="card-toolbar text-center font-size-sm">
+              Agendar evento
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div> -->
+  <!-- <div [ngClass]="workspaceService.maisDe3AcoesModulo() ? 'col-4' : 'col'"
+  class="col-lg px-2 pb-3 pb-lg-0"
+    *ngIf="workspaceService.autorizar('reserva_evento_criar_meu', 'reserva_evento_criar_grupo', 'reserva_evento_criar_unidade')
+      && workspaceService.autorizar('calendario_visualizar_pessoas') && workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')">
+    <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-primary"
+    ngbTooltip="em breve" container="body" placement="bottom">
+      <div class="card-body m-animate-shine pt-0 pb-0 px-2">
+        <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+          <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0">
+              <span class="label label-dot label-warning"></span>
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-right-panel-2.svg'">
+              </span>
+            </h3>
+            <div class="card-toolbar text-center font-size-sm">
+              Montar escala
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div> -->
+<!-- 
+  <div [ngClass]="workspaceService.maisDe3AcoesModulo() ? 'col-4' : 'col'"
+  class="col-lg px-2 pb-3 pb-lg-0"
+    *ngIf="workspaceService.autorizar('reserva_evento_solicitar_recurso', 'reserva_estacao_flexivel_solicitar_recurso', 
+      'reserva_instalacao_criar_meu', 'reserva_instalacao_criar_grupo', 'reserva_instalacao_criar_unidade')
+      && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+			|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+    <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-pointer"
+    ngbTooltip="em breve" container="body" placement="bottom">
+      <div class="card-body m-animate-shine pt-0 pb-0 px-2">
+        <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+          <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0">
+              <span class="label label-dot label-warning"></span>
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Food/Coffee1.svg'">
+              </span>
+            </h3>
+            <div class="card-toolbar text-center font-size-sm">
+              Solicitar serviço
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div> -->
+  <!-- (click)="pegarEquipamento()" -->
+
+  <!-- workspaceService.autorizar('reserva_emprestimo_criar_meu', 'reserva_emprestimo_criar_grupo', 'reserva_emprestimo_criar_unidade',
+      'reserva_equipagem_criar_meu', 'reserva_equipagem_criar_grupo', 'reserva_equipagem_criar_unidade')
+      && -->
+  <!-- <div [ngClass]="{
+    'col-4' : workspaceService.quantidadeAcoesModulo(5),
+    'col-6' : workspaceService.quantidadeAcoesModulo(4),
+    'col' : workspaceService.quantidadeAcoesModulo(3)}"
+    class="col-lg px-2 pb-3 pb-lg-0"
+    *ngIf="workspaceService.autorizar('reserva_emprestimo_criar_meu', 'reserva_emprestimo_criar_grupo', 'reserva_emprestimo_criar_unidade',
+    'reserva_instalacao_criar_meu', 'reserva_instalacao_criar_grupo', 'reserva_instalacao_criar_unidade',
+    'reserva_equipagem_criar_meu', 'reserva_equipagem_criar_grupo', 'reserva_equipagem_criar_unidade')
+    && workspaceService.contemModulo('sr')"
+    routerLink="/reservas/quadros/recursos"
+    ngbTooltip="Confira os recursos disponíveis" container="body" placement="bottom">
+    <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-pointer">
+      <div class="card-body m-animate-shine pt-0 pb-0 px-2">
+        <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+          <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0">
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Devices/Display1.svg'">
+              </span>
+            </h3>
+            <div class="card-toolbar text-center text-primary font-size-sm">
+              Pegar equipamento
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div> -->
+
+  <!-- <div [ngClass]="workspaceService.maisDe3AcoesModulo() ? 'col-4' : 'col'"
+  class="col-lg px-2 pb-3 pb-lg-0"
+    *ngIf="workspaceService.autorizar('pessoa_em_home_office')
+    && (this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')
+    || this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))">
+    <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-primary"
+    ngbTooltip="em breve" container="body" placement="bottom">
+      <div class="card-body m-animate-shine pt-0 pb-0 px-2">
+        <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+          <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0">
+              <span class="label label-dot label-warning"></span>
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Home/Home-heart.svg'">
+              </span>
+            </h3>
+            <div class="card-toolbar text-center font-size-sm">
+              Trabalhar de casa
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div> -->
+
+  <!-- workspaceService.autorizar('checkups')
+    &&  -->
+  <!-- <div [ngClass]="{
+    'col-4' : workspaceService.quantidadeAcoesModulo(5),
+    'col-6' : workspaceService.quantidadeAcoesModulo(4),
+    'col' : workspaceService.quantidadeAcoesModulo(3)}"
+    class="col-lg px-2 pb-3 pb-lg-0"
+    *ngIf="workspaceService.contemModulo('phe')">
+    <a class="card card-custom card-stretch card-shadowplus wave wave-primary wave-animate-slow bg-grey-100 mb-0 mb-lg-0 cursor-pointer"
+      [routerLink]=""
+      ngbTooltip="Meus exames" container="body" placement="bottom"
+      (click)="checkups()"
+    >
+    <div class="card-body m-animate-shine pt-0 pb-0 px-2">
+      <div class="d-flex align-items-center flex-center py-3 py-lg-4 h-100">
+        <div class="d-flex flex-column flex-center">
+            <h3 class="text-gray-500 h5 mb-0">
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/General/Half-heart.svg'">
+              </span>
+            </h3>
+            <div class="card-toolbar text-primary font-size-sm">
+              Checkups
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div> -->
+
+</div>

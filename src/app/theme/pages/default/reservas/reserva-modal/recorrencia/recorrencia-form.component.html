@@ -1,0 +1,123 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	[disableTitle]="true"
+	[title]="'Recorrência'"
+	[textoBotaoAlternativo]="'Limpar'"
+	(botaoAlternativo)="limpar()"
+	(submeter)="onSubmit()"
+	id="{{formulario.get('id').value}}"
+	cancelar="false"
+	salvar="Concluir"
+	>
+	<!-- title="Adicionar convidados" -->
+	<ng-container formGroupName="recorrencia">
+
+		<div class="form-group row pt-4 mb-1"
+			[ngClass]="aplicaCss('hr_inicio_janela_confirmacao')">
+			<label class="col-md-12">
+				Repetir a cada:
+			</label>
+			<tf-integer class="col-6"
+				retirarLabel="true"
+				[botoes]="true"
+				formControlName="repeticao"
+				limiteInferior="1"
+				limiteSuperior="99"
+				mask="00">
+			</tf-integer>
+			<!-- [formControl]="formulario.get('medida_de_tempo_inicio_janela_confirmacao')" -->
+			<!-- [data]="listSelectPeriodos" -->
+			<tf-select-simple class="col-6"
+				[data]="[{id: 1, text: 'dia(s)'},
+								{id: 2, text: 'semana(s)'},
+								{id: 3, text: 'mês(es)'}]"
+				retirarLabel="true"
+				formControlName="intervalo"
+				allowClear="false"
+				placeholder="selecione"
+				(valorModificado)="recorrenciaSelecao()"
+				>
+			</tf-select-simple>
+		</div>
+
+		<ng-container *ngIf="formulario.get('recorrencia').get('intervalo').value == 2 &&
+		formulario.get('recorrencia').get('repeticao').value > 0">
+			<div class="form-group row">
+				<label class="col-md-12">Nos dias:</label>
+			<!-- TODO continuar daqui FAZENDO os a bolotinha de dia, com margine e padding, se precisar. color de azul se pah, vamo ver...-->
+				<!-- <div style="padding-left: 12.5px;"></div> -->
+				<ng-container *ngFor="let d of dias_da_semana">
+					<div class="col-1 pt-1 mr-4 pr-0">
+						<a href="" class="btn m-btn m-btn--icon m-btn--icon-only rounded-circle m-btn--air d-flex justify-content-center"
+						[ngClass]="diaSelecionado(d.valor) ? 'btn-primary' : 'btn-outline-primary'"
+						[ngbTooltip]="d.tooltip" container="body" placement="bottom" (click)="adicionarRemoverDia(d.valor)"
+						style="height: 30px; width: 30px margin">
+							<span class="d-flex align-items-center" style="font-size: 11px;">{{d.dia}}</span>
+						</a>
+					</div>
+				</ng-container>
+			</div>
+		</ng-container>	
+
+	
+    <ng-container *ngIf="formulario.get('recorrencia').get('intervalo').value == 3 &&
+		formulario.get('recorrencia').get('repeticao').value > 0">
+			<div class="mb-5 mt-1">
+				<tf-radio-button [data]='recorrenciaMes' formControlName="quando">
+				</tf-radio-button>
+		  </div>
+		</ng-container> 
+
+
+		<ng-container
+		  *ngIf="formulario.get('recorrencia').get('intervalo').value >= 1 &&
+			formulario.get('recorrencia').get('repeticao').value > 0">
+			<div class="form-group row mb-0"
+				[ngClass]="aplicaCss('quantidade_participantes')">
+				<label class="col-12">Termina:</label>
+				<div class="col-3 pt-5">
+					<tf-radio-button
+						formControlName="termina_em"
+						retirarLabel="true"
+						[data]='radioButtonEm'
+						(click)="controlarCheck('em', $event)">
+					</tf-radio-button>		
+				</div>
+				<div class="col-6">
+					<tf-date
+						formControlName="data_fim"
+						retirarLabel="true"
+						>
+						<!-- [desabilitar]="formulario.get('dia_todo').value" -->
+					</tf-date>
+				</div>
+			</div>
+			<div class="form-group row pt-3 mb-0"
+			[ngClass]="aplicaCss('quantidade_participantes')">
+				<div class="col-3 pt-5">
+					<tf-radio-button
+						formControlName="termina_apos"
+						retirarLabel="true"
+						[data]='radioButtonApos'
+						(click)="controlarCheck('apos', $event)"
+						>
+					</tf-radio-button>	
+				</div>
+				<div class="col-6">
+					<tf-integer 
+						retirarLabel="true"
+						[botoes]="true"
+						formControlName="ocorrencia"
+						limiteInferior="1"
+						limiteSuperior="99"
+						mask="00">
+					</tf-integer>
+				</div>
+				<div class="col-3 pl-0 pt-5">
+					<label>vezes</label>
+				</div>
+			</div>
+		</ng-container>
+	</ng-container>
+</tf-form-simples>

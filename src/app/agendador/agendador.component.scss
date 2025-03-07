@@ -1,0 +1,139 @@
+.calendar {
+  width: 364px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  margin: 0px auto 0;
+}
+
+.calendar__month {
+  font-size: 1.15rem;
+  font-weight: 400;
+  padding: 0px 0 6px 0;
+  width: 100%;
+  position: relative;
+}
+
+.cal-month__previous,
+.cal-month__next {
+  position: absolute;
+  top: 58%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
+  text-align: center;
+  
+  &:hover {
+    background-color: var(--primary);
+    box-shadow: 0 5px 5px -5px rgba(0,0,0,0.75);
+    border-radius: 50%;
+    font-weight: 600;
+    color: #fff;
+  }
+}
+
+.cal-month__previous {
+  right: 44px;
+}
+
+.cal-month__next {
+  right: 5px;
+}
+
+.cal-month__current {
+  text-align: center;
+  color: #777;
+}
+
+.cal-head__day,
+.cal-body__day {
+  display: inline-block;
+  @media (max-width: 768px) {
+    width: calc(100%/7 - 10px);
+  }
+  width: 42px;
+  height: 42px;
+  float: left;
+  text-align: center;
+  font-size: 1.15rem;
+  margin: 0px 5px 0px;
+}
+
+.cal-body__week,
+.calendar__head {
+  display: block;
+  height: 42px;
+  width: 100%;//350px;
+  margin: 10px 0px 10px 0px;
+}
+
+.calendar__head {
+  line-height: 42px;
+  position: relative;
+  
+  &:after {
+    content: ' ';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #e1e1e1;
+  }
+}
+
+.cal-body__day {
+  color: #e1e1e1;
+  line-height: 42px;
+  text-align: center;
+  cursor: default;
+
+}
+
+.cal-day__month--current {
+  color: #777;
+}
+
+
+.cal-day__month--previous,
+.cal-day__month--next {
+  cursor: pointer;
+  &:hover {
+    background-color: var(--primary-soft);
+    box-shadow: 0 5px 5px -5px rgba(0,0,0,0.16);
+    border-radius: 50%;
+    font-weight: 600;
+    color: #fff;
+  }
+}
+
+.cal-day__day--today {
+  font-weight: 600;
+  color: #5867dd;
+}
+
+.cal-day__day--selected {
+  background-color: var(--primary-hover);
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, .75);
+  border-radius: 50%;
+  color: #fff;
+}
+
+.cal-day__day--reservable {
+  background-color: var(--primary-soft);
+  box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.16);
+  border-radius: 50%;
+  font-weight: 500;
+  color: #5867dd;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--primary);
+    box-shadow: 0 5px 5px -5px rgba(0,0,0,0.75);
+    border-radius: 50%;
+    font-weight: 600;
+    color: #fff;
+  }
+}

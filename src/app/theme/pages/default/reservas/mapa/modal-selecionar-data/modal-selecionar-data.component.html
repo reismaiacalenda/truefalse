@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">
+    Selecione uma data
+  </h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"
+  >
+    <span aria-hidden="true">
+      &times;
+    </span>
+  </button>
+</div>
+
+<div class="modal-body p-0">
+	<div class="m-portlet__body">
+    <mini-calendar-picker
+      [(selected)]="selectedDay"
+      [(today)]="today"></mini-calendar-picker>
+  </div>
+</div>
+
+<div class="modal-footer">
+
+  <div class="col m--align-left pl-0">
+    <button type="button" (click)="aplicarHoje()"
+      class="btn btn-secondary">
+      <!--   -->
+      <!-- Limpar -->
+      <!-- class="btn btn-danger mr-auto" -->
+      Hoje!
+    </button>
+  </div>
+
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+		Cancelar
+	</button>
+	<button type="button" class="btn btn-primary" (click)="aplicarData()">
+		Aplicar
+	</button>
+</div>

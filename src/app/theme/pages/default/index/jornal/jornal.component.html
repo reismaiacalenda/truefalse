@@ -1,0 +1,184 @@
+<div class="card card-custom card-shadowplus" [ngClass]="cssClasses">
+  <!-- Header -->
+
+  <!-- <mini-calendar></mini-calendar> -->
+
+  <div class="card-header align-items-center border-0 mt-4">
+    <div class="card-title align-items-start flex-column">
+      <span class="font-weight-bolder text-dark-75 font-size-lg">Meu dia</span>
+      <span class="font-weight-bold text-dark-25 font-size-sm mt-1">{{jornal?.data}}</span>
+    </div>
+    <div class="card-toolbar">
+      <!-- <a href="#" class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+        (click)="openFormModalNew()">
+        <i class="la la-plus"></i>
+      </a> -->
+      
+      <!-- class="col-md-1 pr-0 float-right" -->
+      <!-- <agendar-dropdown [body]="montarBodyAgendar()"
+        (refresh)="coletarJornal()">
+      </agendar-dropdown>
+      <a href="#" class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+        (click)="coletarJornal()">
+        <i class="la la-refresh"></i>
+      </a> -->
+      <!-- <div ngbDropdown [placement]="'bottom-right'" class="dropdown dropdown-inline" title="Quick actions">
+        <a ngbDropdownToggle class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="ki ki-bold-more-ver"></i>
+        </a>
+        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+          <kt-dropdown1></kt-dropdown1>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <!-- Body -->
+  <div class="card-body py-0">
+    <div class="timeline timeline-5 mt-3">
+
+
+      <div *ngFor="let r of jornal?.timeline" class="timeline-item align-items-start mb-4 bg-hover-light"
+        (click)="openModalDetalhe(r.id)">
+        <div class="timeline-label font-weight-bolder text-dark-75 font-size-xs">{{r.hora}}</div>
+
+        <div class="timeline-badge">
+          <i class="fa fa-chevron-circle-right text-danger icon-xs"></i>
+        </div>
+
+        <div class="timeline-content d-flex">
+          <!-- <p class="m-0"> -->
+          <span class="font-weight-normal text-dark-75 pl-3 font-size-xs"><b>{{r.assunto}} > </b>{{r.anfitriao}}<a [routerLink]="" class="font-weight-bolder text-dark-75 pl-3 font-size-xs"
+            >{{r.url}}</a>
+          </span>
+          <!-- <span class="font-weight-normal text-dark-75 pl-1 font-size-lg">{{r.assunto}}</span> -->
+          <!-- style="display: block" -->
+          <!-- </p> -->
+        </div>
+      </div>
+
+
+      <!-- <div class="timeline-item align-items-start">
+        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">08:42</div>
+
+        <div class="timeline-badge">
+          <b><i class="fa fa-circle text-warning icon-xl" style="font-size: 1.4rem;
+          font-weight: 600;
+          padding-left: 2px;"></i></b>
+        </div>
+
+        <div class="font-weight-mormal font-size-lg timeline-content text-muted pl-3">
+          Repasse VsCode
+        </div>
+      </div>
+
+      <div class="timeline-item align-items-start">
+        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">10:00</div>
+
+        <div class="timeline-badge">
+          <i class="fa fa-chevron-circle-right text-info icon-xl"></i>
+        </div>
+
+        <div class="timeline-content d-flex">
+          <span class="font-weight-bolder text-dark-75 pl-3 font-size-lg">Zema > </span>
+          <span class="font-weight-normal text-dark-75 pl-3 font-size-lg"> Política industrial</span>
+        </div>
+      </div>
+
+      <div class="timeline-item align-items-start">
+        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg m-animate-pulse" >10:30</div>
+
+        <div class="timeline-badge m-animate-shake">
+          <i class="fa fa-check-circle text-danger icon-xl"></i>
+
+        </div>
+
+        <div class="timeline-content d-flex">
+          <span class="font-weight-bolder text-dark-75 pl-3 font-size-lg">Emprestimo > notebook</span>
+        </div>
+      </div>
+
+      <div class="timeline-item align-items-start">
+        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">14:37</div>
+
+        <div class="timeline-badge">
+          <i class="fa fa-chevron-circle-left text-info icon-xl"></i>
+
+        </div>
+
+        <div class="timeline-content font-weight-bolder font-size-lg text-dark-75 pl-3">
+          Zema > Política industrial
+        </div>
+      </div>
+
+      <div class="timeline-item align-items-start">
+        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">16:50</div>
+
+        <div class="timeline-badge">
+          <i class="fa fa-times-circle text-danger icon-xl"></i>
+        </div>
+
+        <div class="timeline-content font-weight-bolder font-size-lg text-dark-75 pl-3">
+          Fim do emprestimo
+        </div>
+      </div>
+
+      <div class="timeline-item align-items-start">
+        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">21:03</div>
+
+        <div class="timeline-badge">
+          <i class="fa fa-question-circle text-danger icon-xl"></i>
+        </div>
+
+        <div class="timeline-content font-weight-bolder text-dark-75 pl-3 font-size-lg">
+          New order placed <a href="#" class="text-primary">#XF-2356</a>.
+        </div>
+      </div>
+
+      <div class="timeline-item align-items-start">
+        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">23:07</div>
+
+        <div class="timeline-badge">
+          <i class="fa fa-dot-circle text-info icon-xl"></i>
+        </div>
+
+        <div class="timeline-content font-weight-mormal font-size-lg text-muted pl-3">
+          Outlines keep and you honest. Indulging in poorly driving
+        </div>
+      </div>
+
+      <div class="timeline-item align-items-start">
+        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">16:50</div>
+
+        <div class="timeline-badge">
+          <i class="fa fa-plus-circle text-primary icon-xl"></i>
+        </div>
+
+        <div class="timeline-content font-weight-mormal font-size-lg text-muted pl-3">
+          Indulging in poorly driving and keep structure keep great
+        </div>
+      </div>
+
+      <div class="timeline-item align-items-start">
+        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">21:03</div>
+
+        <div class="timeline-badge">
+          <i class="fa fa-genderless text-danger icon-xl"></i>
+        </div>
+
+        <div class="timeline-content font-weight-bolder font-size-lg text-dark-75 pl-3">
+          New order placed <a href="#" class="text-primary">#XF-2356</a>.
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+
+  <!-- <div class="card-header align-items-center border-0 mt-0">
+    <h5 class="align-items-start flex-column">
+      <span class="font-weight-bolder text-dark">Posto & recursos</span>
+      <span class="text-muted font-weight-bold mt-1" style="font-size: 1rem;">Posto & recursos</span>
+    </h5>
+  </div> -->
+  
+</div>

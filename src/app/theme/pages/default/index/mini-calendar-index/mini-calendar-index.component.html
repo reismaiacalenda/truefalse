@@ -1,0 +1,40 @@
+<div class="card card-custom card-shadowplus px-3 pb-0 pt-2 h-100">
+  <div class="pt-3 pb-0 px-2">
+    <span class="font-weight text-dark-75">Meu calendário</span>
+  </div>
+
+  <div class="mini-calendar pt-2">
+    <div class="mini-calendar__month pb-2">
+      <div class="mini-cal-month__previous ml-4 pl-0" (click)="removeMonth()"><</div>
+      <div class="mini-cal-month__current text-dark-50 font-size-sm">{{monthString}}</div>
+      <div class="mini-cal-month__next" (click)="addMonth()">></div>
+    </div>
+    <div class="mini-calendar__head">
+      <div *ngFor="let w of weekDays" class="mini-cal-head__day text-dark-50 font-size-sm">{{w}}</div>
+    </div>
+    <div class="mx-2 separator separator-dashed separator-border-1"></div>
+    <div class="mini-calendar__body">
+      <div *ngFor="let w of weeksArray; let i = index"
+        class="mini-cal-body__week">
+        <div *ngFor="let d of w; let i = index"
+          class="mini-cal-body__day" [ngClass]="d.classe"
+          (click)="selectDate(d)">
+          {{d.day}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- && workspaceService.contemModulo('smr', 'hd', 'eh')" -->
+  <div class="d-none d-lg-block">
+    <div class="d-flex justify-content-center pt-0 "
+      *ngIf="workspaceService.autorizar('reserva_evento_criar_meu', 'reserva_evento_criar_grupo', 'reserva_evento_criar_unidade')"
+      routerLink="/reservas/calendario">
+      <span class="text-dark-50 font-size-xs text-center text-hover-primary m-link m-link--primary pt-3 pt-lg-1 px-5 cursor-pointer">
+        Ir para calendário
+        <span class="svg-icon svg-icon-hover-primary svg-icon-1x"
+          [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-right.svg'">
+        </span>
+      </span>
+    </div>
+  </div>
+</div>

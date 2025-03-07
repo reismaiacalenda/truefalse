@@ -1,0 +1,97 @@
+<div class="m-login__signup">
+  <div class="m-login__head">
+    <h3 class="m-login__head d-flex justify-content-center ">
+      Criar conta rápida:
+    </h3>
+    <div class="m-login__desc" *ngIf="!domainService.isClienteSubdominio()">
+      Último passo para seu workspace!
+    </div>
+  </div>
+  <!-- (ngSubmit)="registerForm.form.valid && signup()" -->
+  <form 
+  #registerForm="ngForm" class="m-login__form m-form" action="">
+
+  <ng-template #alertSignup></ng-template>
+    <div class="form-group m-form__group">
+      <input class="form-control m-input"
+        type="text"
+        placeholder="Seu nome"
+        name="name"
+        [(ngModel)]="registerData.name"
+        #name="ngModel"
+        [disabled]="!agree"
+        required>
+    </div>
+      <!-- [(ngModel)]="registerData.name" -->
+    <div class="form-group m-form__group">
+      <input class="form-control m-input"
+      type="e-mail"
+      placeholder="E-mail"
+      name="email"
+      [(ngModel)]="registerData.login"
+      #email="ngModel"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,9}$"
+      [disabled]="!agree" 
+      required>
+      <!-- autocomplete="off" -->
+    </div>
+    <div class="form-group m-form__group">
+      <input class="form-control m-input"
+      type="password"
+      placeholder="Senha"
+      name="password"
+      #password="ngModel"
+      pattern="^.{6,}$"
+      [(ngModel)]="registerData.password"
+      [disabled]="!agree"
+      required
+      >
+    </div>
+    <br>
+      <!-- <input class="form-control m-input m-login__form-input--last" type="password" placeholder="Confirm Password" name="password" [(ngModel)]="model.password" #rpassword="ngModel"> -->
+    <!-- </div> -->
+
+    <label class="m-checkbox m-checkbox--primary">
+      <input type="checkbox" name="agree" (click)="checkAgree()" 
+      required>
+      Aceito os
+      <!--  (click)="termosDeUso()"  -->
+      <a href="https://calenda.com.br/terms-of-use/" target="_blank" class="m-link m-link--primary">
+        termos de uso
+      </a>
+      e 
+      <a href="https://calenda.com.br/privacy-policy/" target="_blank" class="m-link m-link--primary">
+        política de privacidade
+      </a>
+      .
+      <span></span>
+    </label>
+    
+    <div *ngIf="output != undefined" class="m-login__form-sub">
+      <span *ngFor="let m of (output?.error?.errors?.full_messages)" class="m-form__help m--font-danger">
+        {{m}}
+      </span>
+    </div>
+
+    <div *ngIf="output != undefined" class="m-login__form-sub">
+      <span *ngFor="let m of (output?.error?.errors)" class="m-form__help m--font-danger">
+        {{m}}
+      </span>
+    </div>
+   
+   
+    <div class="m-login__form-action mt-9 mb-6">
+      <button [disabled]="loading || email.invalid || password.invalid || name.invalid || !agree"
+       [ngClass]="{'m-loader m-loader--right m-loader--light': loadingCalenda}" id="m_login_signup_submit" class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air"
+        (click)="signup('calenda')">
+        Criar
+      </button>
+      <button [disabled]="loading"  id="m_login_signup_cancel" class="btn btn-outline-primary m-btn m-btn--pill m-btn--custom"
+        (click)="cancelar()">
+        Cancelar
+      </button>
+    </div>
+
+
+  </form>
+</div>

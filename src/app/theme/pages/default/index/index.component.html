@@ -1,0 +1,122 @@
+<div class="d-flex flex-column h-100 p-6">
+
+	<!-- #region Ações -->
+	<div class="row pb-0 pb-lg-3">
+		<div class="col-12 py-0">
+			<acoes></acoes>
+		</div>
+	</div>
+	<!-- #endregion Ações -->
+
+	<div class="separator separator-dashed separator-border-4"></div>
+
+	<!-- #region Faixas -->
+	<div class="row pt-3 h-100">
+
+		<div class="col-12 col-md-3 order-3 order-lg-2"
+			*ngIf="workspaceService.orelhasCalendario(2) || workspaceService.orelhasCalendario(3)">
+			<div class="row h-100">
+				<div class="col-12 pb-6 pb-lg-0"
+				*ngIf="workspaceService.contemModulo('smr')">
+					<jornal-smartroom (refreshData)="carregarJornalCalendario()" cssClasses="h-100"></jornal-smartroom>
+				</div>
+				<div class="col-12 pb-6 pb-lg-0" 
+					*ngIf="workspaceService.contemModulo('hd') &&
+								!workspaceService.contemModulo('smr') &&
+								workspaceService.contemModulo('sr')">
+					<jornal-hotdesk (refreshData)="carregarJornalCalendario()"  class="pb-0" cssClasses="pb-0 h-100"></jornal-hotdesk>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-3 order-2 order-lg-3">
+			<div class="row h-100">
+				<div class="col-12 pb-6 pb-lg-0">
+					<mini-calendar-index (diaSelecionado)="alterarDiaJornal($event)"></mini-calendar-index>
+				</div>
+			</div>
+		</div>	
+		
+		<div class="col-12 order-3 order-lg-4"
+			[ngClass]="{
+				'col-md-5' : workspaceService.formacaoColunas('3-5-4'),
+				'col-md-3' : workspaceService.formacaoColunas('3-3-3-3')}">
+			<div class="row h-100">
+
+				<!-- pb-6 pb-lg-0 -->
+				<div class="col-12 pb-6 pb-lg-0"
+					*ngIf="workspaceService.contemModulo('smr') && workspaceService.orelhasCalendario(1)">
+					<jornal-smartroom (refreshData)="carregarJornalCalendario()" cssClasses="h-100"></jornal-smartroom>
+				</div>
+
+				<div class="col-12 pb-6"
+					[ngClass]="{
+						'pb-lg-6' : workspaceService.orelhasCalendario(3),
+						'pb-lg-0' : !workspaceService.orelhasCalendario(3)}"
+					*ngIf="(workspaceService.contemModulo('hd') && !workspaceService.contemModulo('smr','sr'))
+							|| (workspaceService.contemModulo('hd') && workspaceService.contemModulo('smr'))
+							|| (workspaceService.contemModulo('hd') && !workspaceService.contemModulo('sr') && !workspaceService.contemModulo('smr'))">
+					<jornal-hotdesk (refreshData)="carregarJornalCalendario()" class="pb-0" cssClasses="pb-0 h-100"></jornal-hotdesk>
+				</div>
+
+				<div class="col-12 pb-6 pb-lg-0"
+					*ngIf="workspaceService.contemModulo('sr')">
+					<jornal-servicos-recursos (refreshData)="carregarJornalCalendario()" class="pb-0" cssClasses="pb-0 h-100"></jornal-servicos-recursos>
+				</div>
+
+				<!-- <div class="col-12 pb-6 d-flex justify-content-center h-100">
+					<span class="text-dark-50 font-size-sm text-center">
+						Próximos 3 eventos ->
+					</span>
+				</div> -->
+			</div>
+		</div>
+				
+		<!-- [ngClass]="workspaceService.conferirModulosCombinados('smr')
+			? 'col-md-3' : 'col-md-3'" -->
+		<div class="col-12 order-1 order-lg-5"
+			[ngClass]="{
+			'col-md-4' : workspaceService.formacaoColunas('3-5-4'),
+			'col-md-3' : workspaceService.formacaoColunas('3-3-3-3')}">
+			<div class="row h-100 d-flex justify-content-between">
+
+				<div class="col-12 pb-6 d-none d-lg-block"
+				*ngIf="workspaceService.contemModulo('eh')"
+				>
+					<office-pass></office-pass>
+				</div>
+		
+				<!-- && !workspaceService.contemModulo('phe') -->
+				<div class="col-12 pb-0 d-none d-lg-block"
+				*ngIf="workspaceService.contemModulo('phe','eh')"
+				[ngClass]="{
+					'd-lg-flex align-items-end' : workspaceService.contemModulo('eh'),
+					'pt-0' : !workspaceService.contemModulo('eh')}"
+					>
+					<qrcalenda></qrcalenda>
+				</div>
+
+				<div #logoCalenda class="col-12 d-none d-lg-block"
+					[ngClass]="workspaceService.contemModulo('eh') ? 'pt-6' : 'pt-0'"
+					>
+					<!-- *ngIf="!workspaceService.contemModulo('phe')" -->
+						<div class="d-flex align-items-center flex-center card card-custom card-shadowmore rounded h-100 m-animate-shine">
+							<span class="svg-avatar"
+								[ngClass]="workspaceService.contemModulo('eh') ? 'svg-icon-4x' : 'svg-icon-10x card-shadowplus rounded-circle p-10'"
+								[inlineSVG]="'./assets/app/media/svg/logos/calenda_light.svg'">
+							</span>
+					</div>
+				</div>
+
+				<!-- <div class="col-12 pb-0 d-flex align-items-end"
+					*ngIf="!workspaceService.contemModulo('eh','phe')">
+					<citacao></citacao>
+				</div> -->
+				
+			</div>
+		</div>
+		
+	</div>
+	<!-- #endregion Faixas -->
+
+</div>

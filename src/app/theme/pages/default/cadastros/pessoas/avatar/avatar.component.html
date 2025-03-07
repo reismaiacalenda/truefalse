@@ -1,0 +1,258 @@
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+		<tf-page-map class="col-md-11 pl-0" nomePagina="Avatar" [menu]="[
+				['/', 'Cadastro de ativos'],
+				['/', 'Pessoas'],
+				['/cadastros/pessoas/avatar', 'Avatar']
+			]">
+		</tf-page-map>
+		<tf-page-guia class="col-md-1 pr-0 float-right">
+		</tf-page-guia>
+	</div>
+</div>
+<div class="m-content">
+	<div class="">
+		<!-- m-portlet m-portlet--mobile -->
+		<div class="">
+			<!-- m-portlet__body -->
+			<div class="row mx-0">
+				<!-- TODO: tentar uma box inteira para essa coluna. 
+					e uma box rounded top com os icones, mas sem muita complicação de flex
+					uma do ladinho, cabendo até 5 se pah, e sofrendo com algum lance de colapse. procurar por vs code se pah. sei lá
+					ou svg -lg, svg-sm se pah
+					tentar imendar no mapa. ou seja, sem pading entre as colunas-->
+				<div class="col-lg-6 p-0 order-sm-2 order-1 ">
+					<div class="card-toolbar pl-0 pr-0 pb-1 card-shadowmore rounded-top bg-white " id='divwidth'>
+						<div class="d-flex align-items-center justify-content-between flex-wrap">
+
+							<div class="d-flex flex-right">
+								<a href="#" (click)="save()" class="btn btn-sm btn-light-light font-weight-bold
+								px-sm-1 px-5 py-0" ngbTooltip="Salvar" container="body" placement="bottom">
+									<span class="svg-icon svg-icon-primary svg-icon-sm-2p5x svg-icon-4x"
+									[inlineSVG]="'./assets/app/media/svg/icons/General/Save.svg'">
+									<!-- [ngClass]="[tabStateManager.activeState == 4 ? 'svg-icon-primary' : 'svg-icon-light']" -->
+									</span>
+									<p class="d-sm-none d-block m-0">Salvar</p>
+								</a>
+								<a href="#" (click)="descartar()" class="btn btn-sm btn-light-light font-weight-bold
+									px-sm-1 px-5 py-0" ngbTooltip="Descartar alterações" container="body" placement="bottom">
+									<span class="svg-icon svg-icon-primary svg-icon-sm-2p5x svg-icon-4x"
+										[inlineSVG]="'./assets/app/media/svg/icons/Home/Broom.svg'">
+									</span>
+									<p class="d-sm-none d-block m-0">Descartar</p>
+								</a>
+								<a href="#" (click)="random()" class="btn btn-sm btn-light-light font-weight-bold
+								px-sm-1 px-5 py-0" ngbTooltip="Aleatório" container="body" placement="bottom">
+									<span class="svg-icon svg-icon-primary svg-icon-sm-2p5x svg-icon-4x"
+										[inlineSVG]="'./assets/app/media/svg/icons/Clothes/Hanger.svg'">
+									</span>
+									<p class="d-sm-none d-block m-0">Aleatório</p>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div class="symbol symbol-150 symbol-light-primary mr-5"> -->
+						<!-- <span class="symbol-label"> -->
+					<div class="d-flex align-items-center flex-center py-0" style="height: 40vh;">
+						<div class="d-flex flex-column flex-center">
+							<div style="position: relative;">
+
+								<span class="svg-avatar svg-icon-20x"
+									style="position: absolute;"
+									[inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+formulario.value.avatar_hair+'.svg'">
+								</span>
+
+								<span class="svg-avatar svg-icon-20x"
+									style="position: absolute;"
+									[inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+formulario.value.avatar_clothes+'.svg'">
+								</span>
+
+								<span class="svg-avatar svg-icon-20x"
+									style="position: absolute;"
+									[inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+formulario.value.avatar_extra+'.svg'">
+								</span>
+
+								<span class="svg-avatar svg-icon-20x"
+									[inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+formulario.value.avatar_body+'.svg'">
+								</span>
+								
+								
+							</div>
+						<!-- </span> -->
+						</div>
+					</div>			
+
+				</div>
+				<div class="col-lg-6 p-0 order-sm-1 order-2">
+					<div class="card-toolbar p-0 pb-1 card-shadowmore rounded-top-left rounded-bottom-left bg-white"
+						style="height: 100%;">
+
+						<div class="row mx-0">
+							<div class="card-toolbar p-0 card-shadow rounded-top-left" style="width: 100%;">
+								<ul class="dashboard-tabs nav nav-pills nav-danger row m-0" role="tablist">
+									<li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(1)" ngbTooltip="Tons de pele"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow" data-toggle="pill"
+											href="#tab_forms_widget_1" [ngClass]="[
+												tabStateManager.activeState == 1 ? 'active' : ''
+											]">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-sm-2p5x svg-icon-4x" [ngClass]="[
+													tabStateManager.activeState == 1 ? 'svg-icon-white' : 'svg-icon-primary'
+												]" [inlineSVG]="'./assets/app/media/svg/icons/General/User.svg'">
+											</span>
+										</a>
+									</li>
+									<li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(2)" ngbTooltip="Cabelos"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow" data-toggle="pill"
+											href="#tab_forms_widget_2" [ngClass]="[
+												tabStateManager.activeState == 2 ? 'active' : ''
+											]">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-sm-2p5x svg-icon-4x" [ngClass]="[
+													tabStateManager.activeState == 2 ? 'svg-icon-white' : 'svg-icon-primary'
+												]" [inlineSVG]="'./assets/app/media/svg/icons/Home/Ruller.svg'">
+											</span>
+										</a>
+									</li>
+									<li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(3)" ngbTooltip="Roupas"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow" data-toggle="pill"
+											href="#tab_forms_widget_3" [ngClass]="[
+												tabStateManager.activeState == 3 ? 'active' : ''
+											]">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-sm-2p5x svg-icon-4x" [ngClass]="[
+													tabStateManager.activeState == 3 ? 'svg-icon-white' : 'svg-icon-primary'
+												]" [inlineSVG]="'./assets/app/media/svg/icons/Clothes/Shirt.svg'">
+											</span>
+										</a>
+									</li>
+									<li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(4)" ngbTooltip="Acessórios"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow " data-toggle="pill"
+											href="#tab_forms_widget_4" [ngClass]="[
+												tabStateManager.activeState == 4 ? 'active' : ''
+											]">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-sm-2p5x svg-icon-4x" [ngClass]="[
+													tabStateManager.activeState == 4 ? 'svg-icon-white' : 'svg-icon-primary'
+												]" [inlineSVG]="'./assets/app/media/svg/icons/Clothes/Sun-glasses.svg'">
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="row mx-0">
+							<!--begin::Nav Content-->
+							<div class="tab-content m-0 px-0 py-0" style="width: 100%;">
+								<div class="tab-pane" id="forms_widget_tab_1" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 1 ? 'active' : ''
+								]">
+									<div class="row px-4 pt-4">
+										<div *ngFor="let in of bodyArray; let i = index" class="col-sm-2 col-4 pb-5 px-3">
+											<a class="card card-custom card-stretch card-shadowplus bg-hover-light-primary mb-8 mb-lg-0 cursor-pointer"
+												(click)="changeBody(i)" [ngClass]="[formulario.value.avatar_body == i ? 'bg-light' : 'bg-grey-100']">
+												<div class="card-body pt-1 pb-0 px-sm-0 px-2">
+													<div class="d-flex align-items-center flex-center py-0" style="height: 100%;">
+														<div class="d-flex flex-column flex-center">
+															<h3 class="text-gray-500 h5 mb-0">
+																<span class="svg-avatar svg-icon-4x"
+																	[inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+i+'.svg'">
+																</span>
+															</h3>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="forms_widget_tab_2" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 2 ? 'active' : ''
+								]">
+									<div class="row px-4 pt-4">
+										<div *ngFor="let in of hairArray; let i = index" class="col-sm-2 col-4 pb-5 px-3">
+											<a class="card card-custom card-stretch card-shadowplus bg-hover-light-primary mb-8 mb-lg-0 cursor-pointer"
+											(click)="changeHair(i)" [ngClass]="[formulario.value.avatar_hair == i ? 'bg-light' : 'bg-grey-100']">
+												<div class="card-body pt-1 pb-0 px-sm-0 px-2">
+													<div class="d-flex align-items-center flex-center py-0" style="height: 100%;">
+														<div class="d-flex flex-column flex-center ">
+															<h3 class="text-gray-500 h5 mb-0">
+																<span class="svg-avatar svg-icon-4x" 
+																	[inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+i+'.svg'">
+																</span>
+															</h3>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="forms_widget_tab_3" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 3 ? 'active' : ''
+								]">
+									<div class="row px-4 pt-4">
+										<div *ngFor="let in of clothesArray; let i = index" class="col-sm-2 col-4 pb-5 px-3">
+											<a class="card card-custom card-stretch card-shadowplus bg-hover-light-primary mb-8 mb-lg-0 cursor-pointer"
+											(click)="changeClothes(i)" [ngClass]="[formulario.value.avatar_clothes == i ? 'bg-light' : 'bg-grey-100']"
+												id="kt_page_streched_card">
+												<div class="card-body pt-1 pb-0 px-sm-0 px-2">
+													<div class="card-scroll">
+														<div class="d-flex align-items-center flex-center py-0">
+															<!-- style="height: 100%;" -->
+															<div class="d-flex flex-column flex-center">
+																<h3 class="text-gray-500 h5 mb-0">
+																	<span class="svg-avatar svg-icon-4x"
+																		[inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+i+'.svg'">
+																	</span>
+																</h3>
+															</div>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="forms_widget_tab_4" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 4 ? 'active' : ''
+								]">
+									<div class="row px-4 pt-4">
+										<div *ngFor="let in of extraArray; let i = index" class="col-sm-2 col-4 pb-5 px-3">
+											<a class="card card-custom card-stretch card-shadowplus bg-hover-light-primary mb-8 mb-lg-0 cursor-pointer"
+											(click)="changeExtra(i)" [ngClass]="[formulario.value.avatar_extra == i ? 'bg-light' : 'bg-grey-100']">
+												<div class="card-body pt-1 pb-0 px-sm-0 px-2">
+													<div class="d-flex align-items-center flex-center py-0" style="height: 100%;">
+														<div class="d-flex flex-column flex-center">
+															<h3 class="text-gray-500 h5 mb-0">
+																<span class="svg-avatar svg-icon-4x"
+																	[inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+i+'.svg'">
+																</span>
+															</h3>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--end::Nav Content-->
+						</div>
+					</div>
+
+
+					<!--end::Nav Tabs-->
+
+				</div>
+			</div>
+			<div class="row mx-0">
+				<div class="card-toolbar pl-2 pr-0 pt-4 pb-2 card-shadowmore rounded-bottom bg-white"
+					style="width: 100%;">
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

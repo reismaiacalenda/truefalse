@@ -1,0 +1,373 @@
+<div class="d-flex flex-align-items flex-center h-md-100 pt-2 pt-md-0 px-2 px-md-20 row mx-0">
+  <div class="col-12 col-md-3 pr-0 pl-0 pl-md-3 zindex-1 d-md-block">
+    <div #anfitriao class="card-toolbar p-5 card-shadowmore rounded-top-left rounded-bottom-left bg-white h-100
+    slideInRight animated hidden" style="height: 340px !important;">
+      <div class="d-flex align-items-center flex-center pb-3 pr-0 pr-md-3 flex-row-fluid"
+      >
+        <!--begin::Pic-->
+        <div class="symbol symbol-150 mr-0" [ngClass]="{
+            'symbol-primary-light': dataCalendario?.anfitriao?.situacao == 'livre' ,
+            'symbol-light-danger': dataCalendario?.anfitriao?.situacao == 'ocupado' ,
+            'symbol-light-warning': dataCalendario?.anfitriao?.situacao == 'espera' 
+          }"
+          ngbTooltip="Ver perfil" container="body" placement="right"
+          >
+          <span class="symbol-label bg-hover-light-primary">
+            <div style="position: relative;" class="h-90 animated fadeInUp">
+  
+              <span class="svg-avatar svg-icon-10x" style="position: absolute;"
+                [inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+dataCalendario?.anfitriao?.avatar_hair+'.svg'">
+              </span>
+  
+              <span class="svg-avatar svg-icon-10x" style="position: absolute;"
+                [inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+dataCalendario?.anfitriao?.avatar_clothes+'.svg'">
+              </span>
+  
+              <span class="svg-avatar svg-icon-10x" style="position: absolute;"
+                [inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+dataCalendario?.anfitriao?.avatar_extra+'.svg'">
+              </span>
+  
+              <span class="svg-avatar svg-icon-10x"
+                [inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+dataCalendario?.anfitriao?.avatar_body+'.svg'">
+              </span>
+  
+            </div>
+            <i class="symbol-badge symbol-badge-bottom bg-success"
+            [ngClass]="{
+              'bg-success': dataCalendario?.anfitriao?.situacao == 'livre' ,
+              'bg-danger': dataCalendario?.anfitriao?.situacao == 'ocupado' ,
+              'bg-warning': dataCalendario?.anfitriao?.situacao == 'espera' 
+            }"
+            ></i>
+          </span>
+        </div>
+        <!--end::Pic-->
+        <!--begin::Title-->
+      </div>
+      <div class="d-flex flex-row-fluid align-items-center pr-0 pr-md-3 flex-center w-100">
+        <p class="font-size-h5 font-weight-bold text-dark-75 mb-1">
+          {{dataCalendario?.anfitriao?.name}}
+        </p>
+      </div>
+      <div class="d-flex flex-row-fluid align-items-center pr-0 pr-md-3 flex-center w-100">
+        <p class="font-size-sm text-dark-75 mb-1">
+          {{dataCalendario?.anfitriao?.email}}
+        </p>
+      </div>
+      <hr class="my-3">
+      <div #maisinfo class="">
+        <a [routerLink]="" class="pointer text-hover-primary" ngbTooltip="Mais informações" container="body" placement="bottom">
+          <div class="d-flex flex-row-fluid w-100 pt-2">
+            <!-- d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3 -->
+            <span class="svg-icon svg-icon-2x svg-icon-primary"
+              [inlineSVG]="'./assets/app/media/svg/icons/General/Clipboard.svg'">
+            </span>
+            <p class="font-size-md font-weight-400 text-dark-75 ml-1 mt-0">
+              Apresentação comercial
+            </p>
+          </div>
+          <div class="d-flex align-items-center">
+            <span class="svg-icon svg-icon-2x svg-icon-primary"
+              [inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'">
+            </span>
+            <div class="font-size-md font-weight-400 text-center text-dark-75 ml-1 mt-0">
+              <span>30 min</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+      
+  </div>
+  <div class="col-12 col-md-5 p-0 d-md-block">
+    <div #calendario class=" zindex-2 card-toolbar pt-7 pb-4 px-2 px-md-5 card-shadowmore rounded bg-white
+    ribbon ribbon-clip ribbon-left hidden flipInX animated">
+      <div #ribbon *ngIf="habilitarCalendario" class="ribbon-target hidden rubberBand animated" style="top: 22px;">
+      <!-- tada -->
+      <!-- rubberBand -->
+      <!-- flash -->
+      <!-- pulse -->
+      <!-- style="text-decoration:none" -->
+        <a href="https://calenda.com.br/"  target="_blank" class="text-white text-hover-light-primary">
+          <span class="ribbon-inner bg-primary"></span>By Calenda
+        </a>
+      </div>
+      <div class="calendar" *ngIf="habilitarCalendario">
+        <div class="calendar__month">
+          <div class="cal-month__current">{{monthString}}</div>
+          <div class="cal-month__previous" (click)="removeMonth()">&lt;</div>
+          <div class="cal-month__next" (click)="addMonth()">></div>
+        </div>
+        <div class="calendar__head">
+          <div *ngFor="let w of weekDays" class="cal-head__day">{{w}}</div>
+        </div>
+        <div class="calendar__body zindex-0">
+          <div *ngFor="let w of weeksArray; let i = index"
+            class="cal-body__week">
+            <div *ngFor="let d of w; let i = index"
+              class="cal-body__day" [ngClass]="d.classe"
+              (click)="selectDate(d)">
+              {{d.day}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="habilitarContactForm" [formGroup]="formulario"
+        class="row px-1 px-md-15 pt-2 m-0 animated fadeIn">
+
+        <div class="col-12 d-flex flex-center pb-2">
+          <p class="font-size-h5 font-weight-bold text-dark-75">Preencha os campos:</p>
+        </div>
+
+        <div class="col-12 pb-4">
+        <!-- [ngClass]="aplicaCss('nome')" -->
+          <tf-text-simple
+            formControlName="nome"
+            retirarLabel="true"
+            placeholder="Digite seu nome"
+          >
+          </tf-text-simple>
+        </div>
+        <div class="col-12 pb-4">
+          <!-- [ngClass]="aplicaCss('nome')" -->
+          <tf-text-simple
+            formControlName="email"
+            retirarLabel="true"
+            placeholder="Digite seu e-mail"
+          >
+          </tf-text-simple>
+        </div>
+        <div class="col-12 pb-4">
+        <!-- [ngClass]="aplicaCss('nome')" -->
+          <tf-text-simple
+            formControlName="telefone"
+            retirarLabel="true"
+            placeholder="Telefone/Whatsapp"
+          >
+          </tf-text-simple>
+        </div>
+        <div class="col-12 pb-4">
+        <!-- [ngClass]="aplicaCss('nome')" -->
+          <tf-text-simple
+            formControlName="empresa"
+            retirarLabel="true"
+            placeholder="Nome da sua empresa"
+          >
+          </tf-text-simple>
+        </div>
+        <div class="col-12 pb-5">
+          <!-- [ngClass]="aplicaCss('nome')" -->
+          <tf-text-area
+            formControlName="desafio"
+            retirarLabel="true"
+            placeholder="Meu maior desafio hoje é..."
+          >
+          </tf-text-area>
+        </div>
+
+        <div class="col-12 pb-4 d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary" (click)="submitContactForm()">
+              Confirmar evento
+          </button>
+        </div>
+
+      </div>
+
+      <div *ngIf="habilitarItsAMatch" class="row py-15 py-md-0">
+        <div class="col-12 d-flex justify-content-center pb-2 px-8 px-md-14">
+          <div class="col-6 d-flex justify-content-center">
+            <div style="position: relative;" class="h-90 bg-primary-o-20 rounded-circle animated fadeInLeft">
+              <!-- animated fadeInUp -->
+  
+              <span class="svg-avatar svg-icon-8x" style="position: absolute;"
+                [inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+dataCalendario?.anfitriao?.avatar_hair+'.svg'">
+              </span>
+  
+              <span class="svg-avatar svg-icon-8x" style="position: absolute;"
+                [inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+dataCalendario?.anfitriao?.avatar_clothes+'.svg'">
+              </span>
+  
+              <span class="svg-avatar svg-icon-8x" style="position: absolute;"
+                [inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+dataCalendario?.anfitriao?.avatar_extra+'.svg'">
+              </span>
+  
+              <span class="svg-avatar svg-icon-8x"
+                [inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+dataCalendario?.anfitriao?.avatar_body+'.svg'">
+              </span>
+  
+            </div>
+            <!-- <div class="col-12"> -->
+              <!-- <p class="font-size-sm mb-1 text-dark-75">Marcelo</p> -->
+            <!-- </div> -->
+          </div>
+          <div class="col-6 d-flex justify-content-center">
+            <div style="position: relative;" class="h-90 bg-primary-o-20 rounded-circle animated fadeInRight">
+              
+              <span class="svg-avatar svg-icon-8x" style="position: absolute"
+                [inlineSVG]="'./assets/app/media/svg/avatars/hair/h01.svg'">
+              </span>
+  
+              <span class="svg-avatar svg-icon-8x" style="position: absolute"
+                [inlineSVG]="'./assets/app/media/svg/avatars/clothes/c05.svg'">
+              </span>
+  
+              <span class="svg-avatar svg-icon-8x" style="position: absolute"
+                [inlineSVG]="'./assets/app/media/svg/avatars/extra/e03.svg'">
+              </span>
+  
+              <span class="svg-avatar svg-icon-8x" style=""
+                [inlineSVG]="'./assets/app/media/svg/avatars/body/b02.svg'">
+              </span>
+
+            </div>
+            <!-- <p class="font-size-sm mb-1 text-dark-75">Marcelo</p> -->
+          </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center pb-6 pb-md-0 px-8 px-md-14">
+          <div class="col-6 d-flex justify-content-center animated fadeIn">
+            <p class="text-center" style="overflow: hidden;white-space: nowrap">Lucas Maia</p>
+          </div>
+          <div class="col-6 d-flex justify-content-center animated fadeIn">
+            <p class="text-center" style="overflow: hidden;white-space: nowrap">Bruna Silva dos Campos</p>
+          </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center pb-9 pb-md-3 animated fadeIn">
+          <div class="w-100 h-100 d-flex align-items-center flex-center">
+            <!-- <p class="font-size-h1 text-dark-75">Deu Calenda!</p> -->
+            <!-- style="height: 13rem !important;" -->
+            <span class="svg-avatar svg-icon-match animated tada" 
+              [inlineSVG]="'./assets/app/media/svg/illustrations/deu_match.svg'">
+            </span>
+          </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center pb-8 pb-md-4 pt-1 animated fadeIn">
+          <div class="w-100 h-100 d-flex align-items-center flex-center">
+            <!-- style="height: 13rem !important;" -->
+            <!-- <span class="svg-avatar svg-icon-room" 
+              [inlineSVG]="'./assets/app/media/svg/illustrations/escritorio_reuniao_vazia_e.svg'">
+            </span> -->
+            <!-- svg-icon-primary -->
+            <span class="svg-icon svg-icon-4x"  
+              [inlineSVG]="'./assets/app/media/svg/icons/Home/Door-open.svg'">
+            </span>
+          </div>
+        </div>
+        <div class="col-12 px-12 px-md-25 animated fadeIn">
+          <p class="font-size-xs mb-0 text-dark-75 text-center">
+            <!-- <i class="fa fa-genderless text-primary icon-xl"></i> -->
+            Apresentação Comercial Calenda
+          </p>
+          <p class="font-size-xs mb-0 text-dark-75 text-center">
+            10h00 às 11h00 - quinta - 22/11/23
+          </p>
+          <p class="font-size-xs mb-0 text-dark-75 text-center">
+            compartilhar link
+          </p>
+        </div>
+        <div class="col-12 px-12 px-md-25 d-flex flex-center pt-3 animated fadeIn">
+          <p class="font-size-xs mb-1 text-dark-75 text-center">Um convite para o calendário foi enviado para seu endereço de e-mail</p>
+        </div>
+      </div>
+
+      <!-- *ngIf="habilitarContactForm" -->
+      <!-- <contact-form></contact-form> -->
+      <!-- <its-a-match></its-a-match> -->
+    </div>
+    <div class="w-100 pt-2 pr-2">
+      <div class="d-flex float-right">
+        <p #madeIn class="zindex-0 invisible font-size-xs mb-0 cursor-default"
+        ngbTooltip="Somos uma plataforma mineira do trabalho híbrido 💜" container="body" placement="left">
+          made in
+          <span [inlineSVG]="'./assets/app/media/svg/flags/minasgeraisb.svg'"
+          class="m-menu__link-icon svg-icon svg-icon-1p5x"></span>
+          +
+          <span [inlineSVG]="'./assets/app/media/svg/flags/brazil.svg'"
+          class="m-menu__link-icon svg-icon svg-icon-1p5x"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-3 pl-0 pr-0 pr-md-3 zindex-0 d-none d-md-block">
+    <div class="d-flex flex-align-items ">
+      <!-- <div class="col-1 p-0 zindex-1">
+        <div class="card-toolbar p-0 m-0 w-100 card-shadowmore rounded-top-right rounded-bottom-right bg-white"
+          style="display: flex; height: 340px; flex-direction: column">
+        </div>
+      </div> -->
+      <div class="col-12 p-0 zindex-1">
+        <div #horarios class="card-toolbar pt-5 pb-5 px-5 card-shadowmore rounded-top-right rounded-bottom-right bg-white
+        hidden fadeIn animated h-horarios-sm-100
+          "
+          style="height: 340px; flex-direction: column; -webkit-transform: translate3d(-90%, 0, 0);
+          transform: translate3d(-90%, 0, 0); ">
+          <div class="p-0 w-100">
+            <div class="d-flex float-right cursor-pointer " (click)="recuarHorarios()"> 
+              <span #setaRecuoHorarios class="svg-icon svg-icon-primary svg-icon-quinze hidden animated"
+                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-left.svg'">
+              </span>
+            </div>
+          </div>
+          <!-- animated fadeInUp hidden -->
+          <div #opcoes class="row py-0 px-0 d-flex justify-content-center" style="overflow-y: auto; overflow-x: clip;">
+            <div class="pb-5 px-10">
+              <p class="font-size-md font-weight-600 text-dark-75 p-0 m-0">{{selected?.format("dddd DD/MM")}} às:</p>
+            </div>
+            <div class="px-15 w-100">
+              <div class="pb-3" *ngFor="let h of horariosDisponiveis;">
+                <a [routerLink]="" (click)="selecionarHorario(h)" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">{{h.horario}}</a>
+              </div>
+              <!-- <div class="pb-3">
+                <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">10h00</a>
+              </div>
+              <div class="pb-3 ">
+                <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">14h00</a>
+              </div> -->
+              <!-- <div class="pb-3">
+                <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">14h30</a>
+              </div>
+              <div class="pb-3">
+                <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">15h00</a>
+              </div>
+              <div class="pb-3">
+                <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">15h30</a>
+              </div>
+              <div class="pb-3">
+                <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">16h00</a>
+              </div>
+              <div class="pb-3">
+                <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">14h30</a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- hidden -->
+      <div #logoCalenda class="col-12 p-0 zindex-0 "
+        style="-webkit-transform: translate3d(-100%, 0, 0);
+          transform: translate3d(-100%, 0, 0); ">
+          <div class="w-100 h-100 d-flex align-items-center flex-center">
+            <span class="svg-avatar svg-icon-10x"
+              [inlineSVG]="'./assets/app/media/svg/logos/calenda.svg'">
+            </span>
+        </div>
+      </div>
+    </div>
+    <!-- fadeInLeft  big--> 
+    <!-- slideInLeft -->
+    
+
+  </div>
+  
+</div>
+<!-- <div class="col-12 p-0 zindex-n1 w-100 h-100 "
+style="-webkit-transform: translate3d(0, -100, 0);
+  transform: translate3d(0, -100%, 0); "
+    >
+    <div class="w-100 h-100 d-flex align-items-center flex-center">
+      <span class=""
+        [inlineSVG]="'./assets/app/media/svg/logos/calenda.svg'">
+      </span>
+  </div>
+</div> -->

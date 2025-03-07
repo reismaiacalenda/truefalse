@@ -1,0 +1,962 @@
+<!-- BEGIN: Header -->
+<header *ngIf="printable()" class="m-grid__item    m-header" data-minimize-mobile="hide" data-minimize-offset="200"
+	data-minimize-mobile-offset="200" appunwraptag="">
+	<div class="m-container m-container--fluid m-container--full-height">
+		<div class="m-stack m-stack--ver m-stack--desktop">
+			<!-- BEGIN: Brand -->
+			<div class="m-stack__item m-brand  m-brand--skin-light">
+				<div class="m-stack m-stack--ver m-stack--general">
+					<div class="m-stack__item m-stack__item--middle m-brand__logo">
+						<a routerLink="/index" class="m-brand__logo-wrapper"
+							>
+							<!-- <span class=""
+								[inlineSVG]="'./assets/app/media/svg/logos/calenda_mh1a.svg'">
+							</span> -->
+							<img style="height: 20px; width: 100%;" [src]="logoCustom()">
+							<!-- <h4 class="m-subheader__title" style="margin-bottom: 0px;">
+								Calenda
+							</h4> -->
+						</a>
+					</div>
+					<div class="m-stack__item m-stack__item--middle m-brand__tools">
+						<!-- BEGIN: Left Aside Minimize Toggle -->
+						<a href="javascript:;" id="m_aside_left_minimize_toggle"
+							(click)="toggleASideLeft()"
+							class="
+							m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block m-brand__toggler--active
+							">
+							<!-- m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-desktop-inline-block -->
+							<span></span>
+						</a>
+						<!-- END -->
+						<!-- BEGIN: Responsive Aside Left Menu Toggler -->
+						<a href="javascript:;" id="m_aside_left_offcanvas_toggle"
+							class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
+							<span></span>
+						</a>
+						<!-- END -->
+						<!-- BEGIN: Responsive Header Menu Toggler -->
+						<!-- END -->
+						<!-- BEGIN: Topbar Toggler -->
+						<!-- <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+							<span>
+								<i class="flaticon-more"></i>
+							</span>
+						</a> -->
+
+						<!-- notifications -->
+						<!-- a class "m-nav__link-icon" faz os ícones tremerem -->
+						<a class="m-brand__icon m--visible-tablet-and-mobile-inline-block m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill
+							m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light m-dropdown__toggle" ngbDropdown>
+							<a href="#" class="m-dropdown__toggle" id="m_topbar_notification_icon"
+								ngbDropdownToggle data-mdb-display="static" data-mdb-toggle="dropdown" aria-expanded="false">
+								<div *ngIf="notifications.summary?.unread_count" class="m-badge m-badge--notification m-badge--danger">{{ notifications.summary?.unread_count }}</div>
+								<div class="svg-icon svg-icon-primary svg-icon-lg" [inlineSVG]="'./assets/app/media/svg/icons/General/Notifications1.svg'">
+								</div>
+							</a>
+							<div class="m-dropdown__wrapper" aria-labelledby="m_topbar_notification_icon m_dropdown_see_all_button" ngbDropdownMenu
+								style="background-clip:content-box;width:80vw;height:90vh">
+								<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust fg-primary mx-auto px-0"></span>
+								<div class="m-dropdown__inner h-100">
+									<div class="m-dropdown__header m--align-rigm-dropdown--align-right bg-primary p-0" style="height:10vh">
+										<div class="m-dropdown__header-title text-white py-5 px-2">
+											<div class="text-white">
+												Notificações
+											</div>
+										</div>
+										<div class="m-dropdown__header-subtitle py-5 px-2 float-right">
+											<a class="text-white text-hover-white text-right" href="#" (click)="readAllNotifications()">
+												Marcar todas como lidas
+											</a>
+										</div>
+									</div>
+									<div class="m-dropdown__body p-3" style="height:92.5%;">
+										<div class="m-dropdown__content h-100">
+											<div class="m-scrollable h-100" data-scrollable="true">
+												<ul class="list-unstyled h-100">
+													<ng-template ngFor let-notification [ngForOf]="notifications.notifications">
+														<li class="text-primary mb-2 mb-2 align-middle px-1 border-left border-2"
+															[ngClass]="{'border-primary font-weight-bold' : !notification.read}"
+															style="height: 50px"
+															(click)="readNotification(notification.id, notification.read)"
+															m-dropdown--open>
+															<div class="h-100 d-flex">
+																<div class="h-50" style="margin:auto;white-space:nowrap;align-content:center;overflow:overlay;display:grid;">
+																	{{ notification.message }}
+																</div>
+															</div>
+															<!-- <span class="float-right">
+																{{ notification.when }}
+															</span> -->
+														</li>
+													</ng-template>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+						<!-- end notifications -->
+
+						<a class="m-brand__icon m--visible-tablet-and-mobile-inline-block
+							m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light
+							m-nav__link m-dropdown__toggle" data-dropdown-toggle="click">
+							<a href="#" class="m-nav__link m-dropdown__toggle">
+								<span class="m-topbar__userpic">
+									<a href="#" class="symbol symbol-35 symbol-primary-light mr-0">
+										<div class="symbol-label">
+											<div style="position: relative;">
+
+												<span class="svg-avatar svg-icon-vintecinco"
+													style="position: absolute;"
+													[inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+workspaceService.currentUser.avatar_hair+'.svg'">
+												</span>
+
+												<span class="svg-avatar svg-icon-vintecinco"
+													style="position: absolute;"
+													[inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+workspaceService.currentUser.avatar_clothes+'.svg'">
+												</span>
+
+												<span class="svg-avatar svg-icon-vintecinco"
+													style="position: absolute;"
+													[inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+workspaceService.currentUser.avatar_extra+'.svg'">
+												</span>
+
+												<span class="svg-avatar svg-icon-vintecinco"
+													[inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+workspaceService.currentUser.avatar_body+'.svg'">
+												</span>
+
+											</div>
+											<!-- <i class="symbol-badge symbol-badge-bottom bg-success"></i> -->
+										</div>
+									</a>
+								</span>
+								<span class="m-topbar__username m--hide">
+									Nick
+								</span>
+							</a>
+							<div class="m-dropdown__wrapper" style="left:initial;width:300px;right:-18px;">
+								<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust fg-primary"></span>
+								<div class="m-dropdown__inner">
+									<div class="m-dropdown__header bg-primary"
+										>
+										<!-- style="background: url(./assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;" -->
+										<div class="m-card-user m-card-user--skin-light">
+											<div class="m-card-user__pic">
+												<a routerLink="/cadastros/pessoas/avatar" class="symbol symbol-75 symbol-primary-light mr-3"
+												>
+												<!-- ngbTooltip="Editar avatar" container="body" placement="bottom" -->
+													<div class="symbol-label">
+														<div style="position: relative;">
+
+															<span class="svg-avatar svg-icon-5x"
+																style="position: absolute;"
+																[inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+workspaceService.currentUser.avatar_hair+'.svg'">
+															</span>
+
+															<span class="svg-avatar svg-icon-5x"
+																style="position: absolute;"
+																[inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+workspaceService.currentUser.avatar_clothes+'.svg'">
+															</span>
+
+															<span class="svg-avatar svg-icon-5x"
+																style="position: absolute;"
+																[inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+workspaceService.currentUser.avatar_extra+'.svg'">
+															</span>
+
+															<span class="svg-avatar svg-icon-5x"
+																[inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+workspaceService.currentUser.avatar_body+'.svg'">
+															</span>
+
+														</div>
+														<!-- <i class="symbol-badge symbol-badge-bottom bg-success"></i> -->
+													</div>
+												</a>
+											</div>
+											<div class="m-card-user__details">
+												<span class="m-card-user__name m--font-weight-500" style="color:white">
+													{{workspaceService.currentUser.name}}
+												</span>
+												<span class="m-card-user__email m--font-weight-300" style="color:#fff">
+													{{workspaceService.currentUser.nome_grupos}}
+												</span>
+											</div>
+										</div>
+										<span class="m-card-user__email m--font-weight-300 m-link" style="color:#fff;padding-top:1rem">
+											{{workspaceService.currentUser.email}}
+										</span>
+									</div>
+									<div class="m-dropdown__body">
+										<div class="m-dropdown__content">
+											<ul class="m-nav m-nav--skin-light">
+												<!-- <li class="m-nav__section m--hide">
+													<span class="m-nav__section-text">
+														Section
+													</span>
+												</li> -->
+												<!-- <li class="m-nav__separator m-nav__separator--fit"></li> -->
+												<li class="m-nav__item">
+													<a href="https://docs-calenda.tawk.help/" target="_blank" class="m-nav__link">
+														<i class="m-nav__link-icon flaticon-info"></i>
+														<span class="m-nav__link-text">
+															Guia do usuário
+														</span>
+													</a>
+												</li>
+												<li class="m-nav__item" *ngIf="workspaceService.autorizar('suporte_live_chat')">
+													<a class="m-nav__link" [routerLink]="" (click)="onAbrirChat()">
+														<i class="m-nav__link-icon flaticon-lifebuoy"></i>
+														<span class="m-nav__link-text">
+															Suporte
+														</span>
+													</a>
+												</li>
+												<li class="m-nav__item">
+													<a routerLink="/cadastros/pessoas/avatar" class="m-nav__link" >
+														<i class="m-nav__link-icon flaticon-user"></i>
+														<span class="m-nav__link-text">
+															Editar avatar
+														</span>
+													</a>
+												</li>
+												<li class="m-nav__item" *ngIf="currentUser.provider == 'email'">
+													<a class="m-nav__link" [routerLink]="" (click)="dispararEsqueciSenha()">
+														<i class="m-nav__link-icon flaticon-lifebuoy"></i>
+														<span class="m-nav__link-text">
+															Trocar senha
+														</span>
+													</a>
+												</li>
+												<li class="m-nav__item" *ngIf="workspaceService.autorizar('pessoa_convidar')">
+													<a [routerLink]="" class="m-nav__link"
+														(click)="reservaModalService.abrirModalConvidarPessoas()">
+														<i class="m-nav__link-icon flaticon-user-add"></i>
+														<span class="m-nav__link-text">
+															Convidar pessoas
+														</span>
+													</a>
+												</li>
+												<li class="m-nav__item">
+													<a [routerLink]="" class="m-nav__link" (click)="modalService.trocarUnidade()">
+														<i class="m-nav__link-icon flaticon-more-v4"></i>
+														<span class="m-nav__link-text">
+															Trocar unidade
+														</span>
+													</a>
+												</li>
+												<li class="m-nav__item bg-hover-light px-5">
+													<a routerLink="/workspace/changelog" class="m-nav__link" >
+														<i class="m-nav__link-icon flaticon-refresh"></i>
+														<span class="m-nav__link-text">
+															Atualizações
+														</span>
+													</a>
+												</li>
+												<li class="m-nav__separator m-nav__separator--fit"></li>
+												<li class="m-nav__item">
+													<a routerLink="/snippets/pages/user/login-1"
+														class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-primary m-btn--bolder"
+														routerLink="/logout">
+														Logout
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+
+						<a *ngIf="false" id="m_aside_header_menu_mobile_toggle" href="javascript:;"
+							class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
+							<span>
+								<i class="flaticon-more"></i>
+							</span>
+						</a>
+						<!-- <a *ngIf="currentUser.role_number < 0 && isMobile || (currentUser.email != undefined && currentUser.email == 'anderson@reismaia.com')"
+							style="margin-left:10px" routerLink="/snippets/pages/user/login-1"
+							class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder"
+							routerLink="/logout">
+							Login
+						</a> -->
+
+						<!-- BEGIN: Topbar Toggler -->
+					</div>
+				</div>
+			</div>
+			<!-- END: Brand -->
+			<div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav">
+				<!-- BEGIN: Horizontal Menu -->
+				<div id="m_header_menu"
+					class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-light m-aside-header-menu-mobile--submenu-skin-light pt-0">
+					<ul class="m-menu__nav  m-menu__nav--submenu-arrow">
+						<li class="m-menu__item m-menu__item--submenu m-menu__item--rel pr-4"
+							*ngIf="!isASideLeftToggled()">
+							<a routerLink="/index" class="m-menu__link m-menu__toggle cursor-pointer"
+							>
+							<!-- ngbTooltip="Calenda 💙" container="body" placement="bottom" -->
+								<span class="m-menu__link-text">
+									<img style="height: 20px; width: 100%;" [src]="logoCustomClosed()">
+									<!-- <span class="svg-avatar svg-icon-menu"
+										[inlineSVG]="'./assets/app/media/svg/logos/calenda_full.svg'">
+									</span> -->
+								</span>
+							</a>
+						</li>
+						<!-- <li class="m-menu__item m-menu__item--submenu m-menu__item--rel">
+							<a href="#" class="m-menu__link m-menu__toggle" (click)="atualizarVersao()">
+								<i class="m-menu__link-icon flaticon-paper-plane"></i>
+								<span class="m-menu__link-text">
+									v{{_version}}
+									<span *ngIf="!atualizado" class="m-menu__link-badge m-animate-blink">
+										<span class="m-badge m-badge--accent m-badge--wide">
+											novo
+										</span>
+									</span>
+								</span>
+							</a>
+						</li> -->
+						<li class="m-menu__item  m-menu__item--submenu m-menu__item--rel pl-0" routerLinkActive="m-menu__item--active"
+							routerLinkActiveOptions="{ exact: true }" data-menu-submenu-toggle="hover" aria-haspopup="true">
+							<a href="#" class="m-menu__link m-menu__toggle">
+								<!-- <i class="m-menu__link-icon flaticon-map-location"></i> -->
+								<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'" -->
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Building.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-1x5p pl-2"></span>
+								<span class="pl-0 h-100 d-flex align-items-center align-middle font-size-sm text-dark-75">
+									{{unidadeSelecionada.text}}
+								</span>
+							</a>
+							<div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
+								<span class="m-menu__arrow m-menu__arrow--adjust"></span>
+								<ul class="m-menu__subnav pb-4">
+									<span class="font-size-md pb-4 px-8">Selecione uma unidade:</span>
+									<!-- <div class="separator separator-dashed separator-border-2"></div> -->
+									<li class="m-menu__item  m-menu__item--submenu pt-2">
+										<a class="m-menu__link">
+											<div class="m-radio-list">
+												<label *ngFor="let u of unidades"
+													class="font-size-sm  m-radio m-radio--bold {{desabilitarRadio(u.id)?'m-radio--state':'m-radio--state-brand'}}">
+													<input type="radio" name="{{u.text}}" [value]="u.id" (click)="setarRadio(u)"
+														[checked]="u.id==unidadeSelecionada.id" [disabled]="desabilitarRadio(u.id)">
+														{{u.text}}
+													<span></span>
+												</label>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li *ngIf="false" class="m-menu__item">
+							<a href="#" class="m-menu__link m-menu__toggle ">
+								<span class="m-menu__link-text">
+									<div class="m-spinner m-spinner--sm {{onGetStatus()?'m-spinner--accent ':'m-spinner--warning'}}"
+										style="width:0.6rem;height:0.6rem"></div>
+									<span class="m-badge m-badge--wide {{onGetStatus()?'m-badge--brand':'m-badge--danger'}}"
+										innerText="{{onGetStatus()?'LIVE':'OFF'}}">
+									</span>
+								</span>
+							</a>
+						</li>
+
+						<li *ngIf="workspaceService.autorizar('cabecalho_debug')"
+							class="m-menu__item m-menu__item--submenu m-menu__item--rel d-flex align-items-center">
+							<span class="m-switch m-switch--icon">
+								<label class="my-0">
+									<input type="checkbox" [value]="debugable()" (click)="onDebug()">
+									<span></span>
+								</label>
+							</span>
+							<span class="text-dark-25">
+								debug
+							</span>
+							<ng-container *ngIf="debugable()">
+								<span class="pl-5 text-dark-25">
+									pendingRequests: {{loadingService.pendingRequestNumber}}
+								</span>
+								<span class="pl-5 text-dark-25">
+									isPending?: {{loadingService.isPending()}}
+								</span>
+							</ng-container>
+
+							<!-- <a href="#" class="m-menu__link m-menu__toggle"
+								(click)="atualizarVersao()">
+								<i class="m-menu__link-icon flaticon-paper-plane"></i>
+								<span class="m-menu__link-text">
+									v{{versaoIndex}}
+									<span *ngIf="!atualizado" class="m-menu__link-badge m-animate-blink">
+										<span class="m-badge m-badge--accent m-badge--wide">
+											novo
+										</span>
+									</span>
+								</span>
+							</a> -->
+						</li>
+
+					</ul>
+
+				</div>
+				<!-- END: Horizontal Menu -->
+				<!-- BEGIN: Topbar -->
+				<div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general">
+					<div class="m-stack__item m-topbar__nav-wrapper">
+						<ul class="m-topbar__nav m-nav m-nav--inline" style="display:table;" id="menu-user">
+							<!-- <li
+								class="m-nav__item m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width m-dropdown--skin-light	m-list-search m-list-search--skin-light"
+								data-dropdown-toggle="click" data-dropdown-persistent="true" id="m_quicksearch"
+								data-search-type="dropdown">
+								<a href="#" class="m-nav__link m-dropdown__toggle">
+									<span class="m-nav__link-icon">
+										<i class="flaticon-search-1"></i>
+									</span>
+								</a>
+								<div class="m-dropdown__wrapper">
+									<span class="m-dropdown__arrow m-dropdown__arrow--center"></span>
+									<div class="m-dropdown__inner">
+										<div class="m-dropdown__header">
+											<form class="m-list-search__form">
+												<div class="m-list-search__form-wrapper">
+													<span class="m-list-search__form-input-wrapper">
+														<input id="m_quicksearch_input" autocomplete="off" type="text" name="q"
+															class="m-list-search__form-input" value="" placeholder="Search...">
+													</span>
+													<span class="m-list-search__form-icon-close" id="m_quicksearch_close">
+														<i class="la la-remove"></i>
+													</span>
+												</div>
+											</form>
+										</div>
+										<div class="m-dropdown__body">
+											<div class="m-dropdown__scrollable m-scrollable" data-scrollable="true" data-max-height="300"
+												data-mobile-max-height="200">
+												<div class="m-dropdown__content"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li> -->
+
+							<!-- <span class="pulse-ring"></span> -->
+							<!-- nps -->
+							<!-- <li class="m-nav__item m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill
+								m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light pl-2 pr-0"
+								data-dropdown-toggle="click">
+								<a href="#" class="m-nav__link m-dropdown__toggle" (click)="abrirNps()">
+									<span class="m-topbar__userpic">
+										<a href="#" class="symbol symbol-35 symbol-primary-light mr-0">
+											<div class="symbol-label pulse pulse-primary" style="width: auto">
+
+												<div class="m-spinner m-spinner--sm m-spinner--danger" style="width:0.6rem;height:0.6rem"></div>
+
+												<div style="position: relative;">
+													<span class="svg-icon svg-icon-lg svg-icon-success"
+														[inlineSVG]="'./assets/app/media/svg/icons/General/Smile.svg'" cacheSVG="true">
+													</span>
+													<span class="svg-icon svg-icon-lg svg-icon-danger"
+														[inlineSVG]="'./assets/app/media/svg/icons/General/Sad.svg'" cacheSVG="true">
+													</span>
+												</div>
+											</div>
+										</a>
+									</span>
+								</a>
+							</li> -->
+
+							<li class="m-nav__item m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill
+								m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light pl-2 pr-0"
+								data-dropdown-toggle="click"
+								*ngIf="currentUser?.calenda_nps_id">
+								<a href="#" class="m-nav__link m-dropdown__toggle" (click)="abrirCalendaNps(currentUser?.calenda_nps_id)">
+									<span class="m-topbar__userpic">
+										<a href="#" class="symbol symbol-35 symbol-primary-light mr-0">
+											<div class="symbol-label pulse pulse-primary bg-white" style="width: auto">
+												<span class="pulse-ring"></span>
+
+												<div style="position: relative;">
+													<span class="svg-icon svg-icon-xl svg-icon-primary"
+														[inlineSVG]="'./assets/app/media/svg/icons/General/Smile.svg'" cacheSVG="true">
+													</span>
+												</div>
+											</div>
+										</a>
+									</span>
+								</a>
+							</li>
+							<!-- end nps -->
+
+							<!-- !atualizado -->
+							<li class="m-nav__item m-topbar__quick-actions m-topbar__quick-actions--img px-2" *ngIf="!atualizado"
+								ngbDropdown placement="bottom-right" #dropdownUpdateVersion="ngbDropdown" container="body" [autoClose]="false" >
+								<a href="#" class="m-nav__link pulse pulse-primary m-dropdown__toggle d-inline-block py-0"
+								ngbDropdownToggle id="dropdownBasic2">
+									<div class="btn btn-icon btn-clean btn-lg mr-1  px-0"
+									>
+										<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Air-ballon.svg'" cacheSVG="true"
+											class="svg-icon svg-icon-xl svg-icon-primary pl-2">
+										</span>
+										<div class="m-spinner m-spinner--sm m-spinner--danger"
+											style="width:0.6rem;height:0.6rem"></div>
+									</div>
+								</a>
+								<div ngbDropdownMenu aria-labelledby="dropdownBasic2"
+                     (click)="atualizarVersao()"
+										class="m-dropdown__wrapper bg-radial-gradient-primary bg-hover-primary-o-10 cursor-pointer card-body m-animate-shine">
+                    <div style="
+                      width: 0;
+                      height: 0;
+                      border-left: 15px solid transparent;
+                      border-right: 15px solid transparent;
+                      border-bottom: 7px solid #5867dd;
+                      position: absolute;
+                      top: -5px;
+                      right: 12px;
+                      "></div>
+                    <div class="m-dropdown__inner">
+											<div class="m-dropdown__body px-4 pt-3">
+
+                        <div>
+                          <p class="font-size-md font-weight-bold text-white mb-0">O Calenda tem uma nova versão!</p>
+													<p class="font-size-sm text-white mb-2">
+														<!-- <span class="label label-danger label-pill label-inline ml-2">{{newVersionApi}}</span> -->
+														Atualize para recebê-la.
+													</p>
+                        </div>
+                        <div class="m-dropdown__content">
+													<p class="font-size-sm text-white mb-0 text-center"><u>Clique aqui para atualizar.</u>
+
+														<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Air-ballon.svg'" cacheSVG="true"
+															class="svg-icon svg-icon-4x svg-icon-white">
+														</span>
+													</p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+							</li>
+							        <!-- <i class="m-nav__link-icon la la-plus"></i> -->
+
+                    <!-- <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust" style="left: auto; right: 11px;"></span> -->
+
+                      <!-- <a class="dropdown-item">Action - 1</a>
+                    <a class="dropdown-item">Another Action</a>
+                    <a class="dropdown-item">Something else is here akjsh dasjk dhask jdhak jh</a> -->
+							<li class="m-nav__item m-topbar__quick-actions m-topbar__quick-actions--img px-2"
+								ngbDropdown placement="bottom-right" container="body"
+								*ngIf="currentUser.provider == 'microsoft_graph' || currentUser.provider == 'google_oauth2'"
+								>
+								<a [routerLink]="" class="m-nav__link m-dropdown__toggle d-inline-block py-0"
+								ngbDropdownToggle id="dropdownBasic3">
+									<div class="btn btn-icon btn-clean btn-lg mr-1  px-0"
+									>
+										<!-- <span class="pulse-ring"></span> -->
+										<span [inlineSVG]="'./assets/app/media/svg/icons/Files/Cloud-download.svg'" cacheSVG="true"
+											class="svg-icon svg-icon-xl svg-icon-primary pl-2">
+										</span>
+									</div>
+								</a>
+								<div ngbDropdownMenu aria-labelledby="dropdownBasic2"
+										class="m-dropdown__wrapper bg-radial-gradient-white bg-hover-light cursor-pointer card-body m-animate-shine">
+										<importar-agenda></importar-agenda>
+								</div>
+
+							</li>
+							<!-- <li *ngIf="!isIndex"
+								class="m-nav__item m-topbar__quick-actions m-topbar__quick-actions--img m-dropdown m-dropdown--large m-dropdown--header-bg-fill m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push m-dropdown--mobile-full-width m-dropdown--skin-light px-2"
+								data-dropdown-toggle="click">
+								<a href="#" class="m-nav__link m-dropdown__toggle pulse pulse-primary
+								d-flex align-items-center">
+									<div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1 px-0 py-0">
+										<span [inlineSVG]="'./assets/app/media/svg/icons/Code/Compiling.svg'" cacheSVG="true"
+											class="svg-icon svg-icon-xl svg-icon-primary">
+										</span> -->
+										<!-- <span class="pulse-ring"></span> -->
+									<!-- </div>
+								</a>
+								<div class="m-dropdown__wrapper">
+									<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+									<div class="m-dropdown__inner">
+										<div class="m-dropdown__header m--align-center bg-primary"
+										> -->
+										<!-- style="background: url(./assets/app/media/img/misc/quick_actions_bg.jpg); background-size: cover;" -->
+											<!-- <span class="m-dropdown__header-title">
+												Acesso rápido
+											</span>
+											<span class="m-dropdown__header-subtitle">
+												Atalhos para nossos mini-apps 😊
+											</span>
+										</div>
+										<div class="m-dropdown__body m-dropdown__body--paddingless">
+											<div class="m-dropdown__content">
+												<div class="m-scrollable" data-scrollable="false" data-max-height="380"
+													data-mobile-max-height="200">
+													<div class="m-nav-grid m-nav-grid--skin-light">
+														<div class="m-nav-grid__row">
+															<a routerLink="/reservas/calendario" class="m-nav-grid__item bg-hover-light">
+																<span [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Calendario.svg'"
+																	class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-4x"></span>
+																<span class="m-nav-grid__text text-primary">
+																	Calendário
+																</span>
+															</a>
+															<a routerLink="/reservas/quadros/espacos" class="m-nav-grid__item bg-hover-light"
+																*ngIf="workspaceService.autorizar('quadro_espaco_menu', 'quadro_pessoa_menu', 'quadro_recurso_menu')">
+																<span [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-4-blocks.svg'"
+																	class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-4x"></span>
+																<span class="m-nav-grid__text text-primary">
+																	Quadros
+																</span>
+															</a>
+														</div>
+														<div class="m-nav-grid__row">
+															<a class="m-nav-grid__item bg-hover-light cursor-pointer" routerLink="/reservas/mapa-interativo"
+															*ngIf="workspaceService.autorizar('mapa_interativo')">
+																<span [inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'"
+																	class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-4x"></span>
+																<span class="m-nav-grid__text text-primary">
+																	Mapa interativo
+																</span>
+															</a> -->
+															<!-- routerLink="/reservas/escala"  -->
+															<!-- <a class="m-nav-grid__item bg-hover-light cursor-default"
+																*ngIf="workspaceService.autorizar('calendario_visualizar_pessoas')
+																&& workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')">
+																<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Stairs.svg'"
+																	class="m-menu__link-icon svg-icon svg-icon-dark-50 svg-icon-4x"></span>
+																<span class="m-nav-grid__text text-dark-25">
+																	Grade de rodízio
+																</span>
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li> -->
+
+							<!-- notifications -->
+							<!-- <div class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--huge m-dropdown--header-bg-fill
+								m-dropdown--arrow m-dropdown--align-right m-dropdown--mobile-full-width" ngbDropdown data-dropdown-toggle="click" data-dropdown-persistent="true"> -->
+							<li class="m-nav__item m-topbar__notifications m-topbar__notifications--img m-dropdown m-dropdown--huge m-dropdown--header-bg-fill
+								m-dropdown--arrow m-dropdown--align-right m-dropdown--mobile-full-width" ngbDropdown>
+								<a class="m-nav__link" href="#" id="m_topbar_notification_icon" ngbDropdownToggle>
+									<span class="svg-icon svg-icon-primary svg-icon-lg pr-4 d-table-cell align-middle" [inlineSVG]="'./assets/app/media/svg/icons/General/Notifications1.svg'">
+									</span>
+									<span *ngIf="notifications.summary?.unread_count" class="m-nav__link-badge m-badge m-badge--notification m-badge--danger">{{ notifications.summary?.unread_count }}</span>
+								</a>
+								<div class="m-dropdown__wrapper dropdown-menu" aria-labelledby="m_topbar_notification_icon m_dropdown_see_all_button" ngbDropdownMenu
+									style="background-clip: content-box;height: 90vh !important;">
+									<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust fg-primary mx-auto px-0"></span>
+									<div class="m-dropdown__inner h-100">
+										<div class="m-dropdown__header m--align-rigm-dropdown--align-right bg-primary">
+											<span class="m-dropdown__header-title text-white">
+												Notificações
+
+												<a [routerLink]="['/notifications']" class="text-decoration-none bg-white text-primary float-right rounded" id="m_dropdown_see_all_button" ngbDropdownToggle>
+													<span class="h6 px-2">
+														Ver todas
+													</span>
+												</a>
+											</span>
+											<a class="m-dropdown__header-subtitle text-white text-hover-white text-right" href="#" (click)="readAllNotifications()">
+												Marcar todas como lidas
+											</a>
+										</div>
+										<div class="m-dropdown__body" style="height: 85%">
+											<div class="m-dropdown__content h-100">
+												<!-- <ul class="nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
+													<li class="nav-item m-tabs__item">
+														<a class="nav-link m-tabs__link active" data-toggle="tab"
+															href="#topbar_notifications_notifications" role="tab">
+															Minha agenda
+														</a>
+													</li>
+													<li class="nav-item m-tabs__item">
+														<a class="nav-link m-tabs__link" data-toggle="tab" href="#topbar_notifications_events"
+															role="tab">
+															Outras
+														</a>
+													</li>
+												</ul> -->
+												<div class="tab-content h-100">
+													<div class="tab-pane active h-100" id="topbar_notifications_notifications" role="tabpanel">
+														<div class="m-scrollable h-100" data-scrollable="true" data-mobile-max-height="200">
+															<div class="m-list-timeline m-list-timeline--skin-light">
+																<ul class="list-unstyled">
+																	<ng-template ngFor let-notification [ngForOf]="notifications.notifications">
+																		<li class="text-primary mb-2 mb-2 align-middle bg-hover-light-primary px-1 border-left border-2"
+																			[ngClass]="{'border-primary font-weight-bold' : !notification.read}"
+																			(click)="readNotification(notification.id, notification.read)"
+																			m-dropdown--open>
+																			<span class="d-inline-flex h-100 align-items-center" style="width: 90%;" [innerHTML]="notification.message">
+																				{{ notification.message }}
+																			</span>
+																			<span class="float-right">
+																				{{ notification.when }}
+																			</span>
+																		</li>
+																	</ng-template>
+																	<!-- <li class="">
+																		<span class="m-list-timeline__text">
+																			System shutdown
+																			<span class="m-badge m-badge--success m-badge--wide">
+																				pending
+																			</span>
+																		</span>
+																		<span class="m-list-timeline__time">
+																			14 mins
+																		</span>
+																	</li> -->
+																	<!-- <li class="">
+																		<span class="m-list-timeline__badge"></span>
+																		<span class="m-list-timeline__text">
+																			System error -
+																			<a href="#" class="m-link">
+																				Check
+																			</a>
+																		</span>
+																		<span class="m-list-timeline__time">
+																			2 hrs
+																		</span>
+																	</li> -->
+																</ul>
+															</div>
+														</div>
+													</div>
+													<!-- <div class="tab-pane" id="topbar_notifications_events" role="tabpanel">
+														<div class="m-scrollable" data-scrollable="true" data-max-height="250"
+															data-mobile-max-height="200">
+															<div class="m-list-timeline m-list-timeline--skin-light">
+																<ul class="list-unstyled">
+																	<ng-template ngFor let-notification [ngForOf]="notifications.notifications">
+																		<li class="text-primary mb-2 mb-2 align-middle bg-hover-light-primary px-1 border-left border-2 border-primary" style="height: 50px">
+																			<span class="d-inline-flex h-100 align-items-center" style="width: 90%;">
+																				{{ notification.message }}
+																			</span>
+																			<span class="float-right">
+																				{{ notification.when }}
+																			</span>
+																		</li>
+																	</ng-template>
+																</ul>
+															</div>
+														</div>
+													</div> -->
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<!-- end notifications -->
+
+							<li class="m-nav__item" style="display:table-cell;vertical-align:middle" *ngIf="currentUser	 == -1">
+								<a routerLink="/snippets/pages/user/login-1"
+									class="btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder"
+									routerLink="/logout">
+									Login
+								</a>
+							</li>
+							<li
+								class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light pl-2 pr-0"
+								data-dropdown-toggle="click">
+								<a href="#" class="m-nav__link m-dropdown__toggle">
+									<span class="m-topbar__userpic">
+										<a href="#" class="symbol symbol-35 symbol-primary-light mr-0">
+											<div class="symbol-label">
+												<div style="position: relative;">
+
+													<span class="svg-avatar svg-icon-vintecinco"
+														style="position: absolute;"
+														[inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+workspaceService.currentUser.avatar_hair+'.svg'">
+													</span>
+
+													<span class="svg-avatar svg-icon-vintecinco"
+														style="position: absolute;"
+														[inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+workspaceService.currentUser.avatar_clothes+'.svg'">
+													</span>
+
+													<span class="svg-avatar svg-icon-vintecinco"
+														style="position: absolute;"
+														[inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+workspaceService.currentUser.avatar_extra+'.svg'">
+													</span>
+
+													<span class="svg-avatar svg-icon-vintecinco"
+														[inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+workspaceService.currentUser.avatar_body+'.svg'">
+													</span>
+
+												</div>
+												<!-- <i class="symbol-badge symbol-badge-bottom bg-success"></i> -->
+											</div>
+										</a>
+										<!-- <img src="./assets/app/media/img/users/{{workspaceService?.currentUser?.max_role}}.png"
+											class="m--img-rounded m--marginless m--img-centered" alt="" /> -->
+									</span>
+									<span class="m-topbar__username m--hide">
+										Nick
+									</span>
+								</a>
+								<div class="m-dropdown__wrapper">
+									<span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust fg-primary"></span>
+									<div class="m-dropdown__inner">
+										<div class="m-dropdown__header bg-primary"
+										>
+										<!-- style="background: url(./assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;" -->
+											<div class="m-card-user m-card-user--skin-light">
+												<div class="m-card-user__pic">
+													<a routerLink="/cadastros/pessoas/avatar" class="symbol symbol-75 symbol-primary-light mr-3"
+													>
+													<!-- ngbTooltip="Editar avatar" container="body" placement="bottom" -->
+														<div class="symbol-label">
+															<div style="position: relative;">
+
+																<span class="svg-avatar svg-icon-5x"
+																	style="position: absolute;"
+																	[inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+workspaceService.currentUser.avatar_hair+'.svg'">
+																</span>
+
+																<span class="svg-avatar svg-icon-5x"
+																	style="position: absolute;"
+																	[inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+workspaceService.currentUser.avatar_clothes+'.svg'">
+																</span>
+
+																<span class="svg-avatar svg-icon-5x"
+																	style="position: absolute;"
+																	[inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+workspaceService.currentUser.avatar_extra+'.svg'">
+																</span>
+
+																<span class="svg-avatar svg-icon-5x"
+																	[inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+workspaceService.currentUser.avatar_body+'.svg'">
+																</span>
+
+															</div>
+															<!-- <i class="symbol-badge symbol-badge-bottom bg-success"></i> -->
+														</div>
+													</a>
+													<!-- <img src="./assets/app/media/img/users/{{workspaceService?.currentUser?.max_role}}b.png"
+														class="m--img-rounded m--marginless" alt="" /> -->
+												</div>
+												<div class="m-card-user__details">
+													<span class="m-card-user__name m--font-weight-500" style="color:white">
+														{{workspaceService.currentUser.name}}
+													</span>
+													<span class="m-card-user__email m--font-weight-300" style="color:#fff">
+														{{workspaceService.currentUser.nome_grupos}}
+													</span>
+												</div>
+											</div>
+											<span class="m-card-user__email m--font-weight-300 m-link" style="color:#fff;padding-top:1rem">
+												{{workspaceService.currentUser.email}}
+											</span>
+										</div>
+										<div class="m-dropdown__body px-0">
+											<div class="m-dropdown__content">
+												<ul class="m-nav m-nav--skin-light">
+													<li class="m-nav__section m--hide">
+														<span class="m-nav__section-text">
+															Section
+														</span>
+													</li>
+													<!-- <li class="m-nav__separator m-nav__separator--fit"></li> -->
+													<li class="m-nav__item bg-hover-light px-5">
+														<a href="https://docs-calenda.tawk.help/" target="_blank" class="m-nav__link">
+															<i class="m-nav__link-icon flaticon-info"></i>
+															<span class="m-nav__link-text">
+																Guia do usuário
+															</span>
+														</a>
+													</li>
+													<li class="m-nav__item bg-hover-light px-5" *ngIf="workspaceService.autorizar('suporte_live_chat')">
+														<a [routerLink]="" (click)="onAbrirChat()" class="m-nav__link">
+															<i class="m-nav__link-icon flaticon-chat-1"></i>
+															<span class="m-nav__link-text">
+																Suporte
+															</span>
+														</a>
+													</li>
+													<li class="m-nav__item bg-hover-light px-5">
+														<a routerLink="/cadastros/pessoas/avatar" class="m-nav__link" >
+															<i class="m-nav__link-icon flaticon-user"></i>
+															<span class="m-nav__link-text">
+																Editar avatar
+															</span>
+														</a>
+													</li>
+													<li class="m-nav__item bg-hover-light px-5" *ngIf="currentUser.provider == 'email'">
+														<a class="m-nav__link" [routerLink]="" (click)="dispararEsqueciSenha()">
+															<i class="m-nav__link-icon flaticon-lock-1"></i>
+															<span class="m-nav__link-text">
+																Trocar senha
+															</span>
+														</a>
+													</li>
+													<li class="m-nav__item bg-hover-light px-5" *ngIf="workspaceService.autorizar('pessoa_convidar')">
+														<a [routerLink]="" class="m-nav__link"
+															(click)="reservaModalService.abrirModalConvidarPessoas()">
+															<i class="m-nav__link-icon flaticon-user-add"></i>
+															<span class="m-nav__link-text">
+																Convidar pessoas
+															</span>
+														</a>
+													</li>
+													<li class="m-nav__item bg-hover-light px-5">
+														<a [routerLink]="" class="m-nav__link" (click)="modalService.trocarUnidade()">
+															<i class="m-nav__link-icon flaticon-more-v4"></i>
+															<span class="m-nav__link-text">
+																Trocar unidade
+															</span>
+														</a>
+													</li>
+													<li class="m-nav__item bg-hover-light px-5">
+														<a routerLink="/workspace/changelog" class="m-nav__link" >
+															<i class="m-nav__link-icon flaticon-refresh"></i>
+															<span class="m-nav__link-text">
+																Atualizações
+															</span>
+														</a>
+													</li>
+
+
+													<!-- <li class="m-nav__separator m-nav__separator--fit"></li> -->
+													<!-- <li class="m-nav__item">
+														<a href="#" title="Ânima" ngbTooltip="Ânima" container="body" placement="bottom"
+															class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+															<span style="margin-top: 0.15rem !important; margin-left: 0.15rem">AN</span>
+														</a>
+														<a href="#" title="Fiemg" ngbTooltip="Fiemg" container="body" placement="bottom"
+															class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+															<span style="margin-top: 0.15rem !important; margin-left: 0.15rem">FI</span>
+														</a>
+														<a href="https://app.calenda.com.br" title="Criar Workspace" ngbTooltip="Criar Workspace" container="body" placement="bottom"
+															class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+															<span style="margin-top: 0.2rem !important; margin-left: 0.45rem">+</span>
+														</a>
+													</li> -->
+													<li class="m-nav__separator m-nav__separator--fit"></li>
+													<li class="m-nav__item">
+														<a routerLink="/snippets/pages/user/login-1"
+															class="ml-4 btn m-btn--pill    btn-secondary m-btn m-btn--custom m-btn--label-primary m-btn--bolder"
+															routerLink="/logout">
+															Logout
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- END: Topbar -->
+			</div>
+		</div>
+	</div>
+</header>
+
+<!-- END: Header -->

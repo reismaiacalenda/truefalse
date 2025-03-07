@@ -1,0 +1,78 @@
+<tf-form-simples
+	[formGroup]="formulario"
+  [activeModal]="activeModal"
+  [rowId]="rowId"
+	[autorizar_excluir]="['pessoa_excluir']"
+  (submeter)="onSubmit()"
+	(excluir)="removeItem()"
+	title="Pessoa"
+	id="{{formulario.get('id').value}}"
+  >
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('name')"
+    >
+    <tf-text-simple
+    formControlName="name"
+    label="Nome"
+    placeholder="Nome"
+    >
+    </tf-text-simple>
+	</div>
+
+	<div class="form-group m-form__group"
+	[ngClass]="aplicaCss('email')"
+	>
+	<tf-text-simple
+	[desabilitar]="!!rowId"
+	formControlName="email"
+	label="E-mail"
+	placeholder="pessoa@email.com"
+	>
+	</tf-text-simple>
+</div>
+
+<!--<div class="form-group m-form__group"
+[ngClass]="aplicaCss('rfid')"
+>
+<tf-text-simple
+formControlName="rfid"
+label="Número do crachá"
+placeholder="00000000000"
+>
+</tf-text-simple>
+</div>-->
+
+<div class="form-group m-form__group" [ngClass]="aplicaCss('unidades_attributes')"
+	*ngIf="workspaceService.autorizar('pessoa_editar_unidade')">
+	<tf-select-multi
+		[data]="listDadosSelect['unidades']"
+    [form]="formulario.get('unidades_attributes')"
+		label="Unidades"
+		placeholder="Selecione um ou mais"
+		>
+  </tf-select-multi>
+  <!-- <p>Dirty: {{formulario.get('unidades_attributes').dirty}}</p>
+  <p>Touched: {{formulario.get('unidades_attributes').touched}}</p>
+  <p>Valid: {{formulario.get('unidades_attributes').valid}}</p>
+  <p>Value: {{formulario.get('unidades_attributes').value}}</p> -->
+</div>
+
+<div class="form-group m-form__group" [ngClass]="aplicaCss('grupos_attributes')"
+	*ngIf="workspaceService.autorizar('pessoa_editar_unidade')">
+	<tf-select-multi
+		[data]="listDadosSelect['grupos']"
+		[form]="formulario.get('grupos_attributes')"
+		label="Grupos"
+		placeholder="Selecione um ou mais">
+	</tf-select-multi>
+</div>
+
+<!-- <div class="form-group m-form__group" [ngClass]="aplicaCss('ativo')">
+	<tf-check-box
+			formControlName="ativo"
+			label="Ativo?">
+	</tf-check-box>
+</div> -->
+
+</tf-form-simples>

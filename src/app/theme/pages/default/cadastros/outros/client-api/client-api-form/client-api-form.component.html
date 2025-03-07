@@ -1,0 +1,239 @@
+<tf-form-abas
+	[abas]="abas"
+	[activeModal]="activeModal"
+	[formGroup]="formulario"
+	(submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  id="{{formulario.get('id').value}}"
+>
+
+	<div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+    <div class="form-group m-form__group"
+     [ngClass]="aplicaCss('nome')"
+    >
+    <tf-text-simple
+    formControlName="nome"
+    label="Nome"
+    placeholder="Nome"
+    >
+    </tf-text-simple>
+<!-- <br>
+<br>
+<p>Nome Value: >>> {{formulario.value?.nome}}</p>
+<p>Nome Get Value: >>> {{formulario.get('nome').value}}</p>
+<p>Nome Get Valid: >>> {{formulario.get('nome').valid}}</p>
+<br>
+<p>Aba 1 Valid: >>> {{aba1.valid}}</p>
+<p>Aba 1 Value Campo: >>> {{aba1.get('nome')?.value}}</p>
+<p>Aba 1 Value Completo: >>> {{aba1.value}}</p>
+<br>
+<p>Formulário Valid: >>> {{formulario.valid}}</p>
+<p>Formulário Value: >>> {{formulario.get('nome')?.value}}</p>
+<br>
+<p>Mesmo objeto? >>> {{aba1.get('nome') == formulario.get('nome')}}</p>
+<br>
+<p>Dirty: >>> {{formulario.get('nome').dirty}}</p>
+<p>Touched: >>> {{formulario.get('nome').touched}}</p>
+<p>Valid: >>> {{formulario.get('nome').valid}}</p>
+<br>
+<br> -->
+    </div>
+
+    <div class="form-group m-form__group">
+			<tf-radio-button
+				[data]='[
+					{"label":"Outlook Ânima", "value": 0},
+					{"label":"Ânima Sysclass", "value": 2}
+				]'
+				formControlName="fornecedor"
+				label="Fornecedor"
+			>
+			</tf-radio-button>
+    </div>
+    
+    <div class="form-group m-form__group">
+			<tf-check-box
+				formControlName="retroalimentada"
+				label="Retroalimentada?"
+			>
+			</tf-check-box>
+    </div>
+	</div>
+
+	<div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+    
+    <div class="form-group m-form__group"
+			[ngClass]="aplicaCss('site')">
+			<tf-text-simple
+				formControlName="site"
+				label="Site"
+				placeholder=""
+			>
+			</tf-text-simple>
+		</div>
+
+    <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('link_documentacao')">
+    <tf-text-simple
+      formControlName="link_documentacao"
+      label="Lind da Documentação"
+      placeholder=""
+    >
+    </tf-text-simple>
+    </div>
+
+    <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('link_portal')">
+    <tf-text-simple
+      formControlName="link_portal"
+      label="Link do portal"
+      placeholder=""
+    >
+    </tf-text-simple>
+    </div>
+	</div>
+
+	<div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+
+      <div class="form-group m-form__group"
+			[ngClass]="aplicaCss('redirect_uri')">
+			<tf-text-simple
+				formControlName="redirect_uri"
+				label="Redirect URI"
+				placeholder=""
+			>
+      </tf-text-simple>
+<!-- <br>
+<br>
+<p>Redirect URI Value: >>> {{formulario.value?.redirect_uri}}</p>
+<p>Redirect URI Get Value: >>> {{formulario.get('redirect_uri').value}}</p>
+<p>Redirect URI Get Valid: >>> {{formulario.get('redirect_uri').valid}}</p>
+<br>
+<p>Aba 3 Valid: >>> {{aba3.valid}}</p>
+<p>Aba 3 Value Campo: >>> {{aba3.get('redirect_uri')?.value}}</p>
+<p>Aba 3 Value Completo: >>> {{aba3.value}}</p>
+<br>
+<p>Formulário Valid: >>> {{formulario.valid}}</p>
+<p>Formulário Value: >>> {{formulario.get('redirect_uri')?.value}}</p>
+<br>
+<p>Mesmo objeto? >>> {{aba1.get('redirect_uri') == formulario.get('redirect_uri')}}</p>
+<br>
+<p>Dirty: >>> {{formulario.get('redirect_uri').dirty}}</p>
+<p>Touched: >>> {{formulario.get('redirect_uri').touched}}</p>
+<p>Valid: >>> {{formulario.get('redirect_uri').valid}}</p>
+<br>
+<br> -->
+    </div>
+    
+    <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('token_url')">
+    <tf-text-simple
+      formControlName="token_url"
+      label="Token URL"
+      placeholder=""
+    >
+    </tf-text-simple>
+<!-- <br>
+<br>
+<p>Token URL Value: >>> {{formulario.value?.token_url}}</p>
+<p>Token URL Get Value: >>> {{formulario.get('token_url').value}}</p>
+<p>Token URL Get Valid: >>> {{formulario.get('token_url').valid}}</p>
+<br>
+<p>Aba 3 Valid: >>> {{aba3.valid}}</p>
+<p>Aba 3 Value Campo: >>> {{aba3.get('token_url')?.value}}</p>
+<p>Aba 3 Value Completo: >>> {{aba3.value}}</p>
+<br>
+<p>Formulário Valid: >>> {{formulario.valid}}</p>
+<p>Formulário Value: >>> {{formulario.get('token_url')?.value}}</p>
+<br>
+<p>Mesmo objeto? >>> {{aba1.get('token_url') == formulario.get('token_url')}}</p>
+<br>
+<p>Dirty: >>> {{formulario.get('token_url').dirty}}</p>
+<p>Touched: >>> {{formulario.get('token_url').touched}}</p>
+<p>Valid: >>> {{formulario.get('token_url').valid}}</p>
+<br>
+<br> -->
+    </div>
+
+    <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('scope')">
+    <tf-text-simple
+      formControlName="scope"
+      label="Scope"
+      placeholder="scope, scope_dois"
+    >
+    </tf-text-simple>
+<!-- <br>
+<br>
+<p>Scope Value: >>> {{formulario.value?.scope}}</p>
+<p>Scope Get Value: >>> {{formulario.get('scope').value}}</p>
+<p>Scope Get Valid: >>> {{formulario.get('scope').valid}}</p>
+<br>
+<p>Aba 3 Valid: >>> {{aba3.valid}}</p>
+<p>Aba 3 Value Campo: >>> {{aba3.get('scope')?.value}}</p>
+<p>Aba 3 Value Completo: >>> {{aba3.value}}</p>
+<br>
+<p>Formulário Valid: >>> {{formulario.valid}}</p>
+<p>Formulário Value: >>> {{formulario.get('scope')?.value}}</p>
+<br>
+<p>Mesmo objeto? >>> {{aba1.get('scope') == formulario.get('scope')}}</p>
+<br>
+<p>Dirty: >>> {{formulario.get('scope').dirty}}</p>
+<p>Touched: >>> {{formulario.get('scope').touched}}</p>
+<p>Valid: >>> {{formulario.get('scope').valid}}</p>
+<br>
+<br> -->
+    </div>
+
+    <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('client_secret')">
+    <tf-text-simple
+      formControlName="client_secret"
+      label="Client secret"
+      placeholder=""
+    >
+    </tf-text-simple>
+<!-- <br>
+<br>
+<p>Client secret Value: >>> {{formulario.value?.client_secret}}</p>
+<p>Client secret Get Value: >>> {{formulario.get('client_secret').value}}</p>
+<p>Client secret Get Valid: >>> {{formulario.get('client_secret').valid}}</p>
+<br>
+<p>Aba 3 Valid: >>> {{aba3.valid}}</p>
+<p>Aba 3 Value Campo: >>> {{aba3.get('client_secret')?.value}}</p>
+<p>Aba 3 Value Completo: >>> {{aba3.value}}</p>
+<br>
+<p>Formulário Valid: >>> {{formulario.valid}}</p>
+<p>Formulário Value: >>> {{formulario.get('client_secret')?.value}}</p>
+<br>
+<p>Mesmo objeto? >>> {{aba1.get('client_secret') == formulario.get('client_secret')}}</p>
+<br>
+<p>Dirty: >>> {{formulario.get('client_secret').dirty}}</p>
+<p>Touched: >>> {{formulario.get('client_secret').touched}}</p>
+<p>Valid: >>> {{formulario.get('client_secret').valid}}</p>
+<br>
+<br> -->
+    </div>
+
+    <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('client_id')">
+    <tf-text-simple
+      formControlName="client_id"
+      label="Client id"
+      placeholder=""
+    >
+    </tf-text-simple>
+    </div>
+
+    <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('authorize_url')">
+    <tf-text-simple
+      formControlName="authorize_url"
+      label="Authorize URL"
+      placeholder=""
+    >
+    </tf-text-simple>
+    </div>
+
+	</div>		
+</tf-form-abas>

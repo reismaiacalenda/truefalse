@@ -1,0 +1,164 @@
+<div class="m-login__signin">
+  <div class="m-login__head">
+    <h3 class="m-login__title">
+      Criar workspace
+    </h3>
+    <div class="m-login__desc">
+      Vamos definir o workspace de sua <b>organização</b> e sua url de acesso.
+    </div>
+  </div>
+  <form [formGroup]="formulario" class="m-login__form m-form" 
+    style="margin-top:2rem;">
+    <ng-template #alertSignin></ng-template>
+    <div class="form-group m-form__group row">
+      <input class="form-control m-input workspace"
+        type="text"
+        placeholder="Nome da sua organização"
+        name="name"
+        autofocus
+        formControlName="nome"
+        style="text-align:center; font-family: poppins; font-size: 1.25rem"
+        required>
+    </div>
+    <br>
+    <div class="form-group m-form__group row">
+      <div class="col-md-5" style="padding-left: 5px;padding-right: 1px;">
+        <input class="form-control m-input workspace m--font-primary"
+          placeholder="organizacao"
+          name="workspace"
+          autocomplete="off"
+          required
+          formControlName="subdominio"
+          pattern="^[a-zA-Z0-9]*$"
+          style="font-family: poppins; font-size: 1.25rem; padding-bottom: 0.6rem"
+          #subdominio
+          >
+      </div>
+      <div class="col-md-7" style="padding-top: 17px;padding-left: 0px;
+        border-bottom:1px solid #ebedf2">
+        <h5 class="m--font-primary">.calenda.com.br</h5>
+      </div>
+    </div>
+    <!-- <br> -->
+    <!-- placeholder="(dd) 9 0000-0000" -->
+    <!-- <div class="form-group m-form__group row">
+      <input class="form-control m-input workspace"
+      type="text"
+      name="telefone"
+      placeholder="Nº celular/telefone"
+      autofocus
+      formControlName="telefone"
+      style="text-align:center; font-family: poppins; font-size: 1.25rem"
+      mask="{{ phoneMask }}"
+      (ngModelChange)="onPhoneChanged()"
+      required>
+    </div> -->
+    <!-- telefone=$event;  -->
+    <!-- [mask]="marcaraTelefone" -->
+    <!-- [showMaskTyped]="true" -->
+    <!-- placeholder="(dd) ______-____" -->
+    <!-- <br> -->
+    <!-- <div class="form-group m-form__group row">
+      <select class="form-control m-input workspace py-0"
+        (change)="selectFaixa($event)"
+        style="text-align:center;  text-align-last: center;
+        -moz-text-align-last: center; font-family: poppins; font-size: 1.25rem;"
+        [ngStyle]="{'color': formulario.get('faixa_colaboradores').value == undefined ? '#9496a0' : 'inherit'}"
+        > -->
+        <!-- [ngClass]="true == false ? 'color: #9496a0' : 'color: pink'" -->
+        <!-- <option value="" disabled selected hidden>Quantos colaboradores?</option>
+        <option style="color: #3F4254 !important;" value="9">Até 9 colaboradores</option>
+        <option style="color: #3F4254 !important;" value="19">10 à 19</option>
+        <option style="color: #3F4254 !important;" value="39">20 à 39</option>
+        <option style="color: #3F4254 !important;" value="69">40 à 69</option>
+        <option style="color: #3F4254 !important;" value="99">70 à 99</option>
+        <option value="" disabled="disabled">───────────────</option>
+        <option style="color: #3F4254 !important;" value="199">100 à 199</option>
+        <option style="color: #3F4254 !important;" value="299">200 à 299</option>
+        <option style="color: #3F4254 !important;" value="399">300 à 399</option>
+        <option style="color: #3F4254 !important;" value="499">400 à 499</option>
+        <option style="color: #3F4254 !important;" value="599">500 à 599</option>
+        <option style="color: #3F4254 !important;" value="699">600 à 699</option>
+        <option style="color: #3F4254 !important;" value="799">700 à 799</option>
+        <option style="color: #3F4254 !important;" value="899">800 à 899</option>
+        <option style="color: #3F4254 !important;" value="999">900 à 999</option>
+        <option value="" disabled="disabled">───────────────</option>
+        <option style="color: #3F4254 !important;" value="1250">1.000 à 1.250</option>
+        <option style="color: #3F4254 !important;" value="1499">1.250 à 1.499</option>
+        <option style="color: #3F4254 !important;" value="1750">1.500 à 1.750</option>
+        <option style="color: #3F4254 !important;" value="1999">1.750 à 1.999</option>
+        <option value="" disabled="disabled">───────────────</option>
+        <option style="color: #3F4254 !important;" value="2499">2.000 à 2.499</option>
+        <option style="color: #3F4254 !important;" value="2999">2.500 à 2.999</option>
+        <option style="color: #3F4254 !important;" value="3499">3.000 à 3.499</option>
+        <option style="color: #3F4254 !important;" value="3999">3.500 à 3.999</option>
+        <option style="color: #3F4254 !important;" value="4499">4.000 à 4.499</option>
+        <option style="color: #3F4254 !important;" value="4999">4.500 à 4.999</option>
+        <option style="color: #3F4254 !important;" value="5499">5.000 à 5.499</option>
+        <option style="color: #3F4254 !important;" value="5999">5.500 à 5.999</option>
+        <option style="color: #3F4254 !important;" value="6499">6.000 à 6.499</option>
+        <option style="color: #3F4254 !important;" value="6999">6.500 à 6.999</option>
+        <option style="color: #3F4254 !important;" value="7499">7.000 à 7.499</option>
+        <option style="color: #3F4254 !important;" value="7999">7.500 à 7.999</option>
+        <option style="color: #3F4254 !important;" value="8499">8.000 à 8.499</option>
+        <option style="color: #3F4254 !important;" value="8999">8.500 à 8.999</option>
+        <option style="color: #3F4254 !important;" value="9499">9.000 à 9.499</option>
+        <option style="color: #3F4254 !important;" value="9999">9.500 à 9.999</option>
+        <option style="color: #3F4254 !important;" value="9999">Acima de 10.000 colaboradores</option>
+      </select> -->
+        <!-- <input class="form-control m-input workspace m--font-primary"
+          placeholder="organizacao"
+          name="workspace"
+          autocomplete="off"
+          required
+          formControlName="subdominio"
+          style="font-family: poppins; font-size: 1.25rem; padding-bottom: 0.6rem"
+          #subdominio
+          > -->
+          <!-- pattern="^[a-zA-Z0-9]*$" -->
+    <!-- </div> -->
+
+
+      <!-- (input)="mascararTelefone($event.target.value)" -->
+    <div class="row m-login__form-sub" style="margin-top: 1rem;">
+      <div class="col-8 m--align-left">
+        <label class="m-checkbox m-checkbox--primary">
+          <input type="checkbox" name="agree" (click)="checkAgree()" 
+          required>
+          Aceito os
+          <!--  (click)="termosDeUso()"  -->
+          <a href="https://calenda.com.br/terms-of-service/" target="_blank" class="m-link m-link--primary">
+            termos de serviço.
+          </a>
+          <!-- . -->
+          <span></span>
+        </label>
+        <!-- <label class="m-checkbox m-checkbox-s">
+          <input type="checkbox" name="remember" [(ngModel)]="model.remember" #remember="ngModel">
+          Remember me
+          <span></span>
+        </label> -->
+        <!-- id="forgetPasswordForm" -->
+        <!-- <a href="javascript:;" class="m-link" routerLink="/login/descobrir" skipLoadingChange>
+          Esqueci meu workspace
+        </a> -->
+      </div>
+      <!-- <div class="col-4 m--align-right">
+        <a href="javascript:;" class="m-link" routerLink="/login/..." skipLoadingChange>
+          Voltar
+        </a>
+      </div> -->
+    </div>
+    <div *ngIf="output != undefined" class="m-login__form-sub">
+      <span class="m-form__help m--font-danger">
+        {{output}}
+      </span>
+    </div>
+    <div class="m-login__form-action">
+      <button [disabled]="loading || formulario.invalid" (click)="redirecionar_rota()"
+      class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air">
+      Criar
+    </button>
+    </div>
+  </form>
+</div>

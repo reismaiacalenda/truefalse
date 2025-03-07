@@ -1,0 +1,92 @@
+<div #rodapeDetalhe class="rodape-detalhe-reserva d-none animated-75 w-100">
+  <div class="card card-shadowmore rounded mx-0 p-4">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex pb-0 pr-0 pr-md-3 flex-row-fluid"
+        >
+          <!-- <div class="symbol symbol-60 mr-0" [ngClass]="{
+              'symbol-primary-light': dataCalendario?.anfitriao?.situacao == 'livre' ,
+              'symbol-light-danger': dataCalendario?.anfitriao?.situacao == 'ocupado' ,
+              'symbol-light-warning': dataCalendario?.anfitriao?.situacao == 'espera' 
+            }"
+            >
+            <span class="symbol-label bg-hover-light-primary">
+              <div style="position: relative;" class="h-90 animated fadeInUp">
+    
+                <span class="svg-avatar svg-icon-5x" style="position: absolute;"
+                  [inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+dataCalendario?.anfitriao?.avatar_hair+'.svg'">
+                </span>
+    
+                <span class="svg-avatar svg-icon-5x" style="position: absolute;"
+                  [inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+dataCalendario?.anfitriao?.avatar_clothes+'.svg'">
+                </span>
+    
+                <span class="svg-avatar svg-icon-5x" style="position: absolute;"
+                  [inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+dataCalendario?.anfitriao?.avatar_extra+'.svg'">
+                </span>
+    
+                <span class="svg-avatar svg-icon-5x"
+                  [inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+dataCalendario?.anfitriao?.avatar_body+'.svg'">
+                </span>
+    
+              </div>
+              <i class="symbol-badge symbol-badge-bottom bg-success"
+              [ngClass]="{
+                'bg-success': dataCalendario?.anfitriao?.situacao == 'livre' ,
+                'bg-danger': dataCalendario?.anfitriao?.situacao == 'ocupado' ,
+                'bg-warning': dataCalendario?.anfitriao?.situacao == 'espera' 
+              }"
+              ></i>
+            </span>
+          </div> -->
+          <!-- pl-4 -->
+          <span class="d-flex align-items-center row">
+            <span class="col-12 text-dark-75 font-weight-bold font-size-h5 pt-1">
+              {{espacoSelecionado?.anfitriao_atual}}
+            </span>
+            <span class="col-12 text-dark-75 font-size-xs pt-1">
+              {{data?.format('ddd, DD/MMM/YYYY')}} - {{espacoSelecionado?.atual_mapa}}
+            </span>
+          </span>
+          
+
+          <!--end::Pic-->
+          <!--begin::Title-->
+      </div>
+      <button type="button" class="d-flex close pl-5 pr-2 pb-1" data-dismiss="modal" aria-label="Close"
+        (click)="fecharRodape()">
+        <span aria-hidden="true">
+          &times;
+        </span>
+      </button>
+    </div>
+    <div class="d-flex align-items-center">
+      <span class="svg-icon svg-icon-quinze mr-1"
+        [inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+      </span>
+      <span class="text-dark-75 font-size-sm pt-2 pl-1">
+        {{espacoSelecionado?.nome}}
+      </span>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-outline-primary mx-3"
+        (click)="cancelarReserva()"
+        [disabled]="loading"
+        [ngClass]="{'m-loader m-loader--right m-loader--primary': loading}">
+          Cancelar reserva
+      </button>
+      <button *ngIf="espacoSelecionado?.situacao == 'espera'" type="submit" class="btn btn-primary mx-3"
+        (click)="confirmarReserva()"
+        [disabled]="loading"
+        [ngClass]="{'m-loader m-loader--right m-loader--primary': loading}">
+          Check-in
+      </button>
+      <button  *ngIf="espacoSelecionado?.situacao == 'ocupado'" type="submit" class="btn btn-primary mx-3"
+        (click)="encerrarReserva()"
+        [disabled]="loading"
+        [ngClass]="{'m-loader m-loader--right m-loader--primary': loading}">
+          Check-out
+      </button>
+    </div>
+  </div>
+</div>

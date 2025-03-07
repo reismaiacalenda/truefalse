@@ -1,0 +1,43 @@
+//
+// Bootstrap extended functions
+//
+
+@function theme-root-color($key: "primary") {
+    @return var(--#{$key});
+}
+
+@function theme-inverse-color($key: "primary") {
+    @return get($theme-inverse-colors, $key);
+}
+
+@function theme-outline-inverse-color($key: "primary") {
+    @if $key == "primary" {
+        @return theme-root-color($key);
+    } @else {
+        @return get($theme-outline-inverse-colors, $key);
+    }
+}
+
+@function theme-hover-color($key: "primary") {
+    @if $key == "primary" {
+        @return var(--primary-hover);
+    } @else {
+        @return get($theme-hover-colors, $key);
+    }
+}
+
+@function theme-light-color($key: "primary") {
+    @if $key == "primary" {
+        @return var(--primary-light);
+    } @else {
+        @return get($theme-light-colors, $key);
+    }
+}
+
+@function theme-shadow-color($key: "primary") {
+    @if $key == "primary" {
+        @return theme-root-color($key);
+    } @else {
+        @return get($theme-shadow-colors, $key);
+    }
+}

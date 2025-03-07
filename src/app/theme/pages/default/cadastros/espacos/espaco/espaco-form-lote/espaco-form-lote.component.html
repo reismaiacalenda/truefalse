@@ -1,0 +1,85 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  [autorizar_excluir]="['tipo_espaco_excluir']"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  title="espaços em lote"
+  id="{{formulario.get('id').value}}"
+  >
+  
+  <div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+
+  <div class="form-group m-form__group" [ngClass]="aplicaCss('quantidade_lote')">
+    <div class="col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px; white-space: nowrap;">
+      <tf-integer formControlName="quantidade_lote" label="Serão quantos espaços em lote?" limiteInferior="2">
+      </tf-integer>
+    <!-- <p class="tf-debug"><b> dirty:</b> {{formulario.get('quantidade_lote').dirty}}</p> -->
+    <!-- <p class="tf-debug"><b> touched:</b> {{formulario.get('quantidade_lote').touched}}</p> -->
+    <!-- <p class="tf-debug"><b> valid:</b> {{formulario.get('quantidade_lote').valid}}</p> -->
+    </div>
+  </div>
+  
+  <div class="form-group m-form__group" [ngClass]="aplicaCss('nome')">
+    <tf-text-simple formControlName="nome" label="Nome" placeholder="Nome">
+    </tf-text-simple>
+    <!-- <p class="tf-debug"><b> pristine:</b> {{formulario.get('nome').pristine}}</p>
+    <p class="tf-debug"><b> dirty:</b> {{formulario.get('nome').dirty}}</p> -->
+    <!-- <p class="tf-debug"><b> touched:</b> {{formulario.get('nome').touched}}</p>
+    <p class="tf-debug"><b> untouched:</b> {{formulario.get('nome').untouched}}</p> -->
+    <!-- <p class="tf-debug"><b> valid:</b> {{formulario.get('nome').valid}}</p>
+    <p class="tf-debug"><b> invalid:</b> {{formulario.get('nome').invalid}}</p> -->
+  </div>
+
+  <div class="form-group m-form__group">
+    <tf-select-simple [formControl]="formulario.get('tipo_espaco_id')" [data]="listDadosSelect['tipo_espacos']"
+      label="Tipo do espaço" placeholder="selecione um tipo do espaço" [allowClear]="true">
+    </tf-select-simple>
+    <!-- <p class="tf-debug"><b> dirty:</b> {{formulario.get('tipo_espaco_id').dirty}}</p>
+    <p class="tf-debug"><b> touched:</b> {{formulario.get('tipo_espaco_id').touched}}</p>
+    <p class="tf-debug"><b> valid:</b> {{formulario.get('tipo_espaco_id').valid}}</p> -->
+  </div>
+
+  <div class="form-group m-form__group" [ngClass]="aplicaCss('capacidade_pessoas')">
+    <div class="col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px; white-space: nowrap;">
+      <tf-integer formControlName="capacidade_pessoas" label="Capacidade de pessoas">
+      </tf-integer>
+    <!-- <p class="tf-debug"><b> dirty:</b> {{formulario.get('capacidade_pessoas').dirty}}</p>
+    <p class="tf-debug"><b> touched:</b> {{formulario.get('capacidade_pessoas').touched}}</p>
+    <p class="tf-debug"><b> valid:</b> {{formulario.get('capacidade_pessoas').valid}}</p> -->
+    </div>
+  </div>
+
+  <div class="form-group m-form__group" *ngIf="workspaceService.autorizar('espaco_conjugado')">
+    <tf-check-box formControlName="espaco_conjugado" label="Espaço conjugado?">
+    </tf-check-box>
+    <!-- <p class="tf-debug"><b> dirty:</b> {{formulario.get('espaco_conjugado').dirty}}</p>
+    <p class="tf-debug"><b> touched:</b> {{formulario.get('espaco_conjugado').touched}}</p>
+    <p class="tf-debug"><b> valid:</b> {{formulario.get('espaco_conjugado').valid}}</p> -->
+  </div>
+
+  <div class="form-group m-form__group" *ngIf="!formulario.get('espaco_conjugado').value">
+    <tf-select-simple [formControl]="formulario.get('localizacao_id')" [data]="listDadosSelect['localizacoes']"
+      [desabilitar]="formulario.get('espaco_conjugado').value" label="Prédio/andar"
+      placeholder="Selecione uma localização" [allowClear]="true">
+    </tf-select-simple>
+    <!-- <p class="tf-debug"><b> dirty:</b> {{formulario.get('localizacao_id').dirty}}</p>
+    <p class="tf-debug"><b> touched:</b> {{formulario.get('localizacao_id').touched}}</p>
+    <p class="tf-debug"><b> valid:</b> {{formulario.get('localizacao_id').valid}}</p> -->
+  </div>
+
+  <div class="form-group m-form__group"
+      *ngIf="formulario.get('espaco_conjugado').value && workspaceService.autorizar('espaco_conjugado')">
+      <tf-select-simple [formControl]="formulario.get('conjugado_pai_id')" [data]="listSelectEspacosNaoFilhos"
+        [desabilitar]="!formulario.get('espaco_conjugado').value"
+        label="Selecione a qual espaço (pai) este espaço pertence" placeholder="Selecione o espaço pai" [allowClear]="true">
+      </tf-select-simple>
+    <!-- <p class="tf-debug"><b> dirty:</b> {{formulario.get('conjugado_pai_id').dirty}}</p>
+    <p class="tf-debug"><b> touched:</b> {{formulario.get('conjugado_pai_id').touched}}</p>
+    <p class="tf-debug"><b> valid:</b> {{formulario.get('conjugado_pai_id').valid}}</p> -->
+    </div>
+  
+  
+  </div>
+
+</tf-form-simples>

@@ -1,0 +1,73 @@
+<div class="modal-header">
+		<!-- <span class="svg-icon svg-icon-secondary svg-icon-quinze" (click)="activeModal.close('return')"
+			[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-left.svg'">
+		</span> -->
+
+	<h5 class="modal-title" id="exampleModalLabel">
+    Por quanto tempo você precisa deste recurso?
+  </h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"	>
+		<span aria-hidden="true">
+      &times;
+    </span>
+	</button>
+</div>
+
+<div class="modal-body">
+	<div class="m-portlet__body">
+		<!-- <p class="font-size-h6 text-dark-75 mb-10">
+			Por quanto tempo você precisa deste recurso?
+		</p> -->
+		<div class="m-form__content">
+			<div class="m-alert m-alert--icon alert alert-danger m--hide"
+				role="alert" id="m_form_2_msg">
+				<div class="m-alert__close">
+				</div>
+			</div>
+		</div>
+		<div class="card card-custom card-shadowplus gutter-b bg-grey-100 cursor-pointer bg-hover-light mb-5"
+			(click)="activeModal.close('emprestar')">
+			<div class="card-body d-flex align-items-center justify-content-between flex-wrap py-7">
+				<div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3">
+					<div class="text-dark-50 font-size-md">
+						Para alguns dias
+					</div>
+				</div>
+				<div class="d-flex flex-right">
+					<span class="svg-icon svg-icon-primary svg-icon-quinze"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-right.svg'">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="card card-custom card-shadowplus gutter-b bg-grey-100 cursor-pointer bg-hover-light mb-5"
+			(click)="activeModal.close('equipar')">
+			<div class="card-body d-flex align-items-center justify-content-between flex-wrap py-7">
+				<div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3">
+					<div class="text-dark-50 font-size-md">
+						Por tempo indeterminado
+					</div>
+				</div>
+				<div class="d-flex flex-right">
+					<span class="svg-icon svg-icon-primary svg-icon-quinze"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-right.svg'">
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal-footer">
+	<div class="col m--align-left pl-0">
+		<button type="button" class="btn btn-secondary"
+			(click)="activeModal.close('return')">
+			<span class="svg-icon svg-icon-secondary svg-icon-quinze"
+				[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-left.svg'">
+			</span>
+		</button>
+	</div>
+	<button type="button" class="btn btn-secondary" (click)="activeModal.close('')">
+		Fechar
+	</button>
+</div>

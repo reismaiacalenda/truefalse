@@ -1,0 +1,32 @@
+<div class="m--bg-primary m-portlet--bordered-semi m-portlet--skin-dark m-portlet--full-height
+  py-0 m-animate-shine" routerLink="/workspace/qrcalenda"
+  [ngClass]="{
+    'h-100' : workspaceService.formacaoColunas('3-5-4'),
+    'pt-0' : workspaceService.formacaoColunas('3-3-3-3')}"
+  style="border-radius: 0.42rem; cursor:pointer; background: url(./assets/app/media/img/misc/qrcalenda_roxov3.png) repeat center center; background-size: contain;">
+  <!-- ro="/reservas/listagem"
+  (click) -->
+  <div class="container">
+    <div class="row">
+      <div class="col-12 pl-5  w-100"
+      [ngClass]="{
+        'pt-2' : workspaceService.formacaoColunas('3-5-4'),
+        'py-4' : workspaceService.formacaoColunas('3-3-3-3')}">
+        <span class="font-size-h6 text-white">
+          Como funciona o QrCalenda?
+        </span>
+      </div>
+      <div class="col-12 py-3"
+        [ngClass]="workspaceService.autorizarModulos('Serviços e recursos','People Hybrid Experience')
+        ? 'pt-2' : 'pb-4'">
+        <div class="d-flex justify-content-end pr-5">
+          <a class="m-btn m-btn--pill btn btn-warning " href="#" role="button" ng-reflect-href="#">
+            <!-- [ngbTooltip]="tipContentS" placement="bottom" ngbTooltipClass="kt-tooltip"
+          triggers="manual" #t="ngbTooltip" (click)="t.open()" -->
+            Saiba mais
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

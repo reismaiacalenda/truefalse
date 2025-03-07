@@ -1,0 +1,190 @@
+<!-- <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
+  <div class="row align-items-center">
+      <div class="col-xl-7 order-2 order-xl-1">
+          <div class="form-group m-form__group row align-items-center">
+              <div class="col-md-6">
+                  <div class="m-input-icon m-input-icon--left">
+                      <input type="text" class="form-control m-input" placeholder="Pesquisar..."
+                      (keyup)='updateFilter($event)'>
+                      <span class="m-input-icon__icon m-input-icon__icon--left">
+                          <span>
+                              <i class="la la-search"></i>
+                          </span>
+                      </span>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-xl-5 order-1 order-xl-2 m--align-right">
+          <div>
+              <a href="#" (click)="carregarTable()"
+              class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+                  <i class="la la-refresh"></i>
+              </a>
+              <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air"
+              data-toggle="modal" data-target="#m_modal_1"
+              (click)="openFormModal()"
+              *ngIf="currentUser.role_number>4">
+                  <span>
+                      <i class="flaticon-add"></i>
+                      <span>
+                          Novo Crud
+                      </span>
+                  </span>
+              </a>
+          </div>
+          <div class="m-separator m-separator--dashed d-xl-none"></div>
+      </div>
+  </div>
+</div>
+
+<div>
+  <ngx-datatable class="material"
+      #minhaTable
+      [rows]="rows"
+      [columnMode]="'force'"
+      [footerHeight]="50"
+      [rowHeight]="'auto'"
+      [sortType]="'multi'"
+      [limit]="20"
+      >
+      <ngx-datatable-column
+          [width]="50"
+          [resizeable]="false"
+          [sortable]="false"
+          [draggable]="false"
+          [canAutoResize]="false">
+          <ng-template ngx-datatable-header-template let-value="value">
+              <a href="#"
+                  class="datatable-icon-left fg-primary"
+                  title="Expand/Collapse All Rows"
+                  (click)="toggleExpandAllRow()">
+              </a>
+          </ng-template>
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+
+              <a href="#" title="Expand/Collapse Row" (click)="toggleExpandRow(row, expanded)"
+                  class="m-datatable__toggle-subtable fg-primary">
+                  <i [class.datatable-icon-right]="!expanded"
+                  [class.datatable-icon-down]="expanded"></i>
+              </a>
+          </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Nome"></ngx-datatable-column>
+      <ngx-datatable-column
+          [width]="120"
+          [resizeable]="false"
+          [sortable]="false"
+          [draggable]="false"
+          [canAutoResize]="false">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              <div class="" *ngIf="currentUser.role_number>4">
+                  <a href="#" title="Editar" (click)="openFormModal(row.id)"
+                  class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+                    <i class="la la-edit"></i>
+                  </a>
+                  <a href="#" title="Remover" (click)="removeItem(row.id)"
+                  class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+                      <i class="la la-trash"></i>
+                  </a>
+              </div>
+          </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow>
+          <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+              <div class="row" style="padding-left:15px;margin-right:0px">
+                  <div class="col-5">
+                      <div>Id: {{row.id}}</div>
+                      <div>Nome: {{row.nome}}</div>
+
+                  </div>
+              </div>
+          </ng-template>
+      </ngx-datatable-row-detail>
+  </ngx-datatable>
+</div> -->
+
+<tf-datatable-cabecalho
+    [habilitarForm]="false"
+    [labelFormButton]="'Novo Crud'"
+	(openFormModal)="openFormModal()"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+>
+currentUser.role_number>4
+</tf-datatable-cabecalho>
+
+<div>
+    <ngx-datatable class="material"
+		#minhaTable
+		[columnMode]="'flex'"
+		[count]="page.totalElements"
+		[externalPaging]="true"
+		[footerHeight]="50"
+		[limit]="page.size"
+		[offset]="page.pageNumber"
+		[rowHeight]="'auto'"
+		[rows]="datatable.rows"
+		[sortType]="'multi'"
+		(page)="setPage($event, undefined)"
+	>
+        <ngx-datatable-column
+		    [canAutoResize]="false"
+		    [draggable]="false"
+		    [resizeable]="false"
+		    [sortable]="false"
+		    [width]="50"
+	    >
+			<ng-template ngx-datatable-header-template let-value="value">
+				<a href="#" class="datatable-icon-left fg-primary" title="Expand/Collapse All Rows" (click)="toggleExpandAllRow()">
+				</a>
+			</ng-template>
+			<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+				<a href="#" class="m-datatable__toggle-subtable fg-primary" title="Expand/Collapse Row" (click)="toggleExpandRow(row, expanded)">
+					<i [class.datatable-icon-right]="!expanded"
+					   [class.datatable-icon-down]="expanded"></i>
+				</a>
+			</ng-template>
+		</ngx-datatable-column>
+        <ngx-datatable-column [flexGrow]="2" name="Nome" prop="nome"></ngx-datatable-column>  
+        <ngx-datatable-column [flexGrow]="2" name="CNPJ">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <div>{{row.cnpj}}</div>
+            </ng-template> 
+        </ngx-datatable-column>
+
+		<ngx-datatable-column
+			[canAutoResize]="false"
+			[draggable]="false"
+			[flexGrow]="1" 
+			[resizeable]="false"
+			[sortable]="false"
+			[width]="120"
+		>
+			<ng-template let-row="row" ngx-datatable-cell-template>
+                <div class=""
+                >
+                <!-- *ngIf="currentUser.role_number>4" -->
+					<a href="#" title="Editar" (click)="openFormModal(row.id)"
+						class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a>
+					<a href="#" title="Remover" (click)="datatableService.remove(row.id)"
+					    class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+			<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+				<div class="row" style="padding-left:15px;margin-right:0px">
+					<div class="col-5">
+						<div>Razão social: {{row.razao_social}}</div>
+					</div>
+				</div>
+			</ng-template>
+		</ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>

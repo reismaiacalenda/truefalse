@@ -1,0 +1,138 @@
+<div ngbDropdown [placement]="placement"  class="d-inline-block">
+	<a [routerLink]="" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2
+		m-dropdown__toggle" ngbDropdownToggle id="dropdownBasic1"
+		>
+		<!-- ngbTooltip="Agendar novo evento" container="body" placement="bottom" -->
+		<span>
+			<span class="svg-icon svg-icon-primary pl-0"
+				[inlineSVG]="'./assets/app/media/svg/icons/Code/Plus.svg'">
+			</span>
+			<span>
+				Agendar
+			</span>
+		</span>
+	</a>
+	<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+		<button ngbDropdownItem (click)="openModalNew('eventos')"
+			*ngIf="workspaceService.autorizar('reserva_evento_criar_meu', 'reserva_evento_criar_grupo', 'reserva_evento_criar_unidade')
+			&& workspaceService.autorizar('reserva_evento_reservar_espaco')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')">
+			<span>
+				<span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+				</span>
+				<span class="m-nav__link-text font-size-sm">
+					Agendar evento
+				</span>
+			</span>
+		</button>
+		<button ngbDropdownItem (click)="openModalNew('estacoes_flexiveis')"
+			*ngIf="workspaceService.autorizar('reserva_estacao_flexivel_criar_meu', 'reserva_estacao_flexivel_criar_grupo', 'reserva_estacao_flexivel_criar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+			<span>
+				<span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+				</span>
+				<span class="m-nav__link-text font-size-sm">
+					Reservar hotdesk
+				</span>
+			</span>
+		</button>
+		<button ngbDropdownItem (click)="openModalNew('postos_de_trabalho')"
+			*ngIf="workspaceService.autorizar('reserva_posto_de_trabalho_criar_meu', 'reserva_posto_de_trabalho_criar_grupo', 'reserva_posto_de_trabalho_criar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+			<span>
+				<span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+				</span>
+				<span class="m-nav__link-text font-size-sm">
+					Definir posto de trabalho
+				</span>
+			</span>
+		</button>
+		<!-- <button ngbDropdownItem (click)="openModalNew('instalacoes')"
+			*ngIf="workspaceService.autorizar('reserva_instalacao_criar_meu', 'reserva_instalacao_criar_grupo', 'reserva_instalacao_criar_unidade')
+			&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+			|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+			<span>
+				<span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+				</span>
+				<span class="m-nav__link-text font-size-sm">
+					Instalar recursos
+				</span>
+			</span>
+		</button> -->
+		<button ngbDropdownItem (click)="openModalNew('equipagens')"
+			*ngIf="workspaceService.autorizar('reserva_equipagem_criar_meu', 'reserva_equipagem_criar_grupo', 'reserva_equipagem_criar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+			<span>
+				<span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+				</span>
+				<span class="m-nav__link-text font-size-sm">
+					Equipar colaborador
+				</span>
+			</span>
+		</button>
+		<button ngbDropdownItem (click)="openModalNew('emprestimos')"
+			*ngIf="workspaceService.autorizar('reserva_emprestimo_criar_meu', 'reserva_emprestimo_criar_grupo', 'reserva_emprestimo_criar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+			<span>
+				<span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+				</span>
+				<span class="m-nav__link-text font-size-sm">
+					Emprestar a colaborador
+				</span>
+			</span>
+		</button>
+		<button ngbDropdownItem (click)="openModalNew('kit_estandes')"
+			*ngIf="workspaceService.autorizar('reserva_kit_estandes_criar_meu', 'reserva_kit_estandes_criar_grupo', 'reserva_kit_estandes_criar_unidade')
+			&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+			<span>
+				<span class="svg-icon svg-icon-metallic svg-icon-1p5x"
+					[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+				</span>
+				<span class="m-nav__link-text font-size-sm">
+					Adicionar para evento(s)
+				</span>
+			</span>
+		</button>
+	</div>
+</div>
+
+
+<!-- TODO: Testes de buttons pra quando reabilitar o sass de buttons -->
+<!-- <a href="#" class="btn btn-outline-primary m-btn m-btn--custom m-btn--icon m-btn--air px-3 mr-2 py-2"
+	(click)="openFormModalNew()"
+	ngbTooltip="Agendar novo evento" container="body" placement="bottom">
+	<span>
+		<span class="svg-icon svg-icon-primary pl-0"
+			[inlineSVG]="'./assets/app/media/svg/icons/Code/Plus.svg'">
+		</span>
+		<span>
+			Agendar
+		</span>
+	</span>
+</a>
+
+<a href="/metronic/demo1/custom/apps/user/add-user.html"
+	class="btn btn-light font-weight-bold ml-2">Agendar</a>
+<a href="/metronic/demo1/custom/apps/user/add-user.html"
+	class="btn btn-light btn-shadow font-weight-bold ml-2">
+	<span>
+		<span class="svg-icon  pl-0"
+			[inlineSVG]="'./assets/app/media/svg/icons/Code/Plus.svg'">
+		</span>
+		<span>
+			Agendar
+		</span>
+	</span>
+</a> -->
+
+<!-- (click)="openFormModalNew()" -->
+<!-- <a href="#" class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air" (click)="oi()">
+	<i class="la la-plus"></i>
+</a> -->

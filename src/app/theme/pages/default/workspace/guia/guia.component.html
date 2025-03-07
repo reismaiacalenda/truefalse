@@ -1,0 +1,339 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+  <div class="d-flex align-items-center">
+    <tf-page-map class="col-md-11 pl-0" nomePagina="Guia do usuário" [menu]="[
+        ['/', 'Cadastro de ativos'],
+        ['/cadastros/workspace', 'Workspace'],
+				['/cadastros/workspace/guia', 'Guia do usuário']
+      ]">
+    </tf-page-map>
+    <tf-page-guia class="col-md-1 pr-0 float-right">
+    </tf-page-guia>
+  </div>
+</div>
+<!-- END: Subheader -->
+
+<!--#region Section-->
+<div class="m-content">
+  <!--#region Card-->
+  <div class="card mb-8">
+    <!--#region Body-->
+    <div class="card-body p-10">
+      <!--#region Row-->
+      <h2 class="text-dark mb-8">Dúvidas frequentes</h2>
+
+      <div class="row">
+        <div class="col-lg-3">
+          <!--#region Navigation-->
+          <ul class="navi navi-link-rounded navi-accent navi-hover navi-active nav flex-column mb-8 mb-lg-0"
+            role="tablist" #navtab>
+            <!--#region Nav Item-->
+            <li class="navi-item mb-2">
+              <a class="navi-link active" data-toggle="tab" href="#m_tabs_6_produto" id="tabs_6_1">
+                <span class="navi-text text-dark-50 font-size-h5 font-weight-bold">Produto</span>
+              </a>
+            </li>
+            <!--#endregion Nav Item-->
+
+            <!--#region Nav Item-->
+            <li class="navi-item mb-2">
+              <a class="navi-link " data-toggle="tab" href="#m_tabs_6_integracao" id="tabs_6_2">
+                <span class="navi-text text-dark font-size-h5 font-weight-bold">Integração</span>
+              </a>
+            </li>
+            <!--#endregion Nav Item-->
+          </ul>
+          <!--#endregion Navigation-->
+        </div>
+
+        <div class="col-lg-9">
+
+          <!--#region Tab Content-->
+          <div class="tab-content" #tabcontent>
+
+            <div class="tab-pane active" id="m_tabs_6_produto" role="tabpanel">
+              <!--#region Accordion-->
+              <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle" id="guia_produto">
+
+                <!--#region Item-->
+                <div class="card">
+                  <div class="card-header px-5 py-3" id="guiaHeading3">
+                    <div style="cursor: pointer;" class="card-title text-dark row mb-1" data-toggle="collapse" href="#guia_produto_1" aria-expanded="true"
+                      aria-controls="guia_produto_1" role="button">
+                      <span [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-right.svg'"
+            						class="svg-icon svg-icon-primary"></span>
+                      <div class="card-label text-dark pl-4 h6">O que é o Calenda?</div>
+                    </div>
+                  </div>
+                  <div id="guia_produto_1" class="collapse show" aria-labelledby="guiaHeading3" data-parent="#guia_produto">
+                    <div class="card-body text-dark-50 font-size-lg pl-12">
+                      Calenda é uma plataforma de gestão de todos os ativos de sua organização.
+                      Software e hardware licenciados para um agendamento completo e integrado entre sua equipe, espaços e recursos.
+                      Ele realiza a gestão do espaço físico e o controle dinâmico do estoque ambos interligados a um macrosistema de agendamento em tempo real!
+                    </div>
+                  </div>
+                </div>
+                <!--#endregion Item-->
+
+                <!--#region ::Item-->
+                <div class="card border-top-0">
+                  <!--#region Header-->
+                  <div class="card-header px-5 py-2" id="guiaHeading4">
+                    <div style="cursor: pointer;" class="card-title collapsed text-dark row mb-1" data-toggle="collapse" href="#guia_produto_2" aria-expanded="false"
+                      aria-controls="guia_produto_2" role="button">
+                      <span [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-right.svg'"
+            						class="svg-icon svg-icon-primary"></span>
+                      <div class="card-label text-dark pl-4 h6">Pra quê serve o Calenda?</div>
+                    </div>
+                  </div>
+                  <!--#endregion Header-->
+
+                  <!--#region Body-->
+                  <div id="guia_produto_2" class="collapse" aria-labelledby="guiaHeading4" data-parent="#guia_produto">
+                    <div class="card-body text-dark-50 font-size-lg pl-12">
+                      O Calenda otimiza o uso de todo o patrimônio da corporação antes que eles se depreciem em vão!
+                      Considere tanto seus recursos humanos, quanto os recursos materiais.
+                      Sejam ele seus espaços para reunião, eventos, bem como postos de trabalho.
+                      Ou ainda, qualquer ativo patrimonial físico: cadeiras, notebooks, projetores e absolutamente
+                      tudo que você precisar!
+                      <br/>
+                      <br/>
+                      Já pensou no desperdício acumulado de todos esses ativos? Essa é a economia do Calenda.
+                      Calcule o ROI conosco e invista com retorno garantido!
+                    </div>
+                  </div>
+                  <!--#endregion Body-->
+                </div>
+                <!--#endregion ::Item-->
+
+                <!--#region ::Item-->
+                <div class="card border-top-0">
+                  <!--#region Header-->
+                  <div class="card-header px-5 py-2" id="guiaHeading4">
+                    <div style="cursor: pointer;" class="card-title collapsed text-dark row mb-1" data-toggle="collapse" href="#guia_produto_3" aria-expanded="false"
+                      aria-controls="guia_produto_3" role="button">
+                      <span [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-right.svg'"
+            						class="svg-icon svg-icon-primary"></span>
+                      <div class="card-label text-dark pl-4 h6">Que tipo de organização o Calenda atende?</div>
+                    </div>
+                  </div>
+                  <!--#endregion Header-->
+
+                  <!--#region Body-->
+                  <div id="guia_produto_3" class="collapse" aria-labelledby="guiaHeading4" data-parent="#guia_produto">
+                    <div class="card-body text-dark-50 font-size-lg pl-12">
+                      Se a sua empresa precisa otimizar pessoas, espaços ou recursos o Calenda pode te ajudar! 
+                      <li>
+                        Sejam pequenas salas de reunião corporativa ou grandes auditórios.
+                      </li>
+                      <li>
+                        Simples salas de aula ou laboratórios com equipamentos complexos.
+                      </li>
+                      <li>
+                        Uma quadra de futsal do bairro ou complexos esportivos. 
+                      </li>
+                      <li>
+                        Consultórios particulares ou redes hospitalares inteiras.
+                      </li>
+                      <li>
+                        Ou mesmo uma barbearia ou uma rede de salões de beleza.
+                      </li>
+                    </div>
+                  </div>
+                  <!--#endregion Body-->
+                </div>
+                <!--#endregion ::Item-->
+
+                <!--#region Item-->
+                <div class="card">
+                  <div class="card-header px-5 py-3" id="guiaHeading4">
+                    <div style="cursor: pointer;" class="card-title text-dark row mb-1" data-toggle="collapse" href="#guia_produto_4" aria-expanded="true"
+                      aria-controls="guia_produto_4" role="button">
+                      <span [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-right.svg'"
+            						class="svg-icon svg-icon-primary"></span>
+                      <div class="card-label text-dark pl-4 h6">Minha organização realmente precisa do Calenda?</div>
+                    </div>
+                  </div>
+                  <div id="guia_produto_4" class="collapse" aria-labelledby="guiaHeading4" data-parent="#guia_produto">
+                    <div class="card-body text-dark-50 font-size-lg pl-12">
+                      Sua organização certamente precisa do Calenda se possui:
+                      <br>
+                      <li>
+                        Poucos espaços reserváveis para muitos conflitos interpessoais de agendamento;
+                      </li>
+                      <li>
+                        Baixo nível de digitalização dos processos relacionados às agendas das pessoas, espaços e demais recursos;
+                      </li>
+                      <li>
+                        Agendas com alto nível de dinamismo. Confirmações e cancalementos espontâneos;
+                      </li>
+                      <li>
+                        Desperdícios com equipamentos e má gestão de estoque em função dos uso em agendamentos inesperados;
+                      </li>
+                      <li>
+                        Alta taxa de no-show;
+                      </li>
+                      <li>
+                        Alta taxa de subnotificação do uso de recursos e alocação dos espaços da empresa;
+                      </li>
+                      <li>
+                        Muitas salas de reunião para poucas reuniões consolidadas;
+                      </li>
+                      <li>
+                        Falta de assertividade no uso das agendas;
+                      </li>
+                      <li>
+                        Alta mão de obra para secretariar as agendas;
+                      </li>
+                      <li>
+                        Ausência de relatórios e métricas de uso dos meus ativos.
+                      </li>
+                      <br>
+                      Ainda na dúvida se faz sentido investir? Faça um test-drive por 8 dias!
+                    </div>
+                  </div>
+                </div>
+                <!--#endregion Item-->
+
+                <!--#region ::Item-->
+                <div class="card border-top-0">
+                  <!--#region Header-->
+                  <div class="card-header px-5 py-2" id="guiaHeading4">
+                    <div style="cursor: pointer;" class="card-title collapsed text-dark row mb-1" data-toggle="collapse" href="#guia_produto_5" aria-expanded="false"
+                      aria-controls="guia_produto_5" role="button">
+                      <span [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-right.svg'"
+            						class="svg-icon svg-icon-primary"></span>
+                      <div class="card-label text-dark pl-4 h6"> Quanto custa o Calenda? Posso usar de graça?</div>
+                    </div>
+                  </div>
+                  <!--#endregion Header-->
+
+                  <!--#region Body-->
+                  <div id="guia_produto_5" class="collapse" aria-labelledby="guiaHeading4" data-parent="#guia_produto">
+                    <div class="card-body text-dark-50 font-size-lg pl-12">
+                      O Calenda é absolutamente gratuito se sua necessidade são apenas 02 colaboradores ativos.
+                      <br>
+                      <br>
+                      Se precisa gerenciar mais pessoas com mais funcionalidades
+                      recomendamos que experimente nosso plano Pro por 8 dias. Mas fique tranquilo, é sem compromisso!
+                    </div>
+                  </div>
+                  <!--#endregion Body-->
+                </div>
+                <!--#endregion ::Item-->
+
+                <!--#region ::Item-->
+                <div class="card border-top-0">
+                  <!--#region Header-->
+                  <div class="card-header px-5 py-2" id="guiaHeading4">
+                    <div style="cursor: pointer;" class="card-title collapsed text-dark row mb-1" data-toggle="collapse" href="#guia_produto_6" aria-expanded="false"
+                      aria-controls="guia_produto_6" role="button">
+                      <span [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-right.svg'"
+            						class="svg-icon svg-icon-primary"></span>
+                      <div class="card-label text-dark pl-4 h6">Já temos Outlook. Por que investir no Calenda?</div>
+                    </div>
+                  </div>
+                  <!--#endregion Header-->
+
+                  <!--#region Body-->
+                  <div id="guia_produto_6" class="collapse" aria-labelledby="guiaHeading4" data-parent="#guia_produto">
+                    <div class="card-body text-dark-50 font-size-lg pl-12">
+                      O Outlook restringe-se a apenas um agendamento estático das agendas dos colaboradores e suas salas.
+                      Além de não fornecer ferramentas dinâmicas (checks, qrcodes, telas customizadas, etc..) para gestão real-time,
+                      ele não oferece nem se interliga à gestão do espaço físico nem controle de estoque dos equipamentos da sua corporação.
+                      Com o Calenda você tem isso tudo em um só lugar!
+                    </div>
+                  </div>
+                  <!--#endregion Body-->
+                </div>
+                <!--#endregion ::Item-->
+
+              </div>
+              <!--#endregion Accordion-->
+            </div>
+
+            <div class="tab-pane" id="m_tabs_6_integracao" role="tabpanel">
+              <!--#region Accordion-->
+              <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle" id="guia_integracao">
+
+                <!--#region Item-->
+                <div class="card">
+                  <div class="card-header px-5 py-3" id="guiaHeading3">
+                    <div style="cursor: pointer;" class="card-title text-dark row mb-1" data-toggle="collapse" href="#guia_integracao_1" aria-expanded="true"
+                      aria-controls="guia_integracao_1" role="button">
+                      <span [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-right.svg'"
+            						class="svg-icon svg-icon-primary"></span>
+                      <div class="card-label text-dark pl-4 h6">Vocês integram com Outlook, Calendar ou APIs terceiras?</div>
+                    </div>
+                  </div>
+                  <div id="guia_integracao_1" class="collapse show" aria-labelledby="guiaHeading3" data-parent="#guia_integracao">
+                    <div class="card-body text-dark-50 font-size-lg pl-12">
+                      Integramos sim! Com o tempo você verá que pode fazer tudo dentro do Calenda sem investir em tantos softwares ;) A proposta do Calenda é otimizar seus ativos antes que eles se depreciem! 
+                    </div>
+                  </div>
+                </div>
+                <!--#endregion Item-->
+
+                <!--#region ::Item-->
+                <div class="card border-top-0">
+                  <!--#region Header-->
+                  <div class="card-header px-5 py-2" id="guiaHeading4">
+                    <div style="cursor: pointer;" class="card-title collapsed text-dark row mb-1" data-toggle="collapse" href="#guia_integracao_2" aria-expanded="false"
+                      aria-controls="guia_integracao_2" role="button">
+                      <span [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-right.svg'"
+            						class="svg-icon svg-icon-primary"></span>
+                      <div class="card-label text-dark pl-4 h6">Preciso de um sistema de agendamentos para acessar o Calenda?</div>
+                    </div>
+                  </div>
+                  <!--#endregion Header-->
+
+                  <!--#region Body-->
+                  <div id="guia_integracao_2" class="collapse" aria-labelledby="guiaHeading4" data-parent="#guia_integracao">
+                    <div class="card-body text-dark-50 font-size-lg pl-12">
+                      Claro que não! Nossa recomendação aos nossos clientes é economizarem mais ainda seus gastos, poupando softwares poucos dinâmicos que só geram reservas fantasmas! 
+                    </div>
+                  </div>
+                  <!--#endregion Body-->
+                </div>
+                <!--#endregion ::Item-->
+
+                <!--#region ::Item-->
+                <div class="card border-top-0">
+                  <!--#region Header-->
+                  <div class="card-header px-5 py-2" id="guiaHeading4">
+                    <div style="cursor: pointer;" class="card-title collapsed text-dark row mb-1" data-toggle="collapse" href="#guia_integracao_3" aria-expanded="false"
+                      aria-controls="guia_integracao_3" role="button">
+                      <span [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-double-right.svg'"
+            						class="svg-icon svg-icon-primary"></span>
+                      <div class="card-label text-dark pl-4 h6">Já temos Outlook. Por que investir no Calenda?</div>
+                    </div>
+                  </div>
+                  <!--#endregion Header-->
+
+                  <!--#region Body-->
+                  <div id="guia_integracao_3" class="collapse" aria-labelledby="guiaHeading4" data-parent="#guia_integracao">
+                    <div class="card-body text-dark-50 font-size-lg pl-12">
+                      O Outlook restringe-se a apenas um agendamento estático das agendas dos colaboradores e suas salas.
+                      Além de não fornecer ferramentas dinâmicas para gestão real-time (checks, qrcodes, telas customizadas, etc..), ele não oferece e nem se interliga à gestão do espaço físico ou controle de estoque dos equipamentos de sua corporação. Com o Calenda você tem tudo isso em um só lugar com absoluta coesão, integridade e centralização dos agendamentos!
+                    </div>
+                  </div>
+                  <!--#endregion Body-->
+                </div>
+                <!--#endregion ::Item-->
+
+
+              </div>
+              <!--#endregion Accordion-->
+            </div>
+
+          </div>
+          <!--#endregion Tab Content-->
+        </div>
+      </div>
+      <!--#endregion Row-->
+    </div>
+    <!--#endregion Body-->
+  </div>
+  <!--#endregion Item-->
+</div>
+<!--#endregion Section-->

@@ -1,0 +1,383 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+		<tf-page-map class="col-md-11 pl-0" nomePagina="Costumer success"
+			[menu]="[
+				['/workspace', 'Workspace'],
+				['/workspace/costumer-success', 'Costumer Success']
+			]">
+		</tf-page-map>
+		<tf-page-guia class="col-md-1 pr-0 float-right">
+		</tf-page-guia>
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+
+  <div class="">
+
+    <div class="card card-custom" *ngIf="workspaceService?.currentUser?.max_role == 4">
+      <!--begin::Body-->
+
+      <div class="card-header align-items-center border-0 mt-0">
+        <h3 class="card-title align-items-start flex-column">
+          <span class="font-weight-bolder text-dark">Funil de conversão</span>
+          <span class="text-muted font-weight-bold mt-1" style="font-size: 1rem;">Engajamento dos usuários ativos criadores de reserva</span>
+        </h3>
+        <!-- <div class="card-toolbar">
+          <a
+            class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+            [attr.href]="null"
+            [class.disabled]="true"
+            > -->
+            <!-- workspaceService.autorizar('cliente_editar') != true -->
+            <!-- (click)="coletarGastos()" -->
+            <!-- <i class="la la-dollar-sign"></i> -->
+          <!-- </a> -->
+        <!-- </div> -->
+      </div>
+
+      <div class="card-body pt-0 pb-5">
+        <div>
+          <div class="px-0 animated fadeInUp py-1 d-flex justify-content-center"
+          [ngbTooltip]="dados?.total + ' colaboradores foram convidados para este workspace'" container="body" placement="bottom">
+            <div class="progress" [ngStyle]="{'width': dados?.funil?.topo + '%'}" >
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                {{dados?.funil?.topo}}%
+              </div>
+            </div>
+          </div>
+          <div class="px-0 animated fadeInUp py-1 d-flex justify-content-center"
+          [ngbTooltip]="dados?.ativos + ' colaboradores ativaram suas contas'" container="body" placement="bottom">
+            <div class="progress" [ngStyle]="{'width': dados?.funil?.meio + '%'}">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                {{dados?.funil?.meio}}%
+              </div>
+            </div>
+          </div>
+          <div class="px-0 animated fadeInUp py-1 d-flex justify-content-center"
+          [ngbTooltip]="dados?.criadores_reserva?.ultimos_sete_dias + ' colaboradores vem fazendo reserva nos últimos 7 dias'" container="body" placement="bottom">
+            <div class="progress" [ngStyle]="{'width': dados?.funil?.final + '%'}">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                {{dados?.funil?.final}}%
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--begin::Toolbar-->
+        <!-- <div class="d-flex justify-content-end">
+          <div class="dropdown dropdown-inline" data-toggle="tooltip" title="Quick actions" data-placement="left">
+            <a href="#" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              <i class="ki ki-bold-more-hor"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+              <ul class="navi navi-hover">
+                <li class="navi-header font-weight-bold py-4">
+                  <span class="font-size-lg">Choose Label:</span>
+                  <i class="flaticon2-information icon-md text-muted" data-toggle="tooltip" data-placement="right"
+                    title="Click to learn more..."></i>
+                </li>
+                <li class="navi-separator mb-3 opacity-70"></li>
+                <li class="navi-item">
+                  <a href="#" class="navi-link">
+                    <span class="navi-text">
+                      <span class="label label-xl label-inline label-light-success">Customer</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="navi-item">
+                  <a href="#" class="navi-link">
+                    <span class="navi-text">
+                      <span class="label label-xl label-inline label-light-danger">Partner</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="navi-item">
+                  <a href="#" class="navi-link">
+                    <span class="navi-text">
+                      <span class="label label-xl label-inline label-light-warning">Suplier</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="navi-item">
+                  <a href="#" class="navi-link">
+                    <span class="navi-text">
+                      <span class="label label-xl label-inline label-light-primary">Member</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="navi-item">
+                  <a href="#" class="navi-link">
+                    <span class="navi-text">
+                      <span class="label label-xl label-inline label-light-dark">Staff</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="navi-separator mt-3 opacity-70"></li>
+                <li class="navi-footer py-4">
+                  <a class="btn btn-clean font-weight-bold btn-sm" href="#">
+                    <i class="ki ki-plus icon-sm"></i>
+                    Add new
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div> -->
+        <!--end::Toolbar-->
+        <!--begin::User-->
+        <!--end::User-->
+        <!--begin::Desc-->
+        <!-- <p class="mb-7">
+                    I distinguish three main text objectives. First, your objective <a href="#"
+                      class="text-primary pr-1">#xrs-54pq</a>
+                  </p> -->
+        <!--end::Desc-->
+        <!--begin::Info-->
+
+
+          <!-- <
+            
+            div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-bolder pl-4 mr-2">Faixa de colaboradores:
+            </span>
+            <span class="text-dark-75">
+              {{workspaceService.workspace?.faixa_colaboradores}}
+            </span>
+          </div> -->
+
+          <!-- </a> -->
+        <!-- <hr>
+        <div class="pt-0">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-bolder mr-2">Financeiro:
+            </span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-bolder pl-4 mr-2">Renovação automática:
+            </span>
+            <div [innerHtml]="badgeOnOff('sim', 'não', workspaceService.workspace?.renovacao_automatica)"></div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-bolder pl-4 mr-2">Subtotal:
+            </span>
+            <span class="text-dark-75">
+              {{workspaceService.workspace?.status}}
+            </span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-bolder pl-4 mr-2">Desconto:
+            </span>
+            <span class="text-dark-75">
+              {{workspaceService.workspace?.status}}
+            </span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-bolder pl-4 mr-2">Total contrato:
+            </span>
+            <span class="text-dark-75">
+              {{workspaceService.workspace?.status}}
+            </span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-bolder pl-4 mr-2">Parcela:
+            </span>
+            <span class="text-dark-75">
+              1/12
+            </span>
+          </div>
+        </div> -->
+        <!--end::Info-->
+        <!-- <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">write
+          message</a> -->
+      </div>
+      <!--end::Body-->
+    </div>
+  </div>
+
+  <div class="row pt-6">
+    <div class="col-6">
+      <div class="card card-custom" *ngIf="workspaceService?.currentUser?.max_role == 4">
+        <!--begin::Body-->
+  
+        <div class="card-header align-items-center border-0 mt-0">
+          <h3 class="card-title align-items-start flex-column">
+            <span class="font-weight-bolder text-dark">Dados dos usuários</span>
+            <span class="text-muted font-weight-bold mt-1" style="font-size: 1rem;">Dados dos usuários</span>
+          </h3>
+          <!-- <div class="card-toolbar">
+            <a
+              class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+              [attr.href]="null"
+              [class.disabled]="true"
+              > -->
+              <!-- workspaceService.autorizar('cliente_editar') != true -->
+              <!-- (click)="coletarGastos()" -->
+              <!-- <i class="la la-dollar-sign"></i> -->
+            <!-- </a> -->
+          <!-- </div> -->
+        </div>
+  
+        <div class="card-body pt-0 pb-5">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-bolder mr-2">Total:
+            </span>
+            <span class="text-dark-75 font-weight-bolder">
+              {{dados?.total}}
+            </span>
+          </div>
+          
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-bolder mr-2">Ativos:
+            </span>
+            <span class="text-dark-75 font-weight-bolder">
+              {{dados?.ativos}}
+            </span>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Participaram de alguma reserva:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.participantes_reserva?.serie_historica}}
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Participaram nos últimos 7 dias:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.participantes_reserva?.ultimos_sete_dias}}
+            </span>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Criadores de alguma reserva:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.criadores_reserva?.serie_historica}}
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-bolder mr-2">Criadores nos últimos 7 dias:
+            </span>
+            <span class="text-dark-75  font-weight-bolder">
+              {{dados?.criadores_reserva?.ultimos_sete_dias}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="card card-custom" *ngIf="workspaceService?.currentUser?.max_role == 4">
+        <!--begin::Body-->
+  
+        <div class="card-header align-items-center border-0 mt-0">
+          <h3 class="card-title align-items-start flex-column">
+            <span class="font-weight-bolder text-dark">Criações por módulo</span>
+            <span class="text-muted font-weight-bold mt-1" style="font-size: 1rem;">Usuários por tipo de espaço</span>
+          </h3>
+          <!-- <div class="card-toolbar">
+            <a
+              class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+              [attr.href]="null"
+              [class.disabled]="true"
+              > -->
+              <!-- workspaceService.autorizar('cliente_editar') != true -->
+              <!-- (click)="coletarGastos()" -->
+              <!-- <i class="la la-dollar-sign"></i> -->
+            <!-- </a> -->
+          <!-- </div> -->
+        </div>
+  
+        <div class="card-body pt-0 pb-5">
+          
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Criadores de algum hotdesk:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.tipo_espaco?.mesa?.serie_historica}}
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Criadores de hotdesk últimos 7 dias:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.tipo_espaco?.mesa?.ultimos_sete_dias}}
+            </span>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Criadores de algum smartroom:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.tipo_espaco?.sala?.serie_historica}}
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Criadores de smartroom últimos 7 dias:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.tipo_espaco?.sala?.ultimos_sete_dias}}
+            </span>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Criadores de algum estacionamentos:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.tipo_espaco?.estacionamento?.serie_historica}}
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Criadores de estacionamentos últimos 7 dias:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.tipo_espaco?.estacionamento?.ultimos_sete_dias}}
+            </span>
+          </div>
+          
+          <hr>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Criadores de algum fretes:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.tipo_espaco?.fretado?.serie_historica}}
+            </span>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="text-dark-75 font-weight-normal mr-2">Criadores de fretes últimos 7 dias:
+            </span>
+            <span class="text-dark-75">
+              {{dados?.tipo_espaco?.fretado?.ultimos_sete_dias}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!--end:: Card-->

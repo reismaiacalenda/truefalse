@@ -1,0 +1,453 @@
+<div class="m-content pb-0">
+
+	<div class="row pb-0 pb-lg-3">
+		<div class="col-12 py-0">
+			<acoes></acoes>
+		</div>
+	</div>
+
+	<div class="separator separator-dashed separator-border-4"></div>
+
+	<!-- <hr> -->
+	<!-- principais -->
+	<div class="row pt-3 h-100">
+
+		<div class="col-md-3 col-12">
+			<div class="row" *ngIf="!isMobile">
+
+				<div class="col-12 pb-6">
+					<office-pass></office-pass>
+				</div>
+
+				<!-- <div class="col-12">
+					<div id="atalhos-reservas" class="card card-custom card-shadowplus wave wave-animate-slow bg-grey-100  ">
+						<div class="card-header  m-animate-shine">
+							<div class="card-title">
+								<a routerLink="/reservas/calendario" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Calendário" container="body" placement="bottom">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/_Custom/Calendario.svg'">
+									</span>
+								</a>
+								<a routerLink="/reservas/listagem" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Listagem" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('listagem_menu')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Devices/Server.svg'">
+									</span>
+								</a>
+								<a routerLink="/reservas/quadros" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Quadros" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('quadro_espaco_menu', 'quadro_pessoa_menu', 'quadro_recurso_menu')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-4-blocks.svg'">
+									</span>
+								</a>
+							</div>
+							<div class="card-toolbar">
+								<a routerLink="/reservas/recursos-alocados" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Recursos alocados" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('recursos_alocados_menu')
+									&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Devices/Hard-drive.svg'">
+									</span>
+								</a>
+								<a routerLink="/customizacoes" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Customizações" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('customizacoes_menu')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Code/Settings4.svg'">
+									</span>
+								</a>
+								<a routerLink="/acompanhamentos/monitoramento" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Monitoramento" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('monitoramento_menu')
+									&& workspaceService.currentUser.subdominio.addons.includes('Display porta', 'Display painel')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Devices/Diagnostics.svg'">
+									</span>
+								</a>
+								<a routerLink="/acompanhamentos/relatorios" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Relatórios" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('relatorio_menu')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Shopping/Chart-bar1.svg'">
+									</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div> -->
+
+				<div class="col-12 pb-6">
+					<!-- card-stretch gutter-b -->
+					<hotdesk id="jornal" cssClasses=""></hotdesk>
+				</div>
+
+				<!-- <div class="col-12 pb-6">
+					<trial></trial>
+				</div> -->
+
+				<!-- <div class="col-12 pb-6">
+					<div class="card card-custom" (click)="boasVindas()" style="cursor:pointer">
+						<div class="card-body p-0 rounded"
+							style="background:radial-gradient(94.09% 94.09% at 50% 50%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 100%), rgb(226 229 246)">
+							<div class="row m-0">
+								<div class="col-10 p-0">
+									<div class="card card-custom card-stretch card-transparent card-shadowless">
+										<div class="card-body pr-0 py-5">
+											<h3 class="font-size-h4 font-size-h1-sm font-size-h4-lg font-size-h1-xl mb-0">
+												<a class="text-primary">Faça um tour pelo Calenda</a>
+											</h3>
+										</div>
+									</div>
+								</div>
+								<div class="col-2 pt-2  m-animate-blink">
+									<a [routerLink]="" class="btn btn-sm btn-light-primary font-weight-bold p-1">
+										<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+											[inlineSVG]="'./assets/app/media/svg/icons/Home/Mailbox.svg'">
+										</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+			</div>
+		</div>
+
+		<div class="col-md-3 col-12 h-100">
+			<!-- <div class="row" *ngIf="!isMobile"> -->
+
+				<!-- <div class="col-12">
+					<div id="atalhos-reservas" class="card card-custom card-shadowplus wave wave-animate-slow bg-grey-100  ">
+						<div class="card-header  m-animate-shine">
+							<div class="card-title">
+								<a routerLink="/reservas/calendario" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Calendário" container="body" placement="bottom">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/_Custom/Calendario.svg'">
+									</span>
+								</a>
+								<a routerLink="/reservas/listagem" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Listagem" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('listagem_menu')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Devices/Server.svg'">
+									</span>
+								</a>
+								<a routerLink="/reservas/quadros" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Quadros" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('quadro_espaco_menu', 'quadro_pessoa_menu', 'quadro_recurso_menu')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-4-blocks.svg'">
+									</span>
+								</a>
+							</div>
+							<div class="card-toolbar">
+								<a routerLink="/reservas/recursos-alocados" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Recursos alocados" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('recursos_alocados_menu')
+									&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Devices/Hard-drive.svg'">
+									</span>
+								</a>
+								<a routerLink="/customizacoes" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Customizações" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('customizacoes_menu')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Code/Settings4.svg'">
+									</span>
+								</a>
+								<a routerLink="/acompanhamentos/monitoramento" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Monitoramento" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('monitoramento_menu')
+									&& workspaceService.currentUser.subdominio.addons.includes('Display porta', 'Display painel')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Devices/Diagnostics.svg'">
+									</span>
+								</a>
+								<a routerLink="/reservas/relatorios" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+									ngbTooltip="Relatórios" container="body" placement="bottom"
+									*ngIf="workspaceService.autorizar('relatorio_menu')">
+									<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+										[inlineSVG]="'./assets/app/media/svg/icons/Shopping/Chart-bar1.svg'">
+									</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div> -->
+
+				<!-- <div class="col-12 pb-6"> -->
+					<!-- card-stretch gutter-b -->
+					<jornal id="jornal" class="pb-39" cssClasses=""></jornal>
+
+					<!-- <mini-calendar></mini-calendar> -->
+					<!-- <div class="card card-custom card-shadowplus h-100 d-inline-block">
+						oi
+					</div> -->
+				<!-- </div> -->
+
+			
+
+				<!-- <div class="col-12 pb-6">
+					<trial></trial>
+				</div> -->
+
+				<!-- <div class="col-12 pb-6">
+					<div class="card card-custom" (click)="boasVindas()" style="cursor:pointer">
+						<div class="card-body p-0 rounded"
+							style="background:radial-gradient(94.09% 94.09% at 50% 50%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 100%), rgb(226 229 246)">
+							<div class="row m-0">
+								<div class="col-10 p-0">
+									<div class="card card-custom card-stretch card-transparent card-shadowless">
+										<div class="card-body pr-0 py-5">
+											<h3 class="font-size-h4 font-size-h1-sm font-size-h4-lg font-size-h1-xl mb-0">
+												<a class="text-primary">Faça um tour pelo Calenda</a>
+											</h3>
+										</div>
+									</div>
+								</div>
+								<div class="col-2 pt-2  m-animate-blink">
+									<a [routerLink]="" class="btn btn-sm btn-light-primary font-weight-bold p-1">
+										<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+											[inlineSVG]="'./assets/app/media/svg/icons/Home/Mailbox.svg'">
+										</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> -->
+			<!-- </div> -->
+		</div>
+		
+		<div class="col-md-6 col-12">
+			<div class="row">
+				<div class="col-12">
+					<equipe></equipe>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12" *ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+					|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')
+					|| this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+					<qrcalenda></qrcalenda>
+				</div>
+			</div>
+	</div>
+
+	<!-- Rodapé de buttons -->
+	<!-- <div class="row pt-2 pb-5" *ngIf="!isMobile"> -->
+		<!-- <div class="col-12">
+			<div class="card card-custom card-shadowplus" id="rodape" style="background-color: rgba(88, 103, 221, 0.1) !important;">
+				<div class="card-header m-animate-shine" style="min-height: 60px;">
+					<div class="card-title">
+						<a routerLink="/workspace" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Workspace" container="body" placement="bottom"
+							*ngIf="workspaceService.autorizar('workspace_menu')">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Home/Building.svg'">
+							</span>
+						</a>
+						<a (click)="boasVindas()" class="btn btn-sm btn-light-primary font-weight-bold p-1" ngbTooltip="Boas-vindas"
+							container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Home/Home.svg'">
+							</span>
+						</a>
+
+						<a (click)="tour()" class="btn btn-sm btn-light-primary font-weight-bold p-1" ngbTooltip="Tour"
+							container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Home/Mailbox.svg'">
+							</span>
+						</a>
+						<a class="btn btn-sm btn-light-primary font-weight-bold p-1" href="https://docs-calenda.tawk.help/"
+							target="_blank" ngbTooltip="Guia do usuário" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'">
+							</span>
+						</a>
+						<a routerLink="/workspace/qrcalenda" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="QrCalenda" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Shopping/Barcode-read.svg'">
+							</span>
+						</a>
+						<a routerLink="/workspace/changelog" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Atualizações (changelog)" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Code/Git4.svg'">
+							</span>
+						</a>
+					</div>
+					<div class="card-toolbar">
+
+						<a class="btn btn-sm btn-light-primary font-weight-bold p-1" href="https://calenda.com.br/privacy-policy/"
+							target="_blank" ngbTooltip="Política de privacidade" container="body" placement="left">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Communication/Shield-user.svg'">
+							</span>
+						</a>
+
+						<a class="btn btn-sm btn-light-primary font-weight-bold p-1" href="https://calenda.com.br/terms-of-use/"
+							target="_blank" ngbTooltip="Termos de uso" container="body" placement="left">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/General/Clip.svg'">
+							</span>
+						</a>
+
+						<a class="btn btn-sm btn-light-primary font-weight-bold p-1" href="https://calenda.com.br/terms-of-service/"
+							target="_blank" ngbTooltip="Termos de serviço" container="body" placement="left">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-check.svg'">
+							</span>
+						</a>
+
+						<a [routerLink]="" (click)="onAbrirChat()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Suporte" container="body" placement="left"
+							*ngIf="workspaceService.autorizar('suporte_live_chat')">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Communication/Group-chat.svg'">
+							</span>
+						</a>
+
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+		<!-- <div class="col-xl-4">
+			<div class="m-portlet m-portlet--bordered-semi m-portlet--full-height">
+				<div class="m-portlet__body" routerLink="/agendamento/qrcode/">
+					<div class="m-widget19">
+						<div class="m-widget19__content">
+							<div class="m-portlet__head" style="padding:0">
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h4 class="m-portlet__head-text">
+											Ultimo post do blog.
+										</h4>
+									</div>
+								</div>
+							</div>
+							<div class="m-widget19__body">
+								<p>Precisa usar uma espaco de última hora?</p>
+								<p>Reserve imediatamente aproximando o celular ao monitor com o <b>QrCalenda</b>! Clique aqui e
+									descubra!</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+		<!-- TODO TENTAR ALGUM STATS SIMPLIFICADO DA QUADROS 7/15 -->
+
+	<!-- </div> -->
+
+	<!-- <div class="row pb-0">
+		<div class="col-12 py-0" *ngIf="workspaceService.autorizar('checkups') && nps?.ativo
+			&& workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience')">
+			<nps [data]="nps"></nps>
+		</div>
+	</div> -->
+
+	<!-- <div class="row py-0"> -->
+		<!-- TODO: tudo vai pra uma mini dashboard da gestão de assinatura. -->
+		<!-- <div class="col-xl-6">
+			<div class="m-portlet m-portlet--bordered-semi m-portlet--full-height">
+				<div class="m-portlet__body" routerLink="/agendamento/qrcode/">
+					<div class="m-widget19">
+						<div class="m-widget19__content">
+							<div class="m-portlet__head" style="padding:0">
+								<div class="m-portlet__head-caption">
+									<div class="m-portlet__head-title">
+										<h4 class="m-portlet__head-text">
+											Gestão de assinatura / Trial expirando / BOTÃO ATIVAR no topo tbm? / UMa nova licença
+											foiadicionada / upgrade/downgrade / duração 7/12 / renovação automática.
+										</h4>
+									</div>
+								</div>
+							</div>
+							<div class="m-widget19__body">
+								<p>Precisa usar uma espaco de última hora?</p>
+								<p>Reserve imediatamente aproximando o celular ao monitor com o <b>QrCalenda</b>! Clique aqui e
+									descubra!</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+
+	<!-- </div> -->
+
+	<!-- <div class="row py-0"> -->
+		<!-- <div class="col-xl-6">
+			<div class="row">
+				<div class="col-xl-12">
+					<div class="m-portlet m-portlet--bordered-semi m-portlet--full-height">
+						<div class="m-portlet__body" routerLink="/agendamento/qrcode/">
+							<div class="m-widget19">
+								<div class="m-widget19__content">
+									<div class="m-portlet__head" style="padding:0">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h4 class="m-portlet__head-text">
+													Guia do usuário (trazer faqs do hotsite e agrupá-los) doc/base de conhecimento
+													links (para changelog e tour e licença/termosdeuso/contrato)
+													metronic 7 faq1/home1
+												</h4>
+											</div>
+										</div>
+									</div>
+									<div class="m-widget19__body">
+										<p>Precisa usar uma espaco de última hora?</p>
+										<p>Reserve imediatamente aproximando o celular ao monitor com o <b>QrCalenda</b>! Clique aqui e
+											descubra!</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-12">
+					<div class="m-portlet m-portlet--bordered-semi m-portlet--full-height">
+						<div class="m-portlet__body">
+							<div class="m-widget19">
+								<div class="m-widget19__content">
+									<div class="m-portlet__head" style="padding:0">
+										<div class="m-portlet__head-caption">
+											<div class="m-portlet__head-title">
+												<h4 class="m-portlet__head-text">
+													Novidades no Calenda 2.5! (changelog e em breve(o q está sendo
+													feito/feedbacks/sugestões/melhorias)
+													links (para faq e tour e licença/termosdeuso/contrato)
+													(compartilhados, rating/like)
+													estética do metonic 7>faq3
+												</h4>
+											</div>
+										</div>
+									</div>
+									<div class="m-widget19__body">
+										<li>Layout com <b>cores</b> totalmente peronalizáveis. Experimente!</li>
+										<li>Confira a aba de preview do layout editado!</li>
+										<li>Melhorias no uso da câmera no <b>QrCalenda</b>!</li>
+										<li>Instruções orientadas por mobile de como escanear um QrCode!</li>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+	<!-- </div> -->
+
+</div>

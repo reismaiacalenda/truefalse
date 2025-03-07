@@ -1,0 +1,20 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  title="Calendários"
+>      
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('agendas_attributes')"
+    >
+    <tf-select-multi
+    [form]="formulario.get('agendas_attributes')"
+    [data]="listSalas"
+    label="Adicionar salas"
+    allowClear="false"
+    placeholder="Selecione">
+  </tf-select-multi>
+  </div>    
+
+</tf-form-simples>     

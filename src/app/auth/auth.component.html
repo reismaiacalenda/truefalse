@@ -1,0 +1,93 @@
+<div class="m-login m-login--5" id="m_login"
+>
+<!-- [ngClass]="" -->
+	<div *ngIf="!isMobile"
+	 class="m-login__wrapper-1 m-portlet-full-height">
+		<div class="m-login__wrapper-1-1 h-100 d-flex align-items-center">
+			<div class="m-login__contanier p-0" (click)="habilitarDebug()">
+				<div class="m-login__content">
+					<div class="m-login__title p-0">
+						<!-- <a href="http://reismaia.com" target="_blank"> -->
+							<img [src]="logoCustom()" style="max-height: 70%; width:70%; filter: brightness(0) invert(1)">
+						<!-- </a> -->
+					</div>
+					<!-- <div class="m-login__desc">
+						<h5>apresenta:</h5>
+					</div> -->
+				</div>
+			</div>
+			<!-- <div class="m-login__border">
+				<div></div>
+			</div> -->
+		</div>
+		<div class="bottom-links row">
+			<div class="col-md-8 pl-7" style="text-align: left">
+				<a href="https://links.calenda.com.br/status" target="_blank" class="m-link text-white">
+					Status&nbsp;
+				</a>
+				<!-- <a href="javascript:void(Tawk_API.toggle())" class="m-link text-white">
+					Contato&nbsp;
+				</a> -->
+			<!-- </div> -->
+			<!-- <div class="col-md-4" style="text-align: center"> -->
+				<a href="https://calenda.com.br/terms-of-use/" target="_blank" class="m-link text-white">
+					• Termos de uso 
+				</a>
+				<a href="https://calenda.com.br/privacy-policy/" target="_blank" class="m-link text-white">
+					&nbsp;• Política de privacidade
+				</a>
+			</div>
+			<div class="col-md-4" style="text-align: right">
+				<a href="https://www.calenda.com.br" class="m-link text-white">
+					por Calenda ♡
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="m-login__wrapper-2 m-portlet-full-height">
+		<div class="d-flex align-items-center h-100">
+			<div class="m-login__contanier"
+			>
+			<!-- [@routerTransition]="getState(o)" -->
+
+			<router-outlet 
+			></router-outlet>
+			<!-- #o="outlet" -->
+
+				<!-- <workspace-loading #loading style="display:block">
+				</workspace-loading>
+				<workspace-nao-encontrado #nao_encontrado style="display:none"
+					(acessar)="workspaceNaoEncontradoParaAcessar()">
+				</workspace-nao-encontrado>
+				<workspace-indefinido #indefinido style="display:none"
+					(acessar)="workspaceAcessar()">
+				</workspace-indefinido>
+				<workspace-acessar #acessar style="display:none"
+					(voltar)="volta()"
+					(descobri)="descobri()"
+					(workspaceSignin)="workspaceSignin($event)">
+				</workspace-acessar>
+				<workspace-descobrir #descobrir style="display:none"
+					(voltarAcessar)="voltarAcessar()">
+				</workspace-descobrir>
+				<workspace-restrito-signin #restrito_signin style="display:none"
+					[responseWorkspace]="responseWorkspace">
+				</workspace-restrito-signin>
+				<workspace-publico-signin #publico_signin style="display:none"
+					[responseWorkspace]="responseWorkspace"
+					(esqueceuSenha)="esqueceuSenha()">
+				</workspace-publico-signin>
+				<workspace-forget-password #forget_password style="display:none"
+					(cancelarEsqueceuSenha)="cancelarEsqueceuSenha()">
+				</workspace-forget-password> -->
+
+
+
+				<!-- <workspace-publico-signup #public_signup style="display:none">
+				</workspace-publico-signup>
+				<workspace-change-password #change_password style="display:none">
+				</workspace-change-password> -->
+			</div>
+		</div>
+	</div>
+</div>

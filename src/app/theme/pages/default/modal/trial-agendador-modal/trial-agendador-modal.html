@@ -1,0 +1,86 @@
+<div class="m-portlet m--bg-brand m-portlet--bordered-semi m-portlet--skin-gray-500 m-portlet--full-height"
+style="background:radial-gradient(94.09% 94.09% at 50% 50%, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0) 100%), #FFA800 !important"
+>
+  <div class="m-portlet__head">
+    <div class="m-portlet__head-caption">
+      <div class="m-portlet__head-title">
+        <h3 class="m-portlet__head-text text-dark">
+          Aguarde um pouquinho
+          <!-- testar ssvg icon -->
+        </h3>
+      </div>
+    </div>
+    <div class="m-portlet__head-tools">
+      <ul class="m-portlet__nav">
+        <li class="m-portlet__nav-item">
+          <button type="button" class="close text-dark" aria-label="Close" (click)="activeModal.dismiss(false)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </li>
+        <!-- <li
+          class="m-portlet__nav-item m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
+          data-dropdown-toggle="hover">
+          <a class="m-portlet__nav-link m-portlet__nav-link--icon m-portlet__nav-link--icon-xl" href="#"
+            ng-reflect-href="#">
+            <i class="la la-ellipsis-h m--font-light"></i>
+          </a>
+          <tf-page-guia></tf-page-guia>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+  <div class="m-portlet__body" (click)="activeModal.close(true)">
+
+    <div class="m-widget7 m-widget7--skin-gray-500">
+      <div class="m-widget7__desc text-dark mt-0" style="font-size:1.1rem">
+        Opa, nosso Agendador está em construção!
+        <br>
+        <br>
+        👷👷🚧🚧🚧👷👷
+        <br>
+        <br>
+        Que bom que você se interessou por essa novidade da Calenda! Já já a gente libera, viu?
+        <!-- <br>  -->
+        <!-- <br> -->
+        <!-- Não hesitamos em deixar um gostinho pra vocês poderem avistarem o que tá pra chegar na Calenda -->
+        <!-- Dedico toda essa automação a cada  -->
+        <!-- Este é um software de pessoas para pessoas. -->
+        <!-- <br> -->
+        <!-- <br> -->
+        <!-- Com certeza você e sua equipe vão usar o Calenda com gosto! -->
+        <!-- É um prazer ter você por aqui, mesmo! -->
+        <!-- Faça um tour, explore e conheça todo o potencial. -->
+         <!-- dessa ferramenta. -->
+        <!-- <br> -->
+        <!-- 💰Chega de ativo ocioso!💰 -->
+        <!-- Vamos juntos alocar de maneira ótima cada recurso e cada espaço. -->
+      </div>
+      <!-- <br> -->
+      <!-- <div class="m-widget7__user mb-12">
+        <div class="m-widget7__user-img">
+          <img alt="" class="m-widget7__img" src="./assets/app/media/img/misc/hebert.png">
+        </div>
+        <div class="m-widget7__info">
+          <span class="m-widget7__username text-dark">
+            Hebert Reis
+          </span>
+          <br>
+          <span class="m-widget7__time text-dark">
+            Gestor de contas
+          </span>
+        </div>
+      </div> -->
+      <!-- Diretor de operações -->
+      <!-- Idealizador do Calenda -->
+      <!-- CEO - Reis Maiaº  -->
+      <div class="m-widget7__button mb-7 mt-8">
+        <a class="m-btn m-btn--pill btn btn-primary text-white" routerLink="/index" (click)="activeModal.close(true)"
+          role="button">
+          Tá bem, mas liberem logo!
+          <!-- (init tour.js) -->
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>

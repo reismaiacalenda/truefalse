@@ -1,0 +1,307 @@
+<div class="m-portlet m-portlet--mobile m-portlet--sortable tf-card_borda_arredondada">
+  <div class="m-portlet__body_transparent tf-card_monitoramento tf-card_borda_arredondada "
+    style="padding-right:0.5rem; padding-left:0.5rem" [ngClass]="{'tf-background_livre':espaco.situacao=='livre',
+              'tf-background_espera':espaco.situacao=='espera',
+							'tf-background_ocupado':espaco.situacao=='ocupado'}">
+
+    <!-- INÍCIO ÍCONES -->
+    <!-- [ngClass]="{'tf-dashed_conectado':espaco.espaco.situacao=='livre',
+            'tf-dashed_requer_atencao':espaco.espaco.situacao=='espera',
+            'tf-dashed_desconectado':espaco.espaco.situacao=='ocupado'}"> -->
+    <div class="m-widget4__item tf-font_branca"
+      style="padding-left: 0; padding-top: 0.1rem; padding-bottom: 0.1rem; border-bottom: 0.07rem solid #ebedf2">
+      &nbsp;{{espaco.nome}}
+      <!-- <a href="" class="m-nav__link tf-link_icone_preto tf-espacamento_icone"
+        placement="top" ngbTooltip="Recarregar página"
+        (click)="openFormModalRecarregarPagina()">
+        <i class="m-nav__link-icon la la-refresh tf-card_monitoramento__icone"></i>
+      </a> -->
+      <!-- <a href="" class="m-nav__link tf-link_icone_preto tf-espacamento_icone"
+        placement="top" ngbTooltip="Abrir/fechar espaco"
+        [ngClass]="{'tf-isDisabled':espaco.status=='Desconectado'}"
+        (click)="openFormModalAbrirFecharEspaco()" >
+        <i class="m-nav__link-icon la la-key tf-card_monitoramento__icone"></i>
+      </a> -->
+      <!-- <a href="" class="m-nav__link tf-link_icone_branco tf-espacamento_icone_reserva tf-float-right"
+      placement="top" ngbTooltip="Ver ações para essa espaco"
+      (click)="onCheckInfo()">
+      <i class="m-nav__link-icon flaticon-list tf-card_monitoramento__icone"></i>
+      </a> -->
+
+      <!-- <div class="m-portlet__head-tools"> -->
+      <li
+        class="m-portlet__nav-item m-dropdown m-dropdown--down m-dropdown--inline m-dropdown--small m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
+        data-dropdown-toggle="hover" style="float:right; padding-right:8px">
+        <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-dropdown__toggle
+            tf-link_icone_branco tf-espacamento_icone_reserva tf-float-right">
+          <i class="m-nav__link-icon flaticon-list tf-card_monitoramento__icone" style="font-size:1em"></i>
+        </a>
+        <div class="m-dropdown__wrapper">
+          <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+          <div class="m-dropdown__inner">
+            <div class="m-dropdown__body">
+              <div
+                style="padding-left: 0; padding-top: 0.1rem; padding-bottom: 0.7rem; border-bottom: 0.07rem; color: #000000">
+                <b>Ações</b></div>
+              <div class="m-dropdown__content">
+                <ul class="m-nav">
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}">
+                    <a href="" class="m-nav__link" (click)="openModalNew()">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Agendar evento
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}">
+                    <a href="" class="m-nav__link" (click)="openModalPostoTrabalho()">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Definir posto de trabalho
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}">
+                    <a href="" class="m-nav__link" routerLink="/reservas/recursos-alocados/"
+                      [queryParams]="{espaco_id: [espaco.id]}">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Gerenciar recursos alocados
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}">
+                    <a href="" class="m-nav__link" (click)="openModalEditarEspaco(espaco.id)">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Editar espaço
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}">
+                    <a href="" class="m-nav__link" (click)="openModalInstalacao()">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Instalar recursos
+                      </span>
+                    </a>
+                  </li> -->
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}">
+                    <a href="" class="m-nav__link" (click)="abrirQrCode(espaco.id, espaco.nome)">
+                      <i class="m-nav__link-icon la la-plus"></i>
+                      <span class="m-nav__link-text">
+                        Gerar QR Code
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- <a href="#" title="QR Code" (click)="abrirQrCode(row.id, row.nome)"
+                      class="btn btn-outline-dark btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+                      <i class="la la-qrcode"></i>
+                    </a> -->
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}">
+                    <a href="" class="m-nav__link" *ngIf="espaco.situacao=='espera'"
+                      (click)="openCheckModal(espaco.id)">
+                      <!-- (click)="row.checkin_enabled==true && openCheckModal(row.espaco_id)" -->
+                      <!-- (click)="openModalCheck()" -->
+                      <i class="m-nav__link-icon la la-angle-right"></i>
+                      <span class="m-nav__link-text">
+                        Check-in
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item"
+                    [ngClass]="{'m-nav__item--disabled':espaco.status=='x' || espaco.status=='ocupado'}">
+                    <a href="" class="m-nav__link" *ngIf="espaco.situacao=='ocupado'"
+                      (click)="openCheckModal(espaco.id)">
+                      <!-- (click)="row.checkin_enabled==true && openCheckModal(row.espaco_id)" -->
+                      <!-- (click)="openModalCheck()" -->
+                      <i class="m-nav__link-icon la la-angle-left"></i>
+                      <span class="m-nav__link-text">
+                        Check-out
+                      </span>
+                    </a>
+                  </li>
+
+                  <li class="m-nav__item" [ngClass]="{'m-nav__item--disabled':espaco.status=='x'}">
+                    <a href="" class="m-nav__link" *ngIf="espaco.atual_reserva_id"
+                      (click)="cancelarReserva(espaco.atual_reserva_id)">
+                      <i class="m-nav__link-icon la la-remove"></i>
+                      <span class="m-nav__link-text">
+                        Cancelar reserva
+                      </span>
+                    </a>
+                  </li>
+
+                  <!-- <li class="m-nav__item"
+                      [ngClass]="{'m-nav__item--disabled':espaco.ip==''}">
+                      <a href="" class="m-nav__link"
+                        *ngIf="situacao/status = 'espera'"
+                        (click)="chamarNewCheck()"
+                      >
+                        <i class="m-nav__link-icon la la-sign-in"></i>
+                        <span class="m-nav__link-text">
+                          Check-in
+                        </span>
+                      </a>
+                    </li> -->
+
+                  <!-- <li class="m-nav__item"
+                      [ngClass]="{'m-nav__item--disabled':espaco.ip==''}">
+                      <a href="" class="m-nav__link"
+                      *ngIf="situacao/status = 'ocupado'"
+                      (click)="chamarNewCheck()"
+                      >
+                        <i class="m-nav__link-icon la la-sign-out"></i>
+                        <span class="m-nav__link-text">
+                          Check-out
+                        </span>
+                      </a>
+                    </li> -->
+
+                  <!-- <li class="m-nav__item"
+                      [ngClass]="{'m-nav__item--disabled':espaco.ip==''}">
+                      <a href="" class="m-nav__link"
+                      [router]="/reservas/recursos_alocados/espaco_id=#{espaco_id}" queryṔarams: {data: agora/"3" }
+                      >
+                        <i class="m-nav__link-icon la la-sign-out"></i>
+                        <span class="m-nav__link-text">
+                          Gerenciar recursos alocados
+                        </span>
+                      </a>
+                    </li> -->
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li
+        class="m-portlet__nav-item m-dropdown m-dropdown--down m-dropdown--inline m-dropdown--small
+        m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push"
+        data-dropdown-toggle="hover" style="float:right; padding-right:8px; overflow: visible">
+        <a href="#" class="m-portlet__nav-link m-portlet__nav-link--icon m-dropdown__toggle
+          tf-link_icone_branco tf-espacamento_icone_reserva tf-float-right">
+          <i class="m-nav__link-icon fa flaticon-open-box tf-card_monitoramento__icone" style="font-size:1em"></i>
+          <!-- <i class="[icone] tf-card_monitoramento__icone" style="font-size:1em"></i> -->
+        </a>
+        <div class="m-dropdown__wrapper">
+          <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+          <div class="m-dropdown__inner">
+            <div class="m-dropdown__body">
+              <div
+                style="padding-left: 0; padding-top: 0.1rem; padding-bottom: 0.7rem; border-bottom: 0.07rem; color: #000000">
+                <b>Amenidades</b></div>
+              <div class="m-dropdown__content">
+                <i class="m-nav__link-icon la la-plus"></i>
+                <div *ngFor="let s of espaco.amenities; let i = index;"
+                  style="padding-left: 0; padding-top: 0.1rem; padding-bottom: 0.7rem; border-bottom: 0.07rem; color: #000000">
+                  <ng-container *ngIf="espaco">{{s?.quantity}} - {{s?.name}}</ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- <tf-dropdown
+          icone="m-nav__link-icon fa flaticon-open-box"
+          titulo="Recursos instalados"
+          [iconeOpcao]="[]"
+          [data]="listDadosSelect['recursos']"
+        >
+        </tf-dropdown> -->
+
+      <!-- <a href="" class="m-nav__link tf-link_icone_branco tf-espacamento_icone_reserva tf-float-right"
+        placement="top" ngbTooltip="Ver recursos instalados nesta espaco"
+        (click)="onCheckInfo()">
+        <i class="m-nav__link-icon fa flaticon-open-box tf-card_monitoramento__icone"></i>
+      </a> -->
+
+      <!-- </div> -->
+
+      <!-- <a href="" class="m-nav__link tf-link_icone_preto tf-espacamento_icone"
+      placement="top" ngbTooltip="Ligar/desligar LCD"
+        (click)="openFormModalLigarDesligarLcd()"
+        [ngClass]="{'tf-isDisabled':espaco.status=='Desconectado'}">
+        <i class="m-nav__link-icon la la-desktop tf-card_monitoramento__icone"></i>
+      </a> -->
+      <!-- <a href="" class="m-nav__link tf-link_icone_preto tf-espacamento_icone"
+        placement="top" ngbTooltip="Reiniciar display"
+        (click)="openFormModalReiniciarDisplay()"
+        [ngClass]="{'tf-isDisabled':espaco.status=='Desconectado'}">
+        <i class="m-nav__link-icon la la-power-off tf-card_monitoramento__icone"></i>
+      </a> -->
+      <!-- <a href="" class="m-nav__link tf-link_icone_preto tf-espacamento_icone"
+        placement="top" ngbTooltip="Editar vínculo"
+        (click)="openFormModalEditarVinculo()"
+        [ngClass]="{'tf-isDisabled':espaco.status=='Desconectado'}">
+        <i class="m-nav__link-icon la la-edit tf-card_monitoramento__icone"></i>
+      </a> -->
+      <!-- <a href="" class="m-nav__link tf-link_icone_preto"
+      placement="top" ngbTooltip="Remover vínculo"
+      (click)="openFormModalRemoverVinculo()"
+      [ngClass]="{'tf-isDisabled':espaco.status=='Desconectado'}">
+      <i class="m-nav__link-icon la la-unlink tf-card_monitoramento__icone"></i>
+    </a> -->
+    </div>
+    <!-- FIM ÍCONES -->
+
+    <div class="m-widget4 " (click)="openModalNew()" style="cursor: pointer;">
+      <div class="m-widget4__item" style="display: block; padding-top: 0; padding-bottom: 0.1rem">
+        <!-- [ngClass]="{'tf-dashed_conectado':espaco.status=='Conectado',
+              'tf-dashed_requer_atencao':espaco.status=='Requer atenção',
+							'tf-dashed_desconectado':espaco.status=='Desconectado'}" -->
+
+        <!-- INÍCIO LOGO -->
+        <!-- <div class="m-widget4__img m-widget4__img--logo"> -->
+        <!-- <div class="m-demo-icon" style="margin-bottom:0"> -->
+        <!-- <div class="m-demo-icon__preview"> -->
+        <!-- <i *ngIf="espaco.status=='Desconectado'" class="la la-close m--font-danger"></i>
+              <i *ngIf="espaco.status=='Conectado'" class="la la-check m--font-success"></i>
+              <i *ngIf="espaco.status=='Requer atenção'" class="flaticon-warning-2 m--font-warning"></i> -->
+        <!-- </div> -->
+        <!-- </div> -->
+        <!-- </div> -->
+        <!-- FIM LOGO -->
+
+        <!-- INÍCIO NOME -->
+        <div class="m-widget4__info" style="display: block; padding-top: 1rem; padding-bottom: 1rem">
+          <span class="m-widget4__title">
+            <div class="tf-centralizando_situacao">&nbsp;{{espaco.atual}}</div>
+          </span>
+        </div>
+        <!-- FIM NOME -->
+
+      </div>
+
+      <!-- INÍCIO STATUS -->
+      <!-- <div class="m-widget4__item" style="padding-top: 0; padding-bottom: 0rem"> -->
+      <div class="m-widget4__info" style="padding-right:0.3rem; padding-left:0">
+        <span>
+          <div class="tf-proxima-reserva">&nbsp;{{espaco.proxima}}</div>
+        </span>
+      </div>
+      <!-- </div> -->
+      <!-- FIM STATUS -->
+
+    </div>
+  </div>
+</div>

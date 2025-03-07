@@ -1,0 +1,261 @@
+<!-- <div *ngIf="showHeader" class="m-subheader">
+	<div class="d-flex align-items-center">
+		<tf-page-map class="mr-auto" nomePagina="Mapa Interativo" [menu]="[
+				['/', 'Reservas'],
+				['/reservas/mapa-interativo', 'Mapa interativo']
+			]">
+		</tf-page-map>
+		<div>
+      <a id="refreshButton" href="#"
+        class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+        (click)="carregarReservas()">
+        <i class="la la-refresh"></i>
+      </a>
+
+    </div>
+		<tf-page-guia
+		>
+		</tf-page-guia>
+		
+	</div>
+</div> -->
+<div class="m-content">
+
+	<div class="card card-custom card-stretch card-stretch-half gutter-b card-shadowmore rounded mb-5">
+		<div class="card-body p-0">
+			<div class="d-flex align-items-center justify-content-between flex-grow-1 py-0 px-7">
+				<div class="row">
+					<div [formGroup]="formulario" class="mr-5">
+						<tf-date class="tf-estilizacao-date cursor-pointer" style="Display:flex; Width:8.25em" exibirIcone="true"
+						formControlName="data"
+						(ngModelChange)="carregarReservas()"
+						>
+						</tf-date>
+					</div>
+					<div class="mt-2">
+						<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-menu pt-2 pr-1"></span>
+					</div>
+					<div [formGroup]="formulario" class="ml-0 mr-5">
+						<tf-time class="tf-estilizacao-date cursor-pointer" style="Display:flex; Width:4em" formControlName="hora"
+							(ngModelChange)="carregarReservas()" step="1800"
+							retirarLabel="true"
+							>
+						</tf-time>
+					</div>
+					<a href="#" (click)="openModalAmenities()" class="mt-2 pr-6"
+						*ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+						<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'"
+        			class="m-menu__link-icon svg-icon svg-icon-menu"></span>
+						<span style="color:#000000">&nbsp;Recurso instalados</span>
+						<i class="la la-angle-down" style="color:#000000"></i>
+					</a>
+
+					<!-- <div class="btn-group btn-group-toggle pl-20">
+						<a *ngIf="workspaceService.autorizar('reserva_evento_visualizar_meu', 
+							'reserva_evento_visualizar_grupo', 'reserva_evento_visualizar_unidade')
+							&& workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')"
+							(click)="toggleSala()" class="btn btn-secondary bg-hover-light-primary"
+							[ngClass]="[ salas == true ? 'bg-primary text-white' : 'bg-white text-dark-75']">
+							Salas
+						</a>
+						<a *ngIf="workspaceService.autorizar('reserva_posto_de_trabalho_visualizar_meu', 
+							'reserva_posto_de_trabalho_visualizar_grupo', 'reserva_posto_de_trabalho_visualizar_unidade',
+							'reserva_estacao_flexivel_visualizar_meu', 'reserva_estacao_flexivel_visualizar_grupo', 
+							'reserva_estacao_flexivel_visualizar_unidade') && workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')"
+							(click)="toggleMesa()" class="btn btn-secondary bg-hover-primary"
+							[ngClass]="[ mesas == true ? 'bg-primary text-white' : 'bg-white text-dark-75']">
+							Mesas
+						</a>
+					</div> -->
+				</div>
+				
+				<div class="mt-2">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Design/Arrows.svg'"
+					class="m-menu__link-icon svg-icon svg-icon-menu pt-2 pr-1"></span>
+					<span style="color:#000000">&nbsp;Mova o mapa com o <b>botão direito</b> do mouse</span>
+					<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'"
+					class="m-menu__link-icon svg-icon svg-icon-menu pt-2 pr-1"></span> -->
+				</div>
+
+				<div class="text-right">
+					<a id="refreshButton" href="#"
+						class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+						(click)="carregarReservas()">
+						<i class="la la-refresh"></i>
+					</a>
+					<a routerLink="/cadastros/espacos/planta" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+						ngbTooltip="Planta das localizações" container="body" placement="left">
+						<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+							[inlineSVG]="'./assets/app/media/svg/icons/Design/Layers.svg'">
+						</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="">
+		<!-- m-portlet m-portlet--mobile -->
+		<div class="">
+			<!-- m-portlet__body -->
+			<div class="row mx-0">
+				<!-- TODO: tentar uma box inteira para essa coluna. 
+					e uma box rounded top com os icones, mas sem muita complicação de flex
+					uma do ladinho, cabendo até 5 se pah, e sofrendo com algum lance de colapse. procurar por vs code se pah. sei lá
+					ou svg -lg, svg-sm se pah
+					tentar imendar no mapa. ou seja, sem pading entre as colunas-->
+				<div class="col-lg-4 p-0">
+					<div class="card-toolbar p-0 pb-1 card-shadowmore rounded-top-left rounded-bottom-left bg-white"
+						style="height: 100%;">
+
+						<div class="row mx-0">
+							<div class="card-toolbar p-0 card-shadow rounded-top-left">
+								<ul class="dashboard-tabs nav nav-pills nav-primary row m-0" role="tablist">
+									<li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(1)" ngbTooltip="Localizações"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow" data-toggle="pill"
+											href="#tab_forms_widget_1" [ngClass]="[
+												tabStateManager.activeState == 1 ? 'active' : ''
+											]">
+											<span class="nav-icon py-0 w-auto svg-icon svg-icon-vintecinco" [ngClass]="[
+													tabStateManager.activeState == 1 ? 'svg-icon-white' : 'svg-icon-primary'
+												]" [inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+											</span>
+										</a>
+									</li>
+									<li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(2)" ngbTooltip="Espaços"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow"
+											[attr.data-toggle]="[esconderPlanta==true ? '' : 'pill']" [ngClass]="[esconderPlanta==true ? 'cursor-default' : 'cursor-pointer',
+												tabStateManager.activeState == 2 ? 'active' : '']">
+											<span class="nav-icon py-0 w-auto svg-icon svg-icon-vintecinco"
+												[ngClass]="[esconderPlanta == true ? 'svg-icon-dark-30' : tabStateManager.activeState == 2 ? 'svg-icon-white' : 'svg-icon-primary']"
+												[inlineSVG]="'./assets/app/media/svg/icons/Home/Cupboard.svg'">
+											</span>
+										</a>
+									</li>
+									<!-- <li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(5)" ngbTooltip="Revisar e salvar"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow "
+											[attr.data-toggle]="[esconderPlanta==true ? '' : 'pill']" [ngClass]="[esconderPlanta==true ? 'cursor-default' : 'cursor-pointer',
+												tabStateManager.activeState == 5 ? 'active' : '']">
+											<span class="nav-icon py-0 w-auto svg-icon svg-icon-vintecinco"
+												[ngClass]="[esconderPlanta == true ? 'svg-icon-dark-30' : tabStateManager.activeState == 5 ? 'svg-icon-white' : 'svg-icon-primary']"
+												[inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-check.svg'">
+											</span>
+										</a>
+									</li> -->
+								</ul>
+							</div>
+							<div class="row mx-0 w-100">
+								<div class="tab-content m-0 px-0 py-0 w-100">
+									<div class="tab-pane" id="forms_widget_tab_1" role="tabpanel" [ngClass]="[
+										tabStateManager.activeState == 1 ? 'active' : ''
+									]">
+										<div id="kt_tree_localizacoes" class="tree-demo"></div>
+									</div>
+									<div class="tab-pane" id="forms_widget_tab_2" role="tabpanel" [ngClass]="[
+										tabStateManager.activeState == 2 ? 'active' : ''
+									]">
+
+										<div style="display: flex; height: 365px;
+										flex-direction: column">
+											
+											<div style="
+											flex-shrink: 0;"></div>
+											<div class="row px-4 pt-0" style="overflow-y: auto; overflow-x: clip;">
+
+												<div *ngFor="let espaco of espacosReservasFiltrados"
+													class="col-sm-12 col-12 pb-0 px-3">
+													<div class="separator separator-solid separator-border-1"></div>
+													<card [card]="espaco" [data]="formulario.get('data').value"
+													(refreshQuadro)="carregarReservas()"></card>
+													<div class="separator separator-solid separator-border-1"></div>
+												</div>
+
+												<div *ngIf="espacoSelecionado" class="pt-3 w-100 text-center" >
+													<a [routerLink]="" (click)="recuperarTodosEspacos()"
+														class="font-size-sm">× Limpar seleção</a>
+												</div>
+			
+											</div>
+											<div style=" 
+											flex-shrink: 0;"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<!--end::Nav Tabs-->
+
+				</div>
+				<div class="col-lg-8 p-0">
+					<div class="card-toolbar pl-0 pr-0 pb-3 card-shadowmore rounded-top bg-white" id='divwidth'>
+					</div>
+					<!-- pr-0 -->
+					<canvas id="planta" class="card-shadow ">
+						<!-- style="box-sizing: border-box; box-shadow: 0px 0px 20px 0px rgba(82,63,105,0.05);" -->
+					</canvas>
+					<!-- <div class="row">
+
+						<div class="card card-custom card-shadowmore rounded mb-5" id="tooltip">
+							ooooi
+						</div>
+					</div> -->
+					<div class="card-toolbar pl-2 pr-0 pt-0 pb-3 card-shadowmore rounded-bottom bg-white">
+
+					</div>
+					<!-- <div class="card-toolbar">
+						<a href="#" (click)="zoomIn()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom in" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Design/ZoomPlus.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="zoomOut()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom out" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Design/ZoomMinus.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="moveViewPort(-1, 0)" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom in" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-left.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="moveViewPort(1, 0)" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom out" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-right.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="moveViewPort(0, -1)" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom out" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-up.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="moveViewPort(0, 1)" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom out" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-down.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="reCenter()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Centralizar" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+							</span>
+						</a>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

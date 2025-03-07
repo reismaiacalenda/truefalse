@@ -1,0 +1,12 @@
+import { Component } from '@angular/core';
+import { <%= classify(name) %>FormComponent } from '../<%= dasherize(name) %>-form/<%= dasherize(name) %>-form.component';
+import { TfDatatableBase } from '../../../../../../_andaime/tf-datatable/tf-datatable-base';
+
+@Component({
+  selector: '<%= dasherize(name) %>-data-table',
+  templateUrl:'<%= dasherize(name) %>-data-table.component.html'
+})
+export class <%= classify(name) %>DataTableComponent extends TfDatatableBase {
+  entidade= "<%= dasherize(entidade_plural) %>";
+  contentFormModal = <%= classify(name) %>FormComponent;
+}

@@ -1,0 +1,94 @@
+<div *ngIf="!disableHeader" class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">
+    {{verificarPreTitle()}} {{title}} <!-- {{id}}  -->
+  </h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"
+  >
+    <span aria-hidden="true">
+      &times;
+    </span>
+  </button>
+</div>
+
+<form class="m-form m-form--state m-form--fit m-form--label-align-right"
+  [formGroup]="formGroup" (ngSubmit)="!loadingService.isPending() && submeter.emit('')">
+
+	<div class="modal-body">
+		<div class="m-portlet__body">
+			<div class="m-form__content">
+				<div class="m-alert m-alert--icon alert alert-danger m--hide"
+					role="alert" id="m_form_2_msg">
+					<!-- [class.m--hide]="formulario.valid || formulario.untouched"> -->
+					<div class="m-alert__icon">
+						<i class="la la-warning"></i>
+					</div>
+					<div class="m-alert__text">
+						Oh snap! Change a few things up and try submitting again.
+					</div>
+					<div class="m-alert__close">
+						<!-- <button type="button" class="close" data-close="alert" aria-label="Close"></button> -->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+              (click)="activeModal.dismiss('Cross click')">
+              <span aria-hidden="true">
+                &times;
+              </span>
+            </button>
+          </div>
+				</div>
+      </div>
+        <ng-content></ng-content>
+      <!-- <ng-content select="[body]"></ng-content> -->
+    </div>
+  </div>
+
+  <div class="modal-body">
+    <span *ngIf="debugGlobal">
+      <p class="tf-debug"><b>FormGroup Valid:</b> {{formGroup.valid}}</p>
+      <p class="tf-debug"><b>FormGroup Touched:</b> {{formGroup.touched | json}}</p>
+      <p class="tf-debug"><b>FormGroup Dirty:</b> {{formGroup.dirty | json}}</p>
+      <p class="tf-debug"><b>FormGroup Enabled:</b> {{formGroup.enabled}}</p>
+      <!-- <p class="tf-debug"><b>FormGroup Value:</b> {{formGroup.value | json}}</p> -->
+      <p class="tf-debug"><b>FormGroup Value:</b></p><pre class="tf-debug"> {{formGroup.value | json}}</pre>
+      <p class="tf-debug"><b>Autorização Excluir:</b></p>
+      <container *ngFor="let excluir of autorizar_excluir; let i = index">
+        <p class="tf-debug">Posição {{i}}: {{excluir}}</p>
+      </container>
+    </span>
+  </div>
+
+  <div class="modal-footer">
+    <!-- <p>{{autorizar_excluir}}</p> -->
+    <!-- <p>{{habilitarExcluir}}</p> -->
+    <div class="col m--align-left pl-0">
+      <container *ngIf="autorizarExcluir()">
+        <button type="button" (click)="excluir.emit('')"
+          *ngIf="formGroup.get('id').value!=null && habilitarExcluir"
+          class="btn btn-outline-danger ">
+          Excluir
+        </button>
+      </container>
+
+      <button type="button" (click)="botaoAlternativo.emit('')"
+        *ngIf="textoBotaoAlternativo != ''"
+        class="btn btn-secondary">
+        <!--   -->
+        <!-- Limpar -->
+        <!-- class="btn btn-danger mr-auto" -->
+        {{textoBotaoAlternativo}}
+      </button>
+    </div>
+
+    <!-- <ng-content select="[footer]"></ng-content> -->
+    <button *ngIf="cancelar==true" type="button" class="btn btn-secondary" data-dismiss="modal" (click)="activeModal.close()">
+      <!-- {{titleCancelar}} -->
+      Fechar
+    </button>
+    <button type="submit"
+      class="btn btn-primary" *ngIf="habilitarSalvar"
+      [ngClass]="{'cursor-default': formGroup.invalid || loadingService.isPending()}"
+      [disabled]="formGroup.invalid || loadingService.isPending()">
+      {{salvar}}
+    </button>
+  </div>
+
+</form>

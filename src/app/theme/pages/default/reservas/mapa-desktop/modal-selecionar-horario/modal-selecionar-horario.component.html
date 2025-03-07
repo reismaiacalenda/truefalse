@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h5 class="modal-title ovo" id="exampleModalLabel">
+    Selecione um horário
+  </h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"
+  >
+    <span aria-hidden="true">
+      &times;
+    </span>
+  </button>
+</div>
+
+<div class="modal-body p-0">
+	<div class="m-portlet__body ">
+    <input type="text" id="pickerInput" class="d-none">
+    <div class="picker-container" id="picker-container">
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+
+  <div class="col m--align-left pl-0">
+    <button type="button" (click)="activeModal.close('Agora')"
+      class="btn btn-secondary">
+      <!--   -->
+      <!-- Limpar -->
+      <!-- class="btn btn-danger mr-auto" -->
+      Agora!
+    </button>
+  </div>
+
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close('')">
+		Cancelar
+	</button>
+	<button type="button" class="btn btn-primary" (click)="aplicarHorario()">
+		Aplicar
+	</button>
+</div>

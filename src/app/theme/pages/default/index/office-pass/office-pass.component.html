@@ -1,0 +1,96 @@
+<div #card class="card card-custom card-shadowplus bg-radial-gradient-primary rounded flipInX animated cursor-pointer
+  px-5 h-100"
+  (click)="flipCard()">
+  <ng-container *ngIf="!verso">
+    <div class="card-header align-items-start border-0 mt-4 px-0 row ">
+      <div class="col-6 pl-2">
+        <!-- <span class="font-size-lg text-light">LUCAS M VERISSIMO</span>   -->
+        <span class="svg-icon svg-icon-light svg-icon-1x5p"
+          [inlineSVG]="'./assets/app/media/svg/icons/Home/Building.svg'"
+          >
+        </span>
+        <span class="svg-icon svg-icon-white svg-icon-1x5p"
+          [inlineSVG]="'./assets/app/media/svg/icons/Home/Home.svg'"
+          >
+        </span>
+      </div>
+    </div>
+    <div class="card-body pr-0 pl-3 row d-flex align-items-end"
+    [ngClass]="{
+			'pb-6' : workspaceService.formacaoColunas('3-5-4'),
+			'pt-4 pb-3' : workspaceService.formacaoColunas('3-3-3-3')}">
+      <div class="col-9  pl-0 pb-2 pt-4">
+        <span class="font-size-md text-light pb-1">{{nomeUsuarioCaps()}}</span>
+      </div>
+      <div class="d-flex col-3 justify-content-end">
+        <span [inlineSVG]="'./assets/app/media/svg/logos/calenda_secondary.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-white svg-icon-3x"></span>
+      </div>
+      <!-- <span class="text-light">oooi</span> -->
+      <!-- [ngClass]="diaSelecionado(d.valor) ? 'btn-primary' : 'btn-outline-light'" -->
+
+    </div>
+  </ng-container>
+  <ng-container *ngIf="verso">
+    <div class="card-header align-items-center border-0 mt-0 mb-4 px-0 row">
+      <div class="col-10 mt-4">
+
+        <span *ngIf="true">
+          <!-- <span class="svg-icon svg-icon-white svg-icon-1xp5"
+            [inlineSVG]="'./assets/app/media/svg/icons/Home/Building.svg'"
+            >
+          </span> -->
+          <span class="text-light">Hoje é dia de escritório!</span>
+        </span>
+
+        <span *ngIf="false">
+          <!-- <span class="svg-icon svg-icon-white svg-icon-15x"
+            [inlineSVG]="'./assets/app/media/svg/icons/Home/Home-heart.svg'"
+            >
+          </span> -->
+          <span class="text-light">oooi</span>
+        </span>
+      </div>
+      <div class="col-2 d-flex justify-content-end mt-2 pr-2">
+        <span class="svg-icon svg-icon-white svg-icon-1x5p"
+          [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-right.svg'"
+          >
+        </span>
+      </div>
+      <div class="col-12">
+        <span *ngIf="true">
+          <!-- <span class="svg-icon svg-icon-white svg-icon-15x"
+            [inlineSVG]="'./assets/app/media/svg/icons/Home/Key.svg'"
+            >
+          </span> -->
+          <!-- <span class="font-size-lg text-light">F2 4P FX</span> -->
+          <span class="font-size-lg text-dark-75 bg-warning rounded px-3">Em breve!</span>
+        </span>
+      </div>
+    </div>
+    <div class="card-body px-0 "
+    [ngClass]="{
+			'pt-11 pb-3' : workspaceService.formacaoColunas('3-5-4'),
+			'pt-9 pb-3' : workspaceService.formacaoColunas('3-3-3-3')}">
+      <div class="row pl-3 pr-0">
+        <ng-container *ngFor="let d of dias_da_semana">
+          <div class="col-md-1 col-sm-4 pt-1 mx-0 px-0">
+            <a href="" class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air cursor-default"
+            [ngClass]="d.valor == 1 || d.valor == 4 || d.valor == 5 ? 'btn-dark' : 'btn-dark'"
+            style="height: 18px; width: 18px"
+            [ngbTooltip]="d.tooltip" container="body" placement="bottom"
+            >
+              <span class="font-size-xs"
+              [ngClass]="d.valor == 1 || d.valor == 4 || d.valor == 5  ? 'text-light' : 'text-light'"
+              style="padding-left: 0.32rem !important;">
+                {{d.dia}}
+              </span>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+      <!-- [ngClass]="diaSelecionado(d.valor) ? 'btn-primary' : 'btn-outline-primary'" -->
+      
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,58 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  (submeter)="onSubmit()"
+  title="Estilizar"
+  id="{{formulario.get('id').value}}"
+  >      
+
+  <div class='form-group m-form__group' >
+    <label>Cor de destaque
+      <a class="m-menu__link m-menu__toggle"
+      ngbTooltip="A dica aqui é conferir se os textos ficam bem legíveis. Fique atento ao contraste entre a cor escolhida e o fundo branco.😉" container="body" placement="bottom">
+      <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-1x"></span>
+    </a>
+    </label>
+    <div class="d-flex input-group-addon w-25">
+      <span class="mr-5">
+        <span class="m-badge"
+          [style.background]="formulario.value.primary_color">
+        </span> 
+      </span>
+      <span >
+        <a href="#"
+          (colorPickerChange)="changeColor($event)"
+          [(colorPicker)]="formulario.value.primary_color"
+          [cpAlphaChannel]="'disabled'"
+          [cpOutputFormat]="'hexadecimal'"
+          [cpCancelButton]="true"
+          [cpCancelButtonClass]="'btn btn-danger m-btn--air'"
+          [cpPresetColors]="['#5867dd']"
+          [cpOKButton]="true"
+          [cpOKButtonClass]="'btn btn-outline-primary m-btn--air'"
+          [cpSaveClickOutside]="true"
+          class="btn m-btn m-btn--icon m-btn--icon-only m-btn--air">
+              <i class="la la-eyedropper"></i>
+        </a>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group m-form__group">
+    <tf-upload-image
+      [extensions]="['jpeg','png','pdf','svg']"
+      [carousel]="listCarousel['carousel_logo']['fileHolder']"
+      (upload)="atualizarFileList($event, 'carousel_logo')"
+      (remove)="onRemovedFileCarousel($event, 'carousel_logo')"
+      formControlName="carousel_logo"
+      tooltip="Sugerimos uma logo de pelo menos 420px de largura. Ah, e com fundo transparente, ok? 🤓"
+      label="Anexos"
+      max="6"
+      boxMessage="Arraste e solte aqui a logo de sua organização."
+      labelBotao="Anexar Logotipo"
+      >
+    </tf-upload-image>
+  </div>
+
+</tf-form-simples>     

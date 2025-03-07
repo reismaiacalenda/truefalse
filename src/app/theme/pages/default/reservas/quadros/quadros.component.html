@@ -1,0 +1,393 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+  <div class="d-flex align-items-center">
+    <tf-page-map class="col-md-11 pl-0" nomePagina="Quadros"
+      [menu]="[
+        ['/', 'Reservas'],
+        ['/reservas/quadros', 'Quadros']
+      ]">
+    </tf-page-map>
+    <tf-page-guia class="col-md-1 pr-0 float-right">
+    </tf-page-guia>
+  </div>
+</div>
+<!-- END: Subheader -->
+
+<!-- <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper"> -->
+
+<!--begin::Section-->
+
+<div class="m-content">
+
+    <div class="row pb-6">
+      <div class="col-lg-4" *ngIf="workspaceService.autorizar('quadro_pessoa_menu')
+        && (this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')
+        || this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience'))">
+        <!--begin::Card-->
+        <div class="row">
+          <div class="col-12">
+            <a style="text-decoration:none" routerLink="/reservas/quadros/pessoas"
+              class="card card-custom wave wave-animate-slow wave-primary mb-8 mb-lg-0">
+              <!--begin::Card Body-->
+              <div class="card-body m-animate-shine ">
+                <div class="d-flex align-items-center py-2">
+                  <!--begin::Icon-->
+                  <div class="mr-6">
+                    <span class="svg-icon svg-icon-primary svg-icon-4x"
+                      [inlineSVG]="'./assets/app/media/svg/icons/Communication/Group.svg'">
+                    </span>
+                  </div>
+                  <!--end::Icon-->
+
+                  <!--begin::Content-->
+                  <div class="d-flex flex-column">
+                    <h3 class="text-dark h5 mb-3">
+                      Pessoas
+                    </h3>
+                    <div class="text-dark-50">
+                      Acompanhe em tempo real a agenda de cada pessoa
+                    </div>
+                  </div>
+                  <!--end::Content-->
+                </div>
+              </div>
+              <!--end::Card Body-->
+            </a>
+          </div>
+          <div class="col-12 mt-1">
+            <a style="text-decoration:none; background-color: #e2e5f6;" class="card card-custom mb-8 mb-lg-0 d-none d-lg-block">
+              <!--begin::Card Body-->
+              <div class="card-body m-animate-shine pt-0 pb-2">
+                <div class="d-flex align-items-center py-0">
+                  <div class="d-flex flex-column">
+                    <div class="card-toolbar">
+                      <a routerLink="/cadastros/pessoas/aprovadores" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+                        ngbTooltip="Auditores" container="body" placement="bottom"
+                        *ngIf="workspaceService.autorizar('aprovador_visualizar')">
+                        <span class="svg-icon svg-icon-primary svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/Home/Key.svg'">
+                        </span>
+                      </a>
+                      <a routerLink="/cadastros/pessoas/grupos"
+                        class="btn btn-sm btn-light-primary font-weight-bold p-1" ngbTooltip="Grupos & permissões"
+                        container="body" placement="bottom"
+                        *ngIf="workspaceService.autorizar('grupo_visualizar')">
+                        <span class="svg-icon svg-icon-primary svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/General/Shield-protected.svg'">
+                        </span>
+                      </a>
+                      <a routerLink="/cadastros/pessoas/pessoas"
+                        class="btn btn-sm btn-light-primary font-weight-bold p-1" ngbTooltip="Pessoas" container="body"
+                        placement="bottom"
+                        *ngIf="workspaceService.autorizar('pessoa_visualizar_meu', 'pessoa_visualizar_grupo', 'pessoa_visualizar_unidade')">
+                        <span class="svg-icon svg-icon-primary svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/General/User.svg'">
+                        </span>
+                      </a>
+                      <a 
+                        class="btn btn-sm btn-light-primary font-weight-bold p-1" ngbTooltip="Convidar" container="body"
+                        placement="bottom" (click)="convidarPessoas()"
+                        *ngIf="workspaceService.autorizar('pessoa_convidar')">
+                        <span class="svg-icon svg-icon-primary svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/Communication/Add-user.svg'">
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--end::Card Body-->
+            </a>
+          </div>
+        </div>
+        <!--end::Card-->
+      </div>
+      
+      <div class="col-lg-4" *ngIf="workspaceService.autorizar('quadro_espaco_menu')
+        && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+        || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+        <!--begin::Card-->
+        <div class="row">
+          <div class="col-12">
+            <a style="text-decoration:none" routerLink="/reservas/quadros/espacos"
+              class="card card-custom wave wave-animate-slow wave-info mb-8 mb-lg-0">
+              <!--begin::Card Body-->
+              <div class="card-body m-animate-shine ">
+                <div class="d-flex align-items-center py-2">
+                  <!--begin::Icon-->
+                  <div class="mr-6">
+                    <span class="svg-icon svg-icon-info svg-icon-4x"
+                      [inlineSVG]="'./assets/app/media/svg/icons/Home/Cupboard.svg'">
+                    </span>
+                  </div>
+                  <!--end::Icon-->
+
+                  <!--begin::Content-->
+                  <div class="d-flex flex-column">
+                    <h3 class="text-dark h5 mb-3">
+                      Espaços
+                    </h3>
+                    <div class="text-dark-50">
+                      Panorama completo da situação dos espaços
+                    </div>
+                  </div>
+                  <!--end::Content-->
+                </div>
+              </div>
+              <!--end::Card Body-->
+            </a>
+          </div>
+          <div class="col-12 mt-1">
+            <a style="text-decoration:none; background-color: #dfeaf9;" class="card card-custom mb-8 mb-lg-0 d-none d-lg-block">
+              <!--begin::Card Body-->
+              <div class="card-body m-animate-shine pt-0 pb-2">
+                <div class="d-flex align-items-center py-0">
+                  <div class="d-flex flex-column">
+                    <div class="card-toolbar">
+                      <a routerLink="/cadastros/espacos/espacos" class="btn btn-sm btn-light-info font-weight-bold p-1"
+                        ngbTooltip="Espaços" container="body" placement="bottom"
+                        *ngIf="workspaceService.autorizar('espaco_visualizar')
+                        && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+			                  || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+                        <span class="svg-icon svg-icon-info svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/Home/Door-open.svg'">
+                        </span>
+                      </a>
+                      <a routerLink="/cadastros/espacos/tipos-de-espaco"
+                        class="btn btn-sm btn-light-info font-weight-bold p-1" ngbTooltip="Tipos de espaço"
+                        container="body" placement="bottom"
+                        *ngIf="workspaceService.autorizar('tipo_espaco_visualizar')
+                        && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+			                  || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+                        <span class="svg-icon svg-icon-info svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'">
+                        </span>
+                      </a>
+                      <a routerLink="/cadastros/espacos/planta" class="btn btn-sm btn-light-info font-weight-bold p-1"
+                        ngbTooltip="Planta" container="body" placement="bottom"
+                        *ngIf="workspaceService.autorizar('localizacao_visualizar')
+                        && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+			                  || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+                        <span class="svg-icon svg-icon-info svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/Design/Select.svg'">
+                        </span>
+                      </a>
+                      <a routerLink="/cadastros/espacos/localizacao" class="btn btn-sm btn-light-info font-weight-bold p-1"
+                        ngbTooltip="Localização" container="body" placement="bottom"
+                        *ngIf="workspaceService.autorizar('localizacao_visualizar')
+                        && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+			                  || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+                        <span class="svg-icon svg-icon-info svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+                        </span>
+                      </a>
+                      <a routerLink="/cadastros/espacos/integrar-calendarios" class="btn btn-sm btn-light-info font-weight-bold p-1"
+                        ngbTooltip="Integrar calendários" container="body" placement="bottom"
+                        *ngIf="workspaceService.autorizar('integracao_menu')
+                        && workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')">
+                        <span class="svg-icon svg-icon-info svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/General/Scale.svg'">
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--end::Card Body-->
+            </a>
+          </div>
+        </div>
+        <!--end::Card-->
+      </div>
+
+      <div class="col-lg-4" *ngIf="workspaceService.autorizar('quadro_recurso_menu')
+        && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+        <!--begin::Card-->
+        <div class="row">
+          <div class="col-12">
+            <a style="text-decoration:none" routerLink="/reservas/quadros/recursos"
+              class="card card-custom wave wave-animate-slow wave-success mb-8 mb-lg-0">
+              <!--begin::Card Body-->
+              <div class="card-body m-animate-shine ">
+                <div class="d-flex align-items-center py-2">
+                  <!--begin::Icon-->
+                  <div class="mr-6">
+                    <span class="svg-icon svg-icon-success svg-icon-4x"
+                      [inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'">
+                    </span>
+                  </div>
+                  <!--end::Icon-->
+
+                  <!--begin::Content-->
+                  <div class="d-flex flex-column">
+                    <h3 class="text-dark h5 mb-3">
+                      Recursos
+                    </h3>
+                    <div class="text-dark-50">
+                      Gestão real-time de todos os recursos
+                    </div>
+                  </div>
+                  <!--end::Content-->
+                </div>
+              </div>
+              <!--end::Card Body-->
+            </a>
+          </div>
+          <div class="col-12 mt-1">
+            <a style="text-decoration:none; background-color: #dceef2;" class="card card-custom mb-8 mb-lg-0 d-none d-lg-block">
+              <!--begin::Card Body-->
+              <div class="card-body m-animate-shine pt-0 pb-2">
+                <div class="d-flex align-items-center py-0">
+                  <div class="d-flex flex-column">
+                    <div class="card-toolbar">
+                      <a routerLink="/reservas/recursos-alocados"
+                        class="btn btn-sm btn-light-success font-weight-bold p-1" ngbTooltip="Recursos alocados"
+                        container="body" placement="bottom"
+                        *ngIf="workspaceService.autorizar('recursos_alocados_menu')
+                        && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+                        <span class="svg-icon svg-icon-success svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/Devices/Hard-drive.svg'">
+                        </span>
+                      </a>
+                      <a routerLink="/cadastros/recursos/recursos"
+                        class="btn btn-sm btn-light-success font-weight-bold p-1" ngbTooltip="Recursos" container="body"
+                        placement="bottom"
+                        *ngIf="workspaceService.autorizar('recurso_visualizar')
+                        && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+                        <span class="svg-icon svg-icon-success svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/Home/Box.svg'">
+                        </span>
+                      </a>
+                      <a routerLink="/cadastros/recursos/servicos"
+                        class="btn btn-sm btn-light-success font-weight-bold p-1" ngbTooltip="Serviços" container="body"
+                        placement="bottom"
+                        *ngIf="workspaceService.autorizar('servico_visualizar')
+                        && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+                        <span class="svg-icon svg-icon-success svg-icon-2x"
+                          [inlineSVG]="'./assets/app/media/svg/icons/Food/Coffee1.svg'">
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--end::Card Body-->
+            </a>
+          </div>
+        </div>
+        <!--end::Card-->
+      </div>
+    </div>
+
+
+  <div class="container pb-5">
+    <!--begin::hero-->
+    <div class="text-center pt-2">
+      <!-- <h1 class="font-weight-bolder text-dark mb-6">
+          Frequently Asked Questions
+        </h1> -->
+      <!-- <div class="h4 text-dark-50 mb-0">
+        Deixe o Calenda com a cara de sua organização!
+      </div> -->
+      <div class="row">
+        <div class="offset-md-3 col-md-6">
+          <span class="svg-icon svg-icon-10x" [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-4-blocks.svg'">
+          </span>
+        </div>
+      </div>
+    </div>
+    <!--end::hero-->
+
+
+    <!--end:: content-->
+  </div>
+<!-- </div> -->
+
+</div>  
+
+<!--end::Section-->
+
+<!-- <div class="m-content">
+  <div class="m-portlet m-portlet--mobile">
+    <div class="m-portlet__body">
+      <div class="row">
+        <div class="col-xl-6"> -->
+
+
+<!-- <div class="m-widget17__items m-widget17__items-col1">
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-truck m--font-brand"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Delivered
+              </span>
+              <span class="m-widget17__desc">
+                15 New Paskages
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-paper-plane m--font-info"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Reporeted
+              </span>
+              <span class="m-widget17__desc">
+                72 Support Cases
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-paper-plane m--font-info"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Reporeted
+              </span>
+              <span class="m-widget17__desc">
+                72 Support Cases
+              </span>
+            </div>
+          </div>
+          <div class="m-widget17__items m-widget17__items-col2">
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-pie-chart m--font-success"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Ordered
+              </span>
+              <span class="m-widget17__desc">
+                72 New Items
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-time m--font-danger"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Arrived
+              </span>
+              <span class="m-widget17__desc">
+                34 Upgraded Boxes
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-paper-plane m--font-info"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Reporeted
+              </span>
+              <span class="m-widget17__desc">
+                72 Support Cases
+              </span>
+            </div>
+          </div> -->
+
+<!-- </div>
+    
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,60 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  title="Pergunta"
+  (submeter)="onSubmit()"
+  >
+
+  <div class="form-group m-form__group">
+    <tf-radio-button
+      [data]='[
+        {"label":"Campo aberto", "value":1},
+        {"label":"Múltipla escolha", "value":0},
+        {"label":"Data", "value":2}
+      ]'
+        formControlName="tipo"
+        label="Tipo da pergunta">
+    </tf-radio-button>	
+  </div>
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('questao')">
+    <tf-text-simple
+        formControlName="questao"
+        label="Questão"
+        placeholder="Digite o enunciado">
+    </tf-text-simple>
+  </div>
+      
+  <div class="form-group m-form__group"
+    *ngIf="formulario.get('tipo').value == 0"
+    [ngClass]="aplicaCss('opcoes')"
+    >
+    <tf-text-area
+        formControlName="opcoes"
+        label="Opções (separe-as por ponto e vírgula;)"
+        placeholder="Opcoes">
+    </tf-text-area>
+  </div>
+
+  <div class="form-group m-form__group"
+    *ngIf="formulario.get('tipo').value == 0"
+    [ngClass]="aplicaCss('resposta_correta')">
+    <tf-text-simple
+        formControlName="resposta_correta"
+        label="Resposta correta"
+        placeholder="Digite a resposta correta">
+    </tf-text-simple>
+  </div>
+
+  <div class="form-group m-form__group"  
+    [ngClass]="aplicaCss('ordem')">
+    <div class="col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px;">
+        <tf-integer
+        formControlName="ordem"
+        label="Ordem">
+      </tf-integer>
+    </div>
+  </div>
+    
+</tf-form-simples>

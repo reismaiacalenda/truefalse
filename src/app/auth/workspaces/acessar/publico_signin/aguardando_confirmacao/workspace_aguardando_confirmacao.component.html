@@ -1,0 +1,23 @@
+<div class="m-login__signin">
+  <div class="m-login__head">
+    <h3 class="m-login__title">
+      E-mail enviado!
+    </h3>
+    <div *ngIf="domainService.isClienteSubdominio() == true" class="m-login__desc">
+      Verifique sua caixa de entrada. Estamos aguardando sua confirmação. 
+    </div>
+    <!-- button com loading true -->
+    <div *ngIf="domainService.isClienteSubdominio() == false" class="m-login__desc">
+      Prontinho! Verifique sua caixa de entrada. Basta acessar o link e seu workspace será criado! 
+    </div>
+    <div class="row m-login__form-sub" style="margin-top: 2rem;">
+      <div class="col m--align-left">
+      </div>
+      <div class="col m--align-right" >
+        <!-- <a href="javascript:;" class="m-link" routerLink="/login/..." skipLoadingChange>
+          Reiniciar
+        </a> -->
+      </div>
+    </div>
+  </div>
+</div>

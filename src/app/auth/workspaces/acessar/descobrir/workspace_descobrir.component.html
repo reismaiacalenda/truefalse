@@ -1,0 +1,55 @@
+<div class="m-login__signin">
+  <div class="m-login__head">
+    <h3 class="m-login__title">
+      Insira seu e-mail
+    </h3>
+    <div class="m-login__desc">
+      Enviaremos a url do seu workspace para sua caixa de entrada.
+    </div>
+  </div>
+  <!-- (ngSubmit)="signInForm.form.valid && signin()" -->
+  <form  #signInForm="ngForm" class="m-login__form m-form" action="">
+    <ng-template #alertSignin></ng-template>
+    <div class="form-group m-form__group">
+      <input class="form-control m-input"
+      type="e-mail"
+      placeholder="E-mail"
+      name="email"
+      autocomplete="off"
+      [(ngModel)]="login"
+      required>
+      <!-- #email="ngModel" -->
+    </div>
+    <div class="row m-login__form-sub" style="margin-top: 1rem;">
+      <div class="col m--align-right">
+        <!-- <label class="m-checkbox m-checkbox-s">
+          <input type="checkbox" name="remember" [(ngModel)]="model.remember" #remember="ngModel">
+          Remember me
+          <span></span>
+        </label> -->
+        <!-- id="forgetPasswordForm" -->
+        <a href="javascript:;" class="m-link" routerLink="/login/acessar" skipLoadingChange>
+          Voltar
+        </a>
+      </div>
+    </div>
+    <div *ngIf="output != undefined" class="m-login__form-sub">
+      <span *ngIf="output?.error?.errors != undefined" class="m-form__help m--font-danger">
+        {{output?.error?.errors}}
+      </span>
+      <span *ngIf="output?.ok == true || output?.success==true"
+        class="m-form__help m--font-success">
+        Workspace(s) encontrado(s)! Confira-os em sua caixa de entrada.
+      </span>
+    </div>
+    <div class="m-login__form-action">
+      <!-- (click)="acessar.emit('')" -->
+      <button  class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air"
+        [disabled]="loading" 
+        [ngClass]="{'m-loader m-loader--right m-loader--light': loading}"
+        (click)="descobrirWorkspace()">
+        Encontrar
+      </button>
+    </div>
+  </form>
+</div>

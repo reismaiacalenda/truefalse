@@ -1,0 +1,22 @@
+<div class="m-login__signin">
+  <div class="m-login__head">
+    <h3 class="m-login__title">
+      Vamos começar?
+    </h3>
+    <div class="m-login__desc">
+      Caso sua organização já utilize o Calenda, acesse diretamente seu workspace.
+    </div>
+  </div>
+  <form class="m-login__form m-form" action="">
+    <!-- (ngSubmit)="signInForm.form.valid && signin()" #signInForm="ngForm"  -->
+    <ng-template #alertSignin></ng-template>
+    <div class="m-login__form-action">
+      <button routerLink="/login/criar" skipLocationChange class="btn btn-outline-primary m-btn m-btn--pill m-btn--custom ">
+        Criar
+      </button>
+      <button routerLink="/login/acessar" skipLocationChange class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air">
+        Acessar workspace
+      </button>
+    </div>
+  </form>
+</div>

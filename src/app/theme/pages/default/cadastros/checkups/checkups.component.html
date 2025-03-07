@@ -1,0 +1,139 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">
+    Qual checkup gostaria de fazer?
+  </h5>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close()"
+  >
+    <span aria-hidden="true">
+      &times;
+    </span>
+  </button>
+</div>
+
+<div class="modal-body">
+	<div class="m-portlet__body">
+		<div class="m-form__content">
+			<div class="m-alert m-alert--icon alert alert-danger m--hide"
+				role="alert" id="m_form_2_msg">
+				<div class="m-alert__close">
+				</div>
+			</div>
+		</div>
+
+		<ng-container *ngFor="let q of questionarios">
+			<ng-container *ngIf="q.template != 'nps' && q.template != 'engajamento' && q.ativo == true">
+				<div class="card card-custom card-shadowplus gutter-b bg-grey-100 cursor-pointer bg-hover-light mb-5"
+				(click)="activeModal.close({id: q.id, template: q.template})"
+					
+				>
+					<div class="card-body d-flex align-items-center justify-content-between flex-wrap py-7">
+						<div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3">
+							<div class="text-dark-50 font-size-md">
+								{{q?.titulo}}
+							</div>
+						</div>
+						<div class="d-flex flex-right">
+							<span class="svg-icon svg-icon-primary svg-icon-quinze"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-right.svg'">
+							</span>
+						</div>
+					</div>
+				</div>
+			</ng-container>
+		</ng-container>
+
+
+		<!-- <div class="card card-custom card-shadowplus gutter-b bg-grey-100 cursor-pointer bg-hover-light mb-5"
+		(click)="activeModal.close('covid')"
+		>
+			<div class="card-body d-flex align-items-center justify-content-between flex-wrap py-7">
+				<div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3">
+					<div class="text-dark-50 font-size-md">
+						Covid-19 
+					</div>
+				</div>
+				<div class="d-flex flex-right">
+					<span class="svg-icon svg-icon-primary svg-icon-quinze"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-right.svg'">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="card card-custom card-shadowplus gutter-b bg-grey-100 cursor-pointer bg-hover-light mb-5"
+		(click)="activeModal.close('vacinado')"
+		>
+			<div class="card-body d-flex align-items-center justify-content-between flex-wrap py-7">
+				<div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3">
+					<div class="text-dark-50 font-size-md">
+						Fui vacinado! 
+					</div>
+				</div>
+				<div class="d-flex flex-right">
+					<span class="svg-icon svg-icon-primary svg-icon-quinze"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-right.svg'">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="card card-custom card-shadowplus gutter-b bg-grey-100 cursor-pointer bg-hover-light mb-5"
+		(click)="activeModal.close('burnout')"
+		>
+			<div class="card-body d-flex align-items-center justify-content-between flex-wrap py-7">
+				<div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3">
+					<div class="text-dark-50 font-size-md">
+						índice de Burnout 
+					</div>
+				</div>
+				<div class="d-flex flex-right">
+					<span class="svg-icon svg-icon-primary svg-icon-quinze"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-right.svg'">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="card card-custom card-shadowplus gutter-b bg-grey-100 cursor-pointer mb-5">
+			<div class="card-body d-flex align-items-center justify-content-between flex-wrap py-7">
+				<div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3">
+					<div class="text-dark-50 font-size-md">
+						Clima híbrido 
+					</div>
+				</div>
+				<div class="d-flex flex-right">
+					<span class="svg-icon svg-icon-primary svg-icon-quinze"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-right.svg'">
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="card card-custom card-shadowplus gutter-b bg-grey-100 cursor-pointer mb-5">
+			<div class="card-body d-flex align-items-center justify-content-between flex-wrap py-7">
+				<div class="d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3">
+					<div class="text-dark-50 font-size-md">
+						Reportar... 
+					</div>
+				</div>
+				<div class="d-flex flex-right">
+					<span class="svg-icon svg-icon-primary svg-icon-quinze"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-right.svg'">
+					</span>
+				</div>
+			</div>
+		</div> -->
+	</div>
+</div>
+
+<div class="modal-footer">
+	<!-- <div class="col m--align-left pl-0">
+		<button type="button" 
+			class="btn btn-secondary">
+			<span class="svg-icon svg-icon-primary svg-icon-quinze"
+				[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-to-left.svg'">
+			</span>
+		</button>
+	</div> -->
+
+	<button type="button" class="btn btn-secondary" (click)="activeModal.close()">
+		Fechar
+	</button>
+
+</div>

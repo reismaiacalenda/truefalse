@@ -1,0 +1,79 @@
+<article>
+  <a (click)="alteracaoCollapse($event)" [collapse]="content"
+    class="card card-custom card-shadowmore mb-lg-0 mx-5 cursor-pointer bg-hover-light">
+    <div class="card-body m-animate-shine p-0">
+      <div class="d-flex float-left pt-1 pl-2">
+        <!-- <div class="d-flex flex-column align-items-center"> -->
+        <div class="card-toolbar">
+          <a class="btn btn-sm btn-light-danger font-weight-bold p-0" ngbTooltip="Expandir/recolher" container="body"
+            placement="bottom">
+
+            <!-- [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-top-panel-5.svg'" -->
+            <ng-container *ngIf="expandido">
+              <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+              </span>
+            </ng-container>
+            <ng-container *ngIf="!expandido">
+              <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+              </span>
+            </ng-container>
+          </a>
+        </div>
+        <div class="text-dark font-size-sm">
+          {{localizacao?.nome}}
+        </div>
+      </div>
+      <div class="d-flex float-right py-0">
+        <div class="d-flex flex-column">
+          <div class="text-dark font-size-sm">
+            <!-- Lotação: [<b>0/10</b>] -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+  <!-- <a href="" (click)="alteracaoCollapse($event)" [collapse]="content" class="tf-link_icone_preto">
+    <div class="collapse-title tf-collapse">
+      <span class="collapse-title-expand-indicator row">
+        <div class="col-6">
+          <ng-container *ngIf="first"><i class="la la-angle-down"></i></ng-container>
+          <ng-container *ngIf="!first"><i class="la la-angle-right"></i></ng-container>
+          {{localizacao?.nome}}
+        </div>
+        <div class="col-6 m--align-right">
+          Lotação: [<b>{{c.lotacao}}</b>]
+        </div>
+      </span>
+    </div>
+  </a> -->
+  <!-- [ngClass]="first ? 'collapse show' : '' " -->
+  <div collapseContent #content="collapseContent" [ngClass]="expandido == true ? 'collapse show' : ''">
+    <ng-container *ngIf="localizacao.aninhamento=='l'">
+      <div class="pl-2" *ngFor="let loc of localizacao.filhos; let i = index; let first = first;">
+        <collapse-bar [localizacao]="loc" [data]="data" [horaInicio]="horaInicio" [horaFim]="horaFim" (refreshQuadro)="propagarRefreshQuadro()"></collapse-bar>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="localizacao.aninhamento=='e'">
+      <div class="m-content card card-custom card-shadowmore pt-0 mx-5 mb-4 pb-0 bg-white-o-100 rounded-bottom">
+        <div class="row mt-3">
+          <ng-container *ngFor="let card of localizacao.filhos; let i = index">
+            <!-- <div class="col-lg-3 pl-4 pr-2"> -->
+            <!-- [espaco]="espaco" [localizacao]="c.localizacao" [data]="formulario.get('data').value" -->
+            <card [card]="card" [data]="data" [horaInicio]="horaInicio" [horaFim]="horaFim" (refreshQuadro)="propagarRefreshQuadro()" class="px-0"
+            [ngClass]="card.conjugado_filhos_flag == true ? 'col-12':'px-0 col-lg-3 pl-2 pr-2 pb-4' ">
+              <!-- (refreshQuadro)="carregarQuadro()" -->
+            </card>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="localizacao.aninhamento==''">
+      <div class="mb-3 pl-10">
+        <p class="text-dark-50">Nenhum espaço nesta localização.</p>
+      </div>
+      <!-- TODO: nenhum espaço para esta localização. cadastre aqui. -->
+    </ng-container>
+  </div>
+</article>

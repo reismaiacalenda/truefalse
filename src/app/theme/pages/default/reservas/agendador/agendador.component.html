@@ -1,0 +1,190 @@
+<!-- BEGIN: Subheader -->
+<!-- <div class="m-subheader">
+  <div class="d-flex align-items-center">
+    <tf-page-map class="col-md-11 pl-0" nomePagina="Agendador"
+      [menu]="[
+        ['/', 'Reservas'],
+        ['/reservas/agendador', 'Agendador']
+      ]">
+    </tf-page-map>
+    <tf-page-guia class="col-md-1 pr-0 float-right">
+    </tf-page-guia>
+  </div>
+</div> -->
+<!-- END: Subheader -->
+
+<!-- <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper"> -->
+
+
+<div class="m-content h-100">
+
+  <div class="d-flex flex-align-items flex-center h-100">
+    <div class="col-lg-3 pr-0 zindex-1">
+      <div #anfitriao class="card-toolbar p-5 card-shadowmore rounded-top-left rounded-bottom-left bg-white h-100
+      slideInRight animated hidden">
+        <div class="d-flex align-items-center flex-center pb-3 pr-3 flex-row-fluid"
+        >
+          <!--begin::Pic-->
+          <div class="symbol symbol-150 mr-0" [ngClass]="{
+              'symbol-primary-light': currentUser?.situacao == 'livre' ,
+              'symbol-light-danger': currentUser?.situacao == 'ocupado' ,
+              'symbol-light-warning': currentUser?.situacao == 'espera' 
+            }"
+            ngbTooltip="Ver perfil" container="body" placement="right"
+            >
+            <span class="symbol-label bg-hover-light-primary">
+              <div style="position: relative;" class="h-90">
+    
+                <span class="svg-avatar svg-icon-10x" style="position: absolute;"
+                  [inlineSVG]="'./assets/app/media/svg/avatars/hair/h0'+workspaceService.currentUser.avatar_hair+'.svg'">
+                </span>
+    
+                <span class="svg-avatar svg-icon-10x" style="position: absolute;"
+                  [inlineSVG]="'./assets/app/media/svg/avatars/clothes/c0'+workspaceService.currentUser.avatar_clothes+'.svg'">
+                </span>
+    
+                <span class="svg-avatar svg-icon-10x" style="position: absolute;"
+                  [inlineSVG]="'./assets/app/media/svg/avatars/extra/e0'+workspaceService.currentUser.avatar_extra+'.svg'">
+                </span>
+    
+                <span class="svg-avatar svg-icon-10x"
+                  [inlineSVG]="'./assets/app/media/svg/avatars/body/b0'+workspaceService.currentUser.avatar_body+'.svg'">
+                </span>
+    
+              </div>
+              <i class="symbol-badge symbol-badge-bottom bg-success"
+              ></i>
+              <!-- [ngClass]="{
+                'bg-success': currentUser?.situacao == 'livre' ,
+                'bg-danger': currentUser?.situacao == 'ocupado' ,
+                'bg-warning': currentUser?.situacao == 'espera' 
+              }" -->
+            </span>
+          </div>
+          <!--end::Pic-->
+          <!--begin::Title-->
+        </div>
+        <div class="d-flex flex-row-fluid align-items-center pr-3 flex-center w-100">
+          <p class="font-size-h5 font-weight-bold text-dark-75 mb-1">
+            {{workspaceService.currentUser.name}}
+          </p>
+        </div>
+        <div class="d-flex flex-row-fluid align-items-center pr-3 flex-center w-100">
+          <p class="font-size-sm text-dark-75 mb-1">
+            {{workspaceService.currentUser.email}}
+          </p>
+        </div>
+        <hr class="my-3">
+        <!-- d-flex flex-column flex-grow-1 my-lg-0 my-0 pr-3 -->
+        <a [routerLink]="" class="pointer text-hover-primary" ngbTooltip="Mais informações" container="body" placement="bottom">
+          <div class="d-flex flex-row-fluid w-100 pt-2">
+            <span class="svg-icon svg-icon-2x svg-icon-primary"
+              [inlineSVG]="'./assets/app/media/svg/icons/General/Clipboard.svg'">
+            </span>
+            <p class="font-size-md font-weight-400 text-dark-75 ml-1 mt-0">
+              Reunião importante!
+            </p>
+          </div>
+          <div class="d-flex align-items-center">
+            <span class="svg-icon svg-icon-2x svg-icon-primary"
+              [inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'">
+            </span>
+            <div class="font-size-md font-weight-400 text-center text-dark-75 ml-1 mt-0">
+              <span>30 min</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+        
+    </div>
+    <div class="col-lg-5 p-0 zindex-2">
+      <div #calendario class="card-toolbar pt-7 pl-5 pb-4 pr-5 card-shadowmore rounded bg-white
+      ribbon ribbon-clip ribbon-left hidden flipInX animated">
+        <div #ribbon class="ribbon-target hidden rubberBand animated" style="top: 22px;">
+        <!-- tada -->
+        <!-- rubberBand -->
+        <!-- flash -->
+        <!-- pulse -->
+          <span class="ribbon-inner bg-primary text-dark-75"></span>Em breve!
+        </div>
+        <div class="calendar">
+          <div class="calendar__month">
+            <div class="cal-month__current">{{monthString}}</div>
+            <div class="cal-month__previous" (click)="removeMonth()"><</div>
+            <div class="cal-month__next" (click)="addMonth()">></div>
+          </div>
+          <div class="calendar__head">
+            <div *ngFor="let w of weekDays" class="cal-head__day">{{w}}</div>
+          </div>
+          <div class="calendar__body">
+            <div *ngFor="let w of weeksArray; let i = index"
+              class="cal-body__week">
+              <div *ngFor="let d of w; let i = index"
+                class="cal-body__day" [ngClass]="d.classe"
+                (click)="selectDate(d)">
+                {{d.day}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 pl-0 zindex-0">
+      <div class="d-flex flex-align-items ">
+        <!-- <div class="col-1 p-0 zindex-1">
+          <div class="card-toolbar p-0 m-0 w-100 card-shadowmore rounded-top-right rounded-bottom-right bg-white"
+            style="display: flex; height: 340px; flex-direction: column">
+          </div>
+        </div> -->
+        <div class="col-12 p-0 zindex-1">
+          <div #horarios class="card-toolbar pt-5 pb-5 px-5 card-shadowmore rounded-top-right rounded-bottom-right bg-white
+          hidden fadeIn animated
+           "
+           style="height: 340px; flex-direction: column; -webkit-transform: translate3d(-90%, 0, 0);
+           transform: translate3d(-90%, 0, 0); ">
+           
+           <!-- style="overflow-y: auto; overflow-x: clip;" -->
+            <div class="row py-0 px-10" >
+              <div class="py-5">
+                <p class="font-size-md font-weight-600 text-dark-75 p-0 m-0">Quinta, 17 dezembro, às:</p>
+              </div>
+              <hr>
+              <div class="w-100">
+                <div class="pb-3">
+                  <a [routerLink]="" (click)="abrirTrial()" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">09h00</a>
+                </div>
+                <div class="pb-3">
+                  <a [routerLink]="" (click)="abrirTrial()" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">10h00</a>
+                </div>
+                <div class="pb-3 ">
+                  <a [routerLink]="" (click)="abrirTrial()" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">14h00</a>
+                </div>
+                <!-- <div class="pb-3">
+                  <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">14h30</a>
+                </div>
+                <div class="pb-3">
+                  <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">15h00</a>
+                </div>
+                <div class="pb-3">
+                  <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">15h30</a>
+                </div>
+                <div class="pb-3">
+                  <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">16h00</a>
+                </div>
+                <div class="pb-3">
+                  <a [routerLink]="" class="btn btn-outline-primary font-weight-bold py-3 px-6 w-100">14h30</a>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- fadeInLeft  big--> 
+      <!-- slideInLeft -->
+      
+
+    </div>
+  </div>
+
+</div>  

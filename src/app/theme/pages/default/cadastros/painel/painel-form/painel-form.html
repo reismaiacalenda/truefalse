@@ -1,0 +1,343 @@
+<form class="m-form m-form--state m-form--fit m-form--label-align-right"
+	[formGroup]="formulario" (ngSubmit)="onSubmit()">
+	<div class="m-portlet m-portlet--tabs" (keydown.esc)="activeModal.dismiss('Cross click')">
+		<div class="m-portlet__head">
+			<div class="m-portlet__head-tools">
+				<ul class="nav nav-tabs m-tabs-line m-tabs-line--primary m-tabs-line--2x" role="tablist" #navtab>
+					<li class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link active" title="Nova Painel" data-toggle="tab" href="#m_tabs_6_1" role="tab">
+							<i class="flaticon-add"></i>
+						</a>
+					</li>
+					<li class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link" title="Layout" data-toggle="tab" href="#m_tabs_6_2" role="tab">
+							<i class="la la-picture-o"></i>
+						</a>
+					</li>
+					<li class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link" title="Local" data-toggle="tab" href="#m_tabs_6_3" role="tab">
+							<i class="flaticon-map-location"></i>
+						</a>
+					</li>
+					<li class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link" title="Raspberry" data-toggle="tab" href="#m_tabs_6_4" role="tab">
+							<i class="fa fa-microchip"></i>
+						</a>
+					</li>
+					<li class="nav-item m-tabs__item">
+						<a class="nav-link m-tabs__link" title="Espacos" data-toggle="tab" href="#m_tabs_6_5" role="tab">
+							<i class="fa flaticon-open-box"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="m-portlet__head-caption">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+					(click)="activeModal.dismiss('Cross click')">
+					<span aria-hidden="true">
+						&times;
+					</span>
+				</button>
+			</div>
+		</div>
+		<div class="m-portlet__body">
+			<div class="tab-content" #tabcontent>
+				<div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								{{modalTitle}} Painel
+							</h5>
+						</div>
+						<div>
+							<p></p>
+							<p>Daremos início à configuração de um
+									<b>Painel!</b></p>
+							<p>É recomendável que você já tenha
+								cadastrado raspberries, layouts e espacos. Ok?</p>
+						</div>
+					</div>
+					<div [ngClass]="validarCss('nome')"
+						class="form-group m-form__group">
+						<label>
+							Nome
+						</label>
+						<input class="form-control m-input m-input--air"
+							type='text' formControlName="nome">
+						<span class="m-form__help">Informe o nome do painel</span>
+					</div>
+					<!-- [ngClass]="validarCss('param_url')" -->
+					<div 
+						class="form-group m-form__group">
+						<label>
+							Url ID
+						</label>
+						<div class="col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px;">
+							<div class="m-bootstrap-touchspin-brand">
+								<div class="input-group bootstrap-touchspin">
+									<span class="input-group-btn">
+										<button class="btn btn-secondary bootstrap-touchspin-down"
+											type="button" (click)="decrementar('param_url')">-</button>
+									</span>
+									<span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;">
+									</span>
+									<input class="form-control m-input m-input--air"
+										formControlName="param_url" type="text" style="display: block;">
+									<span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;">										
+									</span>
+									<span class="input-group-btn">
+										<button class="btn btn-secondary bootstrap-touchspin-up"
+											type="button" (click)="incrementar('param_url')">+</button>
+									</span>
+								</div>
+							</div>
+							<!-- <div class="m-bootstrap-touchspin-brand">
+								<input id="m_touchspin_2_0" type="text"
+								class="form-control" value="1" 
+								formControlName="param_url"
+								placeholder="Id">
+							</div> -->
+							<span class="m-form__help">Nº de acesso ao Painel</span>
+						<!-- <span class="m-form__help">Número de acesso na url. Deixe em branco caso não saiba preencher</span> -->
+						</div>
+					</div>
+					<div 
+						class="form-group m-form__group row">
+						<!-- *ngIf="currentUser.role_number > 4" -->
+						<div
+							class="col-md-3">
+							<label>
+								Licenciado
+							</label>
+							<div>
+								<span class="m-switch m-switch--icon">
+									<label>
+										<input type="checkbox" formControlname="licenciado"
+										(click)="setarCheckBox('licenciado')"
+										[checked]="formulario.value.licenciado">
+										<span></span>
+									</label>
+								</span>
+							</div>	
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Layout
+							</h5>
+						</div>
+						<!-- <div>
+							<p></p>
+							<p>Daremos início à configuração de um
+									<b>Painel!</b></p>
+							<p>É recomendável que você já tenha
+								cadastrado raspberries, layouts e calendários. Ok?</p>
+						</div> -->
+					</div>
+					<!-- [ngClass]="validarCss('layout_id')" -->
+					<div class="form-group m-form__group">
+						<div class="row"
+							*ngFor="let lp of layout_paineis; let i=index">
+							<div class="col-md-9">
+								<select class="form-control m-input m-input--air"
+									name="layout_{{i}}"
+									data-placeholder="Escolha um layout"
+									name="layout_painel_ids"
+									(change)="onChangeLayoutPainel(i, $event)"
+								>
+									<option *ngFor="let l of listLayout"
+										[selected]="l.value == lp.id"
+										>
+										{{l.name}}
+									</option>
+								</select>
+							</div>
+							<div class="col-md-3">
+								<input class="form-control m-input m-input--air"
+								type='number' name="duracao_{{i}}"
+								placeholder="1s" min="1" [value]="lp.duracao"
+								(change)="onChangeLayoutPainelDuracao(i, $event)"> 
+							</div>
+							<br>
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<div class="m-bootstrap-touchspin-brand" style="padding-left: 15px;">
+							<div class="input-group bootstrap-touchspin">
+								<span class="input-group-btn m-input m-input--ai">
+									<button class="btn btn-secondary bootstrap-touchspin-up"
+											type="button" (click)="addLayout()">+</button>
+								</span>
+							</div>
+						</div>
+						<div class="m-bootstrap-touchspin-brand" >
+							<div class="input-group bootstrap-touchspin">
+								<span class="input-group-btn m-input m-input--ai">
+									<button class="btn btn-secondary bootstrap-touchspin-up"
+											type="button" (click)="removeLayout()">-</button>
+								</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Localização
+							</h5>
+						</div>
+					</div>
+					<div [ngClass]="validarCss('unidade_id')"
+						class="form-group m-form__group">
+						<label>
+							Unidade
+						</label>
+					</div>
+					<div class="form-group m-form__group">
+						<select class="form-control m-input m-input--air"
+							data-placeholder="Escolha uma unidade"
+							name="unidade_id"
+							(change)="onChangeUnidade($event)"
+						>
+							<option *ngFor="let i of listUnidade"
+								[selected]="i.value == formulario.value.unidade_id"
+								>
+								{{i.name}}
+							</option>
+						</select>
+					</div>
+					<div [ngClass]="validarCss('localizacao_id')"
+						class="form-group m-form__group">
+						<label>
+							Prédio/Andar
+						</label>
+					</div>
+					<div class="form-group m-form__group">
+						<select placeholder="Escolha antes uma unidade"
+						class="form-control m-input m-input--air"
+							*ngIf="formulario.value.unidade_id == null" disabled
+						></select>
+						<select class="form-control m-input m-input--air"
+							placeholder="Escolha uma localização"
+							name="localizacao_id"
+							(change)="onChangeLocalizacao($event)"
+							*ngIf="formulario.value.unidade_id != null"
+						>
+							<option *ngFor="let i of listLocalizacaoFiltrada"
+								[selected]="i.value == formulario.value.localizacao_id"
+								>
+								{{i.name}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="tab-pane" id="m_tabs_6_4" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Raspberry
+							</h5>
+						</div>
+					</div>
+					<!-- [ngClass]="validarCss('raspberry_id')" -->
+					<div class="form-group m-form__group">
+						<select class="form-control m-input m-input--air"
+							placeholder="Escolha um raspberry"
+							name="raspberry_id"
+							(change)="onChangeRasp($event)"
+						>
+						<!-- *ngIf="formulario.value.raspberry_id == null" -->
+							<!-- <option value="null" selected="true">Placeholder text..</option> -->
+							<option *ngFor="let i of listRaspberry"
+								[selected]="i.value == formulario.value.raspberry_id"
+								>
+								{{i.name}}
+							</option>
+						</select>
+					</div>	
+				</div>
+				<div class="tab-pane" id="m_tabs_6_5" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Espacos
+							</h5>
+						</div>
+						<br>
+					</div>
+					<div class="form-group m-form__group row">
+						<!-- [(ngModel)]="painel.espaco_ids" -->
+						<!-- m-select2  -->
+						<select 
+							style="width:100% !important"
+							#espacos
+							class="form-control m-input m-input--air"
+							id="m_select2_37"
+							name="espaco_id"
+							multiple
+							type="number"
+							placeholder="Selecione as espacos"
+							(change)="onChangeOvo($event)"
+							>
+							<!-- [disabled]="user.role<2"-->
+							<option *ngFor="let f of listEspaco"
+								[attr.v]="f.id"
+								[ngValue]="f.id"
+							>
+							<!-- [value]="f.id" -->
+								{{f.text}}
+							</option>
+						</select>
+
+					</div>
+				</div>
+				<!-- <div class="tab-pane" id="m_tabs_6_6" role="tabpanel">
+					<div class="form-group m-form__group">
+						<div>
+							<h5 class="modal-title">
+								Finalizar Painel
+							</h5>
+						</div>
+						<div>
+							<p>Dados conferidos?</p>-->
+							<!-- <p><b>Nickname: </b>{{formulario.value.nickname}}</p> -->
+							<!-- <p><b>Param Id: </b>{{formulario.value.param_url}}</p> -->
+						<!--</div>
+					</div>
+				</div> -->
+			</div>
+		</div>
+		<div class="modal-footer" style="display:block">
+			<div class="row">
+				<div class="col-lg-9">
+					<!-- <button class="btn btn-secondary"
+						data-toggle="tab" role="tab" href="#m_tabs_6_{{count-1}}"
+						[disabled]="count == 1">
+							Voltar
+						</button>
+						<button class="btn btn-brand"
+						(click)="t.select('#m_tabs_6_2')"
+						data-toggle="tab" href="#m_tabs_6_{{count}}" role="tab"
+						[disabled]="count == 6">
+						Próxima
+					</button> -->
+				</div>
+				<div class="col-lg-3">
+					<!-- [disabled]="formulario.invalid" -->
+					<button class="btn btn-primary" 
+						type="submit"
+						>
+					<!-- (click)="paginarTab($event)" -->
+						<!-- (click)="count = count + 1" -->
+							Salvar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

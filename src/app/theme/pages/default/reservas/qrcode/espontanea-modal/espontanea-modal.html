@@ -1,0 +1,128 @@
+<div class="modal-header">
+	<h5 class="modal-title" id="exampleModalLabel">
+		Confirmar Reserva
+	</h5>
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+		(click)="activeModal.dismiss('Cross click')">
+		<span aria-hidden="true">
+			&times;
+		</span>
+	</button>
+</div>
+<!--begin::Form-->
+<form class="m-form m-form--state m-form--fit m-form--label-align-right"
+	#f="ngForm" (ngSubmit)="onSubmit(f)">
+	<div class="modal-body">
+		<div class="m-portlet__body">
+			<div class="m-form__content">
+				<div class="m-alert m-alert--icon alert alert-danger m--hide"
+					role="alert" id="m_form_2_msg">
+					<!-- [class.m--hide]="formulario.valid || formulario.untouched"> -->
+					<div class="m-alert__icon">
+						<i class="la la-warning"></i>
+					</div>
+					<div class="m-alert__text">
+						Oh snap! Change a few things up and try submitting again.
+					</div>
+					<div class="m-alert__close">
+						<button type="button" class="close" data-close="alert" aria-label="Close"></button>
+					</div>
+				</div>
+			</div>
+			<!-- [ngClass]="validarCss('assunto')" -->
+			<div 
+				class="form-group m-form__group" style="padding: 6px 0px 0px 0px">
+				<label>
+					Assunto
+				</label>
+				<input class="form-control m-input m-input--air" 
+					type='text' name="assunto" [(ngModel)]="reserva.assunto"
+					placeholder="Assunto da reserva">
+					<!-- [disabled]="reserva.finalidade=='manutenção'" -->
+			</div>
+			<!-- [ngClass]="validarCss('horário')" -->
+			<div class="form-group m-form__group" style="padding: 6px 0px 0px 0px">
+				<label>
+					Horário de término:
+				</label>
+				<div class="m-radio-inline">
+					<label *ngFor="let ht of horariosTermino; let first = first;"
+						class="m-radio m-radio--bold m-radio--state-brand">
+						<input type="radio" name="hr_fim"
+						[(ngModel)]="reserva.hr_fim" [value]="ht"
+						[checked]="first"
+						>
+							<!-- (click)="radioRole('visitante')"
+							[checked]="formulario.value.role == 'visitante'"  -->
+							{{ht}}
+						<span></span>
+					</label>
+				</div>
+			</div>
+			<!-- [ngClass]="validarCss('finalidade')" -->
+			<div 
+				class="form-group m-form__group" style="padding: 6px 0px 0px 0px">
+				<label>
+					Finalidade
+				</label>
+				<div class="m-radio-inline">
+					<label class="m-radio m-radio--bold m-radio--state-brand">
+						<input type="radio" name="finalidade"
+						[(ngModel)]="reserva.finalidade" value="aula"
+						>
+							<!-- (click)="radioRole('visitante')"
+							[checked]="formulario.value.role == 'visitante'"  -->
+							Aula
+						<span></span>
+					</label>
+					<label class="m-radio m-radio--bold m-radio--state-brand">
+						<input type="radio" name="finalidade"
+						[(ngModel)]="reserva.finalidade" value="reunião"
+						>
+							<!-- (click)="radioRole('visitante')"
+							[checked]="formulario.value.role == 'visitante'"  -->
+							Reunião
+						<span></span>
+					</label>
+					<label class="m-radio m-radio--bold m-radio--state-brand">
+						<input type="radio" name="finalidade"
+						[(ngModel)]="reserva.finalidade" value="treinamento"
+						>
+							<!-- (click)="radioRole('visitante')"
+							[checked]="formulario.value.role == 'visitante'"  -->
+							Treinamento
+						<span></span>
+					</label>
+					<label class="m-radio m-radio--bold m-radio--state-brand">
+						<input type="radio" name="finalidade"
+						[(ngModel)]="reserva.finalidade" value="manutenção"
+							>
+							<!-- (click)="radioRole('membro')"
+							[checked]="formulario.value.role == 'membro'"  -->
+							Manutenção
+						<span></span>
+					</label>
+					<!-- <label class="m-radio m-radio--bold m-radio--state-info">
+						<input type="radio" name="finalidade" [(ngModel)]="reserva.finalidade" value="Porta"
+						disabled>
+							(click)="radioRole('atendente')"
+							[checked]="formulario.value.role == 'atendente'" 
+							Porta
+						<span></span>
+					</label> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button"  class="btn btn-secondary" data-dismiss="modal"
+			(click)="activeModal.close('Close click')">
+			Cancelar
+		</button>
+		<!--  -->
+		<button type="submit" class="btn btn-primary"
+			[disabled]="bloquearSubmit || f.invalid">
+			Salvar
+		</button>
+	</div>
+</form>

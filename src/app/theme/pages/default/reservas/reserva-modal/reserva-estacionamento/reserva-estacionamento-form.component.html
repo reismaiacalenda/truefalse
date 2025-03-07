@@ -1,0 +1,167 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	[cancelar]="true"
+	[autorizar_excluir]="['reserva_estacionamento_excluir_meu', 'reserva_estacionamento_excluir_grupo', 'reserva_estacionamento_excluir_unidade']"
+	[habilitarExcluir]="formulario.get('montar_tela').value.botao_excluir"
+	[disableTitle]="true"
+	(submeter)="onSubmit()"
+	(excluir)="removeItem(formulario?.value?.numero_lote!=undefined)"
+	id="{{formulario.get('id').value}}"
+	cancelar="false"
+	titleCancelar="Fechar"
+	titlePersonalizado="{{formulario.get('titulo_reserva').value}}"
+	>
+
+		<!-- #region Assunto  -->
+		<div class="row">
+			<div class="col-md-12" style="padding-bottom: 10px;">
+				<tf-text-simple
+					formControlName="assunto"
+					label="Adicionar placa"
+					placeholder="Placa">
+				</tf-text-simple>
+			</div>				
+		</div>
+		<!-- #endregion  -->
+
+		<!-- #region Datas e horários -->
+		<div class="row tf-color-black col-md-12 col-sm-12"><span>Datas e horários</span></div>
+		<div class="row">
+			<div class="col-md-3 col-sm-6" style="padding-bottom: 10px; padding-right: 0px;">
+				<tf-date
+					formControlName="data_inicio"
+					retirarLabel="true">
+				</tf-date>
+			</div>
+			<div class="col-md-2 col-sm-4" style="padding-bottom: 10px;">
+				<tf-time class="tf-estilizacao-time"
+					formControlName="hr_inicio_previsto"
+					retirarLabel="true"
+					>
+				</tf-time>
+			</div>
+			<ng-container *ngIf="formulario.get('montar_tela').value.dia_todo">
+				<div class="col-md-1 col-sm-4 pt-1 pl-1 pr-0">
+					<a href="" class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+					[ngClass]="formulario.get('dia_todo').value == true ? 'btn-primary' : 'btn-outline-primary'"
+					ngbTooltip="Dia todo" container="body" placement="bottom" (click)="setarDiaTodo()">
+					<i *ngIf="!formulario.get('dia_todo').value" class="la la-hourglass-end"></i>
+						<i *ngIf="formulario.get('dia_todo').value" class="la la-hourglass-start"></i>
+					</a>
+				</div>
+			</ng-container>	
+			<div class="col-md-3" style="padding-bottom: 10px; padding-right: 0px;">
+				<tf-date
+					formControlName="data_fim"
+					retirarLabel="true"
+					[desabilitar]="true">
+				</tf-date>
+			</div>
+			<div class="col-md-2" style="padding-bottom: 10px;">
+				<tf-time 
+					formControlName="hr_fim_previsto"
+					retirarLabel="true"
+					[desabilitar]="formulario.get('dia_todo').value">
+				</tf-time>
+			</div>
+			<ng-container *ngIf="formulario.get('id').value==null && workspaceService.autorizar('reserva_estacionamento_recorrencia')">
+				<div class="col-md-1 pt-1 px-0">
+					<a href="#" class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+						ngbTooltip="Repetir..." container="body" placement="bottom" (click)="adicionarRecorrencia()">
+						<i class="la la-redo-alt"></i>
+					</a>
+				</div>
+			</ng-container>
+		</div>
+		<!-- #endregion  -->
+
+
+		<div class="col-md-12 form-group m-form__group px-0"
+			[ngClass]="aplicaCss('espaco_id')">
+			<tf-select-simple
+				[formControl]="formulario.get('espaco_id')"
+				[data]="listEstacionamentos"
+				label="Vaga no estacionamento"
+				allowClear=false
+				placeholder="Selecionar vaga no estacionamento"
+				[allowClear]="true"
+				>
+			</tf-select-simple>
+		</div>
+
+		<!-- #region Anfitriao -->
+		<div class="row tf-color-black mb-2">
+			<div class="col-md-12" *ngIf="formulario.get('montar_tela').value.anfitriao"
+			[ngClass]="aplicaCss('anfitriao_email')">
+				<label>Para quem será essa vaga?</label>
+				<ng-select [items]="convidados$ | async"
+					bindLabel="name"
+					[addTag]="true"
+					[multiple]="false"
+					[hideSelected]="true"
+					[trackByFn]="trackByFn"
+					[minTermLength]="2"
+					[loading]="convidadosLoading"
+					typeToSearchText="Por favor, utilize pelo menos 2 dígitos para adicionar"
+					formControlName="anfitriao_email"
+					(change)="validacaoAnfitriao()"
+					[typeahead]="convidadosInput$"
+					>
+					<ng-template ng-option-tmp let-item="item">
+						{{item.name}} <br/>
+						<small>{{item.nome}}</small>
+					</ng-template>
+				</ng-select>
+			</div>
+		</div>
+		<!-- #endregion anfitriao -->
+
+		<!-- #region Convidados -->
+		<!-- form-group -->
+		<div class="row tf-color-black mb-2" *ngIf="formulario.get('montar_tela').value.convidados">
+			<div class="col-md-12" 
+				[ngClass]="aplicaCss('convidados_emails')">
+				<!-- <tf-select-multi
+					[form]="formulario.get('convidados')"
+					[data]="listDadosSelect['funcionarios']"
+					label="Convidados"
+					placeholder="Selecione um ou mais">
+				</tf-select-multi> -->
+				<label>Convidar para carona</label>
+				<ng-select [items]="convidados$ | async"
+					bindLabel="name"
+					[addTag]="true"
+					[multiple]="true"
+					[hideSelected]="true"
+					[trackByFn]="trackByFn"
+					[minTermLength]="2"
+					[loading]="convidadosLoading"
+					typeToSearchText="Por favor, utilize pelo menos 2 dígitos para adicionar"
+					formControlName="convidados_emails"
+					(change)="validacao()"
+					[typeahead]="convidadosInput$"
+					>
+					<ng-template ng-option-tmp let-item="item">
+						{{item.name}} <br/>
+						<small>{{item.nome}}</small>
+					</ng-template>
+				</ng-select>
+			</div>
+		</div>
+		<!-- tyle="padding-left:0px; padding-right:0px -->
+		<!-- #endregion  -->
+
+		<!-- #region Observação  -->
+		<div class="row">
+			<div class="col-md-12" style="padding-bottom: 10px;">
+				<tf-text-area
+					formControlName="observacao"
+					label="Adicionar descrição"
+					placeholder="Adicionar descrição">
+				</tf-text-area>
+			</div>
+		</div>        
+		<!-- #endregion Observação -->
+
+</tf-form-simples>

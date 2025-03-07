@@ -1,0 +1,61 @@
+<tf-form-simples
+	[activeModal]="activeModal"
+	[formGroup]="formulario"
+	title="Plano"
+	(submeter)="onSubmit()"
+	id="{{formulario.get('id').value}}"
+	>
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('nome')"
+		>
+		<tf-text-simple
+			formControlName="nome"
+			label="Nome"
+			placeholder="Nome"
+			>
+		</tf-text-simple>
+	</div>
+
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('preco')"
+		*ngIf="false"
+		>
+		<tf-money
+			formControlName="preco"
+			label="Preço - R$"
+			>
+
+		</tf-money>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('intervalo_fatura')"
+		>
+		<tf-radio-button
+			[data]='[
+			{"label":"15 dias", "value":0},
+			{"label":"1 mês", "value":1},
+			{"label":"3 meses", "value":2},
+			{"label":"6 meses", "value":3},
+			{"label":"1 ano", "value":4},
+			{"label":"2 anos", "value":5}
+			]'
+			formControlName="intervalo_fatura"
+			label="Duração do plano"
+			>
+		</tf-radio-button>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('descricao')"
+		>
+		<tf-text-area			
+			formControlName="descricao"
+			id="descricao"
+			label="Descrição"
+			>
+		</tf-text-area>
+	</div>
+
+</tf-form-simples>

@@ -1,0 +1,154 @@
+<!-- d-flex flex-column h-100  -->
+<div class="m-content p-4 pb-0 h-100" id="oi">
+	<div class="d-flex">
+		<div class="col-2 px-0" (click)="abrirModalSelecaoData()">
+			<div class="bg-white py-3 px-2 mr-2 card-shadowmore gutter-b bg-hover-light rounded h-100">
+				<span>
+					<span class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+						[inlineSVG]="'./assets/app/media/svg/icons/_Custom/Calendario.svg'">
+					</span>
+					<span class="text-primary">
+						{{textData}}
+					</span>
+					<span class="m-menu__link-icon svg-icon svg-icon-light svg-icon-1x5p"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+					</span>
+				</span>
+			</div>
+			<!-- <div class="col-5 px-0" (click)="abrirModalRecorrencia()">
+				<div class="d-flex justify-content-start bg-white py-3 px-2 card-shadowmore gutter-b bg-hover-light rounded">
+					<span>
+						<span *ngIf="reservaModalService?.formulario?.get('recorrencia')?.get('repeticao')?.value == undefined"
+							class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+							[inlineSVG]="'./assets/app/media/svg/icons/Design/Repeat.svg'">
+						</span>
+						<span *ngIf="reservaModalService?.formulario?.get('recorrencia')?.get('repeticao')?.value != undefined"
+							class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+							[inlineSVG]="'./assets/app/media/svg/icons/Media/Repeat-one.svg'">
+						</span>
+						<span class="text-primary">
+							{{textRepeat}}
+						</span>
+					</span>
+				</div>
+			</div> -->
+		</div>
+
+		<div class="col-2 px-0" (click)="abrirModalSelecaoHora(true)" *ngIf="categoria != 'fretado'; else semHorario;">
+			<div class="d-flex justify-content-start bg-white py-3 px-2 mr-2 card-shadowmore gutter-b bg-hover-light rounded h-100">
+				<span>
+					<span class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+						[inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'">
+					</span>
+					<span class="text-primary">
+						{{textHourStart}}
+					</span>
+					<span class="m-menu__link-icon svg-icon svg-icon-light svg-icon-1x5p"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+					</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="col-2 px-0" (click)="abrirModalSelecaoHora(false)" *ngIf="categoria != 'fretado'; else semHorario;">
+			<div class="d-flex justify-content-start bg-white py-3 px-2 mr-2 card-shadowmore gutter-b bg-hover-light rounded h-100">
+				<span>
+					<span class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+						[inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'">
+					</span>
+					<span class="text-primary">
+						{{textHourEnd}}
+					</span>
+					<span class="m-menu__link-icon svg-icon svg-icon-light svg-icon-1x5p"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+					</span>
+				</span>
+			</div>
+		</div>
+		<ng-template #semHorario>
+			<div class="col-2 px-0">
+				<div class="d-flex justify-content-start bg-light py-3 px-2 mr-2 card-shadowmore gutter-b rounded h-100">					
+				</div>
+			</div>
+		</ng-template>
+
+		<div class="col-3 px-0" (click)="abrirModalSelecaoLocalizacao()">
+			<div class="bg-white py-3 mr-2 px-2 card-shadowmore gutter-b bg-hover-light rounded h-100">
+				<span>
+					<span class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+						[inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+					</span>
+					<span class="text-primary">
+						{{textLocalizacao}}
+					</span>
+					<span class="m-menu__link-icon svg-icon svg-icon-light svg-icon-1x5p"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+					</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="col-2 px-0" (click)="openModalAmenities()">
+			<div class="bg-white py-3 mr-2 px-2 card-shadowmore gutter-b bg-hover-light rounded h-100">
+				<span>
+					<span class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-2x"
+						[inlineSVG]="'./assets/app/media/svg/icons/_Custom/Amenities.svg'">
+					</span>
+					<span class="text-primary">
+						Amenidades
+					</span>
+					<span class="m-menu__link-icon svg-icon svg-icon-light svg-icon-1x5p"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+					</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="col-1 px-0">
+			<div class="bg-white py-2 px-2 card-shadowmore gutter-b bg-hover-light rounded d-flex justify-content-center
+			align-items-center h-100">
+				<div class="text-right">
+					<a id="refreshButton" href="#"
+						class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+						(click)="carregarReservas()">
+						<i class="la la-refresh"></i>
+					</a>
+					<a routerLink="/cadastros/espacos/planta" class="btn btn-sm btn-light-primary font-weight-bold p-1 d-none d-block-lg"
+						ngbTooltip="Planta das localizações" container="body" placement="left">
+						<span class="svg-icon svg-icon-primary svg-icon-vintecinco"
+							[inlineSVG]="'./assets/app/media/svg/icons/Design/Layers.svg'">
+						</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="d-flex mt-2 mx-0 px-0">
+		<div class="col-12 mx-0 px-0" id="divColMapa">
+			<canvas id="planta" class="card-shadow">
+			</canvas>
+		</div>
+	</div>	
+
+	<rodape-reservar
+		[espacoSelecionado]="espacoSelecionado"
+		[date]="data"
+		[textData]="textData"
+		[horaInicio]="textHourStart"
+		[horaFim]="textHourEnd"
+		[recorrencia]="recorrencia"
+		(reservaRealizada)="carregarReservas(true)"
+		(modalFechada)="recuperarTodosEspacos()"></rodape-reservar>
+		<!-- (); -->
+	<rodape-detalhe-reserva
+		[espacoSelecionado]="espacoSelecionado"
+		[data]="data"
+		[hora]="textHourStart"
+		(reservaEncerrada)="carregarReservas()"
+		(modalFechada)="recuperarTodosEspacos()"></rodape-detalhe-reserva>
+	<rodape-espaco-bloqueado
+		[espacoSelecionado]="espacoSelecionado"
+		(modalFechada)="recuperarTodosEspacos()"></rodape-espaco-bloqueado>
+		
+</div>

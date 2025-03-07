@@ -1,0 +1,761 @@
+<!-- <div *ngIf="showHeader" class="m-subheader">
+	<div class="d-flex align-items-center">
+		<tf-page-map class="col-md-11 pl-0" nomePagina="Planta" [menu]="[
+				['/', 'Cadastro de ativos'],
+				['/', 'Espaços'],
+				['/cadastros/espacos/planta', 'Planta']
+			]">
+		</tf-page-map>
+		<tf-page-guia class="col-md-1 pr-0 float-right">
+		</tf-page-guia>
+	</div>
+</div> -->
+<div class="m-content">
+	<div class="">
+		<!-- m-portlet m-portlet--mobile -->
+		<div class="">
+			<!-- m-portlet__body -->
+			<div class="row mx-0">
+				<!-- TODO: tentar uma box inteira para essa coluna. 
+					e uma box rounded top com os icones, mas sem muita complicação de flex
+					uma do ladinho, cabendo até 5 se pah, e sofrendo com algum lance de colapse. procurar por vs code se pah. sei lá
+					ou svg -lg, svg-sm se pah
+					tentar imendar no mapa. ou seja, sem pading entre as colunas-->
+				<div class="col-lg-4 p-0">
+					<div class="card-toolbar p-0 pb-1 card-shadowmore rounded-top-left rounded-bottom-left bg-white
+						w-100"
+						style="height: 100%;">
+
+						<div class="row mx-0">
+							<div class="card-toolbar p-0 card-shadow rounded-top-left">
+								<ul class="dashboard-tabs nav nav-pills nav-danger row m-0" role="tablist">
+									<li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(1)" ngbTooltip="Localizações"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow" data-toggle="pill"
+											href="#tab_forms_widget_1" [ngClass]="[
+												tabStateManager.activeState == 1 ? 'active' : ''
+											]">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-vintecinco" [ngClass]="[
+													tabStateManager.activeState == 1 ? 'svg-icon-white' : 'svg-icon-primary'
+												]" [inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+											</span>
+										</a>
+									</li>
+									<li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(2)" ngbTooltip="Adicionar imagem"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow"
+											[attr.data-toggle]="[esconderPlanta==true ? '' : 'pill']" [ngClass]="[esconderPlanta==true ? 'cursor-default' : 'cursor-pointer',
+												tabStateManager.activeState == 2 ? 'active' : '']">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-vintecinco"
+												[ngClass]="[esconderPlanta == true ? 'svg-icon-dark-30' : tabStateManager.activeState == 2 ? 'svg-icon-white' : 'svg-icon-primary']"
+												[inlineSVG]="'./assets/app/media/svg/icons/Design/Image.svg'">
+											</span>
+										</a>
+									</li>
+									<li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(3)" ngbTooltip="Adicionar pavimento"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow"
+											[attr.data-toggle]="[esconderPlanta==true ? '' : 'pill']" [ngClass]="[esconderPlanta==true ? 'cursor-default' : 'cursor-pointer',
+												tabStateManager.activeState == 3 ? 'active' : '']">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-vintecinco"
+												[ngClass]="[esconderPlanta == true ? 'svg-icon-dark-30' : tabStateManager.activeState == 3 ? 'svg-icon-white' : 'svg-icon-primary']"
+												[inlineSVG]="'./assets/app/media/svg/icons/Design/Layers.svg'">
+											</span>
+										</a>
+									</li>
+									<li *ngIf="workspaceService.autorizar('tipo_espaco_sala_criar', 'tipo_espaco_sala_editar')
+										&& workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')" 
+										vclass="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(4)" ngbTooltip="Adicionar salas"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow"
+											[attr.data-toggle]="[esconderPlanta==true ? '' : 'pill']" [ngClass]="[esconderPlanta==true ? 'cursor-default' : 'cursor-pointer',
+												tabStateManager.activeState == 4 ? 'active' : '']">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-vintecinco"
+												[ngClass]="[esconderPlanta == true ? 'svg-icon-dark-30' : tabStateManager.activeState == 4 ? 'svg-icon-white' : 'svg-icon-primary']"
+												[inlineSVG]="'./assets/app/media/svg/icons/Home/Door-open.svg'">
+											</span>
+										</a>
+									</li>
+									<li *ngIf="workspaceService.autorizar('tipo_espaco_estacao_de_trabalho_criar', 'tipo_espaco_estacao_de_trabalho_editar')
+										&& workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')" 
+										class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(5)" ngbTooltip="Adicionar mesas"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow"
+											[attr.data-toggle]="[esconderPlanta==true ? '' : 'pill']" [ngClass]="[esconderPlanta==true ? 'cursor-default' : 'cursor-pointer',
+												tabStateManager.activeState == 5 ? 'active' : '']">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-vintecinco"
+												[ngClass]="[esconderPlanta == true ? 'svg-icon-dark-30' : tabStateManager.activeState == 5 ? 'svg-icon-white' : 'svg-icon-primary']"
+												[inlineSVG]="'./assets/app/media/svg/icons/Devices/Display3.svg'">
+											</span>
+										</a>
+									</li>
+									<li *ngIf="workspaceService.autorizar('tipo_espaco_estacionamento_criar', 'tipo_espaco_estacionamento_editar')
+										&& workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')" 
+										class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(6)" ngbTooltip="Adicionar estacionamento"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow"
+											[attr.data-toggle]="[esconderPlanta==true ? '' : 'pill']" [ngClass]="[esconderPlanta==true ? 'cursor-default' : 'cursor-pointer',
+												tabStateManager.activeState == 6 ? 'active' : '']">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-vintecinco"
+												[ngClass]="[esconderPlanta == true ? 'svg-icon-dark-30' : tabStateManager.activeState == 6 ? 'svg-icon-white' : 'svg-icon-primary']"
+												[inlineSVG]="'./assets/app/media/svg/icons/_Custom/Car.svg'">
+											</span>
+										</a>
+									</li>
+									<li *ngIf="workspaceService.autorizar('tipo_espaco_fretado_criar', 'tipo_espaco_fretado_editar')
+										&& workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')" 
+										class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(7)" ngbTooltip="Adicionar fretado"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow"
+											[attr.data-toggle]="[esconderPlanta==true ? '' : 'pill']" [ngClass]="[esconderPlanta==true ? 'cursor-default' : 'cursor-pointer',
+												tabStateManager.activeState == 7 ? 'active' : '']">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-vintecinco"
+												[ngClass]="[esconderPlanta == true ? 'svg-icon-dark-30' : tabStateManager.activeState == 7 ? 'svg-icon-white' : 'svg-icon-primary']"
+												[inlineSVG]="'./assets/app/media/svg/icons/_Custom/Bus1.svg'">
+											</span>
+										</a>
+									</li>
+									<!-- <li class="nav-item m-0 mb-3 mb-lg-0" (click)="changeTab(5)" ngbTooltip="Revisar e salvar"
+										container="body" placement="bottom">
+										<a class="nav-link pt-1 pb-2 rounded align-items-center card-shadow "
+											[attr.data-toggle]="[esconderPlanta==true ? '' : 'pill']" [ngClass]="[esconderPlanta==true ? 'cursor-default' : 'cursor-pointer',
+												tabStateManager.activeState == 5 ? 'active' : '']">
+											<span class="nav-icon py-2 w-auto svg-icon svg-icon-vintecinco"
+												[ngClass]="[esconderPlanta == true ? 'svg-icon-dark-30' : tabStateManager.activeState == 5 ? 'svg-icon-white' : 'svg-icon-primary']"
+												[inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-check.svg'">
+											</span>
+										</a>
+									</li> -->
+								</ul>
+							</div>
+						</div>
+						<div class="row mx-0 w-100">
+							<!--begin::Nav Content-->
+							<div class="tab-content m-0 px-0 py-0 w-100">
+								<div class="tab-pane" id="forms_widget_tab_1" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 1 ? 'active' : ''
+								]">
+									<div id="kt_tree_localizacoes" class="tree-demo"></div>
+								</div>
+								<div class="tab-pane" id="forms_widget_tab_2" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 2 ? 'active' : ''
+								]">
+									<div>
+										<div class="text-center mx-5">
+											<tf-upload-image
+												[extensions]="['jpeg','png']"
+												[carousel]="carouselPlanta"
+												(upload)="atualizarFileList($event)"
+												(remove)="atualizarFileList($event, true)"
+												retirarLabel="true"
+												boxMessage=""
+												labelBotao="Upload planta"
+											></tf-upload-image>
+										</div>
+										<div class="text-center">
+											<!-- <span>Tons de cinza</span>
+											<span class="switch mx-5">
+												<input type="checkbox"
+												(click)="aplicarGrayscale($event)" 
+												>
+											</span> -->
+											<div class="row mx-5 mt-2">
+												<div class="col-4 px-0">
+													<label class="m-0">Cinza Médio</label>
+													<span class="switch">
+														<label>
+															<input type="checkbox" [(ngModel)]="grayscaleAvg" name="select"
+																(change)="aplicarGrayscaleAvg($event)"/>
+															<span></span>
+														</label>
+													</span>
+												</div>
+												<div class="col-4 px-0">
+													<label class="m-0">Luminosidade</label>
+													<span class="switch">
+														<label>
+															<input type="checkbox" [(ngModel)]="grayscaleLum" name="select"
+															(change)="aplicarGrayscaleLum($event)"/>
+															<span></span>
+														</label>
+													</span>
+												</div>
+												<div class="col-4 px-0">
+													<label class="m-0">Leveza</label>
+													<span class="switch">
+														<label>
+															<input type="checkbox" [(ngModel)]="grayscaleLev" name="select"
+															(click)="aplicarGrayscaleLev($event)"/>
+															<span></span>
+														</label>
+													</span>
+												</div>
+											</div>
+											<div class="row mx-5">
+												<span>Brilho</span>
+												<input class="form-control bg-primary text-danger" type="range"
+												#brilho (change)="aplicarBrilho(brilho.value)" min="-10" max="100" value="0"/>
+											</div>
+											<div class="row mx-5">
+												<span>Ofuscar</span>
+												<input class="form-control bg-primary text-danger" type="range"
+												#ofuscar (change)="aplicarOfuscar(ofuscar.value)" min="-5" max="25" value="0"/>
+											</div>
+											<div class="row mx-5">
+												<span>Contraste</span>
+												<input class="form-control bg-primary text-danger" type="range"
+												#contraste (click)="aplicarContraste(contraste.value)" min="-10" max="100" value="0"/>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="forms_widget_tab_3" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 3 ? 'active' : ''
+								]">
+									<div class="row px-4 pt-4">
+									</div>
+									<div class="pt-5">
+										<div class="text-center mx-5">
+											<button class="btn btn-primary btn-shadow-hover text-white py-3 mx-3"
+												(click)="adicionarPavimento()" >
+												<span class="svg-icon svg-icon-menu svg-icon-white"
+													[inlineSVG]="'./assets/app/media/svg/icons/Design/Interselect.svg'">
+												</span>
+												Pavimento
+											</button>
+											<button class="btn btn-primary btn-shadow-hover text-white py-3 mx-3"
+												(click)="adicionarDivisoria()" >
+												<span class="svg-icon svg-icon-menu svg-icon-white"
+													[inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-vertical.svg'">
+												</span>
+												Divisória
+											</button>
+											<button class="btn btn-primary btn-shadow-hover text-white my-3 mx-3"
+												(click)="adicionarLegenda()" >
+												<span class="svg-icon svg-icon-menu svg-icon-white"
+													[inlineSVG]="'./assets/app/media/svg/icons/Text/Edit-text.svg'">
+												</span>
+												Legenda
+											</button>
+											<button class="btn btn-primary btn-shadow-hover text-white my-3 mx-3"
+												(click)="adicionarIcone()" >
+												<span class="svg-icon svg-icon-menu svg-icon-white"
+													[inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'">
+												</span>
+												Recurso
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="forms_widget_tab_4" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 4 ? 'active' : ''
+								]">
+									<div class="row px-4 pt-4">
+										<!-- <div class="col-sm-6 col-4 pb-5 px-3">
+											<a class="card card-custom card-stretch card-shadowplus bg-hover-light-primary mb-8 mb-lg-0 cursor-pointer bg-light"
+												(click)="adicionarSala()">
+												<div class="card-body pt-1 pb-0 px-sm-0 px-2">
+													<div class="card-scroll">
+														<div class="d-flex align-items-center flex-center py-0">
+															<div class="d-flex flex-column flex-center">
+																<h3 class="text-gray-500 h5 mb-0">
+																	<span class="svg-avatar svg-icon-4x"
+																		[inlineSVG]="'./assets/app/media/svg/avatars/clothes/c02.svg'">
+																	</span>
+																</h3>
+															</div>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div> -->
+									</div>
+									<div class="pt-5">
+										<p class="text-center mx-5">
+											<button class="btn btn-primary btn-shadow-hover text-white w-80 py-3 mx-3"
+												(click)="adicionarSala()" >
+												Criar sala
+											</button>
+											<button class="btn btn-primary btn-shadow-hover text-white w-80 py-3 mx-3"
+												(click)="vincularSala()" 
+												[disabled]="!habilitarBotaoVinculoSala">
+												Vincular sala
+											</button>
+										</p>
+									</div>
+								</div>
+								<div class="tab-pane" id="forms_widget_tab_5" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 5 ? 'active' : ''
+								]">
+									<div class="row px-4 pt-4">
+										<!-- <div class="col-sm-6 col-4 pb-5 px-3">
+											<a class="card card-custom card-stretch card-shadowplus bg-hover-light-primary mb-8 mb-lg-0 cursor-pointer bg-light"
+												(click)="adicionarMesa()">
+												<div class="card-body pt-1 pb-0 px-sm-0 px-2">
+													<div class="card-scroll">
+														<div class="d-flex align-items-center flex-center py-0">
+															<div class="d-flex flex-column flex-center">
+																<h3 class="text-gray-500 h5 mb-0">
+																	<span class="svg-avatar svg-icon-4x"
+																		[inlineSVG]="'./assets/app/media/svg/planta/mesa/m01.svg'">
+																	</span>
+																</h3>
+															</div>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div> -->
+									</div>
+									<div class="pt-5">
+										<p class="text-center mx-5">
+											<button class="btn btn-primary btn-shadow-hover text-white py-3 mx-3"
+												(click)="adicionarMesaBola('mesa')" >
+												<span class="svg-icon svg-icon-menu svg-icon-white"
+													[inlineSVG]="'./assets/app/media/svg/icons/Home/Chair1.svg'">
+												</span>
+												Mesa A
+											</button>
+											<button class="btn btn-primary btn-shadow-hover text-white py-3 mx-3"
+												(click)="adicionarMesaEstacao()" >
+												<span class="svg-icon svg-icon-menu svg-icon-white"
+													[inlineSVG]="'./assets/app/media/svg/icons/Home/Chair2.svg'">
+												</span>
+												Mesa B
+											</button>
+											<button class="btn btn-primary btn-shadow-hover text-white py-3 m-3"
+												(click)="vincularMesa()"
+												[disabled]="!habilitarBotaoVinculoMesa" >
+												<span class="svg-icon svg-icon-menu svg-icon-white"
+													[inlineSVG]="'./assets/app/media/svg/icons/General/Scale.svg'">
+												</span>
+												Vincular mesa
+											</button>
+										</p>
+									</div>
+								</div>
+								<div class="tab-pane" id="forms_widget_tab_4" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 6 ? 'active' : ''
+								]">
+									<div class="row px-4 pt-4">
+										<!-- <div class="col-sm-6 col-4 pb-5 px-3">
+											<a class="card card-custom card-stretch card-shadowplus bg-hover-light-primary mb-8 mb-lg-0 cursor-pointer bg-light"
+												(click)="adicionarSala()">
+												<div class="card-body pt-1 pb-0 px-sm-0 px-2">
+													<div class="card-scroll">
+														<div class="d-flex align-items-center flex-center py-0">
+															<div class="d-flex flex-column flex-center">
+																<h3 class="text-gray-500 h5 mb-0">
+																	<span class="svg-avatar svg-icon-4x"
+																		[inlineSVG]="'./assets/app/media/svg/avatars/clothes/c02.svg'">
+																	</span>
+																</h3>
+															</div>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div> -->
+									</div>
+									<div class="pt-5">
+										<p class="text-center mx-5">
+											<button class="btn btn-primary btn-shadow-hover text-white py-3 mx-3"
+												(click)="adicionarMesaBola('estacionamento')" >
+												Adicionar vaga
+											</button>
+											<button class="btn btn-primary btn-shadow-hover text-white py-3 m-3"
+												(click)="vincularEstacionamento()"
+												[disabled]="!habilitarBotaoVinculoEstacionamento" >
+												<span class="svg-icon svg-icon-menu svg-icon-white"
+													[inlineSVG]="'./assets/app/media/svg/icons/General/Scale.svg'">
+												</span>
+												Vincular vaga
+											</button>
+										</p>
+									</div>
+								</div>
+								<div class="tab-pane" id="forms_widget_tab_4" role="tabpanel" [ngClass]="[
+									tabStateManager.activeState == 7 ? 'active' : ''
+								]">
+									<div class="row px-4 pt-4">
+										<!-- <div class="col-sm-6 col-4 pb-5 px-3">
+											<a class="card card-custom card-stretch card-shadowplus bg-hover-light-primary mb-8 mb-lg-0 cursor-pointer bg-light"
+												(click)="adicionarSala()">
+												<div class="card-body pt-1 pb-0 px-sm-0 px-2">
+													<div class="card-scroll">
+														<div class="d-flex align-items-center flex-center py-0">
+															<div class="d-flex flex-column flex-center">
+																<h3 class="text-gray-500 h5 mb-0">
+																	<span class="svg-avatar svg-icon-4x"
+																		[inlineSVG]="'./assets/app/media/svg/avatars/clothes/c02.svg'">
+																	</span>
+																</h3>
+															</div>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div> -->
+									</div>
+									<div class="pt-5">
+										<p class="text-center mx-5">
+											<button class="btn btn-primary btn-shadow-hover text-white py-3 mx-3"
+												(click)="adicionarMesaBola('fretado')" >
+												Adicionar lugar
+											</button>
+											<button class="btn btn-primary btn-shadow-hover text-white py-3 m-3"
+												(click)="vincularFretado()"
+												[disabled]="!habilitarBotaoVinculoFretado" >
+												<span class="svg-icon svg-icon-menu svg-icon-white"
+													[inlineSVG]="'./assets/app/media/svg/icons/General/Scale.svg'">
+												</span>
+												Vincular lugar
+											</button>
+										</p>
+									</div>
+								</div>
+							</div>
+							<!--end::Nav Content-->
+						</div>
+					</div>
+
+
+					<!--end::Nav Tabs-->
+
+				</div>
+				<div class="col-lg-8 p-0">
+					<div class="card-toolbar pl-0 pr-0 pb-1 card-shadowmore rounded-top bg-white" id='divwidth'>
+						<a href="#" (click)="save()" class="btn btn-sm btn-light-light font-weight-bold
+							px-1 py-0" ngbTooltip="Salvar" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-menu"
+								[ngClass]="[tabStateManager.activeState != 1 ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/General/Save.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="reset()" class="btn btn-sm btn-light-light font-weight-bold
+							px-1 py-0" ngbTooltip="Descartar alterações" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-menu" [ngClass]="[false ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/Home/Broom.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="delete()" class="btn btn-sm btn-light-primary font-weight-bold
+							py-0 pl-1 pr-3 border-right-light-dark rounded-0" ngbTooltip="Excluir" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-menu" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/Home/Trash.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="duplicate()" class="btn btn-sm btn-light-primary font-weight-bold
+							pl-3 pr-1" ngbTooltip="Duplicar" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-menu" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/General/Duplicate.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="cut()" class="btn btn-sm btn-light-primary font-weight-bold
+							py-0 px-1" ngbTooltip="Recortar" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-menu" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/General/Scissors.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="copy()" class="btn btn-sm btn-light-primary font-weight-bold
+							px-1 py-0" ngbTooltip="Copiar" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-quinze" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/Files/Selected-file.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="paste()" class="btn btn-sm btn-light-primary font-weight-bold
+							py-0 pl-1 pr-3 " ngbTooltip="Colar" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-quinze" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/General/Clipboard.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="group()" class="btn btn-sm btn-light-primary font-weight-bold
+							py-0 pl-3 pr-1 border-left-light-dark rounded-0" ngbTooltip="Agrupar" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-menu" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/General/Attachment1.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="unGroup()" class="btn btn-sm btn-light-primary font-weight-bold
+							py-0 pl-1 pr-3 " ngbTooltip="Desagrupar" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-menu" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/General/Attachment2.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="selectAll()" class="btn btn-sm btn-light-primary font-weight-bold
+							py-0 pl-3 pr-1 border-left-light-dark rounded-0" ngbTooltip="Selecionar tudo" container="body"
+							placement="bottom">
+							<span class="svg-icon svg-icon-menu" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/Design/Select.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="discardSelect()" class="btn btn-sm btn-light-primary font-weight-bold
+							py-0 pl-1 pr-3 border-right-light-dark rounded-0" ngbTooltip="Descartar seleção" container="body"
+							placement="bottom">
+							<span class="svg-icon svg-icon-menu" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/General/Expand-arrows.svg'">
+							</span>
+						</a>
+
+						<!-- <a href="#" (click)="undo()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Desfazer" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Text/Undo.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="redo()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Refazer" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Text/Redo.svg'">
+							</span>
+						</a> -->
+						<a href="#" (click)="turnLeft()" class="btn btn-sm btn-light-primary font-weight-bold
+							py-0 pl-3 pr-1" ngbTooltip="Girar à esquerda" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-quinze" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Left 3.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="turnRight()" class="btn btn-sm btn-light-primary font-weight-bold
+							py-0 pl-1 pr-3 " ngbTooltip="Girar à direita" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-quinze" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Right 3.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="gridToggle()" class="btn btn-sm btn-light-primary font-weight-bold
+							py-0 pl-3 pr-1 border-left-light-dark rounded-0" ngbTooltip="Alinhar à grade" container="body"
+							placement="bottom">
+							<span class="svg-icon svg-icon-2x" [ngClass]="[!esconderPlanta ? 'svg-icon-primary' : 'svg-icon-light']"
+								[inlineSVG]="'./assets/app/media/svg/icons/Design/Horizontal.svg'">
+								<!-- [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Loader.svg'" -->
+								<!-- [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Barcode-scan.svg'" -->
+								<!-- [inlineSVG]="'./assets/app/media/svg/icons/Home/Ruller.svg'" -->
+							</span>
+						</a>
+						<!-- <a href="#" (click)="delete()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Horário" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Clothes/Tie.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="delete()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Horário" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Clothes/Shorts.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="delete()" class="btn btn-sm btn-light-primary font-weight-bold p-1" ngbTooltip="Editar"
+							container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Communication/Write.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="delete()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Configurações" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/General/Settings-3.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="delete()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Configurações" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Code/Settings4.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="delete()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Configurações" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'">
+							</span>
+						</a> -->
+						<!-- <a href="#" (click)="toJson()" class="btn btn-sm btn-light-primary font-weight-bold p-1" ngbTooltip="Json"
+							container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-menu"
+								[inlineSVG]="'./assets/app/media/svg/icons/Code/Code.svg'">
+							</span>
+						</a> -->
+						<!-- <a href="#" (click)="aSideToggle()" id="aSideToggle"
+							class="btn btn-sm btn-light-primary font-weight-bold p-1 pt-2 hud-overlay"
+							ngbTooltip="Expandir/Recolher" container="body" placement="left">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/General/Size.svg'">
+							</span>
+						</a> -->
+					</div>
+					<!-- pr-0 -->
+					<div [hidden]="!telaInicial" class="card bg-gray-200" style="width: auto; height: 400px;">
+						<div class="card card-custom card-stretch gutter-b bg-gray-200 h-100">
+							<!-- Body -->
+							<div class="card-body d-flex flex-column">
+								<div class="row">
+									<div class="">
+
+									</div>
+								</div>
+								<div class="pt-15">
+									<p class="text-center font-weight-normal font-size-lg pb-7">
+										<span class="svg-icon svg-icon-10x " [inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+										</span>
+									</p>
+									<p class="text-center font-weight-normal font-size-lg pb-7">
+										Navegue entre as <b class="text-primary">localizações</b> no menu ao lado<br />
+										para acessar as plantas.
+									</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div [hidden]="esconderCriarPlanta" class="card bg-gray-200" style="width: auto; height: 400px;">
+						<div class="card card-custom card-stretch gutter-b bg-gray-200 h-100">
+							<!-- Body -->
+							<div class="card-body d-flex flex-column">
+								<div class="row">
+									<div class="">
+
+									</div>
+								</div>
+								<div class="pt-15">
+									<p class="text-center font-weight-normal font-size-lg pb-7">
+										<span class="svg-icon svg-icon-10x" [inlineSVG]="'./assets/app/media/svg/icons/Design/Layers.svg'">
+										</span>
+									</p>
+									<p class="text-center font-weight-normal font-size-lg pb-4">
+										Essa localização ainda não possui uma planta.
+									</p>
+									<p class="text-center mx-40">
+										<a class="btn btn-primary btn-shadow-hover text-white w-80 py-3 cursor-pointer"
+											(click)="criarPlanta()">
+											Adicionar uma planta
+										</a>
+									</p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div [hidden]="esconderPlanta" #plantaChild>
+						<canvas id="planta" class="card-shadow" >
+						</canvas>
+					</div>
+					<!-- <div class="row">
+
+						<div class="card card-custom card-shadowmore rounded mb-5" id="tooltip" #tooltip>
+							ooooi
+						</div>
+					</div> -->
+					<div class="card-toolbar pl-2 pr-0 pt-4 pb-2 card-shadowmore rounded-bottom bg-white">
+						<span 
+						*ngIf="debugGlobal"
+						>
+							
+     					<span>offset top: {{planta?._offset?.top}}</span>
+							<span> | </span>
+							<span>top: {{planta?.top}}</span>
+							<span> | </span>
+							<span>viewport: {{planta?.viewportTransform}}</span>
+							<span> | </span>
+							<span>planta scaleY: {{planta?.trans}}</span>
+							<span> | </span>
+							<span>planta scaleX: {{planta?.scaleX}}</span>
+							<span> | </span>
+							<br>
+							<br>
+							<span>itens selecionados: {{planta?.getActiveObjects().length}}</span>
+							<span> | </span>
+							<span>top: {{planta?.getActiveObject()?.top}} </span>
+							<!-- <span> | </span> -->
+							<span>left: {{planta?.getActiveObject()?.left}}</span>
+							<span> | </span>
+							<br>
+							<span>width: {{planta?.getActiveObject()?.width}} </span>
+							<!-- <span> | </span> -->
+							<span>height: {{planta?.getActiveObject()?.height}}</span>
+							<span> | </span>
+							<span>zoom: {{planta?.getZoom() | percent}}</span>
+							<br>
+							<span>scaleX: {{planta?.getActiveObject()?.scaleX}} </span>
+							<!-- <span> | </span> -->
+							<span>scaleY: {{planta?.getActiveObject()?.scaleY}}</span>
+							<span>angle: {{planta?.getActiveObject()?.angle}}</span>
+
+							<span>seno: {{calcularSeno(planta?.getActiveObject()?.angle)}} </span>
+							<span>cosseno: {{calcularCosseno(planta?.getActiveObject()?.angle)}} </span>
+							
+							<span>skewX: {{planta?.getActiveObject()?.skewX}} </span>
+							<!-- <span> | </span> -->
+							<span>skewY: {{planta?.getActiveObject()?.skewY}}</span>
+
+							<br>
+							<br>
+							<span>width: {{planta?.getActiveObject()?.item(1)?.width}} </span>
+							<!-- <span> | </span> -->
+							<span>height: {{planta?.getActiveObject()?.item(1)?.height}} </span>
+							<span> | </span>
+							<span>scaleX: {{planta?.getActiveObject()?.item(1)?.scaleX}} </span>
+							<!-- <span> | </span> -->
+							<span>scaleY: {{planta?.getActiveObject()?.item(1)?.scaleY}} </span>
+							<span>angle: {{planta?.getActiveObject()?.item(1)?.angle}} </span>
+
+							<br>
+							<br>
+							<span>width: {{planta?.getActiveObject()?.item(0)?.width}} </span>
+							<!-- <span> | </span> -->
+							<span>height: {{planta?.getActiveObject()?.item(0)?.height}} </span>
+							<span> | </span>
+							<span>scaleX: {{planta?.getActiveObject()?.item(0)?.scaleX}} </span>
+							<!-- <span> | </span> -->
+							<span>scaleY: {{planta?.getActiveObject()?.item(0)?.scaleY}} </span>
+							<span>angle: {{planta?.getActiveObject()?.item(0)?.angle}} </span>
+						</span>
+
+					</div>
+					<!-- <div class="card-toolbar">
+						<a href="#" (click)="zoomIn()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom in" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Design/ZoomPlus.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="zoomOut()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom out" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Design/ZoomMinus.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="moveViewPort(-1, 0)" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom in" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-left.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="moveViewPort(1, 0)" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom out" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-right.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="moveViewPort(0, -1)" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom out" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-up.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="moveViewPort(0, 1)" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Zoom out" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-down.svg'">
+							</span>
+						</a>
+						<a href="#" (click)="reCenter()" class="btn btn-sm btn-light-primary font-weight-bold p-1"
+							ngbTooltip="Centralizar" container="body" placement="bottom">
+							<span class="svg-icon svg-icon-primary svg-icon-2x"
+								[inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+							</span>
+						</a>
+					</div> -->
+				</div>
+			</div>
+			<div *ngIf="debugGlobal" class="row">
+				{{ canvasJson | json}}
+			</div>
+		</div>
+	</div>
+</div>

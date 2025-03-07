@@ -1,0 +1,99 @@
+<tf-datatable-cabecalho
+	[habilitarForm]="workspaceService.autorizar('unidade_criar')"
+	[labelFormButton]="'Nova Unidade'"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+	(openFormModal)="openFormModal()"
+	[pesquisarPor]="'pesquise por: nome, sigla ou código da UNIDADE *** nome, subdomínio ou plano do CLIENTE'"
+	>
+</tf-datatable-cabecalho>
+<div *ngIf="workspaceService.autorizar('unidade_visualizar')">
+  <ngx-datatable class="material"
+		#minhaTable
+		[rows]="datatable.rows"
+		[columnMode]="'flex'"
+		[footerHeight]="50"
+		[rowHeight]="'auto'"
+		[externalPaging]="true"
+		[count]="page.totalElements"
+		[offset]="page.pageNumber"
+		[limit]="page.size"
+		(page)="setPage($event, undefined)"  
+		[sortType]="'multi'"
+		>
+		<ngx-datatable-column
+			[width]="50"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template ngx-datatable-header-template let-value="value">
+				<a href="#"
+						class="datatable-icon-left fg-primary"
+						title="Expand/Collapse All Rows"
+						(click)="toggleExpandAllRow()">
+				</a>
+			</ng-template>
+			<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+				<a href="#" title="Expand/Collapse Row"
+				(click)="toggleExpandRow(row, expanded)"
+						class="m-datatable__toggle-subtable fg-primary">
+						<i [class.datatable-icon-right]="!expanded"
+						[class.datatable-icon-down]="expanded"></i>
+				</a>
+				</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Nome" prop="nome"></ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Sigla" prop="sigla"></ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Ativada?">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span	*ngIf="!row.ativada" class="m-badge m-badge--danger m-badge--wide m--font-boldest">off</span>
+				<span *ngIf="row.ativada" class="m-badge m-badge--info m-badge--wide m--font-boldest">on</span>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Envio de convites?">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span	*ngIf="!row.send_invitation" class="m-badge m-badge--danger m-badge--wide m--font-boldest">off</span>
+				<span *ngIf="row.send_invitation" class="m-badge m-badge--info m-badge--wide m--font-boldest">on</span>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column
+			[flexGrow]="1" 
+			[width]="120"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="">
+					<a href="#" title="Editar" (click)="openFormModal(row.id)"
+						*ngIf="workspaceService.autorizar('unidade_editar')"
+						class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a>
+					<a href="#" title="Remover" (click)="datatableService.remove(row.id)"
+						*ngIf="workspaceService.autorizar('unidade_excluir')"
+						class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+					<a href="#" title="QR Code" (click)="abrirQrCode(row.id, row.nome)"
+						*ngIf="workspaceService.autorizar('gerar_qrcode')"
+						class="btn btn-outline-dark btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-qrcode"></i>
+					</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+			<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+				<div class="row" style="padding-left:15px;margin-right:0px">
+					<div class="col-12">
+						<div>Código na base do cliente: {{row.codigo_base_cliente}}</div>
+						<div>Institruição: {{row.instituicao.nome}}</div>
+					  <div>Cliente API: {{row.client_api.nome}}</div>	
+					</div>
+				</div>
+			</ng-template>
+		</ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>

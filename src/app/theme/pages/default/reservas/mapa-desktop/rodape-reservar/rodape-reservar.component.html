@@ -1,0 +1,51 @@
+<div #rodape class="rodape d-none animated-75">
+  <div class="card card-shadowmore rounded mx-0 p-4">
+    <div class="d-flex justify-content-between">
+      <span class="text-dark-75 font-weight-bold font-size-lg pt-1">{{espacoSelecionado?.nome}}</span>
+      <button type="button" class="close pl-5 pr-2 pb-1" data-dismiss="modal" aria-label="Close"
+        (click)="fecharRodape()">
+        <span aria-hidden="true">
+          &times;
+        </span>
+      </button>
+    </div>
+    <div class="d-flex align-items-center">
+      <span class="svg-icon svg-icon-quinze mr-1"
+        [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Calendario.svg'">
+      </span>
+      <span class="text-dark-75 font-size-sm pt-3 pl-1">
+        {{textData}} - {{textHour}}
+      </span>
+    </div>
+
+    <label class="m-checkbox m-checkbox--primary">
+      <input type="checkbox" name="agree" (click)="checkAgree()" [checked]="agree"
+      required>
+      Aceito o 
+      <a (click)="abrirTermo()" target="_self" class="m-link m-link--primary text-primary">
+        termo de reserva
+      </a>
+       de segurança.
+      <!--  (click)="termosDeUso()"  -->
+      <span></span>
+    </label>
+    <hr>
+    <div class="d-flex justify-content-center">
+
+      <button
+        type="submit" class="btn btn-outline-primary mx-3"
+        (click)="abrirMaisOpcoes(espacoSelecionado?.tipo_espaco)"
+        [disabled]="loading"
+        [ngClass]="{'m-loader m-loader--right m-loader--primary': loading}">
+          Mais opções
+      </button>
+
+      <button type="submit" class="btn btn-primary mx-3"
+        (click)="modalReserva()"
+        [disabled]="loading || !agree"
+        [ngClass]="{'m-loader m-loader--right m-loader--light': loading}">
+          Reservar {{espacoSelecionado?.tipo_espaco == 'fretado' ? 'lugar' : (espacoSelecionado?.tipo_espaco == 'estacionamento' ? 'vaga' : espacoSelecionado?.tipo_espaco)}}
+      </button>
+    </div>
+  </div>
+</div>

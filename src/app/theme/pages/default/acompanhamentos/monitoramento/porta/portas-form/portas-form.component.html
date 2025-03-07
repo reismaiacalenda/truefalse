@@ -1,0 +1,119 @@
+<tf-form-abas
+	[abas]="abas"
+	[activeModal]="activeModal"
+  [formGroup]="formulario"
+  [listDadosSelect]="listDadosSelect"
+	(submeter)="onSubmit()"
+  (excluir)="removeItem()"
+  botaoExcluir="false"
+>
+
+  <div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('chave_vinculo_licenca')">
+      <h5>Display - Porta</h5><br/>
+      <p>Daremos início à configuração de um Display.</p>
+      <p>É necessário que já tenha o Espaço e o Layout cadastrados.</p>
+      <p><b>Insira a chave no campo abaixo apenas se estiver utilizando um raspberry.</b></p>
+        <!-- <a href="" (click)="chamarEspacoFormComponent()">Espaco</a> e o
+        <a href="" (click)="chamarLayoutPortaFormComponent()">Layout</a> -->
+    </div>
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('chave_vinculo_licenca')"
+      >
+      <tf-text-simple
+        formControlName="chave_vinculo_licenca"
+        label="Chave de vínculo exibida no display"
+        placeholder="Insira a chave"
+        >
+        <!-- desabilitar="true" -->
+      </tf-text-simple>
+      <!-- <br>
+      <br>
+      <p>Chave Value: >>> {{formulario.value?.chave_vinculo_licenca}}</p>
+      <p>Chave Get Value: >>> {{formulario.get('chave_vinculo_licenca').value}}</p>
+      <p>Chave Get Valid: >>> {{formulario.get('chave_vinculo_licenca').valid}}</p>
+      <br>
+      <p>Aba 1 Valid: >>> {{aba1.valid}}</p>
+      <p>Aba 1 Value: >>> {{aba1.get('chave_vinculo_licenca')?.value}}</p>
+      <br>
+      <p>Formulário Valid: >>> {{formulario.valid}}</p>
+      <p>Formulário Value: >>> {{formulario.get('chave_vinculo_licenca')?.value}}</p>
+      <br>
+      <p>Mesmo objeto? >>> {{aba1.get('chave_vinculo_licenca') == formulario.get('chave_vinculo_licenca')}}</p>
+      <br>
+      <p>Dirty: >>> {{formulario.get('chave_vinculo_licenca').dirty}}</p>
+      <p>Touched: >>> {{formulario.get('chave_vinculo_licenca').touched}}</p>
+      <p>Valid: >>> {{formulario.get('chave_vinculo_licenca').valid}}</p>
+      <br> -->
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+    <div class="form-group m-form__group"
+      [ngClass]="aplicaCss('espaco_id')"
+      >
+      <tf-select-simple
+        [formControl]="formulario.get('espaco_id')"
+        [data]="listDadosSelect['espacos']"
+        label="Espaço"
+        placeholder="Selecione um espaço"
+        [allowClear]="true"
+      >
+      </tf-select-simple>
+      <!-- <br>
+      <br>
+      <p>Espaco Value: >>> {{formulario.value?.espaco_id}}</p>
+      <p>Espaco Get Value: >>> {{formulario.get('espaco_id').value}}</p>
+      <p>Espaco Get Valid: >>> {{formulario.get('espaco_id').valid}}</p>
+      <br>
+      <p>Aba 2 Valid: >>> {{aba2.valid}}</p>
+      <p>Aba 2 Value: >>> {{aba2.get('espaco_id')?.value}}</p>
+      <br>
+      <p>Formulário Valid: >>> {{formulario.valid}}</p>
+      <p>Formulário Value: >>> {{formulario.get('espaco_id')?.value}}</p>
+      <br>
+      <p>Mesmo objeto? >>> {{aba1.get('espaco_id') == formulario.get('espaco_id')}}</p>
+      <br>
+      <p>Dirty: >>> {{formulario.get('espaco_id').dirty}}</p>
+      <p>Touched: >>> {{formulario.get('espaco_id').touched}}</p>
+      <p>Valid: >>> {{formulario.get('espaco_id').valid}}</p>
+      <br>
+      <br> -->
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+    <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('layout_id')"
+    >
+      <tf-select-simple
+      [formControl]="formulario.get('layout_id')"
+      [data]="listDadosSelect['layouts']"
+      label="Layout"
+      placeholder="Selecione um layout"
+      [allowClear]="true"
+      >
+      </tf-select-simple>
+    <!-- <br>
+    <br>
+    <p>Espaco Value: >>> {{formulario.value?.layout_id}}</p>
+    <p>Espaco Get Value: >>> {{formulario.get('layout_id').value}}</p>
+    <p>Espaco Get Valid: >>> {{formulario.get('layout_id').valid}}</p>
+    <br>
+    <p>Aba 3 Valid: >>> {{aba3.valid}}</p>
+    <p>Aba 3 Value: >>> {{aba3.get('layout_id')?.value}}</p>
+    <br>
+    <p>Formulário Valid: >>> {{formulario.valid}}</p>
+    <p>Formulário Value: >>> {{formulario.get('layout_id')?.value}}</p>
+    <br>
+    <p>Mesmo objeto? >>> {{aba1.get('layout_id') == formulario.get('layout_id')}}</p>
+    <br>
+    <p>Dirty: >>> {{formulario.get('layout_id').dirty}}</p>
+    <p>Touched: >>> {{formulario.get('layout_id').touched}}</p>
+    <p>Valid: >>> {{formulario.get('layout_id').valid}}</p>
+    <br>
+    <br> -->
+    </div>
+  </div>
+</tf-form-abas>

@@ -1,0 +1,1436 @@
+<!-- BEGIN: Left Aside -->
+<div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-light" appunwraptag="">
+	<!-- BEGIN: Aside Menu -->
+	<div *ngIf="printable()" id="m_ver_menu"
+		class="m-aside-menu m-aside-menu--skin-light m-aside-menu--submenu-skin-light" data-menu-vertical="false"
+		data-menu-scrollable="true" data-menu-dropdown-timeout="500">
+		<!-- Na div acima mudou de: data-menu-scrollable="false", para: data-menu-scrollable="true" afim de retirar bug de block no scroll -->
+
+		<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow mt-4">
+
+			<!-- #region main Início -->
+			<li class="m-menu__item  " routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"
+				aria-haspopup="true"
+				>
+				<a routerLink="/index" class="m-menu__link"
+					ngbTooltip="Início" container="body" placement="right" [disableTooltip]="isAsideOpen()"
+				>
+				<!--  [disableTooltip]="isAsideOpen()" -->
+					<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Cooking/Dish.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+						<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Home-heart.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Design/Substract.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+					<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Design/Select.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+					<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Devices/Radio.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+					<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Compiling.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+					<span class="m-menu__link-title">
+						<span class="m-menu__link-wrap">
+							<span class="m-menu__link-text" >
+								Início
+								<div class="m-spinner m-spinner--sm m-spinner--primary" style="width:0.6rem;height:0.6rem"></div>
+							</span>
+							<!-- <span class="m-menu__link-badge"> Já estava comentado
+								<span class="m-badge m-badge--accent"> 2 </span> Já estava comentado
+							</span> Já estava comentado -->
+						</span>
+					</span>
+				</a>
+			</li>
+			<!-- #endregion -->
+			<!-- #region main QrCalenda -->
+			<!-- <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+				<a routerLink="/reservas/qrcode" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon fa fa-qrcode"></i>
+					<span class="m-menu__link-text">
+						QrCalenda
+					</span>
+				</a>
+			</li> -->
+			<!-- #endregion -->
+
+			<!-- #region Reservas -->
+			<hr>
+			<!-- <li class="m-menu__section my-0 py-0" *ngIf="isAsideOpen()">
+				<h4 class="m-menu__section-text my-0 py-0">
+					Reservas
+				</h4>
+			</li> -->
+
+			<!-- #region Calendário -->
+			<li class="m-menu__item  m-menu__item--submenu" 
+			 *ngIf="workspaceService.autorizar('calendario_menu')"
+			  routerLinkActive="m-menu__item--open"
+				routerLinkActiveOptions="{ exact: true }" aria-haspopup="true" data-menu-submenu-toggle="hover">
+				<a routerLink="/reservas/calendario" href="#" class="m-menu__link m-menu__toggle"
+					ngbTooltip="Calendário" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Calendario.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<!-- [ngClass]="{'m-menu__item--active': this.}" -->
+					<span class="m-menu__link-text">
+						Calendário
+					</span>
+					<!-- <i class="m-menu__ver-arrow la la-angle-right"></i> -->
+				</a>
+			</li>
+			<!-- #endregion -->
+
+			<!-- #region Quadro -->
+			<li class="m-menu__item  m-menu__item--submenu"
+				*ngIf="workspaceService.autorizar('quadro_espaco_menu')"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<a routerLink="/reservas/quadros/espacos" class="m-menu__link m-menu__toggle"
+					ngbTooltip="Quadro de salas" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Cupboard.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Quadro de salas
+					</span>
+					<!-- <i class="m-menu__ver-arrow la la-angle-right"></i> -->
+				</a>
+			</li>
+
+			<li class="m-menu__item  m-menu__item--submenu"
+				*ngIf="workspaceService.autorizar('quadro_recurso_menu')"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<a routerLink="/reservas/quadros/recursos" class="m-menu__link m-menu__toggle"
+					ngbTooltip="Quadro de recursos" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Quadro de recursos
+					</span>
+					<!-- <i class="m-menu__ver-arrow la la-angle-right"></i> -->
+				</a>
+
+				<!-- <div class="m-menu__submenu" *ngIf="workspaceService.autorizar('quadro_pessoa_menu')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')
+					|| this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/reservas/quadros/pessoas" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Communication/Group.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Pessoas
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('quadro_espaco_menu')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+					|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/reservas/quadros/espacos" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Cupboard.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Espaços
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('quadro_recurso_menu') && 
+						workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/reservas/quadros/recursos" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Recursos
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div> -->
+
+			</li>
+			<!-- #endregion -->
+
+			<!-- #region Quadro -->
+			<li class="m-menu__item  m-menu__item--submenu"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<a routerLink="/reservas/my-bookings" class="m-menu__link m-menu__toggle"
+					ngbTooltip="Minhas reservas da semana" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Book-open.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Minhas reservas da semana
+					</span>
+				</a>
+			</li>
+			<!-- #endregion -->
+
+			<!-- #region Trabalhar no escritório -->
+			<!-- <li class="m-menu__item  m-menu__item--submenu"
+			*ngIf="workspaceService.autorizar('reserva_posto_de_trabalho_criar_meu', 'reserva_posto_de_trabalho_criar_grupo', 'reserva_posto_de_trabalho_criar_unidade',
+				'reserva_estacao_flexivel_criar_meu', 'reserva_estacao_flexivel_criar_grupo', 'reserva_estacao_flexivel_criar_unidade')
+				&& workspaceService.autorizar('mapa_interativo')
+				&& workspaceService.contemModulo('hd')"
+				aria-haspopup="true" data-menu-submenu-toggle="hover">
+				<a *ngIf="!isMobile()" [routerLink]="['/reservas/mapa-desktop']" [queryParams]="{categoria: 'mesa'}" class="m-menu__link m-menu__toggle"
+				ngbTooltip="Trabalhar no escritório" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Building.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Trabalhar no escritório
+					</span>
+				</a>
+				<a *ngIf="isMobile()" routerLink="/reservas/mapa" class="m-menu__link m-menu__toggle"
+				ngbTooltip="Trabalhar no escritório" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Building.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Trabalhar no escritório
+					</span>
+				</a>
+			</li> -->
+			<!-- #endregion -->
+
+			<!-- #region Estacionamento -->
+			<!-- <li class="m-menu__item  m-menu__item--submenu"
+			*ngIf="workspaceService.autorizar('reserva_estacionamento_criar_meu', 'reserva_estacionamento_criar_grupo', 'reserva_estacionamento_criar_unidade')
+				&& workspaceService.autorizar('mapa_interativo')
+				&& workspaceService.contemModulo('hd')"
+				aria-haspopup="true" data-menu-submenu-toggle="hover">
+				<a *ngIf="!isMobile()" [routerLink]="['/reservas/mapa-desktop']" [queryParams]="{categoria: 'estacionamento'}" class="m-menu__link m-menu__toggle"
+				ngbTooltip="Estacionamento" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Car.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Estacionamento
+					</span>
+				</a>
+				<a *ngIf="isMobile()" routerLink="/reservas/mapa" class="m-menu__link m-menu__toggle"
+				ngbTooltip="Estacionamento" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Car.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Estacionamento
+					</span>
+				</a>
+			</li> -->
+			<!-- #endregion -->
+
+			<!-- #region Fretado -->
+			<!-- <li class="m-menu__item  m-menu__item--submenu"
+			*ngIf="workspaceService.autorizar('reserva_fretado_criar_meu', 'reserva_fretado_criar_grupo', 'reserva_fretado_criar_unidade')
+				&& workspaceService.autorizar('mapa_interativo')
+				&& workspaceService.contemModulo('hd')"
+				aria-haspopup="true" data-menu-submenu-toggle="hover">
+				<a *ngIf="!isMobile()" [routerLink]="['/reservas/mapa-desktop']" [queryParams]="{categoria: 'fretado'}" class="m-menu__link m-menu__toggle"
+				ngbTooltip="Fretado" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Bus1.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Fretado
+					</span>
+				</a>
+				<a *ngIf="isMobile()" routerLink="/reservas/mapa" class="m-menu__link m-menu__toggle"
+				ngbTooltip="Fretado" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Bus1.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Fretado
+					</span>
+				</a>
+			</li> -->
+			<!-- #endregion -->
+
+			<!-- #endregion -->
+			
+			<!-- #region Agendador -->
+			<li class="m-menu__item  m-menu__item--submenu d-none d-lg-block"
+				*ngIf="this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience')"
+				routerLinkActive="m-menu__item--open"
+				routerLinkActiveOptions="{ exact: true }" aria-haspopup="true" data-menu-submenu-toggle="hover">
+				<!-- /i/agendador target="_blank"-->
+				<a routerLink="/reservas/agendador"   class="m-menu__link m-menu__toggle"
+					ngbTooltip="Agendador (em breve)" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Design/Flip-horizontal.svg'" -->
+					<!-- <span class="svg-avatar svg-icon-2x"
+						[inlineSVG]="'./assets/app/media/svg/logos/calenda_full.svg'">
+					</span> -->
+					<span [inlineSVG]="'./assets/app/media/svg/logos/calenda_secondary.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-dezesseis"></span>
+					<span class="m-menu__link-text">
+						Agendador
+					</span>
+				</a>
+			</li>
+			<!-- #endregion -->
+
+			<!-- #region acompanhamentos -->
+			<!-- <hr *ngIf="workspaceService.autorizar('listagem_menu', 'recursos_alocados_menu', 'monitoramento_menu', 'relatorio_menu')">
+			<li class="m-menu__section"
+				*ngIf="workspaceService.autorizar('listagem_menu', 'recursos_alocados_menu', 'monitoramento_menu', 'relatorio_menu')">
+				<h4 class="m-menu__section-text">
+					Acompanhamentos
+				</h4>
+				<i class="m-menu__section-icon flaticon-more-v3"></i>
+			</li> -->
+
+			<!-- #region Listagem -->
+			<!-- <li class="m-menu__item  m-menu__item--submenu" *ngIf="workspaceService.autorizar('listagem_menu')"
+				aria-haspopup="true" data-menu-submenu-toggle="hover">
+				<a routerLink="/reservas/listagem" class="m-menu__link m-menu__toggle">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Devices/Server.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Listagem
+					</span>
+				</a>
+			</li> -->
+			<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Text/Bullet-list.svg'"
+			class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+			<!-- #endregion -->
+
+			<!-- #region Recursos Alocados -->
+			<!-- <li class="m-menu__item  m-menu__item--submenu" *ngIf="workspaceService.autorizar('recursos_alocados_menu')
+				&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"
+				aria-haspopup="true" data-menu-submenu-toggle="hover">
+				<a routerLink="/reservas/recursos-alocados" class="m-menu__link m-menu__toggle">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Devices/Hard-drive.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Recursos alocados
+					</span>
+				</a>
+			</li> -->
+				<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Devices/Server.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+			<!-- #endregion -->
+
+			<!-- #region Relatórios -->
+							<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Chart-line1.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+			<!-- <li class="m-menu__item  m-menu__item--submenu d-none d-lg-block" *ngIf="workspaceService.autorizar('relatorio_menu')"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<a routerLink="/reservas/relatorios" class="m-menu__link m-menu__toggle">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Chart-bar1.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+	
+					<span class="m-menu__link-text">
+						Relatórios
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/reservas/relatorios/tatico" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Chart-pie.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Resumo tático
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/reservas/relatorios/analitico" class="m-menu__link m-menu__toggle">
+			
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Sale1.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Análise das reservas
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+			</li> -->
+								<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Media/Equalizer.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+			<!-- #endregion -->
+
+			<!-- #region Cadastros e customizações -->
+			<hr *ngIf="workspaceService.autorizar('pessoas_menu', 'espacos_menu', 'recursos_menu', 'questionario_visualizar', 'customizacoes_menu', 'workspace_menu', 'outro_menu')">
+			<!-- <li class="m-menu__section"
+				*ngIf="workspaceService.autorizar('pessoas_menu', 'espacos_menu', 'recursos_menu', 'questionario_visualizar', 'checkups', 'customizacoes_menu', 'workspace_menu', 'outro_menu')">
+				<h4 class="m-menu__section-text">
+					Cadastros e customizações
+				</h4>
+				<i class="m-menu__section-icon flaticon-more-v3"></i>
+			</li> -->
+
+			<!-- #region Pessoas -->
+								<!-- Communication/Adress-book2.svg -->
+
+			<!-- <li class="m-menu__item  m-menu__item--submenu" *ngIf="workspaceService.autorizar('pessoas_menu')"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<a href="#" class="m-menu__link m-menu__toggle">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Communication/Group.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Pessoas
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('aprovador_visualizar')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/pessoas/aprovadores" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Key.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Auditores
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('grupo_visualizar')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/pessoas/grupos" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/General/Shield-protected.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Grupos & permissões
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('pessoa_visualizar_meu', 'pessoa_visualizar_grupo', 'pessoa_visualizar_unidade')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/pessoas/pessoas" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/General/User.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+							
+								<span class="m-menu__link-text">
+									Pessoas
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+			</li> -->
+				<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Communication/Add-user.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+			<!-- #endregion -->
+
+			<!-- #region Espaços -->
+			<!-- <li class="m-menu__item  m-menu__item--submenu d-none d-lg-block" *ngIf="workspaceService.autorizar('espacos_menu')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+					|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<a href="#" class="m-menu__link m-menu__toggle">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Cupboard.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Espaços
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('espaco_visualizar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+					|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/espacos/espacos" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Door-open.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Espaços
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('tipo_espaco_visualizar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+					|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/espacos/tipos-de-espaco" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Tipos de espaço
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('mapa_interativo') && workspaceService.autorizar('localizacao_visualizar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+					|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/espacos/planta" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Design/Select.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Planta
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('localizacao_visualizar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+					|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/espacos/localizacao" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Localização
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('integracao_menu')
+					&& workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/espacos/integrar-calendarios" class="m-menu__link m-menu__toggle">
+								
+								<span [inlineSVG]="'./assets/app/media/svg/icons/General/Scale.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								
+								<span class="m-menu__link-text">
+									Integrar calendários
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+			</li> -->
+			<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Files/Share.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+			<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Git4.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+			<!-- #endregion -->
+
+			<!-- #region Recursos -->
+			<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Box2.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+			<!-- <li class="m-menu__item  m-menu__item--submenu d-none d-lg-block" *ngIf="workspaceService.autorizar('recursos_menu')
+				&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<a href="#" class="m-menu__link m-menu__toggle">
+					
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Recursos
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('recurso_visualizar_grupo', 'recurso_visualizar_unidade')
+					&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/recursos/recursos" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Box.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Recursos
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('servico_visualizar')
+					&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/recursos/servicos" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Food/Coffee1.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Serviços
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('modelo_visualizar')
+					&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/recursos/modelos" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Box2.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Modelos
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('fiscal_visualizar')
+					&& workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/recursos/fiscais" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Dollar.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Fiscal
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+			</li>
+			<!-- #endregion -->
+
+			<!-- #region Checkups -->
+			<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Box2.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+			<!-- <li class="m-menu__item  m-menu__item--submenu" *ngIf="workspaceService.autorizar('questionario_visualizar', 'checkups')
+				&& workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience')"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<a href="#" class="m-menu__link m-menu__toggle">
+					
+					<span [inlineSVG]="'./assets/app/media/svg/icons/General/Half-heart.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Checkups
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('questionario_visualizar')
+					&& workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/questionarios" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/General/Clipboard.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Questionários
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('checkups')
+					&& workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/exames" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-check.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Exames
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+			</li> -->
+			<!-- #endregion -->
+
+			
+			<!-- #region Acompanhamentos -->
+			<li class="m-menu__item  m-menu__item--submenu d-none d-lg-block" *ngIf="workspaceService.autorizar('listagem_menu', 'recursos_alocados_menu', 'monitoramento_menu', 'relatorio_menu', 'checkups')"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<!-- <a routerLink="/customizacoes" class="m-menu__link m-menu__toggle d-none d-lg-block"> -->
+				<a routerLink="/acompanhamentos" class="m-menu__link m-menu__toggle"
+					ngbTooltip="Acompanhamentos" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Chart-pie.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-check.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Acompanhamentos
+					</span>
+					<!-- <i class="m-menu__ver-arrow la la-angle-right"></i> -->
+				</a>
+
+				<!-- <div class="m-menu__submenu" *ngIf="workspaceService.autorizar('campo_customizado_visualizar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      		|| this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/customizacoes/campos-customizados" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Text/Edit-text.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Campos customizados
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('predefinido_editar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      		|| this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a (click)="predefinidos()" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/General/Settings-1.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Campos pré-definidos
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('parametro_editar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      		|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a (click)="parametrizacoes()" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Settings.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Parametrizações
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('filtro_visualizar')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/customizacoes/filtros" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Text/Filter.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Filtros
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('regra_visualizar')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/customizacoes/regras" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-list.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Regras
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('layout_visualizar')
+					&& workspaceService.currentUser.subdominio.addons.includes('Display porta', 'Display painel')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+
+						<li class="m-menu__item  m-menu__item--submenu" routerLinkActive="m-menu__item--open"
+							routerLinkActiveOptions="{ exact: true }" aria-haspopup="true" data-menu-submenu-toggle="hover">
+
+							<a routerLink="/customizacoes/layouts" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Tools/Brush.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Layouts
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+
+							<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('template_menu')">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a routerLink="/customizacoes/layouts/templates" class="m-menu__link m-menu__toggle">
+											<span [inlineSVG]="'./assets/app/media/svg/icons/Text/Text-width.svg'"
+												class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+											<span class="m-menu__link-text">
+												Templates
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('painel_visualizar')
+								&& workspaceService.currentUser.subdominio.addons.includes('Display painel')">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a routerLink="/customizacoes/layouts/painel" class="m-menu__link m-menu__toggle">
+											<span [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-top-panel-6.svg'"
+												class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+											<span class="m-menu__link-text">
+												Painel
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('display_visualizar')
+								&& workspaceService.currentUser.subdominio.addons.includes('Display porta')">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a routerLink="/customizacoes/layouts/porta" class="m-menu__link m-menu__toggle">
+											<span [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-right-panel-1.svg'"
+												class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+											<span class="m-menu__link-text">
+												Porta
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+						</li>
+
+					</ul>
+				</div> -->
+
+			</li>
+			<!-- #endregion -->
+
+
+			<!-- #region Cadastros -->
+			<li class="m-menu__item  m-menu__item--submenu d-none d-lg-block" *ngIf="workspaceService.autorizar('pessoas_menu', 'espacos_menu', 'recursos_menu')"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<!-- <a routerLink="/customizacoes" class="m-menu__link m-menu__toggle d-none d-lg-block"> -->
+				<a routerLink="/cadastros" class="m-menu__link m-menu__toggle"
+					ngbTooltip="Cadastros" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<!-- Layout-3d -->
+					<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Puzzle.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Box.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<!-- <span [inlineSVG]="'./assets/app/media/svg/icons/Devices/Server.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span> -->
+					<span class="m-menu__link-text">
+						Cadastros
+					</span>
+					<!-- <i class="m-menu__ver-arrow la la-angle-right"></i> -->
+				</a>
+
+				<!-- <div class="m-menu__submenu" *ngIf="workspaceService.autorizar('campo_customizado_visualizar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      		|| this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/customizacoes/campos-customizados" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Text/Edit-text.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Campos customizados
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('predefinido_editar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      		|| this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a (click)="predefinidos()" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/General/Settings-1.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Campos pré-definidos
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('parametro_editar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      		|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a (click)="parametrizacoes()" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Settings.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Parametrizações
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('filtro_visualizar')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/customizacoes/filtros" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Text/Filter.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Filtros
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('regra_visualizar')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/customizacoes/regras" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-list.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Regras
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('layout_visualizar')
+					&& workspaceService.currentUser.subdominio.addons.includes('Display porta', 'Display painel')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+
+						<li class="m-menu__item  m-menu__item--submenu" routerLinkActive="m-menu__item--open"
+							routerLinkActiveOptions="{ exact: true }" aria-haspopup="true" data-menu-submenu-toggle="hover">
+
+							<a routerLink="/customizacoes/layouts" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Tools/Brush.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Layouts
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+
+							<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('template_menu')">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a routerLink="/customizacoes/layouts/templates" class="m-menu__link m-menu__toggle">
+											<span [inlineSVG]="'./assets/app/media/svg/icons/Text/Text-width.svg'"
+												class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+											<span class="m-menu__link-text">
+												Templates
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('painel_visualizar')
+								&& workspaceService.currentUser.subdominio.addons.includes('Display painel')">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a routerLink="/customizacoes/layouts/painel" class="m-menu__link m-menu__toggle">
+											<span [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-top-panel-6.svg'"
+												class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+											<span class="m-menu__link-text">
+												Painel
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('display_visualizar')
+								&& workspaceService.currentUser.subdominio.addons.includes('Display porta')">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a routerLink="/customizacoes/layouts/porta" class="m-menu__link m-menu__toggle">
+											<span [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-right-panel-1.svg'"
+												class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+											<span class="m-menu__link-text">
+												Porta
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+						</li>
+
+					</ul>
+				</div> -->
+
+			</li>
+			<!-- #endregion -->
+
+			<!-- #region Customizações -->
+			<li class="m-menu__item  m-menu__item--submenu d-none d-lg-block" *ngIf="workspaceService.autorizar('customizacoes_menu')"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<!-- <a routerLink="/customizacoes" class="m-menu__link m-menu__toggle d-none d-lg-block"> -->
+				<a routerLink="/customizacoes" class="m-menu__link m-menu__toggle"
+					ngbTooltip="Customizações" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Tools/Brush.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Customizações
+					</span>
+					<!-- <i class="m-menu__ver-arrow la la-angle-right"></i> -->
+				</a>
+
+				<!-- <div class="m-menu__submenu" *ngIf="workspaceService.autorizar('campo_customizado_visualizar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      		|| this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/customizacoes/campos-customizados" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Text/Edit-text.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Campos customizados
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('predefinido_editar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      		|| this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a (click)="predefinidos()" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/General/Settings-1.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Campos pré-definidos
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('questionario_visualizar', 'checkups')
+				&& workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a (click)="predefinidos()" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/General/Half-heart.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Checkups
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('parametro_editar')
+					&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      		|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a (click)="parametrizacoes()" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Settings.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Parametrizações
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('filtro_visualizar')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/customizacoes/filtros" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Text/Filter.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Filtros
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('regra_visualizar')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/customizacoes/regras" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-list.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Regras
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('layout_visualizar')
+					&& workspaceService.currentUser.subdominio.addons.includes('Display porta', 'Display painel')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+
+						<li class="m-menu__item  m-menu__item--submenu" routerLinkActive="m-menu__item--open"
+							routerLinkActiveOptions="{ exact: true }" aria-haspopup="true" data-menu-submenu-toggle="hover">
+
+							<a routerLink="/customizacoes/layouts" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Tools/Brush.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Layouts
+								</span>
+								<i class="m-menu__ver-arrow la la-angle-right"></i>
+							</a>
+
+							<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('template_menu')">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a routerLink="/customizacoes/layouts/templates" class="m-menu__link m-menu__toggle">
+											<span [inlineSVG]="'./assets/app/media/svg/icons/Text/Text-width.svg'"
+												class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+											<span class="m-menu__link-text">
+												Templates
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('painel_visualizar')
+								&& workspaceService.currentUser.subdominio.addons.includes('Display painel')">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a routerLink="/customizacoes/layouts/painel" class="m-menu__link m-menu__toggle">
+											<span [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-top-panel-6.svg'"
+												class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+											<span class="m-menu__link-text">
+												Painel
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('display_visualizar')
+								&& workspaceService.currentUser.subdominio.addons.includes('Display porta')">
+								<span class="m-menu__arrow"></span>
+								<ul class="m-menu__subnav">
+									<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+										<a routerLink="/customizacoes/layouts/porta" class="m-menu__link m-menu__toggle">
+											<span [inlineSVG]="'./assets/app/media/svg/icons/Layout/Layout-right-panel-1.svg'"
+												class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+											<span class="m-menu__link-text">
+												Porta
+											</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+
+						</li>
+
+					</ul>
+				</div> -->
+
+			</li>
+			<!-- #endregion -->
+
+			<!-- #region Workspace -->
+			<li class="m-menu__item  m-menu__item--submenu d-none d-lg-block" *ngIf="workspaceService.autorizar('workspace_menu')"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<a routerLink="/workspace" class="m-menu__link m-menu__toggle"
+					ngbTooltip="Workspace" container="body" placement="right" [disableTooltip]="isAsideOpen()">
+					<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Building.svg'"
+						class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+					<span class="m-menu__link-text">
+						Workspace
+					</span>
+					<!-- <i class="m-menu__ver-arrow la la-angle-right"></i> -->
+				</a>
+
+				<!-- <div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+							<a routerLink="/workspace/meu-workspace" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Chair2.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Meu workspace
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div> -->
+
+				<!-- <div class="m-menu__submenu" *ngIf="workspaceService.autorizar('instituicao_visualizar')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/workspace/instituicoes" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Clothes/Tie.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Instituições
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu" *ngIf="workspaceService.autorizar('unidade_visualizar')">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/workspace/unidades" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Home/Building.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Unidades
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div> -->
+
+				<!-- <div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+							<a routerLink="/workspace/faq" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Faq
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div> -->
+
+
+				<!-- <div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+							<a routerLink="/workspace/changelog" class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Changelog
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div> -->
+
+				<!-- <div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
+							<a class="m-menu__link m-menu__toggle">
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Cart1.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Cart3.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Dollar.svg'"
+									class="m-menu__link-icon svg-icon svg-icon-2x"></span>
+								<span class="m-menu__link-text">
+									Gestão de assinatura
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div> -->
+
+			</li>
+			<!-- #endregion -->
+
+			<!-- #region Outros -->
+			<li *ngIf="debugGlobal==true && workspaceService.autorizar('outro_menu')" class="m-menu__item  m-menu__item--submenu"
+				routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }" aria-haspopup="true"
+				data-menu-submenu-toggle="hover">
+
+				<a href="#" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon flaticon-interface-9"></i>
+					<span class="m-menu__link-text">
+						Outros
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/outros/client-api" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-multimedia"></i>
+								<span class="m-menu__link-text">
+									Client API
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/outros/configuracao" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-cogwheel"></i>
+								<span class="m-menu__link-text">
+									Configuração
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/outros/didatico-abas" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-list-1"></i>
+								<span class="m-menu__link-text">
+									Didático abas
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/outros/didatico-simples" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-list-1"></i>
+								<span class="m-menu__link-text">
+									Didático simples
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" data-menu-submenu-toggle="hover">
+							<a routerLink="/cadastros/outros/crud" class="m-menu__link m-menu__toggle">
+								<i class="m-menu__link-icon flaticon-list-3"></i>
+								<span class="m-menu__link-text">
+									Crud
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+
+			</li>
+			<!-- #endregion -->
+			<!-- #endregion -->
+
+		</ul>
+	</div>
+	<!-- END: Aside Menu -->
+</div>
+<!-- END: Left Aside -->

@@ -1,0 +1,173 @@
+<div class="m-login__signin">
+
+  <div class="m-login__head">
+    <div class="d-block d-lg-none">
+      <div class="d-flex justify-content-center mb-15">
+        <img [src]="logoCustom()" style="height:12vh;">
+      </div>
+    </div>
+    <h3 class="m-login__title">
+      {{workspace?.nome}}
+    </h3>
+    <!-- <div class="m-login__desc mt-2">
+      Seja bem-vindo a seu escritório
+    </div> -->
+  </div>
+  <!-- (ngSubmit)="signInForm.form.valid && signin()" -->
+  
+  <form  #signInForm="ngForm" class="m-login__form m-form mt-5" action="">
+
+    <div class="m-login__form-action mt-1 mb-0 mx-5 px-0 px-lg-8">
+      <button *ngIf="workspace?.logins_permitidos.includes(2)"
+        [disabled]="loading || (convidado === true && !agree)"
+        [ngClass]="{'m-loader m-loader--right m-loader--primary cursor-default': loadingMicrosoft}"
+        class="btn btn-white m-btn m-btn--pill m-btn--custom m-btn--air py-3 px-3 mt-8 mx-0 mb-0 bg-hover-light card-shadowplus w-75 text-dark-75"
+        (click)="signinMicrosoft()"
+        title="Acessar com minha conta Microsoft"
+        type="button"
+        >
+        <span class="d-flex justify-content-start align-items-center pl-4">
+          <img class="pr-4" src="../../../../../assets/app/media/img/microsoft/icons8-microsoft.svg" alt="Entrar com Microsoft"
+            style="height: 30px; margin: 2px 0px">
+          <span>
+            Entrar com Microsoft
+          </span>
+        </span>
+      </button>
+      <button *ngIf="workspace?.logins_permitidos.includes(3)"
+       [disabled]="loading || (convidado === true && !agree)"
+        title="Acessar com minha conta Google"
+        (click)="signinGoogle() "
+        [ngClass]="{'m-loader m-loader--right m-loader--primary cursor-default': loadingGoogle}"
+        class="btn btn-white m-btn m-btn--pill m-btn--custom m-btn--air py-3 px-3 mt-8 mx-0 mb-0 bg-hover-light card-shadowplus w-75 text-dark-75"
+        type="button"
+        >
+        <span class="d-flex justify-content-start align-items-center pl-4">
+          <img class="pr-4" src="../../../../../assets/app/media/img/google/icons8-google.svg" alt="Entrar com Google"
+            style="height: 30px; height: 30px; margin: 2px 0px">
+          <span>
+            Entrar com Google
+          </span>
+        </span>
+      </button>
+    </div>
+
+
+    <br>
+
+
+
+    <ng-template #alertSignin></ng-template>
+    <div class="form-group m-form__group" >
+      <input 
+      [hidden]="!workspace?.logins_permitidos.includes(1)"
+      class="form-control m-input" type="email" placeholder="E-mail"
+       name="username"
+       [(ngModel)]="signInData.login"
+       #email="ngModel"
+       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,9}$" 
+       required
+       [disabled]="convidado == true"
+       >
+       <!-- autocomplete="off" -->
+       <!-- #username="ngModel" --> 
+    </div>
+    <div class="form-group m-form__group">
+      <input
+      [hidden]="!workspace?.logins_permitidos.includes(1)"
+      class="form-control m-input m-login__form-input--last"
+      type="Password"
+      placeholder="{{placeholderSenha()}}"
+      name="password"
+      #password="ngModel"
+      required
+      [readonly]="convidado === true && !agree"
+      [(ngModel)]="signInData.password"
+      >
+      <!-- #password="ngModel" -->
+    </div>
+
+    <br *ngIf="convidado == true"> 
+
+    <label *ngIf="convidado == true" class="m-checkbox m-checkbox--primary">
+      <input type="checkbox" name="agree" (click)="checkAgree()" 
+      required>
+      Aceito os
+      <!--  (click)="termosDeUso()"  -->
+      <a href="https://calenda.com.br/terms-of-use/" target="_blank" class="m-link m-link--primary">
+        termos de uso
+      </a>
+      e
+      <a href="https://calenda.com.br/privacy-policy/" target="_blank" class="m-link m-link--primary">
+        política de privacidade
+      </a>
+      .
+      <span></span>
+    </label>
+
+    <div class="row m-login__form-sub" *ngIf="convidado == false">
+      <div class="col m--align-left" *ngIf="workspace?.logins_permitidos.includes(1)" >
+        <!-- <label class="m-checkbox m-checkbox-s">
+          <input type="checkbox" name="remember" [(ngModel)]="model.remember" #remember="ngModel">
+          Remember me
+          <span></span>
+        </label> -->
+        <!-- id="forgetPasswordForm" -->
+        <a href="javascript:;" class="m-link" [routerLink]="['/login/forget_password', {email: signInData.login}]" skipLoadingChange>
+          Esqueceu a senha?
+        </a> 
+      </div>
+      <div class="col m--align-right" *ngIf="workspaceService?.workspace?.convite_obrigatorio == false && workspace?.logins_permitidos.includes(1) ">
+        <a href="javascript:;" class="m-link" routerLink="/login/publico_signup" skipLoadingChange>
+          Criar conta rápida.
+        </a>
+      </div>
+    </div>
+    <div *ngIf="output != undefined" class="m-login__form-sub">
+      <span *ngFor="let m of (output?.error?.errors)" class="m-form__help m--font-danger">
+        {{m}}
+      </span>
+      <span *ngIf="output != undefined && (output?.ok==true || output?.status == 200 || output?.success == true ) && output?.message"
+        class="m-form__help m--font-success">
+        {{output.message}}
+      </span>
+    </div>
+
+    <div class="m-login__form-action mt-9 mb-6" >
+      <button 
+      *ngIf="workspace?.logins_permitidos.includes(1)"
+      [disabled]="loading || email.invalid || password.invalid || signInData.password.length < 6 || (convidado === true && !agree) "
+      [ngClass]="{'m-loader m-loader--right m-loader--light cursor-default': loadingCalenda}" id="m_login_signup_submit"
+      class="btn btn-primary m-btn m-btn--pill m-btn--custom m-btn--air"
+       (click)="onSubmit()">
+       Entrar
+     </button>
+    </div>
+
+    <div class="m-login__form-sub m--align-center">
+      <span class="m-form__help m--font-danger">
+        Caso seja seu primeiro acesso, você estará definindo sua senha ao digitá-la no campo acima.
+      </span>
+      <span class="m-form__help m--font-danger">
+        Se já tiver acessado antes digite sua senha cadastrada para acessar a plataforma.
+      </span>
+    </div>
+    
+
+  </form>
+
+  <!-- <div *ngIf="mostrarDebug == true" class="m-switch m-switch--icon">
+    <span class="m-switch m-switch--icon">
+      <label>
+        <input type="checkbox"
+          [value]="debugable()"
+          (click)="onDebug()">
+        <span></span>
+      </label>
+    </span>
+    <span style="display: flex; justify-content: center;">
+      debug
+    </span>
+  </div> -->
+
+</div>

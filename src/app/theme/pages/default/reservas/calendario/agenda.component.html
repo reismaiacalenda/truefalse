@@ -1,0 +1,61 @@
+<!-- BEGIN: Subheader -->
+<!-- <div class="m-subheader">
+  <div class="d-flex align-items-center">
+    <tf-page-map class="col-md-11 pl-0" nomePagina="Calendário"
+      [menu]="[
+        ['/', 'Reservas'],
+        ['/reservas/calendario', 'Calendário']
+      ]">
+    </tf-page-map>
+    <tf-page-guia class="col-md-1 pr-0 float-right">
+    </tf-page-guia>
+  </div>
+</div> -->
+<!-- END: Subheader -->
+<div class="m-content">
+  <div class="row">
+    <div class="col-lg-2 pr-lg-0 order-2 order-lg-1">
+      <div class="card-toolbar pt-5 pl-3 pb-1 card-shadowmore rounded-top-left rounded-bottom-left bg-white h-100">
+
+        <div class="m-0 mb-3">
+
+          <agendar-dropdown [body]="montarBodyAgendar()"
+            (refresh)="reiniciarCalendario()"
+            placement="bottom-left">
+          </agendar-dropdown>
+
+          <a *ngIf="!isMobile"  href="#" id="refreshButton" (click)="reiniciarCalendario()"
+            ngbTooltip="Atualizar calendários" container="body" placement="bottom"
+            class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+            <i class="la la-refresh"></i>
+          </a>
+          
+        </div>
+
+        <mini-calendar class="d-none d-lg-block"></mini-calendar>
+
+        <selecao-agendas (refreshCalendario)="reiniciarCalendario(undefined, $event)"></selecao-agendas>
+
+      </div>
+    </div>
+    <div class="col-lg-10 pl-lg-0 order-1 order-lg-2">
+      <div class="m-portlet" id="m_portlet">
+        <div class="m-portlet__body px-1" [class.agenda-mobile]="isMobile">
+          <div class="col-lg-12" *ngIf="calendarOptions">
+            <style>
+              .fc-scroller {
+                height: inherit !important;
+              }
+            </style>
+            <ng-fullcalendar #ucCalendar id="calendar" [options]="calendarOptions"
+              (eventClick)="eventClick($event.detail)" (eventDrop)="updateEvent($event.detail)"
+              (eventResize)="updateEvent($event.detail)" (clickButton)="clickButton($event.detail)"
+              (dayClick)="dayClickEvent($event)"
+              [(eventsModel)]="events">
+            </ng-fullcalendar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<tf-form-simples
+	[formGroup]="formulario"
+  [activeModal]="activeModal"
+  [rowId]="rowId"
+	[autorizar_excluir]="['aprovador_excluir']"
+  (submeter)="onSubmit()"
+	(excluir)="removeItem()"
+	title="Auditor"
+	id="{{formulario.get('id').value}}"
+	>
+	<!-- Autorização Aprovador -->
+	<!-- [autorizar_excluir]="['aprovador_excluir']" -->
+
+	<!-- <div [formGroup]="formulario"> -->
+
+	<div class="form-group m-form__group">
+		<p>
+			<b>Auditores</b> deferem ou indeferem reservas em análise.
+			Elas entram em análise somente através de Regras automatizadas específicas.
+		</p>
+		<p>
+			Nesta tela se define <b>quem serão os auditores e o critério de direcionamento.</b>
+			<!-- Você pode direcionar reservas de um determinado grupo para um aprovador específico, por exemplo. -->
+		</p>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('grupos_attributes')">
+		<tf-select-multi
+			[data]="listDadosSelect['grupos']"
+			[form]="formulario.get('grupos_attributes')"
+			label="Quais grupos serão auditados pelo(s) auditor(es) selecionado(s)?"
+			placeholder="Selecione um ou mais"
+			>
+		</tf-select-multi>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('tipo_espacos_attributes')">
+		<tf-select-multi
+			[data]="listDadosSelect['tipo_espacos']"
+			[form]="formulario.get('tipo_espacos_attributes')"
+			label="Quais tipos de espaços serão auditados pelo(s) auditor(es) selecionado(s)?"
+			>
+		</tf-select-multi>
+	</div>
+
+	<div class="form-group m-form__group"
+		style="text-align: left;"
+		[ngClass]="aplicaCss('funcionario_emails')">
+		<label>Quem serão os auditores das reservas em análise?</label>
+				<ng-select [items]="people$ | async"
+				bindLabel="name"
+				[addTag]="true"
+				[multiple]="true"
+				[hideSelected]="true"
+				[trackByFn]="trackByFn"
+				[minTermLength]="2"
+				[loading]="peopleLoading"
+				typeToSearchText="Por favor, utilize pelo menos 2 dígitos para adicionar"
+				formControlName="funcionario_emails"
+				(change)="validacao()"
+				[typeahead]="peopleInput$"
+				>
+			<!-- clearAllText="Clear" -->
+			<ng-template ng-option-tmp let-item="item">
+				{{item.name}} <br/>
+				<small>{{item.nome}}</small>
+			</ng-template>
+		</ng-select>
+	</div>
+
+</tf-form-simples>

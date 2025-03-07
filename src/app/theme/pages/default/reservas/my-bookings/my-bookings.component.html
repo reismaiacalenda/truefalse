@@ -1,0 +1,36 @@
+<div class="m-subheader">
+	<!-- *ngIf="printable()" -->
+	<div class="d-flex align-items-center">
+    <!-- <tf-page-map class="col-md-6 pl-0" nomePagina="Minhas reservas"
+      [menu]="[
+        ['/reservas', 'Reservas'],
+        ['/reservas/my-bookings', 'Minhas reservas']
+			]">
+    </tf-page-map> -->
+		<!-- <div class="col-md-12 pr-0 float-right inline-block">
+			<div class=" float-right">
+				<a *ngIf="workspaceService.autorizar('filtro_visualizar')"
+				routerLink="/customizacoes/filtros" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+					>
+					<span>
+						<span class="svg-icon svg-icon-primary pl-0 svg-icon-1x5p"
+							[inlineSVG]="'./assets/app/media/svg/icons/Text/Filter.svg'">
+						</span>
+						<span>
+							Filtros
+						</span>
+					</span>
+				</a>
+				<tf-page-guia class="">
+				</tf-page-guia>
+			</div>
+		</div> -->
+	</div>
+</div>
+<div class="m-content">
+	<div class="m-portlet m-portlet--mobile">
+		<div class="m-portlet__body">
+			<my-bookings-data-table></my-bookings-data-table>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,75 @@
+<tf-form-simples
+  [formGroup]="formulario"
+  [activeModal]="activeModal"
+  title="Fiscal"
+  (submeter)="onSubmit()"
+>
+    
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('numero_nota_fiscal')"
+    >
+    <tf-text-simple
+      formControlName="numero_nota_fiscal"
+      label="Número NF"
+      placeholder="Número NF"
+    >
+    </tf-text-simple>
+  </div>
+  
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('data_compra')">
+    <tf-date
+      formControlName="data_compra"
+      label="Data"
+      [datasAntigas]="true"
+      >
+    </tf-date>
+  </div>
+  
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('hora_compra')">
+    <tf-time
+      formControlName="hora_compra"
+      label="Hora">
+    </tf-time>
+  </div>
+  
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('fornecedor')"
+    >
+    <tf-select-simple
+      formControlName="fornecedor"
+      label="Fornecedor"
+      [options]="{tags: true, width: '100%'}"
+      [data]="listDadosSelect['fiscais/list_fornecedores']"
+      placeholder="Digite ou selecione um fornecedor"
+    >
+    </tf-select-simple>
+  </div>
+  
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('custo')">
+    <tf-money
+      formControlName="custo"
+      label="Valor">
+    </tf-money>
+  </div>
+
+  <div class="form-group m-form__group">
+    
+    <tf-upload-image
+      [extensions]="['jpeg','png','pdf']"
+      [carousel]="listCarousel['carousel_nota_fiscal']['fileHolder']"
+      (upload)="atualizarFileList($event, 'carousel_nota_fiscal')"
+      (remove)="onRemovedFileCarousel($event, 'carousel_nota_fiscal')"
+      formControlName="carousel_nota_fiscal"
+      label="Anexos"
+      max="6"
+      boxMessage="Arraste e solte aqui uma nota fiscal"
+      labelBotao="Anexar NF"
+      >
+    </tf-upload-image>
+  </div>
+  
+</tf-form-simples>
+      

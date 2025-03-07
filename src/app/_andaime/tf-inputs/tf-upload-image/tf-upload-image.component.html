@@ -1,0 +1,29 @@
+<div>  
+  <label *ngIf="!retirarLabel"> {{ label }}
+    <a *ngIf="tooltip != undefined" [routerLink]="" class="m-menu__link m-menu__toggle"
+      [ngbTooltip]="tooltip" container="body" placement="bottom">
+      <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-1x"></span>
+    </a>
+  </label>
+  <image-upload #tfImageUpload
+    [class]="'imageUpload'"
+    (removed)="onRemoved($event)"
+    (uploadFinished)="onUploadFinished($event)"
+    (uploadStateChanged)="onUploadStateChanged($event)"
+    [buttonCaption]="labelBotao"
+    [dropBoxMessage]="boxMessage"
+    [uploadedFiles]="carousel"
+    clearButtonCaption="X"
+    [max]="max"
+    [extensions]="extensions"    
+    ></image-upload>
+    <!-- (change)="atualizarFileListFundo($event)" 
+    [uploadedFiles]="formulario.value.carousel_fundo"
+    (removed)="onRemovedFundo($event)"	 -->
+  <span *ngIf="debugGlobal">
+    <br>
+    <p class="tf-debug"><b>{{label}} Value:</b> {{value}}</p>
+    <p class="tf-debug"><b>{{label}} Desabilitar:</b> {{desabilitar}}</p>
+  </span>
+</div>

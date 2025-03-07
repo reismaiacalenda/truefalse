@@ -1,0 +1,65 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	title="template"
+	(submeter)="onSubmit()"
+	id="{{formulario.get('id').value}}"
+  >
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('nome')"
+    >
+    <tf-text-simple
+    formControlName="nome"
+    label="Nome"
+    placeholder="Nome"
+    >
+    </tf-text-simple>
+	</div>
+	
+	<div class="form-group m-form__group">
+		<tf-radio-button
+			[data]='[
+				{"label":"Porta", "value":0},
+				{"label":"Painel", "value":1}
+			]'
+			formControlName="tipo"
+			label="Tipo">
+		</tf-radio-button>	
+	 </div>
+
+	 <div class="form-group m-form__group">
+		<tf-radio-button
+			[data]='[
+				{"label":"Horizontal", "value":0},
+				{"label":"Vertical", "value":1},
+				{"label":"Ambos", "value":2}
+			]'
+			formControlName="orientacao"
+			label="Orientação">
+		</tf-radio-button>	
+	 </div>
+
+	 <div class="form-group m-form__group">
+		<tf-check-box
+			formControlName="carousel_fundo"
+			label="Publicidade fundo?">
+		</tf-check-box>
+	 </div>
+
+	 <div class="form-group m-form__group">
+		<tf-check-box
+			formControlName="interacao"
+			label="Interação?">
+		</tf-check-box>
+	 </div>
+
+	 <div class="form-group m-form__group row">
+		 <div class="col-8">
+	  <tf-integer
+	   formControlName="prox_horarios"
+	   label="Quantidade de próximos horários">
+		</tf-integer>
+	   </div>
+   </div>
+</tf-form-simples>

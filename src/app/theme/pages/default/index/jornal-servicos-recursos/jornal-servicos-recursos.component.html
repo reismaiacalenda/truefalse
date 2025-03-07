@@ -1,0 +1,50 @@
+<div class="card card-custom card-shadowplus d-flex align-items-between pt-0 px-0 pb-0 m-animate-shine" [ngClass]="cssClasses"
+>
+  <div class="h-100 px-3"
+ 
+  >
+
+    <div class="pt-5 pb-0 px-2">
+      <span class="font-weight text-dark-75">Meus serviços e recursos</span>
+    </div>
+
+    <div class="pt-10 pt-lg-3 pb-3 pb-lg-0 px-2"
+      *ngIf="jornal?.dias[diaSelecionado]?.recursos == undefined || jornal?.dias[diaSelecionado]?.recursos.length == 0">
+      <span class="font-weight-bold text-dark-50 font-size-xs mt-1">Nenhuma reserva para este dia</span>
+    </div>
+
+    <ng-container *ngFor="let reserva of jornal?.dias[diaSelecionado]?.recursos; let i = index">
+      
+      <div *ngIf="i<3" class="card-shadowplus rounded my-3 py-2 px-3 bg-white bg-hover-light
+        d-flex align-items-center justify-content-between flex-wrap"
+        (click)="openModalDetalhe(reserva.id)"
+        [ngClass]="{
+        'mx-2' : workspaceService.formacaoColunas('3-5-4'),
+        'mx-0' : workspaceService.formacaoColunas('3-3-3-3')}">
+        <div class="d-flex flex-column flex-grow-1">
+          <div>
+            <span class="font-weight font-size-sm text-dark-75">{{reserva.assunto}}</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <span class="svg-icon svg-icon-1x mr-1"
+              [inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'">
+            </span>
+            <span class="font-weight font-size-xs pt-1 text-dark-75">{{reserva.hora}}</span>
+          </div>
+          <div class="d-flex align-items-center" *ngIf="reserva.espaco != undefined">
+            <span class="svg-icon svg-icon-1x mr-1"
+              [inlineSVG]="'./assets/app/media/svg/icons/Map/Position.svg'">
+            </span>
+            <span class="font-weight font-size-xs pt-1 text-dark-75">{{reserva?.espaco}}</span>
+          </div>
+        </div>
+        <div class="d-flex flex-right pr-0">
+					<span class="svg-icon svg-icon-primary svg-icon-treze"
+						[inlineSVG]="'./assets/app/media/svg/icons/Navigation/Arrow-right.svg'">
+					</span>
+				</div>
+      </div>
+    </ng-container>
+    
+  </div>
+</div>

@@ -1,0 +1,291 @@
+<div class="p-0" style="display: flex; height: 48vh;
+flex-direction: column;">
+  <div style="
+  flex-shrink: 0;"></div>
+  <div class="row pl-3 pr-3 pt-0" style="overflow-y: auto; overflow-x: clip;">
+
+    <!-- minha agenda -->
+    <div class="pt-2 w-100">
+      <a 
+        class="card card-custom  mb-lg-0 mx-0 cursor-default bg-hover-light">
+        <div class="card-body m-animate-shine p-0">
+          <div class="d-flex float-left pt-1 0 cursor-pointer" (click)="expandido1=!expandido1" [collapse]="content1">
+            <!-- <div class="d-flex flex-column align-items-center"> -->
+            <div class="card-toolbar">
+              <a class="btn btn-sm btn-light-danger font-weight-bold p-0" ngbTooltip="Expandir/recolher" container="body"
+                placement="bottom">
+
+                <ng-container *ngIf="expandido1">
+                  <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                    [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="!expandido1">
+                  <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                    [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                  </span>
+                </ng-container>
+              </a>
+            </div>
+            <div class="text-dark font-size-sm">
+              Minha agenda
+            </div>
+          </div>
+          <div class="d-flex float-right py-0 cursor-pointer"
+          >
+          <!-- ngbTooltip="Adicionar calendários" container="body" placement="bottom" -->
+          <div class="d-flex flex-column">
+              <!-- (click)="adicionarCalendarioPessoa()" -->
+              <div class="text-primary font-size-sm pt-1 pr-1">
+                <!-- <i class="la la-plus"></i> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <div collapseContent #content1="collapseContent" [ngClass]="expandido1 == true ? 'collapse show' : ''"
+        class="pt-2 pb-2">
+        <ng-container *ngFor="let agenda of listAgendasSelecionadas">
+          
+          <div *ngIf="agenda.agrupamento == 'minha_agenda'" class="m-checkbox-list pt-0 pl-1">
+            <tf-check-list
+              classeCss="{{agenda.cor}} font-size-sm"
+              retirarLabel=true
+              [innerValue]="agenda.habilitado"
+              [label]="agenda.nome"
+              (valorModificado)="checklistAlterado($event, agenda.id)"
+            >
+            </tf-check-list>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- pessoas -->
+    <div class="pt-2 w-100" *ngIf="workspaceService.autorizar('calendario_visualizar_pessoas')
+      && (this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')
+      || this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience'))">
+      <a 
+        class="card card-custom  mb-lg-0 mx-0 cursor-default bg-hover-light">
+        <div class="card-body m-animate-shine p-0">
+          <div class="d-flex float-left pt-1 0 cursor-pointer" (click)="expandido2=!expandido2" [collapse]="content2">
+            <!-- <div class="d-flex flex-column align-items-center"> -->
+            <div class="card-toolbar">
+              <a class="btn btn-sm btn-light-danger font-weight-bold p-0" ngbTooltip="Expandir/recolher" container="body"
+                placement="bottom">
+
+                <ng-container *ngIf="expandido2">
+                  <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                    [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="!expandido2">
+                  <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                    [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                  </span>
+                </ng-container>
+              </a>
+            </div>
+            <div class="text-dark font-size-sm">
+              Pessoas
+            </div>
+          </div>
+          <div class="d-flex float-right py-0 cursor-pointer"
+            (click)="adicionarCalendarioPessoa()"
+            ngbTooltip="Adicionar calendários" container="body" placement="bottom">
+            <div class="d-flex flex-column">
+              <div class="text-primary font-size-sm pt-1 pr-1">
+                <i class="la la-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <div collapseContent #content2="collapseContent" [ngClass]="expandido2 == true ? 'collapse show' : ''"
+        class="pt-2 pb-2">
+        <ng-container *ngFor="let agenda of listAgendasSelecionadas">
+          
+          <div *ngIf="agenda.agrupamento == 'pessoa'" class="m-checkbox-list pt-0 pl-1">
+            <tf-check-list
+              classeCss="{{agenda.cor}} font-size-sm"
+              retirarLabel=true
+              [innerValue]="agenda.habilitado"
+              [label]="agenda.nome"
+              (valorModificado)="checklistAlterado($event, agenda.id)"
+            >
+            </tf-check-list>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- salas -->
+    <div class="pt-2 w-100" *ngIf="workspaceService.autorizar('calendario_visualizar_espacos') && workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')">
+      <a 
+        class="card card-custom  mb-lg-0 mx-0 cursor-default bg-hover-light">
+        <div class="card-body m-animate-shine p-0">
+          <div class="d-flex float-left pt-1 0 cursor-pointer" (click)="expandido3=!expandido3" [collapse]="content3">
+            <!-- <div class="d-flex flex-column align-items-center"> -->
+            <div class="card-toolbar">
+              <a class="btn btn-sm btn-light-danger font-weight-bold p-0" ngbTooltip="Expandir/recolher" container="body"
+                placement="bottom">
+
+                <ng-container *ngIf="expandido3">
+                  <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                    [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="!expandido3">
+                  <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                    [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                  </span>
+                </ng-container>
+              </a>
+            </div>
+            <div class="text-dark font-size-sm">
+              Salas
+            </div>
+          </div>
+          <div class="d-flex float-right py-0 cursor-pointer"
+            (click)="adicionarCalendarioSala()"
+            ngbTooltip="Adicionar calendários" container="body" placement="bottom">
+            <div class="d-flex flex-column">
+              <div class="text-primary font-size-sm pt-1 pr-1">
+                <i class="la la-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <div collapseContent #content3="collapseContent" [ngClass]="expandido3 == true ? 'collapse show' : ''"
+        class="pt-2 pb-2">
+        <ng-container *ngFor="let agenda of listAgendasSelecionadas">
+          
+          <div *ngIf="agenda.agrupamento == 'sala'" class="m-checkbox-list pt-0 pl-1">
+            <tf-check-list
+              classeCss="{{agenda.cor}} font-size-sm"
+              retirarLabel=true
+              [innerValue]="agenda.habilitado"
+              [label]="agenda.nome"
+              (valorModificado)="checklistAlterado($event, agenda.id)"
+            >
+            </tf-check-list>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- mesas -->
+    <div class="pt-2 w-100" *ngIf="workspaceService.autorizar('calendario_visualizar_espacos') && workspaceService.currentUser.subdominio.modulos.includes('Hotdesks')">
+      <a 
+        class="card card-custom  mb-lg-0 mx-0 cursor-default bg-hover-light">
+        <div class="card-body m-animate-shine p-0">
+          <div class="d-flex float-left pt-1 0 cursor-pointer" (click)="expandido4=!expandido4" [collapse]="content4">
+            <!-- <div class="d-flex flex-column align-items-center"> -->
+            <div class="card-toolbar">
+              <a class="btn btn-sm btn-light-danger font-weight-bold p-0" ngbTooltip="Expandir/recolher" container="body"
+                placement="bottom">
+
+                <ng-container *ngIf="expandido4">
+                  <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                    [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="!expandido4">
+                  <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                    [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                  </span>
+                </ng-container>
+              </a>
+            </div>
+            <div class="text-dark font-size-sm">
+              Mesas
+            </div>
+          </div>
+          <div class="d-flex float-right py-0 cursor-pointer"
+            (click)="adicionarCalendarioMesa()"
+            ngbTooltip="Adicionar calendários" container="body" placement="bottom">
+            <div class="d-flex flex-column">
+              <div class="text-primary font-size-sm pt-1 pr-1">
+                <i class="la la-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <div collapseContent #content4="collapseContent" [ngClass]="expandido4 == true ? 'collapse show' : ''"
+        class="pt-2 pb-2">
+        <ng-container *ngFor="let agenda of listAgendasSelecionadas">
+          
+          <div *ngIf="agenda.agrupamento == 'mesa'" class="m-checkbox-list pt-0 pl-1">
+            <tf-check-list
+              classeCss="{{agenda.cor}} font-size-sm"
+              retirarLabel=true
+              [innerValue]="agenda.habilitado"
+              [label]="agenda.nome"
+              (valorModificado)="checklistAlterado($event, agenda.id)"
+            >
+            </tf-check-list>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- recursos -->
+    <!-- 
+    <div class="pt-5" *ngIf="workspaceService.autorizar('calendario_visualizar_recursos')
+      && workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+      <a 
+        class="card card-custom  mb-lg-0 mx-0 cursor-default bg-hover-light">
+        <div class="card-body m-animate-shine p-0">
+          <div class="d-flex float-left pt-1 0 cursor-pointer" (click)="expandido5=!expandido5" [collapse]="content5">
+            <div class="card-toolbar">
+              <a class="btn btn-sm btn-light-danger font-weight-bold p-0" ngbTooltip="Expandir/recolher" container="body"
+                placement="bottom">
+
+                <ng-container *ngIf="expandido5">
+                  <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                    [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-down.svg'">
+                  </span>
+                </ng-container>
+                <ng-container *ngIf="!expandido5">
+                  <span class="svg-icon svg-icon-primary svg-icon-1p5x"
+                    [inlineSVG]="'./assets/app/media/svg/icons/Navigation/Angle-right.svg'">
+                  </span>
+                </ng-container>
+              </a>
+            </div>
+            <div class="text-dark font-size-sm">
+              Recursos
+            </div>
+          </div>
+          <div class="d-flex float-right py-0 cursor-pointer"
+            (click)="adicionarCalendarioSala()"
+            ngbTooltip="Adicionar calendários" container="body" placement="bottom">
+            <div class="d-flex flex-column">
+              <div class="text-primary font-size-sm pt-1 pr-1">
+                <i class="la la-plus"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <div collapseContent #content5="collapseContent" [ngClass]="expandido5 == true ? 'collapse show' : ''"
+        class="pt-2 pb-2">
+        <ng-container *ngFor="let agenda of listAgendasSelecionadas">
+          
+          <div *ngIf="agenda.agrupamento == 'recurso'" class="m-checkbox-list pt-0 pl-1">
+            <tf-check-list
+              classeCss="{{agenda.cor}} font-size-sm"
+              retirarLabel=true
+              [innerValue]="agenda.habilitado"
+              [label]="agenda.nome"
+              (valorModificado)="checklistAlterado($event, agenda.id)"
+            >
+            </tf-check-list>
+          </div>
+        </ng-container>
+      </div>
+    </div> -->
+  </div>
+</div>

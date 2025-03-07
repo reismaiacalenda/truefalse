@@ -1,0 +1,225 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+  <div class="row">
+    <!-- <div class="col-6 d-none d-lg-block">
+      <tf-page-map class="mr-auto" [menu]="[
+          ['/reservas/quadros/espacos', 'Quadros de espaços']
+        ]">
+      </tf-page-map>  
+    </div> -->
+    <div class="col-lg-6 col-12 d-flex justify-content-center justify-content-lg-end px-0">
+      <!-- <div class="d-inline-block" *ngIf="workspaceService.autorizar('quadro_espaco_menu')
+      && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+        <a routerLink="/reservas/quadros/espacos" class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2 cursor-default"
+          >
+          <span>
+            <span class="svg-icon svg-icon-white pl-0 svg-icon-1x5p"
+              [inlineSVG]="'./assets/app/media/svg/icons/Home/Cupboard.svg'">
+            </span>
+            <span>
+              Espaços
+            </span>
+          </span>
+        </a>
+      </div> -->
+      <!-- <div class="d-inline-block" *ngIf="workspaceService.autorizar('quadro_pessoa_menu')
+      && (this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas')
+      || this.workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience'))">
+        <a routerLink="/reservas/quadros/pessoas" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+          ngbTooltip="Acessar quadro de pessoas" container="body" placement="bottom"
+          >
+          <span>
+            <span class="svg-icon svg-icon-primary pl-0 "
+              [inlineSVG]="'./assets/app/media/svg/icons/Communication/Group.svg'">
+            </span>
+            <span>
+              Pessoas
+            </span>
+          </span>
+        </a>
+      </div>
+      <div class="d-inline-block" *ngIf="workspaceService.autorizar('quadro_recurso_menu')
+      && this.workspaceService.currentUser.subdominio.modulos.includes('Serviços e recursos')">
+        <a routerLink="/reservas/quadros/recursos" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2"
+          ngbTooltip="Acessar quadro de recursos" container="body" placement="bottom"
+          >
+          <span>
+            <span class="svg-icon svg-icon-primary pl-0 svg-icon-1x5p"
+              [inlineSVG]="'./assets/app/media/svg/icons/Home/Commode2.svg'">
+            </span>
+            <span>
+              Recursos
+            </span>
+          </span>
+        </a>
+      </div> -->
+     
+      <!-- <a id="config_tela_reserva" href="#"
+        class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+        (click)="parametrizacoes()">
+        <i class="m-menu__link-icon flaticon-cogwheel"></i>
+      </a> -->
+    </div>
+  </div>
+</div>
+<!-- END: Subheader -->
+
+<!-- BEGIN: Desktop Filters -->
+<div *ngIf="!isMobile" class="row material fixed-header virtualized tf-sobrepor
+  card-shadowmore bg-white-o-100 rounded mx-5 px-4 py-2 mb-5">
+
+  <div class="" style="padding-right: 10px; width: min-content; display: inline-block; margin-right: 4%;">
+    <div style="display: flex;">
+      <div [formGroup]="formulario" class="form-group m-form__group" style="margin: 0; width: 6em; position: relative;">
+        <tf-date class="tf-estilizacao-date cursor-pointer" style="Display:flex; Width:9.55em" formControlName="data"
+          [exibirIcone]="true" (ngModelChange)="carregarQuadro()">
+        </tf-date>
+      </div>
+    </div>
+  </div>
+
+  <div class="pl-6" style="width: 10%; display: inline-block">
+    <div style="display: flex;">
+      <span [inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-menu pt-2 pr-1"></span>
+      <div [formGroup]="formulario" class="form-group m-form__group" style="margin: 0; width: 100%">
+        <tf-time class="tf-estilizacao-date cursor-pointer" formControlName="horaInicio"
+          (ngModelChange)="carregarQuadro()" step="1800"
+          retirarLabel="true"
+          >
+        </tf-time>
+      </div>
+    </div>
+  </div>
+
+  <div class="pl-2" style="padding-right: 10px; width: 10%; display: inline-block">
+    <div style="display: flex;">
+      <span [inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-menu pt-2 pr-1"></span>
+      <div [formGroup]="formulario" class="form-group m-form__group" style="margin: 0; width: 100%">
+        <tf-time class="tf-estilizacao-date cursor-pointer" formControlName="horaFim"
+          (ngModelChange)="carregarQuadro()" step="1800"
+          retirarLabel="true"
+          >
+        </tf-time>
+      </div>
+    </div>
+  </div>
+
+  <div class="pl-2" style="padding-right: 10px; width: min-content; display: inline-block">
+    <div style="display: flex;">
+      <span [inlineSVG]="'./assets/app/media/svg/icons/Communication/Group.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-menu pt-2 pr-1">
+      </span>
+      <div [formGroup]="formulario" class="form-group m-form__group"
+        style="margin:0; width: 10em;">
+        <tf-integer formControlName="capacidadePessoas" label="Capacidade de pessoas"
+          (ngModelChange)="filtrarCapacidade()"
+          retirarLabel="true"
+          limiteInferior="0">
+        </tf-integer>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" (click)="openModalAmenities()" class="pl-2 pt-3 pr-6">
+    <span [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Amenities.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-menu"></span>
+    <span class="bg-white px-1 mx-1 py-3 rounded" style="color:#000000">&nbsp;Amenidades</span>
+    <i class="la la-angle-down" style="color:#000000"></i>
+  </a>
+  
+  <div class="col d-flex justify-content-end pt-1">
+    <a href="#" id="refreshButton" (click)="carregarQuadroComHorariosAtualizados()"
+      class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air bg-white">
+      <i class="la la-refresh"></i>
+    </a>
+  </div>
+</div>
+
+<!-- END: Desktop Filters -->
+
+<!-- BEGIN: Mobile Filters -->
+<div *ngIf="isMobile" class="row material fixed-header virtualized tf-sobrepor
+  card-shadowmore bg-white-o-100 rounded mx-5 px-4 py-2 mb-5">
+
+  <div class="" style="width: 100%;">
+    <div>
+      <div [formGroup]="formulario" class="form-group m-form__group mb-2">
+        <tf-date class="tf-estilizacao-date cursor-pointer" style="Display:flex" formControlName="data"
+          [exibirIcone]="true" (ngModelChange)="carregarQuadro()">
+        </tf-date>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 48%">
+    <div style="display: flex;">
+      <span [inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-menu pt-2 pr-1"></span>
+      <div [formGroup]="formulario" class="form-group m-form__group mb-2" style="width: 100%">
+        <tf-time class="tf-estilizacao-date cursor-pointer" formControlName="horaInicio"
+          (ngModelChange)="carregarQuadro()" step="1800"
+          retirarLabel="true"
+          >
+        </tf-time>
+      </div>
+    </div>
+  </div>
+
+  <div class="ml-3" style="width: 48%">
+    <div style="display: flex;">
+      <span [inlineSVG]="'./assets/app/media/svg/icons/Home/Clock.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-menu pt-2 pr-1"></span>
+      <div [formGroup]="formulario" class="form-group m-form__group mb-2" style="width: 100%">
+        <tf-time class="tf-estilizacao-date cursor-pointer" formControlName="horaFim"
+          (ngModelChange)="carregarQuadro()" step="1800"
+          retirarLabel="true"
+          >
+        </tf-time>
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 100%">
+    <div style="display: flex;">
+      <span [inlineSVG]="'./assets/app/media/svg/icons/Communication/Group.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-menu pt-2 pr-1">
+      </span>
+      <div [formGroup]="formulario" class="form-group m-form__group mb-2"
+        style="width: 90%">
+        <tf-integer formControlName="capacidadePessoas" label="Capacidade de pessoas"
+          (ngModelChange)="filtrarCapacidade()"
+          retirarLabel="true"
+          limiteInferior="0">
+        </tf-integer>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" (click)="openModalAmenities()" class="mt-2 mb-2" style="width: 100%; display: flex">
+    <span [inlineSVG]="'./assets/app/media/svg/icons/_Custom/Amenities.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-menu pt-2 pr-1"></span>
+    <span class="bg-white px-1 mx-1 py-3 rounded" style="color:#000000; width: 90%;">&nbsp;Amenidades</span>
+    <i class="la la-angle-down pt-2" style="color:#000000"></i>
+  </a>
+</div>
+<!-- END: Mobile Filters -->
+
+<ng-container *ngFor="let loc of cards; let i = index; let first = first;">
+  <collapse-bar 
+    [localizacao]="loc"
+    [data]="formulario.get('data').value"
+    [horaInicio]="formulario.get('horaInicio').value"
+    [horaFim]="formulario.get('horaFim').value"
+    (refreshQuadro)="carregarQuadro()">
+  </collapse-bar>
+</ng-container>
+
+<div class="mb-3 pl-10" *ngIf="cards?.length == 0">
+  <p class="text-dark-50">Nenhum espaço encontrado. Tente uma nova busca.</p>
+</div>
+
+<div class="pb-40"></div>
+<div class="pb-40"></div>

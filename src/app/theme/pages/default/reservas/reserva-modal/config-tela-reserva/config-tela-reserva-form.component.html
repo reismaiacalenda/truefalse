@@ -1,0 +1,150 @@
+<tf-form-abas
+	[abas]="abas"
+	[activeModal]="activeModal"
+	[formGroup]="formulario"
+	[listDadosSelect]="listDadosSelect"
+	(submeter)="onSubmit()"
+	(excluir)="removeItem()"
+	[habilitarExcluir]="false"	
+>
+
+	<div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+		<!-- <div class="form-group m-form__group" >
+			<tf-select-simple
+				[formControl]="formulario.get('espaco_id')"
+				[data]="listDadosSelect['espacos']"
+				label=""
+				placeholder="selecione"
+				(valorModificado)="chamarNew()">
+			</tf-select-simple>
+		</div> -->
+	
+		<div class="row form-group m-form__group">
+			<div class="col-md-3">
+				<tf-check-box
+					formControlName="grade"
+					label="Grade de horários">
+				</tf-check-box>
+			</div>
+	
+			<div class="col-md-3">
+				<tf-check-box
+					formControlName="assunto"
+					label="Assunto">
+				</tf-check-box>
+			</div>
+	
+			<div class="col-md-3">
+				<tf-check-box
+					formControlName="finalidade"
+					label="Finalidade">
+				</tf-check-box>
+			</div>
+		</div>
+	
+		<div class="row form-group m-form__group">
+			<div class="col-md-3">
+				<tf-check-box
+					formControlName="observacao"
+					label="Observação">
+				</tf-check-box>
+			</div>
+	
+			<div class="col-md-3">
+				<tf-check-box
+					formControlName="add_recursos"
+					label="Adicionar recursos">
+				</tf-check-box>
+			</div>
+	
+			<div class="col-md-3">
+				<tf-check-box
+					formControlName="add_convidados"
+					label="Adicionar convidados">
+				</tf-check-box>
+			</div>
+		</div>
+		
+	</div>
+
+	<div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+		<div class="row form-group m-form__group">
+			<div class="col-md-6">
+				<tf-text-simple
+					formControlName="nome"
+					label="Nome do Campo">
+				</tf-text-simple>
+			</div>
+
+			<div class="col-md-6">
+				<tf-select-simple
+					[formControl]="formulario.get('campo_id')"
+					[data]="listDadosSelect['campos']"
+					label="Tipo do campo"
+					placeholder="selecione"
+					[allowClear]="true"
+					>
+				</tf-select-simple>
+			</div>
+		</div>
+
+		<div class="form-group m-form__group">
+			<tf-text-simple
+				formControlName="nome"
+				label="Valores para escolher (separados por vírgula)">
+			</tf-text-simple>
+		</div>
+
+		<div>
+			<p><b>Validações</b></p>
+		</div>
+
+		<div class="row form-group m-form__group">
+			<div class="col-md-6">
+				<tf-check-box
+					formControlName="add_convidados"
+					label="Campo de preenchimento obrigatório?">
+				</tf-check-box>
+			</div>
+
+			<div class="col-md-6">
+				<tf-check-box
+					formControlName="add_convidados"
+					label="Campo de preenchimento obrigatório?">
+				</tf-check-box>
+			</div>
+
+			<div class="col-md-6">
+				<tf-text-simple
+					formControlName=""
+					label="Valor padrão (default)">
+				</tf-text-simple>
+			</div>
+		</div>
+
+		<div class="row form-group m-form__group">
+			<div class="col-md-6">
+				<tf-integer
+					formControlName="add_convidados"
+					label="Quantidade mínima de caracteres">
+				</tf-integer>
+			</div>
+
+			<div class="col-md-6">
+				<tf-integer
+					formControlName="add_convidados"
+					label="Quantidade máxima de caracteres">
+				</tf-integer>
+			</div>
+		</div>
+
+		<!-- <span style="padding-right: 5px; padding-left: 5px">
+			<a href="#" id="refreshButton"
+				class="btn m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+				[ngClass]="itemrow.get('operador_logico_prox_item').value == '1' ? 'btn-primary' : 'btn-outline-primary'"
+				(click)="itemrow.get('operador_logico_prox_item').setValue(1)"
+				*ngIf="ultimo" (click)="addNewRow()">
+				<i>+</i>
+		</span> -->
+	</div>
+</tf-form-abas>

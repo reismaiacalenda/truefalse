@@ -1,0 +1,39 @@
+<div class="m-login__signin">
+  <div class="m-login__head">
+    <h3 class="m-login__title">
+      Políticas de acesso
+    </h3>
+    <div class="m-login__desc">
+      Para acessar seu worskpace, os usuários deverão ser previamente convidados?
+    </div>
+  </div>
+  <form [formGroup]="formulario" class="m-login__form m-form" 
+    style="margin-top:2rem;">
+    <ng-template #alertSignin></ng-template>
+    <div class="row m-login__form-sub" style="margin-top: 2.5rem;">
+      <div class="col m--align-left">
+        <a href="javascript:;" class="m-link" (click)="setarConvite(true)" skipLoadingChange>
+          Sim, apenas pessoas convidadas terão acesso.
+        </a>
+      </div>
+    </div>
+    <div class="row m-login__form-sub" style="margin-top: 2.5rem;">
+      <div class="col m--align-left">
+        <a href="javascript:;" class="m-link" (click)="setarConvite(false)" skipLoadingChange>
+          Não, qualquer pessoa poderá acessar.
+        </a>
+      </div>
+    </div>
+    <div *ngIf="output != undefined" class="m-login__form-sub">
+      <span class="m-form__help m--font-danger">
+        {{output}}
+      </span>
+
+           <!-- <div class="col m--align-right">
+        <a href="javascript:;" class="m-link" routerLink="/login/..." skipLoadingChange>
+          Voltar
+        </a>
+      </div> -->
+    </div>
+  </form>
+</div>

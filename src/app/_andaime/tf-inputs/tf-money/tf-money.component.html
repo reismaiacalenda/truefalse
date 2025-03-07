@@ -1,0 +1,58 @@
+<!-- <div class="form-group m-form__group" [ngClass]="classeCss"> -->
+
+<div  class=" col-md-9 col-sm-12" 
+  [ngClass]="alargarCol ? 'col-lg-12' : 'col-lg-5'"style="padding-left: 0px;">
+  <label *ngIf="!retirarLabel" [attr.for]="id"> {{ label }}
+    <a *ngIf="tooltip != undefined" [routerLink]="" class="m-menu__link m-menu__toggle"
+      [ngbTooltip]="tooltip" container="body" placement="bottom">
+      <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'"
+        class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-1x"></span>
+    </a>
+  </label>   
+  <!-- <dinheiro [(ngModel)]="value" class="m-input m-input--air"></dinheiro>  -->
+  <input
+    [(ngModel)]="value"
+    [attr.disabled]="desabilitar ? 'true' : null"
+    [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }"
+    class="form-control"
+    currencyMask
+    maxlength="15"
+    placeholder="R$ 0,00"
+    (blur)="onTouchedCb(value)"
+    (ngModelChange)="modelChange($event)"
+  />
+    <!-- maxlength="{{maxLength}}" -->
+    <!-- options="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false }" -->
+  <span *ngIf="debugGlobal">
+    <br>
+    <p class="tf-debug"><b>{{label}} Value:</b> {{value}}</p>
+    <p class="tf-debug"><b>{{label}} Desabilitar:</b> {{desabilitar}}</p>
+  </span>
+</div>
+
+<!-- [id]="id"
+(keydown)="onKeydown($event)"
+(ngModelChange)="notifyChanges($event)"
+(blur)="blurEvt($event)">
+[disabled]="disabled"
+[placeholder]="placeholder"
+[ngStyle]="style" -->
+
+<!-- <input currencyMask 
+  class="form-control m-input m-input--air"
+  [(ngModel)]="value"
+/> -->
+
+<!-- <input
+  [type]="type"
+  [mask]="mask"
+  [prefix]="prefix"
+  [suffix]="suffix"
+  class="form-control m-input m-input--air"
+  [placeholder]="placeholder"
+  [id]="id"
+  [readonly]="!!isReadOnly"
+  [(ngModel)]="value"
+> -->
+
+<!-- </div> -->

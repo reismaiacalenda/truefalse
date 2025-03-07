@@ -1,0 +1,121 @@
+<tf-datatable-cabecalho
+	[habilitarForm]="workspaceService.autorizar('tipo_espaco_sala_criar', 'tipo_espaco_estacao_de_trabalho_criar', 'tipo_espaco_estacionamento_criar', 'tipo_espaco_fretado_criar')"
+	[labelFormButton]="'Novo Tipo'"
+	(refreshTable)="refreshTable()"
+	(updateFilter)="updateFilter($event)"
+	(openFormModal)="openFormModal()"
+	[pesquisarPor]="'pesquise por: nome, categoria ou intervalo entre as reservas do TIPO DE ESPAÇO *** nome do ESPAÇO'"
+	>
+</tf-datatable-cabecalho>
+<div *ngIf="workspaceService.autorizar('tipo_espaco_visualizar')
+	&& (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+	|| this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+  <ngx-datatable class="material"
+		#minhaTable
+		[rows]="datatable.rows"
+		[columnMode]="'flex'"
+		[footerHeight]="50"
+		[rowHeight]="'auto'"
+		[externalPaging]="true"
+		[count]="page.totalElements"
+		[offset]="page.pageNumber"
+		[limit]="page.size"
+		(page)="setPage($event, undefined)"  
+		[sortType]="'multi'"
+		>
+		<ngx-datatable-column
+			[width]="50"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template ngx-datatable-header-template let-value="value">
+				<a href="#"
+				 class="datatable-icon-left fg-primary"
+				 title="Expand/Collapse All Rows"
+				 (click)="toggleExpandAllRow()">
+				</a>
+			</ng-template>
+			<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+				<a href="#" title="Expand/Collapse Row"
+				 (click)="toggleExpandRow(row, expanded)"
+				 class="m-datatable__toggle-subtable fg-primary">
+				 <i [class.datatable-icon-right]="!expanded"
+				 [class.datatable-icon-down]="expanded"></i>
+				</a>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="2" name="Nome" prop="nome">
+    </ngx-datatable-column>
+		<ngx-datatable-column [flexGrow]="1" name="Categoria" prop="categoria">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.categoria=='sala'" class="m-badge m-badge--info m-badge--wide m--font-boldest">Sala</span>
+				<span *ngIf="row.categoria=='mesa'" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Mesa</span>
+				<span *ngIf="row.categoria=='estacionamento'" class="m-badge m-badge--success m-badge--wide m--font-boldest">Estacionamento</span>
+				<span *ngIf="row.categoria=='fretado'" class="m-badge m-badge--warning m-badge--wide m--font-boldest">Fretado</span>
+			</ng-template>
+		</ngx-datatable-column>
+
+		<ngx-datatable-column [flexGrow]="1" name="Check-in?" prop="check_in">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.check_in == false" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Não</span>
+				<span *ngIf="row.check_in == true"  class="m-badge m-badge--accent m-badge--wide m--font-boldest">Sim</span>
+		</ng-template>
+		</ngx-datatable-column>
+
+		<ngx-datatable-column [flexGrow]="1" name="Check-out?" prop="check_out">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.check_out == false" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Não</span>
+				<span *ngIf="row.check_out == true"  class="m-badge m-badge--accent m-badge--wide m--font-boldest">Sim</span>
+		</ng-template>
+		</ngx-datatable-column>
+
+		<ngx-datatable-column [flexGrow]="1" name="Check-in Obrigatório?" prop="mandatory_check_in">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<span *ngIf="row.mandatory_check_in == false" class="m-badge m-badge--danger m-badge--wide m--font-boldest">Não</span>
+				<span *ngIf="row.mandatory_check_in == true"  class="m-badge m-badge--accent m-badge--wide m--font-boldest">Sim</span>
+		</ng-template>
+		</ngx-datatable-column>
+
+		<ngx-datatable-column
+			[flexGrow]="1" 
+			[width]="120"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false"
+			[canAutoResize]="false">
+			<ng-template let-row="row" ngx-datatable-cell-template>
+				<div class="">
+					<a href="#" title="Editar" (click)="openFormModal(row.id)"
+						*ngIf="workspaceService.autorizar('tipo_espaco_sala_editar', 'tipo_espaco_estacao_de_trabalho_editar', 'tipo_espaco_estacionamento_editar', 'tipo_espaco_fretado_editar')"
+						class="btn btn-outline-primary m-btn m-btn--icon btn-sm m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-edit"></i>
+					</a>
+					<a href="#" title="Remover" (click)="datatableService.remove(row.id)"
+						*ngIf="workspaceService.autorizar('tipo_espaco_excluir')"
+						class="btn btn-outline-danger btn-sm m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air">
+						<i class="la la-trash"></i>
+					</a>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-row-detail rowHeight="auto" #myDetailRow>
+			<ng-template let-row="row.detalhe" let-expanded="expanded" ngx-datatable-row-detail-template>
+				<div class="row" style="padding-left:15px;margin-right:0px">
+					<div class="col-11">
+						<div><b>Intervalo entre as reservas: </b>{{row.intervalo_entre_reservas}}</div>
+						<div><b>Grupos com intervalo ignorado: </b>{{row.grupos_tipo_espacos}}</div>
+						<div *ngIf="row.not_mandatory_groups_space_types"><b>Grupos com check_in não obrigatório: </b>{{row.not_mandatory_groups_space_types}}</div>
+						<div *ngIf="row.estender_reserva"><b>Estender reserva: </b>{{row.estender_reserva}}</div>
+						<div *ngIf="row.estender_reserva"><b>Tempo para estender a reserva antes do horário de fim previsto: </b>{{row.time_before_end}} minutos.</div>
+						<ng-container *ngFor="let s of row.espacos">
+							<div>{{s.nome}}</div>
+							<!-- <div><ul><li>{{s.nome}}</li></ul></div> -->
+							<!-- <p>{{row.id}}</p> -->
+						</ng-container>
+					</div>
+				</div>
+			</ng-template>
+		</ngx-datatable-row-detail>
+  </ngx-datatable>
+</div>

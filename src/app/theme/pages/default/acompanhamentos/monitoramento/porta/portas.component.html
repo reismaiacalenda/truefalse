@@ -1,0 +1,61 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+	<div class="d-flex align-items-center">
+
+    <tf-page-map class="col-md-10 pl-0" nomePagina="Porta"
+      [menu]="[
+        ['/acompanhamentos', 'Acompanhamentos'],
+				['/acompanhamentos/monitoramento/porta', 'Porta']
+      ]">
+		</tf-page-map>
+
+		<div>
+			<a id="refreshButton" href="#" class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+				(click)="carregarPortas()">
+				<i class="la la-refresh"></i>
+			</a>
+    </div>
+    <div *ngIf="workspaceService.autorizar('display_criar')
+    && workspaceService.currentUser.subdominio.addons.includes('Display porta')">
+			<a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air"
+				data-toggle="modal" data-target="#m_modal_1"
+				(click)="openFormModal()">
+				<span>
+					<i class="la la-chain"></i>
+					<span>
+						Vincular Display
+					</span>
+				</span>
+			</a>
+		</div>
+
+	</div>
+</div>
+<!-- END: Subheader -->
+<div *ngFor="let d of displays; let i = index; let first = first;">
+  <article>
+    <a href="" (click)="alteracaoCollapse($event)" [collapse]="content" class="tf-link_icone_preto">
+      <div class="collapse-title tf-collapse">
+        <span class="collapse-title-expand-indicator">
+					<ng-container *ngIf="first"><i class="la la-angle-down"></i></ng-container>
+          <ng-container *ngIf="!first"><i class="la la-angle-right"></i></ng-container>        
+          <!-- <i class="la la-angle-right"></i> -->
+          {{d.localizacao}}
+      </span>
+    </div>
+  </a>
+    <div collapseContent #content="collapseContent" [ngClass]="first ? 'collapse show' : '' ">
+      <div class="m-content" style="padding-top: 10px">
+        <div class="row">
+          <div class="col-md-3 col-sm-6 tf-espacamento_card"
+          *ngFor="let p of d.portas; let i = index">
+						<card
+							[p]="p"
+							(refreshPortas)="carregarPortas()">
+            </card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>

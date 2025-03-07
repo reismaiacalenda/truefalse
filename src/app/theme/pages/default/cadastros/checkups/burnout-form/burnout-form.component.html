@@ -1,0 +1,155 @@
+<tf-form-abas [abas]="abas" [activeModal]="activeModal" [formGroup]="formulario"
+  [autorizar_excluir]="['espaco_excluir']" (submeter)="onSubmit()" (excluir)="removeItem()">
+  <!-- id="{{formulario.get('id').value}}" -->
+
+
+  <div class="tab-pane active" id="m_tabs_6_1" role="tabpanel">
+    <div class="form-group m-form__group">
+      <p>Olá {{currentUser.name}}!</p>
+      <p>Este é um <b>espaço seguro</b>. Aqui você pode ser vocẽ mesmo e responder honestamente para entender <b>como você se sente</b>. 💜</p>
+      <br>
+      <p>Instruções:</p>
+      <p>Perguntaremos sobre <b>emoções</b> e <b>percepções</b> em relação a sua <b>experiência</b> de trabalho. Avalie de 0 a 6 de acordo com a frequência de cada um.</p>
+      <p>Duração: 2min</p>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_2" role="tabpanel">
+    <!-- <p class="text-dark-75 font-size-lg m-0">
+      Eu sinto dificuldade em relaxar depois de um dia de trabalho.
+    </p> -->
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('aaa')">
+      <tf-radio-button [data]='[
+          {"label":"0 - Nunca", "value":0},
+          {"label":"1 - Algumas vezes por ano ou menos", "value":1},
+          {"label":"2 - Uma vez por mês ou menos", "value":2},
+          {"label":"3 - Algumas vezes por mês", "value":3},
+          {"label":"4 - Uma vez por semana", "value":4},
+          {"label":"5 - Algumas vezes por semana", "value":5},
+          {"label":"6 - Todos os dias", "value":6}
+        ]' formControlName="aaa" label="Eu sinto dificuldades em relaxar depois de um dia de trabalho.">
+      </tf-radio-button>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_3" role="tabpanel">
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('aab')">
+      <tf-radio-button [data]='[
+          {"label":"0 - Nunca", "value":0},
+          {"label":"1 - Algumas vezes por ano ou menos", "value":1},
+          {"label":"2 - Uma vez por mês ou menos", "value":2},
+          {"label":"3 - Algumas vezes por mês", "value":3},
+          {"label":"4 - Uma vez por semana", "value":4},
+          {"label":"5 - Algumas vezes por semana", "value":5},
+          {"label":"6 - Todos os dias", "value":6}
+        ]' formControlName="aab" label="Depois de um dia de trabalho, eu me sinto esgotado e sem energia física ou mental.">
+      </tf-radio-button>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_4" role="tabpanel">
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('aac')">
+      <tf-radio-button [data]='[
+          {"label":"0 - Nunca", "value":0},
+          {"label":"1 - Algumas vezes por ano ou menos", "value":1},
+          {"label":"2 - Uma vez por mês ou menos", "value":2},
+          {"label":"3 - Algumas vezes por mês", "value":3},
+          {"label":"4 - Uma vez por semana", "value":4},
+          {"label":"5 - Algumas vezes por semana", "value":5},
+          {"label":"6 - Todos os dias", "value":6}
+        ]' formControlName="aac" label="Eu me sinto cada vez menos conectado e envolvido com o trabalho que faço.">
+      </tf-radio-button>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_5" role="tabpanel">
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('aad')">
+      <tf-radio-button [data]='[
+          {"label":"0 - Nunca", "value":0},
+          {"label":"1 - Algumas vezes por ano ou menos", "value":1},
+          {"label":"2 - Uma vez por mês ou menos", "value":2},
+          {"label":"3 - Algumas vezes por mês", "value":3},
+          {"label":"4 - Uma vez por semana", "value":4},
+          {"label":"5 - Algumas vezes por semana", "value":5},
+          {"label":"6 - Todos os dias", "value":6}
+        ]' formControlName="aad" label="Eu não tenho uma ideia clara do valor e do propósito que gero no meu trabalho.">
+      </tf-radio-button>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_6" role="tabpanel">
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('aae')">
+      <tf-radio-button [data]='[
+          {"label":"0 - Nunca", "value":0},
+          {"label":"1 - Algumas vezes por ano ou menos", "value":1},
+          {"label":"2 - Uma vez por mês ou menos", "value":2},
+          {"label":"3 - Algumas vezes por mês", "value":3},
+          {"label":"4 - Uma vez por semana", "value":4},
+          {"label":"5 - Algumas vezes por semana", "value":5},
+          {"label":"6 - Todos os dias", "value":6}
+        ]' formControlName="aae" label="Sou mais duro e menos solidário com as pessoas do que talvez elas mereçam.">
+      </tf-radio-button>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_7" role="tabpanel">
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('aaf')">
+      <tf-radio-button [data]='[
+          {"label":"0 - Nunca", "value":0},
+          {"label":"1 - Algumas vezes por ano ou menos", "value":1},
+          {"label":"2 - Uma vez por mês ou menos", "value":2},
+          {"label":"3 - Algumas vezes por mês", "value":3},
+          {"label":"4 - Uma vez por semana", "value":4},
+          {"label":"5 - Algumas vezes por semana", "value":5},
+          {"label":"6 - Todos os dias", "value":6}
+        ]' formControlName="aaf" label="Estou preocupado que este trabalho esteja me deixando mais inflexível emocionalmente.">
+      </tf-radio-button>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_8" role="tabpanel">
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('aag')">
+      <tf-radio-button [data]='[
+          {"label":"0 - Nunca", "value":0},
+          {"label":"1 - Algumas vezes por ano ou menos", "value":1},
+          {"label":"2 - Uma vez por mês ou menos", "value":2},
+          {"label":"3 - Algumas vezes por mês", "value":3},
+          {"label":"4 - Uma vez por semana", "value":4},
+          {"label":"5 - Algumas vezes por semana", "value":5},
+          {"label":"6 - Todos os dias", "value":6}
+        ]' formControlName="aag" label="Eu sinto que estou conseguindo menos do que deveria/ entregando menos / / menos do que sou capaz.">
+      </tf-radio-button>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_9" role="tabpanel">
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('aah')">
+      <tf-radio-button [data]='[
+          {"label":"0 - Nunca", "value":0},
+          {"label":"1 - Algumas vezes por ano ou menos", "value":1},
+          {"label":"2 - Uma vez por mês ou menos", "value":2},
+          {"label":"3 - Algumas vezes por mês", "value":3},
+          {"label":"4 - Uma vez por semana", "value":4},
+          {"label":"5 - Algumas vezes por semana", "value":5},
+          {"label":"6 - Todos os dias", "value":6}
+        ]' formControlName="aah" label="Na minha opinião, sou ineficiente no meu trabalho.">
+      </tf-radio-button>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="m_tabs_6_10" role="tabpanel">
+    <div class="form-group m-form__group" [ngClass]="aplicaCss('aai')">
+      <tf-radio-button [data]='[
+          {"label":"0 - Nunca", "value":0},
+          {"label":"1 - Algumas vezes por ano ou menos", "value":1},
+          {"label":"2 - Uma vez por mês ou menos", "value":2},
+          {"label":"3 - Algumas vezes por mês", "value":3},
+          {"label":"4 - Uma vez por semana", "value":4},
+          {"label":"5 - Algumas vezes por semana", "value":5},
+          {"label":"6 - Todos os dias", "value":6}
+        ]' formControlName="aai" label="Eu estarei fora desta empresa nos próximos 6 meses.">
+      </tf-radio-button>
+    </div>
+  </div>
+
+</tf-form-abas>

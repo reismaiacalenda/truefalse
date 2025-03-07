@@ -1,0 +1,66 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "andaime-simples",
+    "type": "object",
+    "properties": {
+      "path": {
+        "description": "The path to create the module.",
+        "type": "string",
+        "format": "path",
+        "visible": false
+      },
+      "project": {
+        "type": "string",
+        "description": "The name of the project.",
+        "$default": {
+          "$source": "projectName"
+        }
+      },
+      "name": {
+        "type": "string",
+        "description": "Custom module name",
+        "$default": {
+          "$source": "argv",
+          "index": 0
+        },
+        "x-prompt": "Amiguinho, digite o nome da entidade para esta tela (kebab-case): "
+      },
+      "entidade_plural": {
+        "type": "string",
+        "description": "Custom module name",
+        "$default": {
+          "$source": "argv",
+          "index": 1
+        },
+        "x-prompt": "Agora, digite ela no plural:"
+      },
+      "entidade_humanize": {
+        "type": "string",
+        "description": "Custom module name",
+        "$default": {
+          "$source": "argv",
+          "index": 2
+        },
+        "x-prompt": "Agora, digite ela em modo humanize (ex.:Instituição):"
+      },
+      "tipo_form": {
+        "type": "string",
+        "description": "Custom module name",
+        "$default": {
+          "$source": "argv",
+          "index": 3
+        },
+        "x-prompt": "Agora digite o form(form-abas,form-simples):"
+      },
+      "campos_input": {
+        "type": "string",
+        "description": "Custom module name",
+        "$default": {
+          "$source": "argv",
+          "index":4
+        },
+        "x-prompt": "Agora digite os inputs(ex:tf-text-simple|razao_social|Nome):"
+      }
+    },
+    "required": ["name"]
+  }

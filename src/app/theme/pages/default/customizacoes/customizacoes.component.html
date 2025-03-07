@@ -1,0 +1,445 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader">
+  <div class="d-flex align-items-center">
+    <tf-page-map class="col-md-11 pl-0" [menu]="[
+        ['/customizacoes', 'Customizações']
+      ]">
+    </tf-page-map>
+    <tf-page-guia class="col-md-1 pr-0 float-right">
+    </tf-page-guia>
+  </div>
+</div>
+<!-- END: Subheader -->
+
+<!-- <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper"> -->
+
+  
+<div class="m-content py-0">
+
+  <div class="containers">
+    <!--begin::hero-->
+    <div class="text-center pt-0">
+      <!-- <h1 class="font-weight-bolder text-dark mb-6">
+        Frequently Asked Questions
+      </h1> -->
+      <div class="h4 text-dark-50 mb-0 pt-0">
+        Deixe a Calenda com a cara de sua organização!
+      </div>
+      <div class="d-flex justify-content-center flex-column mt-0 py-5">
+        <div class="d-flex justify-content-center align-items-center">
+          <div class="pt-2 pb-5">
+            <img style="height: 130px; width: 100%; max-width: 450px;" [src]="logoCustom()"
+            >
+          </div>
+          <!-- <div class="ml-20">
+            <span class="svg-icon svg-icon-primary svg-icon-2x"
+              [inlineSVG]="'./assets/app/media/svg/icons/Design/Flatten.svg'">
+            </span>
+          </div> -->
+          <div class="d-flex ml-20" >
+            <a (click)="abrirWhitelabelForm()" class="btn btn-outline-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air px-3 mr-2 py-2 cursor-pointer text-primary text-hover-white"
+              >
+              <span>
+                <span class="svg-icon svg-icon-primary pl-0 "
+                  [inlineSVG]="'./assets/app/media/svg/icons/Tools/Brush.svg'">
+                </span>
+                <span>
+                  Estilizar
+                </span>
+              </span>
+            </a>
+          </div>
+       </div>
+      <!-- <div class="d-inline-block m-3 ml-11 pb-2" *ngIf="workspaceService.autorizar('quadro_espaco_menu')
+      && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+        
+      </div> -->
+      <!-- <div class="row"> -->
+        <!-- <div class="col-2 row">
+
+          <div class="col-md-3"> -->
+            <!-- <label>
+              Livre
+            </label>							 -->
+            
+          <!-- </div>
+        </div>
+        <div class="offset-md-3 col-md-6"> -->
+          <!--begin::Card-->
+
+            <!--begin::Card Body-->
+
+
+                <!--begin::Content-->
+                <!-- <h5 class="text-dark h5 mb-3">
+                  Cor primária
+                </h5> -->
+                <!-- (colorPickerChange)="onOvo($event)" -->
+                <!-- <div class="d-flex flex-column">
+                  <div class='input-group' >
+                    <span class="input-group-addon">
+                      <span class="m-badge m-badge--accent m-badge--wide"
+                        [style.background]="formulario.value.cor_livre">
+                      </span> 
+                    </span>
+                    <span class="input-group-addon">
+                      <a href="#"
+                        (colorPickerChange)="changeColor($event)"
+                        [(colorPicker)]="formulario.value.cor_livre"
+                        [cpAlphaChannel]="'always'"
+                        [cpOutputFormat]="'rgba'"
+                        [cpCancelButton]="true"
+                        [cpCancelButtonClass]="'btn btn-danger m-btn--air'"
+                        [cpPresetColors]="['rgba(79,129,13,0.88)','rgba(212,101,17,0.88)','rgba(201,30,30,0.88)','rgba(40,40,40,0.92)','rgba(32,32,32,0.96)', 'rgba(70,70,70,0.85)', 'rgba(255,255,255,1)']"
+                        [cpOKButton]="true"
+                        [cpOKButtonClass]="'btn btn-brand m-btn--air'"
+                        [cpSaveClickOutside]="true"
+                        class="btn btn-outline-brand m-btn m-btn--icon m-btn--icon-only m-btn--air">
+                            <i class="la la-eyedropper"></i>
+                      </a>
+                    </span>
+                  </div>
+ 
+                </div> -->
+                <!--end::Content-->
+            <!--end::Card Body-->
+          <!--end::Card-->
+         <!-- </div> -->
+      <!-- </div> -->
+    </div> 
+    <!--end::hero-->
+  </div>
+
+    <!--end:: content-->
+  
+
+  <!--begin::Section-->
+
+  <div class="row">
+    <div class="col-lg-4 pb-7" *ngIf="workspaceService.autorizar('campo_customizado_visualizar')
+      && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      || this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))">
+      <!--begin::Card-->
+      <a style="text-decoration:none" routerLink="/customizacoes/campos-customizados"
+        class="card card-custom wave wave-primary wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+        <!--begin::Card Body-->
+        <div class="card-body m-animate-shine py-5">
+          <div class="d-flex align-items-center py-2">
+            <!--begin::Icon-->
+            <div class="mr-6">
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Text/Edit-text.svg'">
+              </span>
+            </div>
+            <!--end::Icon-->
+
+            <!--begin::Content-->
+            <div class="d-flex flex-column">
+              <h3 class="text-dark h5 mb-3">
+                Campos customizados
+              </h3>
+              <div class="text-dark-50">
+                Crie seus próprios
+              </div>
+            </div>
+            <!--end::Content-->
+          </div>
+        </div>
+        <!--end::Card Body-->
+      </a>
+      <!--end::Card-->
+    </div>
+    <!-- <div class="col-lg-4 pb-7" *ngIf="workspaceService.autorizar('predefinido_editar')
+      && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      || this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))"> -->
+    <div class="col-lg-4 pb-7" *ngIf="workspaceService.autorizar('cliente_criar')
+      && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      || this.workspaceService.currentUser.subdominio.modulos.includes('Escalas híbridas'))">
+      <!--begin::Card-->
+      <a style="text-decoration:none" [routerLink]=""
+        (click)="predefinidos()"
+        class="card card-custom wave wave-primary wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+        <!--begin::Card Body-->
+        <div class="card-body m-animate-shine py-5">
+          <div class="d-flex align-items-center py-2">
+            <!--begin::Icon-->
+            <div class="mr-6">
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/General/Settings-1.svg'">
+              </span>
+            </div>
+            <!--end::Icon-->
+
+            <!--begin::Content-->
+            <div class="d-flex flex-column">
+              <h3 class="text-dark h5 mb-3">
+                Campos pré-definidos
+              </h3>
+              <div class="text-dark-50">
+                Habilite apenas o necessário
+              </div>
+            </div>
+            <!--end::Content-->
+          </div>
+        </div>
+        <!--end::Card Body-->
+      </a>
+      <!--end::Card-->
+    </div>
+    <div class="col-lg-4 pb-7" *ngIf="workspaceService.autorizar('parametro_editar')
+      && (this.workspaceService.currentUser.subdominio.modulos.includes('Smartrooms')
+      || this.workspaceService.currentUser.subdominio.modulos.includes('Hotdesks'))">
+      <!--begin::Card-->
+      <a style="text-decoration:none" [routerLink]=""
+        (click)="parametrizacoes()"
+        class="card card-custom wave wave-primary wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+        <!--begin::Card Body-->
+        <div class="card-body m-animate-shine py-5">
+          <div class="d-flex align-items-center py-2">
+            <!--begin::Icon-->
+            <div class="mr-6">
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Shopping/Settings.svg'">
+              </span>
+            </div>
+            <!--end::Icon-->
+
+            <!--begin::Content-->
+            <div class="d-flex flex-column">
+              <h3 class="text-dark h5 mb-3">
+                Parametrizações
+              </h3>
+              <div class="text-dark-50">
+                Configure cada condição
+              </div>
+            </div>
+            <!--end::Content-->
+          </div>
+        </div>
+        <!--end::Card Body-->
+      </a>
+      <!--end::Card-->
+    </div>
+    
+    <div class="col-lg-4 pb-7" *ngIf="workspaceService.autorizar('filtro_visualizar')">
+      <!--begin::Card-->
+      <a style="text-decoration:none" routerLink="/customizacoes/filtros"
+        class="card card-custom wave wave-primary wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+        <!--begin::Card Body-->
+        <div class="card-body m-animate-shine py-5">
+          <div class="d-flex align-items-center py-2">
+            <!--begin::Icon-->
+            <div class="mr-6">
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Text/Filter.svg'">
+              </span>
+            </div>
+            <!--end::Icon-->
+
+            <!--begin::Content-->
+            <div class="d-flex flex-column">
+              <h3 class="text-dark h5 mb-3">
+                Filtros
+              </h3>
+              <div class="text-dark-50">
+                Selecione e agrupe reservas
+              </div>
+            </div>
+            <!--end::Content-->
+          </div>
+        </div>
+        <!--end::Card Body-->
+      </a>
+      <!--end::Card-->
+    </div>
+    <div class="col-lg-4 pb-7" *ngIf="workspaceService.autorizar('regra_visualizar')">
+      <!--begin::Card-->
+      <a style="text-decoration:none" routerLink="/customizacoes/regras"
+        class="card card-custom wave wave-primary wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+        <!--begin::Card Body-->
+        <div class="card-body m-animate-shine py-5">
+          <div class="d-flex align-items-center py-2">
+            <!--begin::Icon-->
+            <div class="mr-6">
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Communication/Clipboard-list.svg'">
+              </span>
+            </div>
+            <!--end::Icon-->
+
+            <!--begin::Content-->
+            <div class="d-flex flex-column">
+              <h3 class="text-dark h5 mb-3">
+                Regras
+              </h3>
+              <div class="text-dark-50">
+                Automatize restrições
+              </div>
+            </div>
+            <!--end::Content-->
+          </div>
+        </div>
+        <!--end::Card Body-->
+      </a>
+      <!--end::Card-->
+    </div>
+    <div class="col-lg-4 pb-7" *ngIf="(workspaceService.autorizar('questionario_visualizar')
+      && workspaceService.currentUser.subdominio.modulos.includes('People Hybrid Experience'))
+      || workspaceService.currentUser.is_master">
+      <!--begin::Card-->
+      <a style="text-decoration:none" routerLink="/customizacoes/checkups/questionarios"
+        class="card card-custom wave wave-primary wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+        <!--begin::Card Body-->
+        <div class="card-body m-animate-shine py-5">
+          <div class="d-flex align-items-center py-2">
+            <!--begin::Icon-->
+            <div class="mr-6">
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/General/Half-heart.svg'">
+              </span>
+            </div>
+            <!--end::Icon-->
+
+            <!--begin::Content-->
+            <div class="d-flex flex-column">
+              <h3 class="text-dark h5 mb-3">
+                Questionários
+              </h3>
+              <div class="text-dark-50">
+                Customize os checkups
+              </div>
+            </div>
+            <!--end::Content-->
+          </div>
+        </div>
+        <!--end::Card Body-->
+      </a>
+      <!--end::Card-->
+    </div>
+    <div class="col-lg-4 pb-7" *ngIf="workspaceService.autorizar('layout_visualizar')
+      && workspaceService.currentUser.subdominio.addons.includes('Display porta', 'Display painel')">
+      <!--begin::Card-->
+      <a style="text-decoration:none" routerLink="/customizacoes/layouts"
+        class="card card-custom wave wave-primary wave-animate-slow bg-grey-100 mb-8 mb-lg-0">
+        <!--begin::Card Body-->
+        <div class="card-body">
+          <div class="d-flex align-items-center py-2">
+            <!--begin::Icon-->
+            <div class="mr-6">
+              <span class="svg-icon svg-icon-primary svg-icon-4x"
+                [inlineSVG]="'./assets/app/media/svg/icons/Tools/Brush.svg'">
+              </span>
+            </div>
+            <!--end::Icon-->
+
+            <!--begin::Content-->
+            <div class="d-flex flex-column">
+              <h3 class="text-dark h5 mb-3">
+                Layouts
+              </h3>
+              <div class="text-dark-50">
+                Templates porta & painel
+              </div>
+            </div>
+            <!--end::Content-->
+          </div>
+        </div>
+        <!--end::Card Body-->
+      </a>
+      <!--end::Card-->
+    </div>
+    
+  </div>
+</div>
+
+<!-- </div> -->
+
+
+
+<!--end::Section-->
+
+<!-- <div class="m-content">
+  <div class="m-portlet m-portlet--mobile">
+    <div class="m-portlet__body">
+      <div class="row">
+        <div class="col-xl-6"> -->
+
+
+<!-- <div class="m-widget17__items m-widget17__items-col1">
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-truck m--font-brand"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Delivered
+              </span>
+              <span class="m-widget17__desc">
+                15 New Paskages
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-paper-plane m--font-info"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Reporeted
+              </span>
+              <span class="m-widget17__desc">
+                72 Support Cases
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-paper-plane m--font-info"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Reporeted
+              </span>
+              <span class="m-widget17__desc">
+                72 Support Cases
+              </span>
+            </div>
+          </div>
+          <div class="m-widget17__items m-widget17__items-col2">
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-pie-chart m--font-success"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Ordered
+              </span>
+              <span class="m-widget17__desc">
+                72 New Items
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-time m--font-danger"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Arrived
+              </span>
+              <span class="m-widget17__desc">
+                34 Upgraded Boxes
+              </span>
+            </div>
+            <div class="m-widget17__item">
+              <span class="m-widget17__icon">
+                <i class="flaticon-paper-plane m--font-info"></i>
+              </span>
+              <span class="m-widget17__subtitle">
+                Reporeted
+              </span>
+              <span class="m-widget17__desc">
+                72 Support Cases
+              </span>
+            </div>
+          </div> -->
+
+<!-- </div>
+    
+      </div>
+    </div>
+  </div>
+</div> -->

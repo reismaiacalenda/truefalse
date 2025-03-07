@@ -1,0 +1,53 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	disableTitle="true"
+	titlePersonalizado="Convidar pessoas"
+	(submeter)="onSubmit()"
+	id="{{formulario.get('id').value}}"
+	>
+	
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('unidades_attributes')">
+		<tf-select-multi
+			[data]="listDadosSelect['unidades']"
+			[form]="formulario.get('unidades_attributes')"
+			label="Para quais unidades as pessoas convidadas irão?"
+			placeholder="Selecione um ou mais"
+			>
+		</tf-select-multi>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('funcionario_emails')">
+		<label style="text-align: left;">
+			<span>
+				Coloque os e-mails das pessoas a serem convidadas.
+				É possível inserir mais de um, desde que separados
+				por um espaço simples ou quebra de linha.
+			</span>
+		</label>
+				<ng-select 
+				[items]="people$ | async"
+				bindLabel="name"
+				[virtualScroll]="true"
+				[addTag]="true"
+				[multiple]="true"
+				[hideSelected]="true"
+				[trackByFn]="trackByFn"
+				[minTermLength]="2"
+				[loading]="peopleLoading"
+				typeToSearchText="Por favor, utilize pelo menos 2 dígitos para adicionar"
+				formControlName="funcionario_emails"
+				(change)="validacao()"
+				[typeahead]="peopleInput$"
+				>
+			<!-- clearAllText="Clear" -->
+			<ng-template ng-option-tmp let-item="item">
+				{{item.name}} <br/>
+				<small>{{item.nome}}</small>
+			</ng-template>
+		</ng-select>
+	</div>
+
+</tf-form-simples>

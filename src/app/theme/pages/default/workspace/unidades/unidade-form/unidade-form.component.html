@@ -1,0 +1,111 @@
+<tf-form-simples
+	[formGroup]="formulario"
+  [activeModal]="activeModal"
+  [autorizar_excluir]="['unidade_excluir']"
+  (submeter)="onSubmit()"
+  (excluir)="removeItem()"
+	title="Unidade"
+  id="{{formulario.get('id').value}}"
+  >
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('nome')"
+    >
+    <tf-text-simple
+    formControlName="nome"
+    label="Nome"
+    placeholder="Nome"
+    >
+    </tf-text-simple>
+  </div>
+
+  <div class="form-group m-form__group"
+  [ngClass]="aplicaCss('sigla')"
+  >
+  <tf-text-simple
+    formControlName="sigla"
+    label="Sigla"
+    placeholder="Sigla"
+ >
+ </tf-text-simple>
+  </div>
+
+ <div class="form-group m-form__group"
+  [ngClass]="aplicaCss('codigo_base_cliente')"
+  >
+  <tf-text-simple
+    formControlName="codigo_base_cliente"
+    label="Código na base do cliente"
+    placeholder="0"
+ >
+  </tf-text-simple>
+ </div>
+
+ <div class="form-group m-form__group">
+  <tf-check-box
+    formControlName="ativada"
+    label="Ativada?">
+  </tf-check-box>
+ </div>
+
+ <div class="form-group m-form__group">
+  <tf-check-box
+    formControlName="send_invitation"
+    label="Enviar convites ao adicionar e-mails na Calenda"
+    tooltip="Se não habilitado, as pessoas adicionadas nessa unidade não receberão o convite para acesso à plataforma em seu e-mail. O convite deverá ser disparado manualmente na listagem de pessoas">
+  </tf-check-box>
+ </div>
+
+ <!-- <div class="form-group m-form__group"
+ [ngClass]="aplicaCss('instituicao_id')"
+ >
+   <tf-select-simple
+   [formControl]="formulario.get('instituicao_id')"
+   [data]="listDadosSelect['instituicoes']"
+   label="Instituição"
+   placeholder="Selecione "
+   >
+ </tf-select-simple> -->
+<!-- <br>
+<br>
+<p>Instituição Value: >>> {{formulario.value?.instituicao_id}}</p>
+<p>Instituição Get Value: >>> {{formulario.get('instituicao_id').value}}</p>
+<p>Instituição Get Valid: >>> {{formulario.get('instituicao_id').valid}}</p>
+<br>
+<p>Formulário Valid: >>> {{formulario.valid}}</p>
+<p>Formulário Value: >>> {{formulario.get('instituicao_id')?.value}}</p>
+<br>
+<p>Dirty: >>> {{formulario.get('instituicao_id').dirty}}</p>
+<p>Touched: >>> {{formulario.get('instituicao_id').touched}}</p>
+<p>Valid: >>> {{formulario.get('instituicao_id').valid}}</p>
+<br>
+<br> -->
+ <!-- </div> -->
+
+ <!-- <div class="form-group m-form__group"
+ [ngClass]="aplicaCss('client_api_id')"
+ >
+   <tf-select-simple
+   [formControl]="formulario.get('client_api_id')"
+   [data]="listDadosSelect['client_apis']"
+   label="API"
+   placeholder="Selecione "
+   >
+ </tf-select-simple> -->
+<!-- <br>
+<br>
+<p>API Value: >>> {{formulario.value?.client_api_id}}</p>
+<p>API Get Value: >>> {{formulario.get('client_api_id').value}}</p>
+<p>API Get Valid: >>> {{formulario.get('client_api_id').valid}}</p>
+<br>
+<p>Formulário Valid: >>> {{formulario.valid}}</p>
+<p>Formulário Value: >>> {{formulario.get('client_api_id')?.value}}</p>
+<br>
+<p>Dirty: >>> {{formulario.get('client_api_id').dirty}}</p>
+<p>Touched: >>> {{formulario.get('client_api_id').touched}}</p>
+<p>Valid: >>> {{formulario.get('client_api_id').valid}}</p>
+<br>
+<br> -->
+ <!-- </div> -->
+
+</tf-form-simples>

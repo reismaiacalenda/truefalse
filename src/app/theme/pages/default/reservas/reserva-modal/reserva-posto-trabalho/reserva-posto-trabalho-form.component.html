@@ -1,0 +1,91 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	[cancelar]="true"
+	[autorizar_excluir]="['reserva_posto_de_trabalho_excluir_meu', 'reserva_posto_de_trabalho_excluir_grupo', 'reserva_posto_de_trabalho_excluir_unidade']"
+	[habilitarExcluir]="formulario.get('montar_tela').value.botao_excluir"
+	[disableTitle]="true"
+	(submeter)="onSubmit()"
+	(excluir)="removeItem(formulario?.value?.numero_lote!=undefined)"
+	id="{{formulario.get('id').value}}"
+	cancelar="false"
+	titleCancelar="Fechar"
+	titlePersonalizado="{{formulario.get('titulo_reserva').value}}"
+	>
+
+		<div class="row form-group m-form__group">
+			<div class="col-md-6">
+				<tf-date
+				formControlName="data_inicio"
+				label="Quando">
+				</tf-date>
+			</div>
+			<div class="col-md-1" style="padding-top: 35px;"><p>às</p></div>
+			<div class="col-md-5">
+				<tf-time
+					formControlName="hr_inicio_previsto"
+					label="Horário">
+				</tf-time>
+			</div>
+		</div>
+		<br>
+
+		<div class="col-md-12 form-group m-form__group">
+			<tf-select-simple
+				[formControl]="formulario.get('espaco_id')"
+				[data]="listMesas"
+				label="Mesa"
+				allowClear=false
+				placeholder="Selecionar mesa"
+				[allowClear]="true"
+				>
+			</tf-select-simple>
+		</div>
+
+		<div class="col-md-12 form-group m-form__group"
+		[ngClass]="aplicaCss('anfitriao_email')">
+			<label>Para quem é este posto?</label>
+			<ng-select [items]="pessoas$ | async"
+				bindLabel="name"
+				[addTag]="true"
+				[multiple]="false"
+				[hideSelected]="true"
+				[trackByFn]="trackByFn"
+				[minTermLength]="2"
+				[loading]="pessoasLoading"
+				typeToSearchText="Por favor, utilize pelo menos 2 dígitos para adicionar"
+				formControlName="anfitriao_email"
+				(change)="validacaoAnfitriao()"
+				[typeahead]="pessoasInput$"
+				>
+				<ng-template ng-option-tmp let-item="item">
+					{{item.name}} <br/>
+					<small>{{item.nome}}</small>
+				</ng-template>
+			</ng-select>
+		</div>
+
+		<br>
+
+		<!-- <div class="row" style="padding-bottom: 5%;">
+			<div class="col-md-5 tf-dia-todo">
+				<p>O dia todo</p>
+			</div>
+			<div class="col-md-7" style="padding-left: 0;">
+				<tf-check-box
+					desabilitar="true"
+					formControlName="dia_todo"
+					retirarLabel="true">
+				</tf-check-box>
+			</div>			
+		</div> -->
+
+		<!-- <div class="row">
+			<div class="col-md-12">
+				<button type="button"  class="btn btn-secondary" data-dismiss="modal" (click)="maisOpcoes()">
+					Mais opções
+				</button>
+			</div>
+		</div> -->
+
+</tf-form-simples>

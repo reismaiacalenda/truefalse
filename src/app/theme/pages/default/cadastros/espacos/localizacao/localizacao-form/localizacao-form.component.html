@@ -1,0 +1,50 @@
+<tf-form-simples
+	[formGroup]="formulario"
+  [activeModal]="activeModal"
+  [autorizar_excluir]="['localizacao_excluir']"
+  (submeter)="onSubmit()"
+	(excluir)="removeItem()"
+	title="Localização"
+  id="{{formulario.get('id').value}}"
+  >
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('predio')">
+    <tf-text-simple
+    formControlName="predio"
+    label="Nome"
+    placeholder="prédio / bloco / setor / pavimento / andar">
+    </tf-text-simple>
+  </div>
+
+  <div class="form-group m-form__group"
+    [ngClass]="aplicaCss('localizacao_id')"
+    *ngIf="workspaceService.autorizar('localizacao_aninhada')">
+    <!-- [desabilitar]="formulario.get('espaco_conjugado').value" -->
+    <tf-select-simple
+      [formControl]="formulario.get('localizacao_id')"
+      [data]="listDadosSelect['localizacoes']"
+      label="Localização pai"
+      placeholder="Selecione uma localização"
+      [allowClear]="true"
+      >
+    </tf-select-simple>
+  </div>
+
+
+  <div class="col-lg-6 col-md-6 col-sm-6 form-group m-form__group"
+  >
+  <!-- [ngClass]="aplicaCss('ordem')" -->
+
+  <!-- [botoes]="false"  -->
+    <tf-integer
+      [limiteInferior]="1"
+			formControlName="ordem"
+			label="Ordem"
+      >
+		</tf-integer>
+
+  </div>
+
+
+</tf-form-simples>

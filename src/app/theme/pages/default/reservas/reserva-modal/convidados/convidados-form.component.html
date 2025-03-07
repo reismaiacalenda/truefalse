@@ -1,0 +1,39 @@
+<tf-form-simples
+	[formGroup]="formulario"
+	[activeModal]="activeModal"
+	(submeter)="onSubmit()"
+	id="{{formulario.get('id').value}}"
+	title="Adicionar convidados"
+	cancelar="false"
+	salvar="Concluir"
+	>
+	<!-- disableTitle="true" -->
+
+	<div class="form-group m-form__group">
+		<b>Convidados (opcional)</b>
+	</div>
+	
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('quantidade_participantes')">
+		<div class="col-lg-7 col-md-9 col-sm-12"
+			style="padding-left: 0px;">
+			<tf-integer
+				formControlName="quantidade_participantes"
+				label="Quantidade de participantes"
+				>
+			</tf-integer>
+		</div>
+	</div>
+
+	<div class="form-group m-form__group"
+		[ngClass]="aplicaCss('funcionarios_attributes')">
+		<tf-select-multi
+			[form]="formulario.get('funcionarios_attributes')"
+			[data]="listDadosSelect['funcionarios']"
+			label="Convidar participantes"
+			placeholder="Selecione um ou mais"	
+		>
+		</tf-select-multi>
+	</div>
+
+</tf-form-simples>

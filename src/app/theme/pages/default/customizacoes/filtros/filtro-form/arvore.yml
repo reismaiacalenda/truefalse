@@ -1,0 +1,543 @@
+atributos: 
+  anfitriao: 
+    text: "o anfitrião da reserva"
+    operadores: 
+      diferente_funcionario: 
+        simbolo: "!="
+        campo: anfitriao_id
+        text: "seja diferente do(s) colaborador(es)"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Funcionários
+            entidade: listar_funcionarios
+      diferente_autoridade:
+        simbolo: "!="
+        campo: anfitriao_role_number
+        text: "seja diferente da(s) autoridade(s)"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Funcionários
+            entidade: listar_autoridades
+      igual_funcionario: 
+        simbolo: "==" 
+        campo: anfitriao_id
+        text: "seja igual ao(s) colaborador(es)"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Autoridade
+            entidade: listar_funcionarios
+      igual_autoridade: 
+        simbolo: "=="
+        campo: anfitriao_role_number
+        text: "seja igual à(s) autoridade(s)"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Autoridade
+            entidade: listar_autoridades
+  criador: 
+    text: "o criador da reserva"
+    operadores: 
+      diferente_funcionario: 
+        simbolo: "!="
+        campo: criador_id
+        text: "seja diferente do(s) colaborador(es)"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Funcionários
+            entidade: listar_funcionarios
+      diferente_autoridade: 
+        simbolo: "!="
+        campo: criador_role_number
+        text: "seja diferente da(s) autoridade(s)"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Autoridade
+            entidade: listar_autoridades
+      igual_funcionario: 
+        simbolo: "=="
+        campo: criador_id
+        text: "seja igual ao(s) colaborador(es)"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Funcionários
+            entidade: listar_funcionarios
+      igual_autoridade: 
+        simbolo: "=="
+        campo: criador_role_number
+        text: "seja igual à(s) autoridade(s)"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Autoridade
+            entidade: listar_autoridades
+  data: 
+    text: "a data da reserva"
+    operadores: 
+      nao_seja_na_data: 
+        simbolo: "!="
+        campo: hr_inicio
+        text: "não seja na data"
+        condicional: 
+          categoria: data
+          data:
+            input: tf-date               
+      seja_na_data: 
+        simbolo: "=="
+        campo: hr_inicio
+        text: "seja na data"
+        condicional:
+          categoria: data
+          data:
+            input: tf-date
+      seja_depois_da_data: 
+        simbolo: ">"
+        campo: hr_inicio
+        text: "seja depois da data"
+        condicional:
+          categoria: data
+          data:
+            input: tf-date
+      seja_antes_da_data: 
+        simbolo: "<"
+        campo: hr_inicio
+        text: "seja antes da data"
+        condicional:
+          categoria: data
+          data:
+            input: tf-date
+      seja_a_partir_da_data: 
+        simbolo: ">="
+        campo: hr_inicio
+        text: "seja à partir da data"
+        condicional:
+          categoria: data
+          data:
+            input: tf-date
+      seja_ate_a_data: 
+        simbolo: "<="
+        campo: hr_inicio
+        text: "seja até a data"
+        condicional:
+          categoria: data
+          data:
+            input: tf-date
+      seja_entre_a_data: 
+        simbolo: "between?"
+        campo: hr_inicio
+        text: "seja entre a data"
+        condicional: 
+          categoria: intervalo_data
+          data_inicio:
+            input: tf-date
+          data_fim:
+            input: tf-date
+      seja_igual_a: 
+        simbolo: "=="
+        campo: hr_inicio
+        text: "seja igual a"
+        condicional:
+          categoria: simples
+          simples:
+            input: tf-select-simple
+            entidade: list_data_reserva
+      seja_diferente_de: 
+        simbolo: "!="
+        campo: hr_inicio
+        text: "seja diferente de"
+        condicional:
+          categoria: simples
+          simples:
+            input: tf-select-simple
+            entidade: list_data_reserva
+  dia: 
+    text: "o dia da reserva"
+    operadores: 
+      diferente: 
+        simbolo: "!="
+        campo: hr_inicio
+        text: "seja diferente de"
+        condicional:
+          categoria: multiplo
+          multiplo:
+            input: tf-select-multi
+            placeholder: dias
+            entidade: listar_dias             
+      igual: 
+        simbolo: "=="
+        campo: hr_inicio
+        text: "seja igual a"
+        condicional:
+          categoria: multiplo
+          multiplo:
+            input: tf-select-multi
+            placeholder: dias
+            entidade: listar_dias
+  mes: 
+    text: "o mes da reserva"
+    operadores: 
+      diferente: 
+        simbolo: "!="
+        campo: hr_inicio
+        text: "seja diferente de"
+        condicional:
+          categoria: simples
+          simples:
+            input: tf-select-simple
+            placeholder: mes
+            entidade: listar_meses             
+      igual: 
+        simbolo: "=="
+        campo: hr_inicio
+        text: "seja igual a"
+        condicional:
+          categoria: simples
+          simples:
+            input: tf-select-simple
+            placeholder: mes
+            entidade: listar_meses
+  hr_inicio: 
+    text: "a hora de início da reserva"
+    operadores: 
+      maior: 
+        simbolo: ">"
+        campo: hr_inicio
+        text: "seja maior que"
+        condicional:
+          categoria: hora
+          hora:
+            input: tf-time
+      menor: 
+        simbolo: "<"
+        campo: hr_inicio
+        text: "seja menor que"
+        condicional:
+          categoria: hora
+          hora:
+            input: tf-time
+      maior_igual: 
+        simbolo: ">="
+        campo: hr_inicio
+        text: "seja maior ou igual a"
+        condicional:
+          categoria: hora
+          hora:
+            input: tf-time
+      menor_igual: 
+        simbolo: "<="
+        campo: hr_inicio
+        text: "seja menor ou igual a"
+        condicional:
+          categoria: hora
+          hora:
+            input: tf-time
+  hr_fim: 
+    text: "a hora de fim da reserva"
+    operadores: 
+      maior: 
+        simbolo: ">"
+        campo: hr_fim
+        text: "seja maior que"
+        condicional:
+          categoria: hora
+          hora:
+            input: tf-time
+      menor: 
+        simbolo: "<"
+        campo: hr_fim
+        text: "seja menor que"
+        condicional:
+          categoria: hora
+          hora:
+            input: tf-time
+      maior_igual: 
+        simbolo: ">="
+        campo: hr_fim
+        text: "seja maior ou igual a"
+        condicional:
+          categoria: hora
+          hora:
+            input: tf-time
+      menor_igual: 
+        simbolo: "<="
+        campo: hr_fim
+        text: "seja menor ou igual a"
+        condicional:
+          categoria: hora
+          hora:
+            input: tf-time
+  data_criacao: 
+    text: "a criação da reserva"
+    operadores: 
+      diferente_na_data: 
+        simbolo: "!="
+        campo: created_at
+        text: "não seja feito(a) na data de"
+        condicional: 
+          categoria: data_hora
+          data:
+            input: tf-date
+          hora:
+            input: tf-time
+          as: false
+      igual_na_data: 
+        simbolo: "=="
+        campo: created_at
+        text: "seja feito(a) na data de"
+        condicional: 
+          categoria: data_hora
+          data:
+            input: tf-date
+          hora:
+            input: tf-time
+          as: false
+      igual_nos_dias: 
+        simbolo: "=="
+        campo: created_at
+        text: "seja feito(a) no(s) dia(s) de"
+        condicional: 
+          categoria: multiplo
+          multiplo:
+            input: tf-select-multi
+            placeholder: dias
+            entidade: listar_dias
+      igual_nos_meses:
+        simbolo: "==" 
+        campo: created_at          
+        text: "seja feito(a) no(s) mes(es) de"
+        condicional: 
+          categoria: multiplo
+          multiplo:
+            input: tf-select-multi
+            placeholder: mes
+            entidade: listar_meses
+      menor_feito_antes:
+        simbolo: "<"
+        campo: created_at        
+        text: "seja feito(a) antes de"
+        condicional: 
+          categoria: data_hora
+          data:
+            input: tf-date
+          hora:
+            input: tf-time
+          as: false
+      maior_feito_depois:
+        simbolo: ">"
+        campo: created_at
+        text: "seja feito(a) depois de"
+        condicional: 
+          categoria: data_hora
+          data:
+            input: tf-date
+          hora:
+            input: tf-time
+          as: false
+      entre: 
+        simbolo: "between?"
+        campo: created_at
+        text: "seja feito(a) entre"
+        condicional: 
+          categoria: intervalo_data
+          data_inicio:
+            input: tf-date
+          data_fim:
+            input: tf-date
+      menor_feito_com_menos:
+        simbolo: "<"
+        campo: created_at
+        text: "seja feito(a) com menos de"
+        condicional:
+          categoria: antecedencia
+          numero:
+            input: tf-integer
+          periodo:
+            input: tf-select-simple
+            entidade: listar_periodos
+      maior_feito_com_mais:
+        simbolo: ">"
+        campo: created_at
+        text: "seja feito(a) com mais de"
+        condicional: 
+          categoria: antecedencia
+          numero:
+            input: tf-integer
+          periodo:
+            input: tf-select-simple
+            entidade: listar_periodos
+  data_atualizacao: 
+    text: "a atualização da reserva"
+    operadores: 
+      menor: 
+        simbolo: "<"
+        campo: updated_at
+        text: "seja feito(a) com menos de"
+        condicional: 
+          categoria: antecedencia
+          numero:
+            input: tf-integer
+          periodo:
+            input: tf-select-simple
+            entidade: listar_periodos 
+      maior: 
+        simbolo: ">"
+        campo: updated_at
+        text: "seja feito(a) com mais de"
+        condicional: 
+          categoria: antecedencia
+          numero:
+            input: tf-integer
+          periodo:
+            input: tf-select-simple
+            entidade: listar_periodos
+  data_cancelamento: 
+    text: "o cancelamento da reserva"
+    operadores: 
+      menor: 
+        simbolo: "<"
+        campo: deleted_at
+        text: "seja feito(a) com menos de"
+        condicional: 
+          categoria: antecedencia
+          numero:
+            input: tf-integer
+          periodo:
+            input: tf-select-simple
+            entidade: listar_periodos
+      maior: 
+        simbolo: ">"
+        campo: deleted_at
+        text: "seja feito(a) com mais de"
+        condicional: 
+          categoria: antecedencia
+          numero:
+            input: tf-integer
+          periodo:
+            input: tf-select-simple
+            entidade: listar_periodos
+  espaco:
+    text: "o espaço da reserva"
+    operadores:
+      igual:
+        simbolo: "=="
+        campo: espaco
+        text: "seja igual a"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Espaços
+            entidade: listar_espacos
+      diferente:
+        simbolo: "!="
+        campo: espaco
+        text: "seja diferente a"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Espaços
+            entidade: listar_espacos
+  tipo_espaco:
+    text: "o tipo de espaço"
+    operadores:
+      igual:
+        simbolo: "=="
+        campo: tipo_espaco
+        text: "seja igual a"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Tipo de espaço
+            entidade: listar_tipo_espacos
+      diferente:
+        simbolo: "!="
+        campo: tipo_espaco
+        text: "seja diferente de"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Tipo de espaço
+            entidade: listar_tipo_espacos
+  recursos_reserva:
+    text: "o(s) recurso(s) da reserva"
+    operadores:
+      igual:
+        simbolo: "=="
+        campo: recursos_reserva
+        text: "seja(m) igual(is) a"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Recursos reserva
+            entidade: listar_recursos_reserva
+      diferente:
+        simbolo: "!="
+        campo: recursos_reserva
+        text: "seja(m) diferente(s) de"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Recursos reserva
+            entidade: listar_recursos_reserva
+  servicos_reserva:
+    text: "o(s) serviço(s) da reserva"
+    operadores:
+      igual:
+        simbolo: "=="
+        campo: servicos_reserva
+        text: "seja(m) igual(is) a"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Serviços reserva
+            entidade: listar_servicos_reserva
+      diferente:
+        simbolo: "!="
+        campo: servicos_reserva
+        text: "seja(m) diferente(s) de"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Serviços reserva
+            entidade: listar_servicos_reserva
+      igual_tipo:
+        simbolo: "=="
+        campo: servicos_reserva
+        text: "seja(m) do(s) tipo(s)"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Tipo do serviço
+            entidade: listar_tipo_servico
+      diferente_tipo:
+        simbolo: "!="
+        campo: servicos_reserva
+        text: "seja(m) diferente(s) do(s) tipo(s)"
+        condicional: 
+          categoria: multiplo
+          multiplo: 
+            input: tf-select-multi
+            placeholder: Tipo do serviço
+            entidade: listar_tipo_servico
