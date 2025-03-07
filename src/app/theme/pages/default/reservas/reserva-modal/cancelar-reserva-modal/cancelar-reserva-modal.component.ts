@@ -3,7 +3,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 // import { TfFormBaseComponent } from '../../../../../_andaime/tf-forms/tf-form-base.component';
 // import { FormControl } from '@angular/forms';
 import { Helpers } from '../../../../../../helpers';
-import { inputSelection } from 'ngx-ip/src/utils';
 import { WebService } from '../../../../../../_services/web.service';
 import { ModalService } from '../../../modal/modal.service';
 import { TfFormBaseComponent } from '../../../../../../_andaime/tf-forms/tf-form-base.component';
