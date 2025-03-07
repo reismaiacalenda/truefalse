@@ -1,6 +1,5 @@
 import { Component, Input, forwardRef, Renderer2, ElementRef, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FileHolder, ImageUploadModule } from 'angular2-image-upload';
 import { consoleLog, globals } from '../../../globals';
 
 const TF_UPLOAD_IMAGE_VALUE_ACCESSOR: any = {
@@ -35,13 +34,13 @@ export class TfUploadImageComponent implements ControlValueAccessor {
 
   selectedFile = null;
 
-  onUploadFinished(file: FileHolder) {
+  onUploadFinished(file: any) {
     consoleLog("onuploadfins")
     consoleLog(file);
     this.upload.emit(this.tfImageUpload);
   }
   
-  onRemoved(file: FileHolder) {
+  onRemoved(file: any) {
     consoleLog("onRemoved")
     consoleLog(file);
     this.remove.emit(file);

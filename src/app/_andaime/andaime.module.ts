@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ImageUploadModule } from 'angular2-image-upload';
+// import { ImageUploadModule } from 'angular2-image-upload';
 import { MaskDateDirective } from '../_directives/mask-date.directive';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgbDateMomentParserFormatter } from './tf-inputs/tf-date/ngb-date-moment-parser-formatter';
 import { NgbModule, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { NgxBrModule } from '@nbfontana/ngx-br';
-import { NgxCurrencyModule } from 'ngx-currency';
+// import { NgxBrModule } from '@nbfontana/ngx-br';
+// import { NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { DropdownService } from './services/dropdown.service';
@@ -49,15 +49,13 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     // BrowserModule,
     CommonModule,
     FormsModule,
-    HttpClientModule,
     ImageUploadModule.forRoot(),
     ModalModule,
     NgbDatepickerModule,   
     NgbModule,
     NgSelect2Module,
     NgSelectModule,
-    NgxBrModule.forRoot(),
-    NgxCurrencyModule,
+    NgxBrModule.forRoot()
     NgxMaskModule.forRoot(options), 
     ReactiveFormsModule,
     InlineSVGModule,
