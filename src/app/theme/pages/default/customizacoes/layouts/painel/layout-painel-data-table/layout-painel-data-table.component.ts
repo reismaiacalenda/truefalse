@@ -16,7 +16,7 @@ import { consoleLog } from '../../../../../../../globals';
 })
 export class LayoutPainelDataTableComponent implements OnInit {
   @ViewChild(DatatableComponent, {static: false}) minhaTable: DatatableComponent;
-  currentUser: User = this.workspaceService.currentUser;
+  currentUser: User;
   dados: any[];
   rows: any[];
   private apiUrl: string;
@@ -26,6 +26,7 @@ export class LayoutPainelDataTableComponent implements OnInit {
     private modalService: ModalService,
     public workspaceService: WorkspaceService,
     private domainService: DomainService) {
+    this.currentUser = this.workspaceService.currentUser;
     this.apiUrl = `${domainService.getApiUrl()}/layout_paineis`;
   }
 

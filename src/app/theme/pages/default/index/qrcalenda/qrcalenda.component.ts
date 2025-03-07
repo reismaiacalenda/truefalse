@@ -30,7 +30,7 @@ export class QrcalendaComponent implements OnInit {
   private reserva_id;
   private device;
   public teste;
-  private user: User = this.workspaceService.currentUser
+  private user: User;
   public videoDevices: MediaDeviceInfo[] = [];
   public OS:string = Helpers.getOS();
   @ViewChild('modal', {static: false}) public modal: ElementRef;
@@ -44,7 +44,8 @@ export class QrcalendaComponent implements OnInit {
     public workspaceService: WorkspaceService,
     private modalService: ModalService,
     private domainService: DomainService)  {
-      this.apiUrl = `${domainService.getApiUrl()}/qrcalenda`;
+    this.currentUser = this.workspaceService.currentUser;
+    this.apiUrl = `${domainService.getApiUrl()}/qrcalenda`;
   }
 
   ngOnInit() {

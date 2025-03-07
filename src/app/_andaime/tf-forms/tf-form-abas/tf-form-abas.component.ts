@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ElementRef, Output, AfterViewInit, ɵConsole, OnChanges } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { TfFormModalBaseComponent } from '../tf-form-modal-base.component';
 import { Observable } from 'rxjs';
@@ -9,7 +9,8 @@ import { consoleLog, globals } from '../../../globals';
 
 @Component({
   selector: 'tf-form-abas',
-  templateUrl: './tf-form-abas.component.html'
+  templateUrl: './tf-form-abas.component.html',
+  imports: [ReactiveFormsModule]
 })
 
 export class TfFormAbasComponent extends TfFormModalBaseComponent implements OnInit{

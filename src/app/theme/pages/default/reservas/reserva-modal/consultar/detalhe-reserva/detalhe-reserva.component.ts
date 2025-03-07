@@ -27,7 +27,7 @@ import { User } from '../../../../../../../auth/_models/user';
 export class DetalheReservaComponent implements OnInit, AfterViewInit {
   reserva:any;
   id;
-  currentUser: User = this.workspaceService.currentUser;
+  currentUser: User;
   public formService: FormService;
 
   constructor(public activeModal: NgbActiveModal,
@@ -40,6 +40,7 @@ export class DetalheReservaComponent implements OnInit, AfterViewInit {
   private headersService: HeadersService,
   private loadingService: LoadingService,
   public formBuilder: FormBuilder){
+    this.currentUser = this.workspaceService.currentUser;
     this.formService = new FormService(this.http,this.domainService,this.modalService,this.formBuilder,this.headersService, this.loadingService)
   }
 

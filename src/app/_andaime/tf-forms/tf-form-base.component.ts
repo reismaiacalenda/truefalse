@@ -24,7 +24,7 @@ export abstract class TfFormBaseComponent implements OnInit, AfterViewInit, Afte
   formulario:FormGroup;
   formularioPaiAdicional:FormGroup;
   abas:any[];
-  public currentUser: User = this.workspaceService.currentUser;
+  public currentUser: User;
   public formArrayName:string;
   public listDadosSelect={};
   public listCarousel;
@@ -49,6 +49,7 @@ export abstract class TfFormBaseComponent implements OnInit, AfterViewInit, Afte
     public renderer:Renderer2,
     public element:ElementRef
     ) {
+    this.currentUser = this.workspaceService.currentUser;
     Helpers.setLoading(true);
     this.formService = new FormService(this.http,this.domainService,this.modalService,this.formBuilder,this.headersService, this.loadingService)
   }

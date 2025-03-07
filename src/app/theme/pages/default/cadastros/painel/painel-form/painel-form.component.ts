@@ -32,7 +32,7 @@ export class PainelFormComponent implements OnInit {
   public listEspaco: any[];
   public listLocalizacaoFiltrada: any[];
   @ViewChild('espacos', {static: false}) espacos;
-  currentUser: User = this.workspaceService.currentUser
+  currentUser: User;
 
   constructor(private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -43,6 +43,7 @@ export class PainelFormComponent implements OnInit {
     private modalService: ModalService,
     private _script: ScriptLoaderService,
     private domainService: DomainService) {
+      this.currentUser = this.workspaceService.currentUser;
       this.apiUrl = `${domainService.getApiUrl()}/paineis`;
   }
 

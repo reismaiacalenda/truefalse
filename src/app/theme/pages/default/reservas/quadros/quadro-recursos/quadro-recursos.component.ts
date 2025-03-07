@@ -31,7 +31,7 @@ export class RecursoComponent implements OnInit, OnDestroy {
   servicos: any[];
   formularioRecursos: any;
   dataSelecionada: any;
-  public currentUser: User = this.workspaceService.currentUser;
+  public currentUser: User;
   public formArrayName:string;
   // public dia = (new Date).toLocaleDateString("PT");
 
@@ -46,7 +46,9 @@ export class RecursoComponent implements OnInit, OnDestroy {
     private webService: WebService,
     public modalService: ModalService,
     public workspaceService:WorkspaceService 
-    ){}
+    ){
+      this.currentUser = this.workspaceService.currentUser;
+  }
     // @Inject(DOCUMENT) private document: any
     // ) {
     // this.apiUrl = `${this.domainService.getApiUrl()}/recursos`;

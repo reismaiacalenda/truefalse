@@ -12,13 +12,13 @@ import { ImportarAgendaService } from "../../../../_services/importar-agenda.ser
 	encapsulation: ViewEncapsulation.None
 })
 export class ImportarAgendaComponent {
-	currentUser: User = this.workspaceService.currentUser
+	currentUser: User;
 
 	constructor(public webService: WebService,
 		public modalService: ModalService,
 		public workspaceService: WorkspaceService,
 		public importarAgendaService: ImportarAgendaService){
-
+		this.currentUser = this.workspaceService.currentUser;
 	}
 
 	importarAgenda(){

@@ -42,7 +42,7 @@ export class QuadroComponent implements OnInit, OnDestroy {
   primeiroHoraFim = moment().hour(parseInt(this.primeiroHoraInicio)+1).startOf('hour').format('HH:mm')
   timeoutID;
 
-  public currentUser: User = this.workspaceService.currentUser;
+  public currentUser: User;
   public formArrayName:string;
   // public dia = (new Date).toLocaleDateString("PT");
 
@@ -60,7 +60,9 @@ export class QuadroComponent implements OnInit, OnDestroy {
     public modalService: ModalService,
     public workspaceService:WorkspaceService,
     public importarAgendaService: ImportarAgendaService 
-    ){}
+    ){
+      this.currentUser = this.workspaceService.currentUser;
+    }
     // @Inject(DOCUMENT) private document: any
     // ) {
     // this.apiUrl = `${this.domainService.getApiUrl()}/espacos`;

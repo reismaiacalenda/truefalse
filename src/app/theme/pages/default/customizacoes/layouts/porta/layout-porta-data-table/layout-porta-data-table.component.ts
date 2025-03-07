@@ -17,7 +17,7 @@ import { consoleLog } from '../../../../../../../globals';
 })
 export class LayoutPortaDataTableComponent implements OnInit {
   @ViewChild(DatatableComponent, {static: false}) minhaTable: DatatableComponent;
-  currentUser: User = this.workspaceService.currentUser
+  currentUser: User;
   dados: any[];
   rows: any[];
   private apiUrl: string;
@@ -27,6 +27,7 @@ export class LayoutPortaDataTableComponent implements OnInit {
     public workspaceService: WorkspaceService,
     private modalService: ModalService,
     private domainService: DomainService) {
+    this.currentUser = this.workspaceService.currentUser;
     this.apiUrl = `${domainService.getApiUrl()}/layouts`;
   }
 

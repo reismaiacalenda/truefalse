@@ -29,7 +29,7 @@ export class EspontaneaModalComponent implements OnInit {
   @ViewChild('organizadores', {static: false}) organizadores;
   @ViewChild('espacos', {static: false}) espacos;
   @ViewChild('turmas', {static: false}) turmas;
-  public user: User = this.workspaceService.currentUser;
+  public user: User;
   public organizador: string;
   public autor: string;
   public reserva;
@@ -42,6 +42,7 @@ export class EspontaneaModalComponent implements OnInit {
     public workspaceService: WorkspaceService,
     private _script: ScriptLoaderService,
     private domainService: DomainService) {
+    this.user = this.workspaceService.currentUser;
     this.apiUrl = `${domainService.getApiUrl()}/qrcalenda`;
 
     this.reserva = {

@@ -24,7 +24,7 @@ import { ImportarAgendaService } from '../../../../../_services/importar-agenda.
 })
 export class MapaInterativoComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  public currentUser: User = this.workspaceService.currentUser;
+  public currentUser: User;
   public localizacoes:any[];
   public currentLocalizacaoId;
   esconderPlanta: boolean = false;
@@ -97,6 +97,7 @@ export class MapaInterativoComponent implements OnInit, AfterViewInit, OnDestroy
     public modalService:ModalService,
     public workspaceService:WorkspaceService,
     public importarAgendaService:ImportarAgendaService) {
+    this.currentUser = this.workspaceService.currentUser;
   }
 
   ngOnInit() {

@@ -20,13 +20,14 @@ export class EmpresaDataTableComponent implements OnInit {
   dados: any[];
   rows: any[];
   private apiUrl: string;
-  public currentUser: User = this.workspaceService.currentUser
+  public currentUser: User;
 
   constructor(private modalNgb: NgbModal,
     private http: HttpClient,
     public workspaceService: WorkspaceService,
     private modalService: ModalService,
     private domainService: DomainService) {
+    this.currentUser = this.workspaceService.currentUser;
     this.apiUrl = `${domainService.getApiUrl()}/empresas`
   }
 

@@ -10,13 +10,15 @@ import { WorkspaceService } from './workspace.service';
   providedIn: 'root'
 })
 export class ImportarAgendaService {
-  currentUser: User = this.workspaceService.currentUser
+  currentUser: User;
   private notificarImportacao = new BehaviorSubject<number>(0);
   observarImportacao$ = this.notificarImportacao.asObservable();
   
   constructor(public webService: WebService,
 		public modalService: ModalService,
-		public workspaceService: WorkspaceService) { }
+		public workspaceService: WorkspaceService) { 
+      this.currentUser = this.workspaceService.currentUser;
+    }
 
   baixarAgenda(){
     Helpers.setLoading(true);

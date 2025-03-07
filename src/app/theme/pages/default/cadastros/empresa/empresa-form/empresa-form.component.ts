@@ -30,7 +30,7 @@ export class EmpresaFormComponent implements OnInit, AfterViewInit{
   public isDataAvailable: boolean = false;
   public isListAvailable:boolean = false;
   public maskDinamico = "00.000.000/0000-00";//"000.000.000-009";
-  public currentUser: User = this.workspaceService.currentUser
+  public currentUser: User;
   empresa = {
     nome: null,
     razao_social: null,
@@ -65,6 +65,7 @@ export class EmpresaFormComponent implements OnInit, AfterViewInit{
     private _script: ScriptLoaderService,
     private workspaceService: WorkspaceService,
     private domainService: DomainService) {
+    this.currentUser = this.workspaceService.currentUser;
     this.apiUrl = `${domainService.getApiUrl()}/empresas`;
   }
   

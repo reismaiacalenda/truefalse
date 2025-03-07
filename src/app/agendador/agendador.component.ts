@@ -29,7 +29,7 @@ export class AgendadorComponent implements OnInit, AfterViewInit {
   private subscriptions: Subscription = new Subscription();
   jornal: any;
 
-  public currentUser: User = this.workspaceService.currentUser;
+  public currentUser: User;
   habilitarCalendario: boolean = true;
   habilitarContactForm: boolean = false;
   habilitarItsAMatch: boolean = false;
@@ -68,6 +68,7 @@ export class AgendadorComponent implements OnInit, AfterViewInit {
     private _route: ActivatedRoute,
     public formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute) {
+      this.currentUser = this.workspaceService.currentUser;
       this.monthDiv = document.querySelector('.cal-month__current')
       this.headDivs = document.querySelectorAll('.cal-head__day')
       this.bodyDivs = document.querySelectorAll('.cal-body__day')

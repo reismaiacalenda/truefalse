@@ -33,7 +33,7 @@ export class PessoaComponent implements OnInit, OnDestroy {
   grupos: any[];
   formularioPessoas: any;
   dataSelecionada: any;
-  public currentUser: User = this.workspaceService.currentUser;
+  public currentUser: User;
   public formArrayName:string;
   flagInicioInscricao = false;
   // public dia = (new Date).toLocaleDateString("PT");
@@ -52,7 +52,9 @@ export class PessoaComponent implements OnInit, OnDestroy {
     public modalService: ModalService,
     public workspaceService:WorkspaceService,
     public importarAgendaService:ImportarAgendaService
-    ){}
+    ){
+      this.currentUser = this.workspaceService.currentUser;
+    }
     // @Inject(DOCUMENT) private document: any
     // ) {
     // this.apiUrl = `${this.domainService.getApiUrl()}/pessoas`;

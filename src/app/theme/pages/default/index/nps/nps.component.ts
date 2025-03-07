@@ -14,7 +14,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class NPSComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription = new Subscription();
-  currentUser: User = this.workspaceService.currentUser;
+  currentUser: User;
   notas:number[] = [];
   pagina = 1;
   @Input() data;
@@ -28,6 +28,7 @@ export class NPSComponent implements OnInit, OnDestroy {
     public formBuilder: FormBuilder,
     public webService: WebService,
     public workspaceService: WorkspaceService) {
+    this.currentUser = this.workspaceService.currentUser;
     this.notas = new Array<number>(11);
   }
 

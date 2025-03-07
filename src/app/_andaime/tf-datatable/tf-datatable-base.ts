@@ -16,7 +16,7 @@ import { LoadingService } from '../../_services/loading.service';
 
 export abstract class TfDatatableBase implements OnInit, OnDestroy {
   @ViewChild(DatatableComponent, {static: false}) minhaTable: DatatableComponent;
-  currentUser: User = this.workspaceService.currentUser;
+  currentUser: User;
   abstract entidade: String;
   abstract contentFormModal: any;
   contentModalAdicional: any;
@@ -50,6 +50,7 @@ export abstract class TfDatatableBase implements OnInit, OnDestroy {
     public gerarQrCodeService: GerarQrCodeModalService,
     public route: ActivatedRoute,
     public loadingService: LoadingService) {
+      this.currentUser = this.workspaceService.currentUser;
       this.loadingService.addRequest();
   }
 
