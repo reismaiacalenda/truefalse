@@ -31,7 +31,8 @@ declare let mLayout: any;
 	selector: "app-header-nav",
 	templateUrl: "./header-nav.component.html",
   styleUrls: ['./header-nav.component.scss'],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	standalone: false
 })
 export class HeaderNavComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
 	private currentUser: any;

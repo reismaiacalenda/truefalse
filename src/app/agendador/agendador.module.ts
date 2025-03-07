@@ -5,8 +5,6 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
-import { NgxIpModule } from 'ngx-ip';
 // import { RecursosAlocadosDataTableComponent } from './recursos-alocados-data-table/recursos-alocados-data-table.component';
 // import { RecursosAlocadosComponent } from './recursos-alocados.component';
 import { InlineSVGModule } from 'ng-inline-svg-2';
@@ -41,7 +39,6 @@ const routes: Routes = [
         // Ng2AutoCompleteModule,
         ReactiveFormsModule,
         LayoutModule,
-        HttpClientModule,
         // NgxDatatableModule,
         RouterModule.forChild(routes),
         NgbModule,
@@ -54,9 +51,9 @@ const routes: Routes = [
     ], exports: [
         RouterModule
     ],
-    entryComponents: [
-        ContactFormComponent
-    ],
+    // entryComponents: [
+    //     ContactFormComponent
+    // ],
     providers: [
     // ModalService,
     // CheckModalService
