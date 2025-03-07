@@ -15,7 +15,7 @@ import { RodapeReservarComponent } from './rodape-reservar/rodape-reservar.compo
 import { RodapeDetalheReservaComponent } from './rodape-detalhe-reserva/rodape-detalhe-reserva.component';
 import { RodapeEspacoBloqueadoComponent } from './rodape-espaco-bloqueado/rodape-espaco-bloqueado.component';
 import { ModalService } from '../../modal/modal.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MapaModalFormComponent } from './mapa-modal/mapa-modal-form.component';
 import { ReservaModalService } from '../reserva-modal/reserva-modal.service';

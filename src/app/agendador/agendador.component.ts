@@ -1,6 +1,6 @@
 import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 import { WorkspaceService } from '../_services/workspace.service';
 import { WebService } from '../_services/web.service';
 import { ActivatedRoute } from '@angular/router';

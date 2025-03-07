@@ -1,5 +1,5 @@
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Injectable } from '@angular/core';
 
 @Injectable()

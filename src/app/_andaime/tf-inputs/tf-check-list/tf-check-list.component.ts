@@ -1,6 +1,7 @@
 import { Component, Input, forwardRef, AfterViewInit, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { globals } from '../../../globals';
+import { CommonModule } from '@angular/common';
 
 const TF_CHECK_LIST_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,7 +12,8 @@ const TF_CHECK_LIST_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'tf-check-list',
   templateUrl: './tf-check-list.component.html',
-  providers: [TF_CHECK_LIST_VALUE_ACCESSOR]
+  providers: [TF_CHECK_LIST_VALUE_ACCESSOR],
+  imports: [CommonModule, FormsModule]
 })
 
 export class TfCheckListComponent implements ControlValueAccessor {

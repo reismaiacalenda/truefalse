@@ -7,7 +7,7 @@ import { CalendarComponent } from 'ng-fullcalendar';
 import { Options } from 'fullcalendar';
 import { ModalService } from '../../modal/modal.service';
 import { ModalDismissReasons, NgbDateStruct, NgbModal, NgbActiveModal, NgbModalOptions } from "@ng-bootstrap/ng-bootstrap";
-import * as moment from 'moment';
+import moment from 'moment';
 import { User } from '../../../../../auth/_models';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { WebService } from '../../../../../_services/web.service';

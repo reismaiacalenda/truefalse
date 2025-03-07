@@ -17,7 +17,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CheckModalService } from '../../checks-modal/check-modal.service';
 import { ImportarAgendaService } from '../../../../../../_services/importar-agenda.service';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 // declare function bindQuadro(): any;
 // declare function closeQuadro(): any;
 

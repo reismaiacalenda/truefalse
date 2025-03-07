@@ -1,5 +1,5 @@
 import { Component, Input, forwardRef, AfterViewInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { globals } from '../../../globals';
 
 const TF_CHECK_BOX_VALUE_ACCESSOR: any = {
@@ -11,7 +11,8 @@ const TF_CHECK_BOX_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'tf-check-box',
   templateUrl: './tf-check-box.component.html',
-  providers: [TF_CHECK_BOX_VALUE_ACCESSOR]
+  providers: [TF_CHECK_BOX_VALUE_ACCESSOR],
+  imports: [FormsModule]
 })
 
 export class TfCheckBoxComponent implements ControlValueAccessor {

@@ -6,7 +6,7 @@ import { ReservaModalService } from '../reserva-modal.service';
 // import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 // import { Helpers } from '../../../../../../helpers';
 import { consoleLog } from '../../../../../../globals';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'recorrencia-form',

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { Helpers } from '../../../../../helpers';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 import { WorkspaceService } from '../../../../../_services/workspace.service';
 import { consoleLog } from '../../../.././../globals';
 

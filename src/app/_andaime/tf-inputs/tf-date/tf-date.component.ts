@@ -1,8 +1,9 @@
 import { Component, Input, forwardRef, ViewChild, ElementRef, OnInit, AfterViewInit, EventEmitter, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgbDate, NgbModule, NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateMomentParserFormatter } from './ngb-date-moment-parser-formatter';
 import { consoleLog, globals } from '../../../globals';
+import { CommonModule } from '@angular/common';
 
 
 const TF_DATE_VALUE_ACCESSOR: any = {
@@ -15,7 +16,8 @@ const TF_DATE_VALUE_ACCESSOR: any = {
   selector: 'tf-date',
   templateUrl: './tf-date.component.html',
   //styleUrls: ['./input-field.component.css'],
-  providers: [TF_DATE_VALUE_ACCESSOR]
+  providers: [TF_DATE_VALUE_ACCESSOR],
+  imports: [CommonModule, FormsModule, NgbModule]
 })
 
 export class TfDateComponent implements ControlValueAccessor{

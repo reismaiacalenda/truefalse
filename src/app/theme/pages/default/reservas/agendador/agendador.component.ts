@@ -2,7 +2,7 @@ import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, Elemen
 import { ReservaModalService } from '../reserva-modal/reserva-modal.service';
 import { WorkspaceService } from '../../../../../_services/workspace.service';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ModalService } from '../../modal/modal.service';
 import { consoleLog } from '../../../../../globals';
 

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Helpers } from '../../../../../../helpers';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'mini-calendar',

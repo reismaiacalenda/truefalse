@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { Helpers } from '../../../helpers';
 import { globals } from '../../../globals';
@@ -9,7 +9,8 @@ import { LoadingService } from '../../../_services/loading.service';
 
 @Component({
   selector: 'tf-form-simples',
-  templateUrl: './tf-form-simples.component.html'
+  templateUrl: './tf-form-simples.component.html',
+  imports: [ReactiveFormsModule]
 })
 
 export class TfFormSimplesComponent {

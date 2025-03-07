@@ -4,7 +4,7 @@ import { ReservaModalService } from '../../reserva-modal/reserva-modal.service';
 import { Subscription } from 'rxjs';
 import { ModalService } from '../../../modal/modal.service';
 import { WebService } from '../../../../../../_services/web.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { AdicionarCalendarioPessoaComponent } from '../adicionar-calendario-pessoa/adicionar-calendario-pessoa.component';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { AdicionarCalendarioSalaComponent } from '../adicionar-calendario-sala/adicionar-calendario-sala.component';
