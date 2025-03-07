@@ -34,13 +34,14 @@ export class TfDatatableCabecalhoComponent implements OnInit {
   @Output() print = new EventEmitter();
   @Input() pesquisarPor: string;
 
-  formulario= this.formBuilder.group({
-    data: [null]
-  })
+  formulario;
 
   constructor(public _script: ScriptLoaderService,
     public formBuilder: FormBuilder
     ){
+    this.formulario= this.formBuilder.group({
+      data: [null]
+    })
 
   }
 

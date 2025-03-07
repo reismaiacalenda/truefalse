@@ -14,7 +14,7 @@ import { OcupadaModalComponent } from './ocupada-modal/ocupada-modal.component';
 import { EspontaneaModalComponent } from './espontanea-modal/espontanea-modal.component';
 import { CameraModalComponent } from './camera-modal/camera-modal.component';
 import { CelularModalComponent } from './celular-modal/celular-modal.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { AndaimeModule } from '../../../../../_andaime/andaime.module';
 
 const routes: Routes = [

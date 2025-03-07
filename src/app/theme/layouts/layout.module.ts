@@ -11,49 +11,47 @@ import { RouterModule } from '@angular/router';
 import { HrefPreventDefaultDirective } from '../../_directives/href-prevent-default.directive';
 import { UnwrapTagDirective } from '../../_directives/unwrap-tag.directive';
 import { ModalService } from '../pages/default/modal/modal.service';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { ReservaModalService } from '../pages/default/reservas/reserva-modal/reserva-modal.service';
 import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ImportarAgendaComponent } from './header-nav/importar-agenda/importar-agenda.component';
 import { LoadingSpinComponent } from './loading-spin/loading-spin.component';
 
 @NgModule({
-  declarations: [
-    LayoutComponent,
-    HeaderNavComponent,
-    ImportarAgendaComponent,
-    DefaultComponent,
-    AsideNavComponent,
-    FooterComponent,
-    QuickSidebarComponent,
-    LoadingSpinComponent,
-    ScrollTopComponent,
-    HrefPreventDefaultDirective,
-    UnwrapTagDirective,
-  ],
-  exports: [
-    LayoutComponent,
-    HeaderNavComponent,
-    ImportarAgendaComponent,
-    DefaultComponent,
-    AsideNavComponent,
-    FooterComponent,
-    QuickSidebarComponent,
-    LoadingSpinComponent,
-    ScrollTopComponent,
-    HrefPreventDefaultDirective,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    InlineSVGModule.forRoot(),
-    NgbDropdownModule,
-    NgbModule
-  ],
-  providers: [
-    ModalService,
-    ReservaModalService
-  ]
+    exports: [
+        LayoutComponent,
+        HeaderNavComponent,
+        ImportarAgendaComponent,
+        DefaultComponent,
+        AsideNavComponent,
+        FooterComponent,
+        QuickSidebarComponent,
+        LoadingSpinComponent,
+        ScrollTopComponent,
+        HrefPreventDefaultDirective,
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        InlineSVGModule.forRoot(),
+        NgbDropdownModule,
+        NgbModule,
+        LayoutComponent,
+        HeaderNavComponent,
+        ImportarAgendaComponent,
+        DefaultComponent,
+        AsideNavComponent,
+        FooterComponent,
+        QuickSidebarComponent,
+        LoadingSpinComponent,
+        ScrollTopComponent,
+        HrefPreventDefaultDirective,
+        UnwrapTagDirective
+    ],
+    providers: [
+        ModalService,
+        ReservaModalService
+    ]
 })
 export class LayoutModule {
 }

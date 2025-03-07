@@ -16,7 +16,7 @@ import { AndaimeModule } from '../../../../_andaime/andaime.module';
 // import { RecursosAlocadosComponent } from './recursos-alocados.component';
 import { CheckModalService } from '../reservas/checks-modal/check-modal.service';
 import { CustomizacoesComponent } from './customizacoes.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { WhitelabelFormComponent } from './whitelabel-form/whitelabel-form.component';
 const routes: Routes = [

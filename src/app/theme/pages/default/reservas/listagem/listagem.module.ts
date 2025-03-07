@@ -20,7 +20,7 @@ import { AndaimeModule } from '../../../../../_andaime/andaime.module';
 import { NgxCollapseModule } from 'ngx-collapse';
 import { ReservaModalService } from '../reserva-modal/reserva-modal.service';
 import { CheckModalService } from '../checks-modal/check-modal.service';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { AgendarDropdownModule } from '../agendar-dropdown/agendar-dropdown.module';
 // import { AgendaModule } from '../agenda/agenda.module';
 // import { AgendaFormComponent } from '../agenda/agenda-form/agenda-form.component';

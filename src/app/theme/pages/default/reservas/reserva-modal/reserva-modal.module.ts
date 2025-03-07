@@ -24,7 +24,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { RecorrenciaFormComponent } from './recorrencia/recorrencia-form.component';
 import { PegarEquipamentoComponent } from './acoes/pegar-equipamento/pegar-equipamento.component';
 import { MapaModalFormComponent } from '../mapa/mapa-modal/mapa-modal-form.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { PessoaPegarEquipamentoComponent } from './acoes/pegar-equipamento/pessoa-pegar-equipamento.component';
 import { CheckupCovidFormComponent } from '../../cadastros/checkups/checkup-covid-form/checkup-covid-form.component';
 import { VacinadoFormComponent } from '../../cadastros/checkups/vacinado-form/vacinado-form.component';

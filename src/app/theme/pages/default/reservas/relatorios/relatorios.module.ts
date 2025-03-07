@@ -15,7 +15,7 @@ import { AndaimeModule } from '../../../../../_andaime/andaime.module';
 // import { RecursosAlocadosDataTableComponent } from './recursos-alocados-data-table/recursos-alocados-data-table.component';
 // import { RecursosAlocadosComponent } from './recursos-alocados.component';
 import { CheckModalService } from '../checks-modal/check-modal.service';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { RelatoriosComponent } from './relatorios.component';
 const routes: Routes = [
   {

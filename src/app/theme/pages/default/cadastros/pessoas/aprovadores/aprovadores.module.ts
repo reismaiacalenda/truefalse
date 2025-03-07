@@ -16,7 +16,7 @@ import { ModalModule } from '../../../modal/modal.module';
 import { AndaimeModule } from '../../../../../../_andaime/andaime.module';
 import { ModalService } from '../../../modal/modal.service';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 // import { DataTableModule } from 'angular-4-data-table/src/index';
 // import { DataTableDemo2 } from './demo2/data-table-demo2';
 // import { ConsoleService } from '@ng-select/ng-select/lib/console.service';

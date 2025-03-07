@@ -9,7 +9,7 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { NgxIpModule } from 'ngx-ip';
 // import { RecursosAlocadosDataTableComponent } from './recursos-alocados-data-table/recursos-alocados-data-table.component';
 // import { RecursosAlocadosComponent } from './recursos-alocados.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { AgendadorComponent } from './agendador.component';
 import { LayoutModule } from '../theme/layouts/layout.module';
 import { DefaultComponent } from '../theme/pages/default/default.component';
@@ -35,32 +35,31 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    // Ng2AutoCompleteModule,
-    ReactiveFormsModule,
-    LayoutModule,
-    HttpClientModule,
-    // NgxDatatableModule,
-    RouterModule.forChild(routes),
-    NgbModule,
-    // NgxIpModule,
-    ModalModule,
-    AndaimeModule,
-    InlineSVGModule
-  ], exports: [
-    RouterModule
-  ], declarations: [
-    AgendadorComponent,
-    ContactFormComponent
-  ],
-  entryComponents: [
-    ContactFormComponent
-  ],
-  providers: [
+    imports: [
+        CommonModule,
+        FormsModule,
+        // Ng2AutoCompleteModule,
+        ReactiveFormsModule,
+        LayoutModule,
+        HttpClientModule,
+        // NgxDatatableModule,
+        RouterModule.forChild(routes),
+        NgbModule,
+        // NgxIpModule,
+        ModalModule,
+        AndaimeModule,
+        InlineSVGModule,
+        AgendadorComponent,
+        ContactFormComponent
+    ], exports: [
+        RouterModule
+    ],
+    entryComponents: [
+        ContactFormComponent
+    ],
+    providers: [
     // ModalService,
     // CheckModalService
-  ]
+    ]
 })
 export class AgendadorModule { }

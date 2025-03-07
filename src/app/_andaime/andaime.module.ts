@@ -8,7 +8,7 @@ import { NgbDateMomentParserFormatter } from './tf-inputs/tf-date/ngb-date-momen
 import { NgbModule, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 // import { NgxBrModule } from '@nbfontana/ngx-br';
 // import { NgxCurrencyModule } from 'ngx-currency';
-import { NgxMaskModule, IConfig } from 'ngx-mask';
+// import { NgxMaskModule, IConfig } from 'ngx-mask';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { DropdownService } from './services/dropdown.service';
 // import { CampoControlErroComponent } from './campo-control-erro/campo-control-erro.component';
@@ -17,7 +17,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 // import { BaseFormComponent } from './base-form/base-form.component';
 import { ModalModule } from '../theme/pages/default/modal/modal.module';
 import { ModalService } from '../theme/pages/default/modal/modal.service';
-import { NgSelect2Module } from 'ng-select2';
+// import { NgSelect2Module } from 'ng-select2';
 // import { NgSelectModule } from '@ng-select/ng-select';
 import { TfCheckBoxComponent } from './tf-inputs/tf-check-box/tf-check-box.component';
 import { TfCheckListComponent } from './tf-inputs/tf-check-list/tf-check-list.component';
@@ -38,78 +38,78 @@ import { TfSelectSimpleComponent } from './tf-inputs/tf-select-simple/tf-select-
 import { TfDatatableCabecalhoComponent } from './tf-datatable/tf-datatable-cabecalho/tf-datatable-cabecalho.component';
 import { TfSelectMultiComponent } from './tf-inputs/tf-select-multi/tf-select-multi.component';
 import { TfSelectEmailComponent } from './tf-inputs/tf-select-email/tf-select-email.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { RouterModule } from '@angular/router';
-import { NgSelectModule } from '@ng-select/ng-select';
+// import { NgSelectModule } from '@ng-select/ng-select';
 
-export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
+// export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 @NgModule({
   imports: [
     // BrowserModule,
     CommonModule,
     FormsModule,
-    ImageUploadModule.forRoot(),
-    ModalModule,
-    NgbDatepickerModule,   
-    NgbModule,
-    NgSelect2Module,
-    NgSelectModule,
-    NgxBrModule.forRoot()
-    NgxMaskModule.forRoot(options), 
+    // ImageUploadModule.forRoot(),
+    // ModalModule,
+    // NgbDatepickerModule,   
+    // NgbModule,
+    // NgSelect2Module,
+    // NgSelectModule,
+    // NgxBrModule.forRoot()
+    // NgxMaskModule.forRoot(options), 
     ReactiveFormsModule,
     InlineSVGModule,
-    RouterModule
+    RouterModule,
   ],
   declarations: [
     // CampoControlErroComponent,
     // ErrorMsgComponent,
     // FormDebugComponent,
-    MaskDateDirective,
-    TfCheckBoxComponent,
-    TfCheckListComponent,
-    TfDatatableCabecalhoComponent,
-    TfDateComponent,
-    TfFloatComponent,
-    TfFormSimplesComponent,
-    TfFormAbasComponent,
-    TfUploadImageComponent,
-    TfIntegerComponent,
-    TfMoneyComponent,    
-    TfPageFaqComponent,
-    TfPageMapComponent, 
-    TfRadioButtonComponent,
-    TfSelectEmailComponent,
-    TfSelectMultiComponent,
-	  TfSelectSimpleComponent,
-    TfTextAreaComponent,
-    TfTextSimpleComponent,
-    TfTimeComponent,
+    // MaskDateDirective,
+    // TfCheckBoxComponent,
+    // TfCheckListComponent,
+    // TfDatatableCabecalhoComponent,
+    // TfDateComponent,
+    // TfFloatComponent,
+    // TfFormSimplesComponent,
+    // TfFormAbasComponent,
+    // TfUploadImageComponent,
+    // TfIntegerComponent,
+    // TfMoneyComponent,    
+    // TfPageFaqComponent,
+    // TfPageMapComponent, 
+    // TfRadioButtonComponent,
+    // TfSelectEmailComponent,
+    // TfSelectMultiComponent,
+	  // TfSelectSimpleComponent,
+    // TfTextAreaComponent,
+    // TfTextSimpleComponent,
+    // TfTimeComponent,
   ],
   exports: [
     // CampoControlErroComponent,
     // ErrorMsgComponent,
     // FormDebugComponent, 
-    MaskDateDirective, 
-    TfCheckBoxComponent,
-    TfCheckListComponent,
-    TfDatatableCabecalhoComponent,
-    TfDateComponent,
-    TfFloatComponent,
-    TfFormAbasComponent,
-    TfFormSimplesComponent,
-    TfUploadImageComponent,
-    TfIntegerComponent,
-    TfMoneyComponent,    
-    TfPageFaqComponent,
-    TfPageMapComponent, 
-    TfRadioButtonComponent,
-    TfSelectEmailComponent,
-    TfSelectMultiComponent,
-    TfSelectSimpleComponent,
-    TfTextAreaComponent,
-    TfTextSimpleComponent,
-    TfTimeComponent,
+    // MaskDateDirective, 
+    // TfCheckBoxComponent,
+    // TfCheckListComponent,
+    // TfDatatableCabecalhoComponent,
+    // TfDateComponent,
+    // TfFloatComponent,
+    // TfFormAbasComponent,
+    // TfFormSimplesComponent,
+    // TfUploadImageComponent,
+    // TfIntegerComponent,
+    // TfMoneyComponent,    
+    // TfPageFaqComponent,
+    // TfPageMapComponent, 
+    // TfRadioButtonComponent,
+    // TfSelectEmailComponent,
+    // TfSelectMultiComponent,
+    // TfSelectSimpleComponent,
+    // TfTextAreaComponent,
+    // TfTextSimpleComponent,
+    // TfTimeComponent,
     ],
   providers: [ 
     NgbDateMomentParserFormatter,

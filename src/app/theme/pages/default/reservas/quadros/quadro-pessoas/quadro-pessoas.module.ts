@@ -19,7 +19,7 @@ import { CheckModalService } from '../../checks-modal/check-modal.service';
 import { CheckModalModule } from '../../checks-modal/check-modal.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CollapseBarComponent } from './collapse-bar/collapse-bar.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 
 const routes: Routes = [
   {

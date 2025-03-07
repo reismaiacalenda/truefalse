@@ -18,7 +18,7 @@ import { ModalModule } from '../../../modal/modal.module';
 import { ModalService } from '../../../modal/modal.service';
 import { AndaimeModule } from '../../../../../../_andaime/andaime.module';
 import { EspacoFormLoteComponent } from './espaco-form-lote/espaco-form-lote.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { AmenitiesInstalledModule } from '../amenities-installed/amenities-installed.module';
 
 const routes: Routes = [

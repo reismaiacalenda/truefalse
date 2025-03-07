@@ -1,7 +1,6 @@
 import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { inputSelection } from 'ngx-ip/src/utils';
 import { consoleLog, globals } from '../../../globals';
 import { Subject } from 'rxjs';
 

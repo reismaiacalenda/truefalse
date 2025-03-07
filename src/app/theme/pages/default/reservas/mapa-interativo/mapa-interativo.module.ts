@@ -17,7 +17,7 @@ import { AndaimeModule } from '../../../../../_andaime/andaime.module';
 // import { PreviewFurnitureComponent } from './preview-furniture/preview-furniture.component';
 // import { ChairsLayoutComponent } from './chairs-layout/chairs-layout.component';
 // import { PlantaService } from './planta.service';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { MapaInterativoComponent } from './mapa-interativo.component';
 import { FiltrosVisualizacaoModule } from '../filtros-visualizacao/filtros-visualizacao.module';
 import { CardComponent } from './card/card.component';

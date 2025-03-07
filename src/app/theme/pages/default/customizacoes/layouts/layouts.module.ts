@@ -9,7 +9,7 @@ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { NgxIpModule } from 'ngx-ip';
 // import { RecursosAlocadosDataTableComponent } from './recursos-alocados-data-table/recursos-alocados-data-table.component';
 // import { RecursosAlocadosComponent } from './recursos-alocados.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { LayoutsComponent } from './layouts.component';
 import { DefaultComponent } from '../../default.component';
 import { LayoutModule } from '../../../../layouts/layout.module';

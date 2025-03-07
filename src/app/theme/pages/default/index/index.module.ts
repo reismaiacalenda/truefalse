@@ -6,7 +6,7 @@ import { IndexComponent } from './index.component';
 import { DefaultComponent } from '../default.component';
 import { ModalService } from '../modal/modal.service';
 import { ModalModule } from '../modal/modal.module';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { JornalComponent } from './jornal/jornal.component';
 import { QrcalendaComponent } from './qrcalenda/qrcalenda.component';
 import { TrialComponent } from './trial/trial.component';

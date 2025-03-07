@@ -9,10 +9,9 @@ import { RouterTestingModule } from "@angular/router/testing";
 describe('User ovo do lucas Component:', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [LocalizacaoFormComponent],
-      imports:[AndaimeModule,RouterTestingModule],
-      providers:[ModalService]
-    }).compileComponents();
+    imports: [AndaimeModule, RouterTestingModule, LocalizacaoFormComponent],
+    providers: [ModalService]
+}).compileComponents();
   });
   it('should do nothing', () => {
     expect().nothing();

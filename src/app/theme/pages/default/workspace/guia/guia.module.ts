@@ -16,7 +16,7 @@ import { ModalModule } from '../../modal/modal.module';
 import { ModalService } from '../../modal/modal.service';
 import { AndaimeModule } from '../../../../../_andaime/andaime.module';
 import { GuiaComponent } from './guia.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 
 const routes: Routes = [
   {

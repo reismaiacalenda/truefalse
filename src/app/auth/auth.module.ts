@@ -34,7 +34,7 @@ import { WorkspaceDescobrirComponent } from './workspaces/acessar/descobrir/work
 import { NgxMaskModule } from 'ngx-mask';
 import { ModalService } from '../theme/pages/default/modal/modal.service';
 import { WorkspaceResetPasswordSentComponent } from "./workspaces/acessar/publico_signin/reset_password_sent/workspace_reset_password_sent.component";
-import { InlineSVGModule } from "ng-inline-svg";
+import { InlineSVGModule } from "ng-inline-svg-2";
 import { WorkspacePasswordChangedComponent } from "./workspaces/acessar/publico_signin/password_changed/workspace_password_changed.component";
 
 @NgModule({

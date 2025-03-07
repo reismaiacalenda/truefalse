@@ -18,7 +18,7 @@ import { ReservaModalService } from '../../reserva-modal/reserva-modal.service';
 import { CheckModalService } from '../../checks-modal/check-modal.service';
 import { CheckModalModule } from '../../checks-modal/check-modal.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { CollapseBarComponent } from './collapse-bar/collapse-bar.component';
 
 const routes: Routes = [
