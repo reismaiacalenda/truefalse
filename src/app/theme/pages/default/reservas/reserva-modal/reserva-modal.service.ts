@@ -5,7 +5,7 @@
 // import { TreeModalComponent } from "./tree-modal/tree-modal.component";
 import { Injectable } from "@angular/core";
 import { NgbModal, NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
-import { Observable } from "rxjs/Observable";
+import { Observable } from "rxjs";
 import { HttpErrorResponse } from '@angular/common/http';
 import { Helpers } from '../../../../../helpers';
 import { ReservaModalSimplesFormComponent } from './reserva-modal-simples/reserva-modal-simples-form.component';
