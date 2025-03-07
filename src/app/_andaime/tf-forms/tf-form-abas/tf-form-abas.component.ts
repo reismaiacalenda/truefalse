@@ -10,7 +10,7 @@ import { consoleLog, globals } from '../../../globals';
 @Component({
   selector: 'tf-form-abas',
   templateUrl: './tf-form-abas.component.html',
-  imports: [ReactiveFormsModule]
+  standalone: false
 })
 
 export class TfFormAbasComponent extends TfFormModalBaseComponent implements OnInit{

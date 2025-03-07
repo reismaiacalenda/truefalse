@@ -1,85 +1,61 @@
 import { Component, Input, forwardRef, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgModule } from '@angular/core';
 import { consoleLog, globals } from '../../../globals';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
-const TF_TIME_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => TfTimeComponent),
-  multi: true
-};
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'tf-time',
   templateUrl: './tf-time.component.html',
-  //styleUrls: ['./input-field.component.css'],
-  providers: [TF_TIME_VALUE_ACCESSOR],
-  standalone: false
+  standalone: false,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TfTimeComponent),
+      multi: true
+    }
+  ]
 })
-
 export class TfTimeComponent implements ControlValueAccessor {
-  @Input() mask: string;
-  @Input() classeCss;
-  @Input() id: string;
-  @Input() label: string;
+  @Input() mask?: string;
+  @Input() classeCss?: string;
+  @Input() id?: string;
+  @Input() label?: string;
   @Input() type = 'text';
-  @Input() placeholder: string;
-  @Input() desabilitar: boolean = false;
-  @Input() retirarLabel: boolean = false;
-  @Input() step:string =  '60';
-  @Input() tooltip: string;
-  @Output() valorModificado = new EventEmitter();
-  customInput : Subject<string> = new Subject();
+  @Input() placeholder?: string;
+  @Input() desabilitar = false;
+  @Input() retirarLabel = false;
+  @Input() step = '60';
+  @Input() tooltip?: string;
+  @Output() valorModificado = new EventEmitter<string>();
+  
+  private customInput = new Subject<string>();
+  private innerValue = "00:00";
+  debugGlobal = globals.debug;
 
-
-  // @Input() isReadOnly = false;
-  // @Input() control;
-
-  // timepickerVisible = false;
-  // mytime: Date;
-
-    this.customInput.pipe(debounceTime(600), distinctUntilChanged()).subscribe(value =>{
-    this.customInput.debounceTime(600).distinctUntilChanged().subscribe(value =>{
+  constructor() {
+    this.customInput.pipe(
+      debounceTime(600),
+      distinctUntilChanged()
+    ).subscribe(value => {
       this.valorModificado.emit(value);
-   });  }
-
-  private innerValue: any = "00:00";
+    });
+  }
 
   get value() {
     return this.innerValue;
   }
 
   set value(v: any) {
-    // consoleLog('oi?')
-    // consoleLog(v);
-    // consoleLog(this.innerValue)
-    // consoleLog(v !== this.innerValue);
-    // consoleLog(v != this.innerValue);
     if (v !== this.innerValue) {
-      // if (v.length == 5){
-
-        // var split = v.split(":");
-        // consoleLog(split);
-        // consoleLog(split[1])
-        // if (split[1] == "03"){
-        //   v = split[0] + ":30";
-        // }
-        // else if(split[1] != "00" || split[1][0] != "30"){
-        //   consoleLog("caiu aqui")
-        //   v = split[0] + ":00";
-        //   consoleLog(v);
-        // }
-        this.innerValue = v;
-        // consoleLog(this.innerValue);
-        this.onChangeCb(v);
-      // }
+      this.innerValue = v;
+      this.onChangeCb(v);
     }
   }
 
   onChangeCb: (_: any) => void = () => {};
-  
   onTouchedCb: (_: any) => void = () => {};
 
   writeValue(v: any): void {
@@ -94,14 +70,11 @@ export class TfTimeComponent implements ControlValueAccessor {
     this.onTouchedCb = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
+  setDisabledState(isDisabled: boolean): void {
     this.desabilitar = isDisabled;
   }
 
-  modelChange(event){
+  modelChange(event: any) {
     this.customInput.next(event);
   }
-
-  debugGlobal = globals.debug;
-
 }

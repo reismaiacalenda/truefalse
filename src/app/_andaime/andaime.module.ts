@@ -51,8 +51,8 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     // ImageUploadModule.forRoot(),
     // ModalModule,
-    // NgbDatepickerModule,   
-    // NgbModule,
+    NgbDatepickerModule,
+    NgbModule,
     // NgSelect2Module,
     // NgSelectModule,
     // NgxBrModule.forRoot()

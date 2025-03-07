@@ -22,7 +22,8 @@ export function ValidateEmailSelectMulti(control: AbstractControl):ValidatorFn{
   // arrayClone.push(Object.assign({}, control.value))
   // arrayParaIterar.push(Object.assign({}, control.value))
 // consoleLog(arrayParaIterar);
-  if (arrayClone != null && arrayClone != []){
+// if (arrayClone != null && arrayClone != []){
+  if (arrayClone != null && arrayClone.length > 0){
     var valid = true;
     var multiplas_entradas;
     arrayParaIterar.forEach((input, index) => {
