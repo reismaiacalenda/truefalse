@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { WebService } from './web.service';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { repeatWhen } from 'rxjs-compat/operator/repeatWhen';
 import { AngularTokenService } from 'angular-token';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomainService } from './domain.service';

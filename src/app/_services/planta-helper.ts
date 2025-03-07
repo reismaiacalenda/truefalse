@@ -1,4 +1,4 @@
-import { fabric } from 'fabric';
+import * as fabric from 'fabric';
 import { consoleLog } from '../globals';
 
 export class PlantaHelper{

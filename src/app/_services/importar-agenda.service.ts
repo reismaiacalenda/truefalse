@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs-compat';
 import { User } from '../auth/_models';
 import { Helpers } from '../helpers';
 import { ModalService } from '../theme/pages/default/modal/modal.service';
 import { WebService } from './web.service';
 import { WorkspaceService } from './workspace.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

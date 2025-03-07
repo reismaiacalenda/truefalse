@@ -6,13 +6,15 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Helpers } from '../helpers';
 import { Observable, Subscription } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
-import { OnDestroy, OnInit } from '@angular/core';
-import { ThrowStmt } from '@angular/compiler';
+import { OnDestroy, OnInit, Injectable } from '@angular/core';
 import { HeadersService } from './header.service';
 import { consoleLog, globals } from '../globals';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingService } from './loading.service';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class DatatableService implements OnInit, OnDestroy{
   public entidade_nome:string;
   public entidade_url:string;

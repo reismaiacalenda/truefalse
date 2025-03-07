@@ -17,8 +17,8 @@ export class UpdateService {
 
   public checkForUpdates(): void {
     console.log("checking for update");
-    this.updates.available.subscribe(event => {
-      console.log("updates.available disparou evento:");
+    this.updates.versionUpdates.subscribe(event => {
+      console.log("updates.versionUpdates disparou evento:");
       console.log(event);
       this.promptUser()
     });

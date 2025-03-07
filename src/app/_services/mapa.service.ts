@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { WebService } from "./web.service";
-import { fabric } from 'fabric';
+import * as fabric from 'fabric';
 import { Helpers } from "../helpers";
 import { ModalService } from "../theme/pages/default/modal/modal.service";
 import { consoleLog } from "../globals";
