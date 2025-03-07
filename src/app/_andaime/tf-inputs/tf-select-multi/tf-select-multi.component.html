@@ -1,0 +1,24 @@
+<label *ngIf="!retirarLabel" [attr.for]="id"> {{ label }} 
+  <a *ngIf="tooltip != undefined" [routerLink]="" class="m-menu__link m-menu__toggle"
+    [ngbTooltip]="tooltip" container="body" placement="bottom">
+    <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'"
+      class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-1x"></span>
+  </a>
+</label>
+<div (focusout)="sinalizarTouch($event)">
+<ng-select2
+  [(ngModel)]="model"
+  [data]="data"
+  [disabled]="desabilitar ? 'true' : null"
+  [options]="options"
+  [allowClear]="allowClear"
+  [placeholder]="placeholder"
+  (valueChanged)="valueChanged($event)"
+  >
+</ng-select2>
+<span *ngIf="debugGlobal">
+  <br>
+  <p class="tf-debug"><b>{{label}} Value:</b> {{model}}</p>
+  <p class="tf-debug"><b>{{label}} Desabilitar:</b> {{desabilitar}}</p>
+</span>
+</div>

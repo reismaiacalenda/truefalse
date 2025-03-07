@@ -1,0 +1,31 @@
+<div class="mr-auto">
+  <ng-container *ngIf="nomePagina!=undefined">
+    <h3 class="m-subheader__title m-subheader__title--separator">
+      {{nomePagina}}
+      <span *ngIf="beta" class="m-menu__link-badge m-animate-blink">
+        <span class="m-badge m-badge--warning m-badge--wide">
+          beta
+        </span>
+      </span>
+    </h3>
+  </ng-container>
+  <ng-container *ngIf="menuFlag!=false">
+    <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+      <li class="m-nav__item m-nav__item--home">
+        <a routerLink="/" class="m-nav__link m-nav__link--icon">
+          <i class="m-nav__link-icon la la-home"></i>
+        </a>
+      </li>
+      <ng-container *ngFor="let m of menu">
+        •
+        <li class="m-nav__item">
+          <a [routerLink]="m[0]" class="m-nav__link">
+            <span class="m-nav__link-text">
+              {{ m[1] }}
+            </span>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
+</div>

@@ -1,0 +1,99 @@
+<div *ngIf="printable()" class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
+    <div class="row align-items-center">
+
+        <div class="col-xl-7 order-2 order-xl-1">
+            <div class="form-group m-form__group row align-items-center" *ngIf="enableFilter">
+                <div class="col-md-11">
+                    <div class="m-input-icon m-input-icon--left">
+                        <input type="text" class="form-control m-input" placeholder="Digite e pressione Enter para pesquisar..."
+                            (keyup.enter)='updateFilter.emit($event)'>
+                        <span class="m-input-icon__icon m-input-icon__icon--left">
+                            <span>
+                                <i class="la la-search"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="m-menu__link m-menu__toggle" ngbTooltip="{{pesquisarPor}}" container="body" placement="right">
+                    <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'"
+                        class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-xl">
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    <div class="col-xl-5 order-1 order-xl-2 m--align-right">
+        <div>
+            <!-- <div class='col-6'>
+
+                <tf-select-simple
+                formControlName="data"
+                [data]=""
+                placeholder="Selecione uma data"
+                >
+    			</tf-select-simple>
+            </div> -->
+            <a class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+                (click)="print.emit('')">
+                <i class="la la-print"></i>
+            </a>
+            <a class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+                (click)="refreshTable.emit('')">
+                <!-- href="#" -->
+                <i class="la la-refresh"></i>
+            </a>
+            <a class="btn btn-outline-primary m-btn m-btn--icon m-btn--icon-only m-btn--pill m-btn--air"
+                *ngIf="habilitarConfiguracao" (click)="configuracao.emit('')">
+                <!-- href="#" -->
+                <i class="m-menu__link-icon flaticon-cogwheel"></i>
+            </a>
+            <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air"
+            *ngIf="habilitarconvidarPessoas" 
+            data-toggle="modal" data-target="#m_modal_1" (click)="convidarPessoas.emit('')">
+            <!-- ngbTooltip="Convidar pessoas" container="body" placement="bottom" -->
+                <span>Convidar pessoas</span>
+            </a>
+            <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air"
+            *ngIf="habilitarconvidarPessoasEmMassa" 
+            data-toggle="modal" data-target="#m_modal_1" (click)="reenviarConviteEmMassa.emit('')">
+            <!-- ngbTooltip="Reenviar convite para todos" container="body" placement="bottom" -->
+                <span>Reenviar convite para todos</span> 
+            </a>
+            <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air"
+                data-toggle="modal" data-target="#m_modal_1" *ngIf="readAllNotificationsButton" 
+                (click)="readAllNotifications.emit('')">
+                <span>
+                    <i class="flaticon-list-1"></i>
+                    <span>Marcar todas como lidas</span>
+                </span>
+            </a>
+            <container *ngIf="habilitarButtonAdicional">
+                <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air"
+                    data-toggle="modal" data-target="#m_modal_1"
+                    (click)="openModalAdicional.emit('')" *ngIf="habilitarForm">
+                    <span>
+                        <i class="flaticon-add"></i>
+                        <span>
+                            {{labelButtonAdicional}}
+                        </span>
+                    </span>
+                </a>&nbsp;
+            </container>
+            <container *ngIf="habilitarButton">
+                <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air"
+                    data-toggle="modal" data-target="#m_modal_1"
+                    (click)="openFormModal.emit('')" *ngIf="habilitarForm">
+                    <span>
+                        <i class="flaticon-add"></i>
+                        <span>
+                            {{labelFormButton}}
+                        </span>
+                    </span>
+                </a>
+            </container>
+        </div>
+        <div class="m-separator m-separator--dashed d-xl-none"></div>
+    </div>
+
+  </div>
+</div>

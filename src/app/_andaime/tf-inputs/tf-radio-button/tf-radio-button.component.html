@@ -1,0 +1,28 @@
+<label *ngIf="!retirarLabel"> {{label}} 
+  <a *ngIf="tooltip != undefined" [routerLink]="" class="m-menu__link m-menu__toggle"
+    [ngbTooltip]="tooltip" container="body" placement="bottom">
+    <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'"
+      class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-1x"></span>
+  </a>
+</label>
+<div class="m-radio-inline" >
+  <label class="m-radio m-radio--bold"
+    *ngFor="let i of data"
+    [ngClass]="colorirRadio(i.stateColor)"
+  >
+    <input type="radio"
+      [(ngModel)]="value"
+      [attr.disabled]="desabilitar ? 'true' : null"
+      [value]="i.value"
+      name="{{label}}{{i.label}}"
+    >
+    {{ i.label }}
+    <span></span>
+
+  </label>
+  <span *ngIf="debugGlobal">
+    <br>
+    <p class="tf-debug"><b>{{label}} Value:</b> {{value}}</p>
+    <p class="tf-debug"><b>{{label}} Desabilitar:</b> {{desabilitar}}</p>
+  </span>
+</div>

@@ -1,0 +1,43 @@
+<label *ngIf="!retirarLabel"> {{ label }} 
+  <a *ngIf="tooltip != undefined" [routerLink]="" class="m-menu__link m-menu__toggle"
+    [ngbTooltip]="tooltip" container="body" placement="bottom">
+    <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'"
+      class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-1x"></span>
+  </a>
+</label>
+<!-- <div *ngIf="divEspecial" class="col-lg-5 col-md-9 col-sm-12" style="padding-left: 0px;"> -->
+<div class="m-bootstrap-touchspin-brand">
+  <div class="input-group bootstrap-touchspin">
+    <span *ngIf="botoes" class="input-group-btn">
+      <button [attr.disabled]="desabilitar ? 'true' : null" class="btn btn-secondary bootstrap-touchspin-down"
+        type="button" (click)="!desabilitar && decrementar()">-</button>
+    </span>
+    <span class="input-group-addon bootstrap-touchspin-prefix"
+      *ngIf="botoes" style="display: none;">
+    </span>
+    <input class="form-control m-input m-input--air tf-input-padding"
+      [(ngModel)]="value"
+      [attr.disabled]="desabilitar ? 'true' : null"
+      [mask]="mask"
+      [readonly]="!!isReadOnly"
+      [type]="type"
+      (ngModelChange)="modelChange($event)"
+    >
+    <span class="input-group-addon bootstrap-touchspin-postfix"
+      *ngIf="botoes" 
+      style="display: none;">
+    </span>
+    <span class="input-group-btn"
+      *ngIf="botoes">
+      <button  [attr.disabled]="desabilitar ? 'true' : null" class="btn btn-secondary bootstrap-touchspin-up"
+        type="button" (click)="!desabilitar && incrementar()">+</button>
+    </span>
+  </div>
+  <span *ngIf="debugGlobal">
+    <br>
+    <p class="tf-debug"><b>{{label}} Value:</b> {{value}}</p>
+    <p class="tf-debug"><b>{{label}} Desabilitar:</b> {{desabilitar}}</p>
+  </span>
+</div>
+<!-- </div> -->
+ 

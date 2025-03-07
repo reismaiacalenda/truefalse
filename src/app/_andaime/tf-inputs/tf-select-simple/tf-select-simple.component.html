@@ -1,0 +1,34 @@
+<label *ngIf="!retirarLabel" [attr.for]="id"> {{ label }}
+  <a *ngIf="tooltip != undefined" [routerLink]="" class="m-menu__link m-menu__toggle"
+    [ngbTooltip]="tooltip" container="body" placement="bottom">
+    <span [inlineSVG]="'./assets/app/media/svg/icons/Code/Question-circle.svg'"
+      class="m-menu__link-icon svg-icon svg-icon-primary svg-icon-1x"></span>
+  </a>
+</label>
+<ng-container>
+
+  <ng-select2
+  [(ngModel)]="model"
+  [data]="data"
+  [disabled]="desabilitar ? 'true' : null"
+  [options]="options"
+  [allowClear]="false"
+  [placeholder]="placeholder"
+  (valueChanged)="valueChanged($event)"
+  >
+  <!-- (click)="onTouchedCb(value))" -->
+  <!-- [allowClear]="allowClear" -->
+  <!-- (on)="teste($event)" -->
+  <!-- (blur)="onTouchedCb(value)" -->
+  </ng-select2>
+  <span style="position: absolute; transform: translate(-62px, -5px);" class="cursor-pointer p-4" (click)="handleClear()" *ngIf="formControl.value && allowClear == true">x</span>
+  <span *ngIf="debugGlobal">
+    <br>
+    <p class="tf-debug"><b>{{label}} Value:</b> {{value}}</p>
+    <p class="tf-debug"><b>{{label}} Desabilitar:</b> {{desabilitar}}</p>
+    <p class="tf-debug"><b>{{label}} Model:</b> {{model}}</p>
+    <p class="tf-debug"><b>{{label}} Form:</b> {{formControl.value}}</p>
+  </span>
+<!-- <p>model: {{model}}</p> -->
+<!-- <p>form: {{formControl?.value | json }}</p> -->
+</ng-container>
