@@ -10,7 +10,6 @@ import { consoleLog } from '../../../../../../globals';
 import { ValidateEmailSelectMulti, ValidateEmail } from '../../../../../../_andaime/tf-validators/email.validators';
 import { Observable, Subject, concat, of } from 'rxjs';
 import { distinctUntilChanged, debounceTime, tap, switchMap, catchError, map } from 'rxjs/operators';
-import * as moment from 'moment';
 
 @Component({
   selector: 'reserva-modal-avancada-form',
@@ -43,6 +42,10 @@ export class ReservaModalAvancadaFormComponent extends TfFormBaseComponent {
   inputsDeCalculo : Subject<string> = new Subject();
   
   formulario = this.formBuilder.group({
+    montar_tela: this.formBuilder.group({
+      anfitriao: [false]
+    }),
+    dia_todo: [false]
   })
   
   aba1 = this.formBuilder.array([        
@@ -151,7 +154,10 @@ export class ReservaModalAvancadaFormComponent extends TfFormBaseComponent {
 
   inscricaoAlterarCampos(){
     this.subscriptions.add(
-      this.inputsDeCalculo.debounceTime(600).distinctUntilChanged().subscribe(response=>{
+      this.inputsDeCalculo.pipe(
+        debounceTime(600),
+        distinctUntilChanged()
+      ).subscribe(response=>{
       // consoleLog("deobounce");
       // consoleLog(response);
         var body = {
@@ -239,7 +245,7 @@ export class ReservaModalAvancadaFormComponent extends TfFormBaseComponent {
           // if (this.formulario.get('id').value == undefined){
             if (this.formulario.value['dia_todo'] != response && this.reservaModalService.flagNewSendoSetada == false){
               this.campoAlterado = 'dia_todo'
-              this.inputsDeCalculo.next(response);
+              this.inputsDeCalculo.next(response.toString());
             }
           // }
       })
@@ -327,7 +333,7 @@ export class ReservaModalAvancadaFormComponent extends TfFormBaseComponent {
   }
 
   getCamposCustomizadosControls(){
-    return (this.formulario.get('campos_customizados_reservas_attributes') as FormArray).controls
+    return (this.formulario.get('campos_customizados_reservas_attributes') as unknown as FormArray).controls
   }
 
   // desabilitarAnfitriao(){    

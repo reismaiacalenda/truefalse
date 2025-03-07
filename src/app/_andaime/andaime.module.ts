@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ImageUploadModule } from 'angular2-image-upload';
 import { MaskDateDirective } from '../_directives/mask-date.directive';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgbDateMomentParserFormatter } from './tf-inputs/tf-date/ngb-date-moment-parser-formatter';
 import { NgbModule, NgbDatepickerModule, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { NgxBrModule } from '@nbfontana/ngx-br';
+// import { NgxBrModule } from '@nbfontana/ngx-br';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 // import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +16,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 // import { BaseFormComponent } from './base-form/base-form.component';
 import { ModalModule } from '../theme/pages/default/modal/modal.module';
 import { ModalService } from '../theme/pages/default/modal/modal.service';
-import { NgSelect2Module } from 'ng-select2';
+// import { NgSelect2Module } from 'ng-select2';
 // import { NgSelectModule } from '@ng-select/ng-select';
 import { TfCheckBoxComponent } from './tf-inputs/tf-check-box/tf-check-box.component';
 import { TfCheckListComponent } from './tf-inputs/tf-check-list/tf-check-list.component';
@@ -41,22 +40,21 @@ import { TfSelectEmailComponent } from './tf-inputs/tf-select-email/tf-select-em
 import { InlineSVGModule } from 'ng-inline-svg';
 import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TfUploadModernComponent } from './tf-inputs/tf-upload-modern/tf-upload-modern.component';
+import { options } from '../theme/pages/default/cadastros/empresa/empresa.module';
 
-export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
+// export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
 @NgModule({
   imports: [
     // BrowserModule,
     CommonModule,
     FormsModule,
-    HttpClientModule,
-    ImageUploadModule.forRoot(),
+    // ImageUploadModule.forRoot(),
     ModalModule,
     NgbDatepickerModule,   
     NgbModule,
-    NgSelect2Module,
     NgSelectModule,
-    NgxBrModule.forRoot(),
     NgxCurrencyModule,
     NgxMaskModule.forRoot(options), 
     ReactiveFormsModule,
@@ -87,6 +85,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     TfTextAreaComponent,
     TfTextSimpleComponent,
     TfTimeComponent,
+    TfUploadModernComponent,
   ],
   exports: [
     // CampoControlErroComponent,
@@ -112,6 +111,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     TfTextAreaComponent,
     TfTextSimpleComponent,
     TfTimeComponent,
+    TfUploadModernComponent,
     ],
   providers: [ 
     NgbDateMomentParserFormatter,

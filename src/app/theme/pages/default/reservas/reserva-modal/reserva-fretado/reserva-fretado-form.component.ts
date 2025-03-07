@@ -26,6 +26,7 @@ export class ReservaFretadoFormComponent extends TfFormBaseComponent {
   inputsDeCalculo : Subject<string> = new Subject();
     
   formulario = this.formBuilder.group({
+    dia_todo: [false], // adicionar esta linha
   })
 
   childInit(){
@@ -47,7 +48,10 @@ export class ReservaFretadoFormComponent extends TfFormBaseComponent {
   //Observable para acompanhar se o campo data tá de fato sendo alterado pelo usuário ou só atualizando via patchValue
   inscricaoAlterarCampos(){
     this.subscriptions.add(
-      this.inputsDeCalculo.debounceTime(600).distinctUntilChanged().subscribe(response=>{
+      this.inputsDeCalculo.pipe(
+        debounceTime(600),
+        distinctUntilChanged()
+      ).subscribe(response=>{
       // consoleLog("deobounce");
       // consoleLog(response);
         var body = {
@@ -77,7 +81,7 @@ export class ReservaFretadoFormComponent extends TfFormBaseComponent {
           // if (this.formulario.get('id').value == undefined){
             if (this.formulario.value['espaco_id'] != response && this.reservaModalService.flagNewSendoSetada == false){
               this.campoAlterado = 'espaco_id'
-              this.inputsDeCalculo.next(response);
+              this.inputsDeCalculo.next(response.toString());
             }
           // }
       })
@@ -88,7 +92,7 @@ export class ReservaFretadoFormComponent extends TfFormBaseComponent {
           // if (this.formulario.get('id').value == undefined){
             if (this.formulario.value['data_inicio'] != response && this.reservaModalService.flagNewSendoSetada == false){
               this.campoAlterado = 'data_inicio'
-              this.inputsDeCalculo.next(response);
+              this.inputsDeCalculo.next(response.toString());
             }
           // }
       })
@@ -99,7 +103,7 @@ export class ReservaFretadoFormComponent extends TfFormBaseComponent {
           // if (this.formulario.get('id').value == undefined){
             if (this.formulario.value['hr_inicio_previsto'] != response && this.reservaModalService.flagNewSendoSetada == false){
               this.campoAlterado = 'hr_inicio_previsto'
-              this.inputsDeCalculo.next(response);
+              this.inputsDeCalculo.next(response.toString());
             }
           // }
       })
@@ -110,7 +114,7 @@ export class ReservaFretadoFormComponent extends TfFormBaseComponent {
           // if (this.formulario.get('id').value == undefined){
             if (this.formulario.value['data_fim'] != response && this.reservaModalService.flagNewSendoSetada == false){
               this.campoAlterado = 'data_fim'
-              this.inputsDeCalculo.next(response);
+              this.inputsDeCalculo.next(response.toString());
             }
           // }
       })
@@ -121,7 +125,7 @@ export class ReservaFretadoFormComponent extends TfFormBaseComponent {
           // if (this.formulario.get('id').value == undefined){
             if (this.formulario.value['hr_fim_previsto'] != response && this.reservaModalService.flagNewSendoSetada == false){
               this.campoAlterado = 'hr_fim_previsto'
-              this.inputsDeCalculo.next(response);
+              this.inputsDeCalculo.next(response.toString());
             }
           // }
       })
@@ -132,7 +136,7 @@ export class ReservaFretadoFormComponent extends TfFormBaseComponent {
           // if (this.formulario.get('id').value == undefined){
             if (this.formulario.value['dia_todo'] != response && this.reservaModalService.flagNewSendoSetada == false){
               this.campoAlterado = 'dia_todo'
-              this.inputsDeCalculo.next(response);
+              this.inputsDeCalculo.next(response.toString());
             }
           // }
       })

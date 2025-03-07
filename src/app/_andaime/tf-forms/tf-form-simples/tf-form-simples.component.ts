@@ -3,8 +3,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { Helpers } from '../../../helpers';
-import { inputSelection } from 'ngx-ip/src/utils';
-import { ImageUploadComponent } from 'angular2-image-upload';
 import { globals } from '../../../globals';
 import { WorkspaceService } from '../../../_services/workspace.service';
 import { LoadingService } from '../../../_services/loading.service';
@@ -34,12 +32,14 @@ export class TfFormSimplesComponent {
   @Output() excluir = new EventEmitter();
   @Output() botaoAlternativo = new EventEmitter();
   public preTitle: string;
-  private currentUser = this.workspaceService.currentUser;
+  private currentUser;
 
   constructor(public formBuilder: FormBuilder,
     public workspaceService: WorkspaceService,
     public loadingService: LoadingService
-    ){}
+    ){
+    this.currentUser = this.workspaceService.currentUser;
+  }
 
   verificarPreTitle(){
     if (!this.disableTitle){
