@@ -12,9 +12,13 @@ import { consoleLog } from '../../globals';
 import { HttpClient } from '@angular/common/http';
 import { DomainService } from '../../_services/domain.service';
 import { HeadersService } from '../../_services/header.service';
-import { FileHolder } from 'angular2-image-upload';
 import { LoadingService } from '../../_services/loading.service';
+import { Component } from '@angular/core';
 
+@Component({
+  selector: 'app-tf-form-base',
+  template: ''
+})
 export abstract class TfFormBaseComponent implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy{
   entidade:string;
   formulario:FormGroup;
