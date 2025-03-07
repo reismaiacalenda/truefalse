@@ -14,11 +14,11 @@ import {
 import {
   basename,
   dirname,
-  experimental,
   normalize,
   Path,
   strings
 } from '@angular-devkit/core';
+import { WorkspaceDefinition } from '@angular-devkit/core/src/workspace';
 import { gerarCampos, alimentarFormulario, showDataTable, showColunasDataTable, gerarListEntidades } from './gerador';
 
 export function andaime(_options: any): Rule {
@@ -32,18 +32,22 @@ export function andaime(_options: any): Rule {
     const workspaceContent = workspaceConfig.toString();
 
     // parse workspace string into JSON object
-    const workspace: experimental.workspace.WorkspaceSchema = JSON.parse(
+    const workspace: WorkspaceDefinition = JSON.parse(
       workspaceContent
     );
 
     // get project name
     if (!_options.project) {
-      _options.project = workspace.defaultProject;
+      const [firstProjectName] = Array.from(workspace.projects.keys());
+      _options.project = firstProjectName;
     }
 
     const projectName = _options.project as string;
-    const project = workspace.projects[projectName];
-    const projectType = project.projectType === 'application' ? 'app' : 'lib';
+    const project = workspace.projects.get(projectName);
+    if (!project) {
+      throw new Error(`Project "${projectName}" not found in workspace.`);
+    }
+    const projectType = project.extensions['projectType'] === 'application' ? 'app' : 'lib';
 
     // Get the path to create files
     if (_options.path === undefined) {

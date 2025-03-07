@@ -5,6 +5,7 @@ import { Helpers } from '../../../../../helpers';
   selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
   templateUrl: "./<%= dasherize(name) %>.component.html",
   encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class <%= classify(name) %>Component implements OnInit {
 
