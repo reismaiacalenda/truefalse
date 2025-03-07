@@ -1,4 +1,4 @@
-import { OnInit, AfterViewChecked, Input, OnChanges, SimpleChange, ChangeDetectorRef } from '@angular/core';
+import { OnInit, AfterViewChecked, Input, OnChanges, SimpleChange, ChangeDetectorRef, Component } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { FormService } from '../../_services/form.service';
 import { User } from '../../auth/_models';
@@ -9,8 +9,11 @@ import { consoleLog } from '../../globals';
 import { LoadingService } from '../../_services/loading.service';
 // import { WebService } from 'src/app/_services/web.service';
 
+@Component({
+  template: ''
+})
 export abstract class TfFormModalBaseComponent implements AfterViewChecked, OnChanges {
-  currentUser: User = this.workspaceService.currentUser
+  currentUser: User
   @Input() formGroup: FormGroup;
   @Input() rowId: number;
   @Input() entidade:string;
@@ -32,6 +35,7 @@ export abstract class TfFormModalBaseComponent implements AfterViewChecked, OnCh
     // public webService: WebService
     // public modalNgb: NgbModal
     ) {
+    this.currentUser = this.workspaceService.currentUser;
     // Helpers.setLoading(true);
     // this.initialize();
     // this.datatable = this.datatableService.datatable;

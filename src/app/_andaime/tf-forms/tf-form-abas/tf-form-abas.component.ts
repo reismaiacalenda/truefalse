@@ -15,8 +15,8 @@ import { consoleLog, globals } from '../../../globals';
 export class TfFormAbasComponent extends TfFormModalBaseComponent implements OnInit{
   @Input() abas: any[];
   @Input() botaoExcluir = true;
-  @Input() activeModal: NgbActiveModal;
-  @Input() formGroup: FormGroup;
+  @Input() declare activeModal: NgbActiveModal;
+  @Input() declare formGroup: FormGroup;
   @Input() cancelar: boolean = true;
   @Input() autorizar_excluir: any[];
   @Input() habilitarExcluir: boolean = true;
